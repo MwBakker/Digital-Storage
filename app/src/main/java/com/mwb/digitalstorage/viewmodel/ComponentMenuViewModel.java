@@ -31,19 +31,13 @@ public class ComponentMenuViewModel extends BaseViewModel
     public ObservableField<Boolean> isEditObs = new ObservableField();
     public ObservableField<Boolean> newCategoryObs = new ObservableField<>(false);
 
-
-    public ComponentMenuViewModel(ComponentRepository componentRepository)
-    {
-        this.componentRepository = componentRepository;
-    }
-
     //
     //  sets the elements belonging to the viewModel
     //
-    public void setViewModelElements(LifecycleOwner owner, Context context, long rackID)
+    public void setViewModelElements(ComponentRepository componentRepository, LifecycleOwner owner, Context context, long rackID)
     {
-
         this.rackID = rackID;
+        this.componentRepository = componentRepository;
         componentRepository.getAllComponentCategories().observe(owner, componentCategories ->
         {
             spinnerAdapterObs.set(new ArrayAdapter<UIComponentCategory>(context, R.layout.component_category_spinner_item, componentCategories));

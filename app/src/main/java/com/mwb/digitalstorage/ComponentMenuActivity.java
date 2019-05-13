@@ -1,26 +1,14 @@
 package com.mwb.digitalstorage;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import com.mwb.digitalstorage.command_handlers.ComponentCategoryMenuCmdHandler;
 import com.mwb.digitalstorage.database.ComponentRepository;
 import com.mwb.digitalstorage.databinding.ActivityComponentMenuBinding;
 import com.mwb.digitalstorage.misc.ImageProcessor;
-import com.mwb.digitalstorage.modelUI.UIComponentCategory;
 import com.mwb.digitalstorage.viewmodel.ComponentMenuViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -40,8 +28,8 @@ public class ComponentMenuActivity extends AppCompatActivity
 
         //ItemSpinnerCmdHandler itemSpinnerCmdHandler = spinnerHandler();
 
-        componentVM = new ComponentMenuViewModel(new ComponentRepository(getApplication()));
-        componentVM.setViewModelElements(this, this.getApplicationContext(), getIntent().getLongExtra("rack_id", 0L));
+        componentVM = ViewModelProviders.of(this).get(ComponentMenuViewModel.class);
+        componentVM.setViewModelElements(new ComponentRepository(getApplication()), this, this.getApplicationContext(), getIntent().getLongExtra("rack_id", 0L));
 
         binding.setVm(componentVM);
         binding.setCmdHandler(handlers());

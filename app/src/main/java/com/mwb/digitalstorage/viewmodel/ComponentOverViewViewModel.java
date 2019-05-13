@@ -29,7 +29,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
     public ObservableField<ComponentCategoryListAdapter> componentCatListAdapterObs = new ObservableField<>();
 
 
-    public ComponentOverViewViewModel(ComponentRepository componentRepository, RackRepository rackRepository, long storageID, long rackID, LifecycleOwner lifecycleOwner,
+    public void setViewModelElements(ComponentRepository componentRepository, RackRepository rackRepository, long storageID, long rackID, LifecycleOwner lifecycleOwner,
                                       ComponentCategoryCmdHandler componentCategoryCmdHandler, ComponentCmdHandler componentCmdHandler)
     {
         this.componentRepository = componentRepository;

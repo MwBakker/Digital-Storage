@@ -17,7 +17,7 @@ public class RackMenuViewModel extends BaseViewModel
     public ObservableField<Bitmap> rackImgObs = new ObservableField<>();
 
 
-    public RackMenuViewModel(RackRepository rackRepository, long storageID)
+    public void setViewModelElements(RackRepository rackRepository, long storageID)
     {
         this.rackRepository = rackRepository;
         this.storageID = storageID;

@@ -23,8 +23,8 @@ public class RackOverViewViewModel extends BaseViewModel
     public ObservableField<RackListAdapter> rackListAdapterObs = new ObservableField<>();
 
 
-    public RackOverViewViewModel(long storageID, StorageRepository storageRepository, RackRepository rackRepository, androidx.lifecycle.LifecycleOwner owner,
-                                 RackCmdHandler rackCmdHandler, PhotoCmdHandler photoCmdHandler)
+    public void setViewModelElements(long storageID, StorageRepository storageRepository, RackRepository rackRepository, androidx.lifecycle.LifecycleOwner owner,
+                                      RackCmdHandler rackCmdHandler, PhotoCmdHandler photoCmdHandler)
     {
         this.rackRepository = rackRepository;
         this.storageID = storageID;

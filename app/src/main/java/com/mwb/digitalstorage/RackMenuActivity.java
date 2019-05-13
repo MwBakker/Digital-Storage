@@ -13,6 +13,8 @@ import com.mwb.digitalstorage.database.RackRepository;
 import com.mwb.digitalstorage.databinding.ActivityRackMenuBinding;
 import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.viewmodel.RackMenuViewModel;
+import com.mwb.digitalstorage.viewmodel.RackOverViewViewModel;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -31,7 +33,8 @@ public class RackMenuActivity extends AppCompatActivity
 
         imgProcessor = new ImageProcessor();
 
-        rackMenuVM = new RackMenuViewModel(new RackRepository(getApplication()),  getIntent().getLongExtra("storage_id", 0L));
+        rackMenuVM = ViewModelProviders.of(this).get(RackMenuViewModel.class);
+        rackMenuVM.setViewModelElements(new RackRepository(getApplication()),  getIntent().getLongExtra("storage_id", 0L));
 
         binding.setVm(rackMenuVM);
         binding.setCmdHandler(handler());

@@ -3,7 +3,6 @@ package com.mwb.digitalstorage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-
 import com.mwb.digitalstorage.command_handlers.RackCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler;
 import com.mwb.digitalstorage.database.RackRepository;
@@ -14,8 +13,8 @@ import com.mwb.digitalstorage.modelUI.UIEntity;
 import com.mwb.digitalstorage.modelUI.UIRack;
 import com.mwb.digitalstorage.viewmodel.RackOverViewViewModel;
 import com.mwb.digitalstorage.viewmodel.ToolbarViewModel;
-
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 
 public class RackOverViewActivity extends BaseActivity
@@ -33,8 +32,9 @@ public class RackOverViewActivity extends BaseActivity
         RackCmdHandler rackCmdHandler = rackCmdHandler();
         PhotoCmdHandler photoCmdHandler = photoCmdHandler();
 
-        rackOverViewVM = new RackOverViewViewModel(getIntent().getLongExtra("storage_id", 0L), new StorageRepository(getApplication()),
-                                                    new RackRepository(getApplication()), this, rackCmdHandler, photoCmdHandler);
+        rackOverViewVM = ViewModelProviders.of(this).get(RackOverViewViewModel.class);
+        rackOverViewVM.setViewModelElements(getIntent().getLongExtra("storage_id", 0L), new StorageRepository(getApplication()),
+                                            new RackRepository(getApplication()), this, rackCmdHandler, photoCmdHandler);
 
         ToolbarViewModel tbVM = new ToolbarViewModel("Racks");
 

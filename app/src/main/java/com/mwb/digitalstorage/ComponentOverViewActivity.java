@@ -32,7 +32,8 @@ public class ComponentOverViewActivity extends AppCompatActivity
         ComponentCmdHandler componentCmdHandler = componentCmdHandler();
         ComponentCategoryCmdHandler componentCategoryCmdHandler = componentCategoryHandler();
 
-        componentOverViewVM = new ComponentOverViewViewModel(new ComponentRepository(getApplication()), new RackRepository(getApplication()), getIntent().getLongExtra("storage_id", 0L),
+        componentOverViewVM = ViewModelProviders.of(this).get(ComponentOverViewViewModel.class);
+        componentOverViewVM.setViewModelElements(new ComponentRepository(getApplication()), new RackRepository(getApplication()), getIntent().getLongExtra("storage_id", 0L),
                                                             getIntent().getLongExtra("rack_id", 0L), this, componentCategoryCmdHandler, componentCmdHandler());
 
         binding.setComponentCmdHandler(componentCmdHandler);
