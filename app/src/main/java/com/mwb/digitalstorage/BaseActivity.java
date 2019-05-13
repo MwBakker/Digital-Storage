@@ -8,10 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.mwb.digitalstorage.command_handlers.ToolbarCmdHandler;
 import com.mwb.digitalstorage.misc.ImageProcessor;
-
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.BindingAdapter;
 
@@ -28,7 +26,6 @@ public abstract class BaseActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         executor = Executors.newSingleThreadExecutor();
         imgProcessor = new ImageProcessor();
-        startActivity(new Intent(BaseActivity.this, RegistrationActivity.class));
     }
 
     //
