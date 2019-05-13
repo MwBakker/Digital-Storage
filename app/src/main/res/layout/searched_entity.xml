@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="cmdHandler"
+            type="com.mwb.digitalstorage.command_handlers.SearchedEntityCmdHandler"/>
+        <variable
+            name="UIEntity"
+            type="com.mwb.digitalstorage.modelUI.UIEntity"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/match_and_wrap"
+        android:layout_height="150dp"
+        android:background="#65030303"
+        android:onClick="@{(view) -> cmdHandler.goToSearchedEntity(UIEntity)}">
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintWidth_percent="0.25"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:customSrc="@{UIEntity.img}" />
+        <TextView
+            style="@style/wrap_content"
+            android:textColor="#A4FFA726"
+            app:layout_constraintTop_toTopOf="@+id/img"
+            app:layout_constraintLeft_toLeftOf="@+id/img"
+            app:layout_constraintBottom_toBottomOf="@+id/img"
+            app:layout_constraintRight_toRightOf="@+id/img"
+            android:text="No image"/>
+        <TextView
+            android:id="@+id/txt_entity_type"
+            style="@style/wrap_content"
+            android:textSize="25sp"
+            android:textColor="@color/orange"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/img"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginLeft="70dp"
+            android:text="@{UIEntity.getClass().getSimpleName()}"/>
+        <TextView
+            android:id="@+id/txt_entity_name"
+            style="@style/wrap_content"
+            android:textSize="25sp"
+            android:textColor="@color/orange"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="35dp"
+            android:layout_marginRight="200dp"
+            android:text="@{UIEntity.name}" />
+        <TextView
+            android:id="@+id/txt_entity_belonging"
+            style="@style/wrap_content"
+            android:textSize="23sp"
+            android:textColor="@color/orange"
+            app:layout_constraintTop_toBottomOf="@id/txt_entity_name"
+            app:layout_constraintLeft_toLeftOf="@id/txt_entity_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+        <View
+            android:id="@+id/hr"
+            style="@style/hr_white"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

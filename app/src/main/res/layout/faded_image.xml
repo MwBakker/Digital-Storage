@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="img"
+            type="android.graphics.Bitmap"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:layout_constraintHeight_percent="0.30">
+        <ImageView
+            android:id="@+id/main_image"
+            style="@style/img_general"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:customSrc="@{img}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+        <View
+            style="@style/match_parent"
+            android:background="@drawable/gradient_blue"
+            app:layout_constraintTop_toTopOf="@id/main_image"
+            app:layout_constraintRight_toRightOf="@id/main_image"
+            app:layout_constraintBottom_toBottomOf="@id/main_image"
+            app:layout_constraintLeft_toLeftOf="@id/main_image"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

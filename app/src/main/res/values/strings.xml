@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="app_name">DigitalStorage</string>
+    <string name="action_settings">Settings</string>
+    <string name="specify_category_pre">Or specify a new category</string>
+    <string name="specify_category_post">Specify a new category</string>
+</resources>

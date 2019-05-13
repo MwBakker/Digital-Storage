@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".StorageMenuActivity">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="cmdHandler"
+            type="com.mwb.digitalstorage.command_handlers.entity.EntityMenuCmdHandler"/>
+        <variable
+            name="photoCmdHandler"
+            type="com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler"/>
+        <variable
+            name="vm"
+            type="com.mwb.digitalstorage.viewmodel.RackMenuViewModel"/>
+    </data>
+
+    <ScrollView
+        style="@style/match_parent"
+        android:fillViewport="true">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/edit_rack_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@android:color/white"
+                android:textColor="@android:color/white"
+                android:hint="Rack name"
+                android:text="@={vm.rackNameObs}" />
+            <include
+                android:id="@+id/img_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/edit_rack_name"
+                android:layout_marginTop="100dp"
+                layout="@layout/img_view"
+                app:img="@{vm.rackImgObs}"
+                app:cmdHandler="@{cmdHandler}"/>
+            <Button
+                android:id="@+id/btn_cancel"
+                style="@style/btn_general"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textColor="@color/orange"
+                android:text="Cancel"
+                android:onClick="@{(view) -> cmdHandler.cancelMenu()}"/>
+            <Button
+                android:id="@+id/btn_add_storage"
+                style="@style/btn_general"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textColor="@color/orange"
+                android:text="Add rack"
+                android:onClick="@{(view) -> cmdHandler.addEntity()}"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

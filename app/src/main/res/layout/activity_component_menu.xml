@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".StorageMenuActivity">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="cmdHandler"
+            type="com.mwb.digitalstorage.command_handlers.ComponentCategoryMenuCmdHandler"/>
+        <variable
+            name="vm"
+            type="com.mwb.digitalstorage.viewmodel.ComponentMenuViewModel"/>
+        <variable
+            name="UIComponentCategory"
+            type="com.mwb.digitalstorage.modelUI.UIComponentCategory"/>
+    </data>
+
+    <ScrollView
+        style="@style/match_parent"
+        android:fillViewport="true">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/component_name"
+                style="@style/match_and_wrap"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@android:color/white"
+                android:textColor="@android:color/white"
+                android:text="@={vm.componentNameObs}"
+                android:hint="Component name" />
+            <EditText
+                android:id="@+id/edit_component_code"
+                style="@style/match_and_wrap"
+                app:layout_constraintTop_toBottomOf="@+id/component_name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="60dp"
+                android:backgroundTint="@android:color/white"
+                android:textColor="@android:color/white"
+                android:text="@={vm.componentCodeObs}"
+                android:hint="Component code" />
+            <TextView
+                android:id="@+id/txt_choose_category"
+                style="@style/wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/edit_component_code"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="10dp"
+                android:text="Choose belonging category"
+                android:visibility="@{safeUnbox(vm.newCategoryObs) ? View.GONE : View.VISIBLE}"/>
+            <Spinner
+                android:id="@+id/category_spinner"
+                style="@style/wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/edit_component_code"
+                app:layout_constraintLeft_toRightOf="@+id/txt_choose_category"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="45dp"
+                app:adapter="@{vm.spinnerAdapterObs}"
+                android:selectedItemPosition="@={UIComponentCategory.selectedItemPosition}"
+                android:visibility="@{safeUnbox(vm.newCategoryObs) ? View.GONE : View.VISIBLE}"/>
+            <TextView
+                android:id="@+id/txt_category_descr"
+                style="@style/wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/category_spinner"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="75dp"
+                android:layout_marginLeft="10dp"
+                android:text="Specify new category"/>
+            <ImageButton
+                android:id="@+id/btn_add_category"
+                style="@style/icon_add"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:layout_constraintTop_toBottomOf="@+id/category_spinner"
+                app:layout_constraintLeft_toRightOf="@id/txt_category_descr"
+                android:layout_margin="60dp"
+                android:onClick="@{(view) -> cmdHandler.addNewCategory()}"
+                android:visibility="@{safeUnbox(vm.newCategoryObs) ? View.GONE : View.VISIBLE}"/>
+            <EditText
+                android:id="@+id/edit_category"
+                style="@style/match_and_wrap"
+                app:layout_constraintTop_toBottomOf="@+id/txt_category_descr"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:backgroundTint="@android:color/white"
+                android:layout_marginTop="35dp"
+                android:layout_marginRight="70dp"
+                android:textColor="@android:color/white"
+                android:text="@={vm.newComponentCategoryObs}"
+                android:hint="Component category"
+                android:visibility="@{safeUnbox(vm.newCategoryObs) ? View.VISIBLE : View.GONE}"/>
+            <ImageButton
+                android:id="@+id/btn_cancel_category"
+                style="@style/icon_del"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                app:layout_constraintTop_toTopOf="@+id/edit_category"
+                app:layout_constraintLeft_toRightOf="@id/edit_category"
+                android:layout_marginLeft="15dp"
+                android:onClick="@{(view) -> cmdHandler.addNewCategory()}"
+                android:visibility="@{safeUnbox(vm.newCategoryObs) ? View.VISIBLE : View.GONE}"/>
+            <include
+                android:id="@+id/img_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/img_view"
+                app:layout_constraintTop_toBottomOf="@+id/txt_category_descr"
+                android:layout_marginTop="150dp"
+                app:img="@{vm.componentImgObs}"
+                app:cmdHandler="@{cmdHandler}"/>
+            <Button
+                android:id="@+id/btn_cancel"
+                style="@style/btn_general"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textColor="@color/orange"
+                android:text="Cancel"
+                android:onClick="@{(view) -> cmdHandler.cancelMenu()}"/>
+            <Button
+                android:id="@+id/btn_add_component"
+                style="@style/btn_general"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textColor="@color/orange"
+                android:text="Add component"
+                android:onClick="@{(view) -> cmdHandler.addEntity()}"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

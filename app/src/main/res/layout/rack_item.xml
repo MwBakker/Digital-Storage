@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="cmdHandler"
+            type="com.mwb.digitalstorage.command_handlers.RackCmdHandler"/>
+        <variable
+            name="photoCmdHandler"
+            type="com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler"/>
+        <variable
+            name="UIRack"
+            type="com.mwb.digitalstorage.modelUI.UIRack"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:longClickable="true"
+        android:focusable="true"
+        android:layout_margin="15dp">
+        <include
+            android:id="@+id/main_image"
+            layout="@layout/img_view"
+            style="@style/match_parent"
+            app:img="@{UIRack.img}"
+            app:showImgButtons="@{safeUnbox(UIRack.isEdit)}"
+            app:cmdHandler="@{photoCmdHandler}"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+        <View
+            android:id="@+id/fade"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@drawable/gradient_blue"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:onClick="@{(view) -> cmdHandler.enterEntity(UIRack.id)}"
+            android:onLongClick="@{(view) -> cmdHandler.editEntity(UIRack)}"/>
+        <ImageButton
+            android:id="@+id/btn_approve"
+            style="@style/icon_check"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.125"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintTop_toBottomOf="@+id/fade"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="150dp"
+            android:onClick="@{() -> cmdHandler.saveEntityEdit()}"
+            android:visibility="@{safeUnbox(UIRack.isEdit) ? View.VISIBLE : View.GONE}"/>
+        <TextView
+            style="@style/wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="100dp"
+            android:textSize="22dp"
+            android:textColor="@color/orange"
+            android:background="#660F0F0F"
+            android:text="@{UIRack.name}"
+            android:visibility="@{safeUnbox(UIRack.isEdit) ? View.GONE : View.VISIBLE}"/>
+        <EditText
+            style="@style/edit_item"
+            android:layout_width="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="100dp"
+            android:textSize="22dp"
+            android:textColor="@color/orange"
+            android:background="#660F0F0F"
+            android:text="@{UIRack.name}"
+            android:onTextChanged="@{cmdHandler::editEntityTitle}"
+            android:visibility="@{safeUnbox(UIRack.isEdit) ? View.VISIBLE : View.GONE}"/>
+        <ImageButton
+            android:id="@+id/btn_delete"
+            style="@style/icon_bin"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.10"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_margin="15dp"
+            android:onClick="@{() -> cmdHandler.deleteEntity()}"
+            android:visibility="@{safeUnbox(UIRack.isEdit) ? View.VISIBLE : View.GONE}"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

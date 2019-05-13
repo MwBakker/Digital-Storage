@@ -1,0 +1,99 @@
+package com.mwb.digitalstorage.misc;
+
+import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import androidx.core.content.FileProvider;
+
+import static android.os.Environment.getExternalStorageDirectory;
+import static android.os.Environment.getExternalStoragePublicDirectory;
+
+public class ImageProcessor
+{
+    private boolean imgFromCamera;
+    private String imgPath;
+
+    public boolean isFromCamera() { return imgFromCamera; }
+    public void setCamerabool(boolean isFromCamera) { imgFromCamera = isFromCamera; }
+    public String getImgPath() { return imgPath; }
+
+
+    //
+    //  creates the intent
+    //
+    public Intent dispatchTakePictureIntent(Context context, File storageDir)
+    {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(context.getPackageManager()) != null)
+        {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile(storageDir);
+            } catch (IOException ex)
+            {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null)
+            {
+                Uri photoURI = FileProvider.getUriForFile(context,
+                        "com.example.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            }
+        }
+        return takePictureIntent;
+    }
+
+    //
+    //  creates a file from taken image
+    //
+    private File createImageFile(File storageDir) throws IOException
+    {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+        // Save a file: path for use with ACTION_VIEW intents
+        imgPath = image.getAbsolutePath();
+        return image;
+    }
+
+    //
+    //  sets the image selected from device
+    //
+    public void setSelectedImgPath(Cursor cursor, String[] filePathColumn)
+    {
+        cursor.moveToFirst();
+        imgPath = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
+        cursor.close();
+    }
+
+    //
+    //  returns result of browsing an image
+    //
+    public Bitmap browseImage(Intent data, Application app)
+    {
+        Uri selectedImage = data.getData();
+        String[] filePathColumn = { MediaStore.Images.Media.DATA };
+        Cursor cursor = app.getContentResolver().query(selectedImage,
+                filePathColumn, null, null, null);
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        String picturePath = cursor.getString(columnIndex);
+        cursor.close();
+        return BitmapFactory.decodeFile(picturePath);
+    }
+}
