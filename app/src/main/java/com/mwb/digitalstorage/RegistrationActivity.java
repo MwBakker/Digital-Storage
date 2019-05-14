@@ -68,7 +68,7 @@ public class RegistrationActivity extends BaseActivity
     //
     private void checkExistence()
     {
-        executor.execute(() ->
+        companyRegistrationVM.executor.execute(() ->
         {
             if (companyRegistrationVM.getCompany() != null)
             {
@@ -87,14 +87,14 @@ public class RegistrationActivity extends BaseActivity
             @Override
             public void takePhoto()
             {
-                imgProcessor.setCamerabool(true);
-                startActivityForResult(imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
+                companyRegistrationVM.imgProcessor.setCamerabool(true);
+                startActivityForResult(companyRegistrationVM.imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
                                         getExternalFilesDir(Environment.DIRECTORY_PICTURES)), 1);
             }
             @Override
             public void browsePhoto()
             {
-                imgProcessor.setCamerabool(false);
+                companyRegistrationVM.imgProcessor.setCamerabool(false);
                 startActivityForResult(new Intent(
                         Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1);
@@ -104,7 +104,7 @@ public class RegistrationActivity extends BaseActivity
             @Override
             public void registerCompany()
             {
-                executor.execute(() ->
+                companyRegistrationVM.executor.execute(() ->
                 {
                     companyRegistrationVM.addCompany();
                     switchActivity();
@@ -121,13 +121,13 @@ public class RegistrationActivity extends BaseActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if (imgProcessor.isFromCamera())
+        if (companyRegistrationVM.imgProcessor.isFromCamera())
         {
-            companyRegistrationVM.setCompanyBitmap(imgProcessor.getImgPath());
+            companyRegistrationVM.setCompanyBitmap(companyRegistrationVM.imgProcessor.getImgPath());
         }
         else
         {
-            companyRegistrationVM.companyImgObsv.set(imgProcessor.browseImage(data, getApplication()));
+            companyRegistrationVM.companyImgObsv.set(companyRegistrationVM.imgProcessor.browseImage(data, getApplication()));
         }
     }
 

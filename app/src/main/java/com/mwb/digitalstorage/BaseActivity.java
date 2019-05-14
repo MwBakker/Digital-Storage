@@ -18,14 +18,10 @@ public abstract class BaseActivity extends AppCompatActivity
 {
     static int RESULT_LOAD_IMAGE = 1;
 
-    protected Executor executor;
-    protected ImageProcessor imgProcessor;
 
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        executor = Executors.newSingleThreadExecutor();
-        imgProcessor = new ImageProcessor();
     }
 
     //

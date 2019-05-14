@@ -5,10 +5,11 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import androidx.lifecycle.ViewModel;
 
+
 public class BaseViewModel extends ViewModel
 {
-    protected ImageProcessor imgProcessor;
-    protected Executor executor;
+    public ImageProcessor imgProcessor;
+    public Executor executor;
 
 
     public BaseViewModel()
