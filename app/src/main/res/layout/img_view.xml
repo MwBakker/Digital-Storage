@@ -13,6 +13,9 @@
         <variable
             name="showImgButtons"
             type="boolean"/>
+        <variable
+            name="imgPresentAndIsEdit"
+            type="boolean"/>
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,7 +50,7 @@
         app:layout_constraintLeft_toLeftOf="@id/main_img"
         android:layout_margin="15dp"
         android:onClick="@{() -> cmdHandler.removePhoto()}"
-        android:visibility="@{img == null ? View.GONE : View.VISIBLE}"/>
+        android:visibility="@{imgPresentAndIsEdit ? View.VISIBLE : View.GONE}"/>
     <ImageButton
         android:id="@+id/btn_browse"
         style="@style/icon_folder"

@@ -35,12 +35,13 @@
                 android:text="@={vm.rackNameObsv}" />
             <include
                 android:id="@+id/img_view"
+                layout="@layout/img_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/edit_rack_name"
                 android:layout_marginTop="100dp"
-                layout="@layout/img_view"
                 app:img="@{vm.rackImgObsv}"
+                app:showImgButtons="@{true}"
                 app:cmdHandler="@{cmdHandler}"/>
             <Button
                 android:id="@+id/btn_cancel"
