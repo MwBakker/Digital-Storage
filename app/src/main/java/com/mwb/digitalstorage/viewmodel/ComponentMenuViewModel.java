@@ -20,27 +20,27 @@ public class ComponentMenuViewModel extends BaseViewModel
     private ComponentRepository componentRepository;
     private String componentImgPath;
 
-    public ObservableField<String> componentNameObs = new ObservableField<>("");
-    public ObservableField<String> componentCodeObs = new ObservableField<>("");
-    public ObservableField<Bitmap> componentImgObs = new ObservableField<>();
-    public ObservableField<ArrayAdapter<UIComponentCategory>> spinnerAdapterObs = new ObservableField<>();
+    public ObservableField<String> componentNameObsv = new ObservableField<>("");
+    public ObservableField<String> componentCodeObsv = new ObservableField<>("");
+    public ObservableField<Bitmap> componentImgObsv = new ObservableField<>();
+    public ObservableField<ArrayAdapter<UIComponentCategory>> spinnerAdapterObsv = new ObservableField<>();
     // the selected category from the spinner
-    public ObservableField<UIComponentCategory> selectedCategoryObs = new ObservableField<>();
+    public ObservableField<UIComponentCategory> selectedCategoryObsv = new ObservableField<>();
     // new category
-    public ObservableField<String> newComponentCategoryObs = new ObservableField<>();
-    public ObservableField<Boolean> isEditObs = new ObservableField();
-    public ObservableField<Boolean> newCategoryObs = new ObservableField<>(false);
+    public ObservableField<String> newComponentCategoryObsv = new ObservableField<>();
+    public ObservableField<Boolean> isEditObsv = new ObservableField();
+    public ObservableField<Boolean> newCategoryObsv = new ObservableField<>(false);
 
     //
     //  sets the elements belonging to the viewModel
     //
-    public void setViewModelElements(ComponentRepository componentRepository, LifecycleOwner owner, Context context, long rackID)
+    public void setViewModelElements(LifecycleOwner owner, Context context, long rackID)
     {
         this.rackID = rackID;
-        this.componentRepository = componentRepository;
+        componentRepository = new ComponentRepository();
         componentRepository.getAllComponentCategories().observe(owner, componentCategories ->
         {
-            spinnerAdapterObs.set(new ArrayAdapter<UIComponentCategory>(context, R.layout.component_category_spinner_item, componentCategories));
+            spinnerAdapterObsv.set(new ArrayAdapter<UIComponentCategory>(context, R.layout.component_category_spinner_item, componentCategories));
         });
     }
 
@@ -53,7 +53,7 @@ public class ComponentMenuViewModel extends BaseViewModel
     {
         File imgFile = new  File(imgPath);
         this.componentImgPath = imgPath;
-        componentImgObs.set(BitmapFactory.decodeFile(imgFile.getAbsolutePath()));
+        componentImgObsv.set(BitmapFactory.decodeFile(imgFile.getAbsolutePath()));
     }
 
     //
@@ -61,7 +61,7 @@ public class ComponentMenuViewModel extends BaseViewModel
     //
     public void removePhoto()
     {
-        componentImgObs.set(null);
+        componentImgObsv.set(null);
         componentImgPath = null;
     }
 
@@ -73,12 +73,12 @@ public class ComponentMenuViewModel extends BaseViewModel
     {
         executor.execute(() ->
         {
-            if (newCategoryObs.get())
+            if (newCategoryObsv.get())
             {
                 processNewCategoryInput();
             }
-            componentRepository.insertComponent(rackID, catID, null, componentNameObs.get(),
-                                         componentCodeObs.get(), componentImgPath, 0);
+            componentRepository.insertComponent(rackID, catID, null, componentNameObsv.get(),
+                                         componentCodeObsv.get(), componentImgPath, 0);
         });
     }
 
@@ -88,12 +88,12 @@ public class ComponentMenuViewModel extends BaseViewModel
     //
     private void processNewCategoryInput()
     {
-        catID = componentRepository.getComponentCategory(newComponentCategoryObs.get());
+        catID = componentRepository.getComponentCategory(newComponentCategoryObsv.get());
         // if default value is returned...
         if (catID == 0L)
         {
             // add the new category
-            catID = componentRepository.insertComponentCategory(newComponentCategoryObs.get());
+            catID = componentRepository.insertComponentCategory(newComponentCategoryObsv.get());
         }
     }
 }

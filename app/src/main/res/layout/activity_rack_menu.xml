@@ -32,7 +32,7 @@
                 android:backgroundTint="@android:color/white"
                 android:textColor="@android:color/white"
                 android:hint="Rack name"
-                android:text="@={vm.rackNameObs}" />
+                android:text="@={vm.rackNameObsv}" />
             <include
                 android:id="@+id/img_view"
                 android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/edit_rack_name"
                 android:layout_marginTop="100dp"
                 layout="@layout/img_view"
-                app:img="@{vm.rackImgObs}"
+                app:img="@{vm.rackImgObsv}"
                 app:cmdHandler="@{cmdHandler}"/>
             <Button
                 android:id="@+id/btn_cancel"

@@ -25,7 +25,8 @@ public abstract class RoomDB extends RoomDatabase
 
     // Callback (??)
     static RoomDatabase.Callback sStorageDBCallback =
-            new RoomDatabase.Callback(){
+            new RoomDatabase.Callback()
+            {
                 @Override
                 public void onOpen (@NonNull SupportSQLiteDatabase db){
                 super.onOpen(db);
@@ -34,11 +35,14 @@ public abstract class RoomDB extends RoomDatabase
             };
 
     // getter of this object, just one instance
-    static RoomDB getDatabase(final Context context)
+    public static RoomDB getDatabase(final Context context)
     {
-        if (INSTANCE == null) {
-            synchronized (RoomDB.class) {
-                if (INSTANCE == null) {
+        if (INSTANCE == null)
+        {
+            synchronized (RoomDB.class)
+            {
+                if (INSTANCE == null)
+                {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),RoomDB.class, "storage_database")
                                .addCallback(sStorageDBCallback).build();
                 }

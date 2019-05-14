@@ -1,26 +1,17 @@
 package com.mwb.digitalstorage.database;
 
-import android.app.Application;
 import com.mwb.digitalstorage.model.Company;
 import com.mwb.digitalstorage.modelUI.UICompany;
 
 
 public class CompanyRepository
 {
-    private DAO dao;
-
-    public CompanyRepository(Application application)
-    {
-        RoomDB db = RoomDB.getDatabase(application);
-        dao = db.dao();
-    }
-
     //
     //  returns allRacks with correct storage_id
     //
     public UICompany getCompany()
     {
-        Company company = dao.getCompany();
+        Company company = BaseRepository.getDao().getCompany();
         return company != null ?
                 new UICompany(company.id, company.getName(), company.getLocation(), company.getImgPath()) : null;
     }
@@ -30,7 +21,7 @@ public class CompanyRepository
     //
     public void insertCompany(String companyName, String companyLoc, String companyImgPath)
     {
-        dao.insertCompany(new Company(companyName, companyLoc, companyImgPath));
+        BaseRepository.getDao().insertCompany(new Company(companyName, companyLoc, companyImgPath));
     }
 
     //
@@ -38,6 +29,6 @@ public class CompanyRepository
     //
     public void editCompany(String companyName, String companyLoc, String companyImgPath)
     {
-        dao.editCompany(companyName, companyLoc, companyImgPath);
+        BaseRepository.getDao().editCompany(companyName, companyLoc, companyImgPath);
     }
 }

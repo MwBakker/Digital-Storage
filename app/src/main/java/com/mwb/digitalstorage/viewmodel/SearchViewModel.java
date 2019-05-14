@@ -15,9 +15,9 @@ public class SearchViewModel extends BaseViewModel
     public ObservableField<SearchedEntityListAdapter> foundEntitiesAdapterObsv = new ObservableField<>();
 
 
-    public SearchViewModel(SearchedEntityRepository searchedEntityRepository)
+    public SearchViewModel()
     {
-        this.searchedEntityRepository = searchedEntityRepository;
+        searchedEntityRepository = new SearchedEntityRepository();
     }
 
     //

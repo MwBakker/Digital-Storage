@@ -33,7 +33,7 @@
             layout="@layout/faded_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:img="@{vm.storageImgObs}"
+            app:img="@{vm.storageImgObsv}"
             app:layout_constraintHeight_percent="0.215"
             app:layout_constraintTop_toBottomOf="@id/toolbar"/>
         <ScrollView
@@ -62,7 +62,7 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:layout_marginTop="20dp"
-                    android:adapter="@{vm.rackListAdapterObs}"
+                    android:adapter="@{vm.rackListAdapterObsv}"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="2"
                     tools:listitem="@layout/rack_item" />

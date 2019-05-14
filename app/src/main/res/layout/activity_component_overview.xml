@@ -64,7 +64,7 @@
                     app:layout_constraintHeight_percent="0.25"
                     app:layout_constraintTop_toBottomOf="@+id/categories"
                     android:layout_marginTop="20dp"
-                    android:adapter="@{vm.componentCatListAdapterObs}"
+                    android:adapter="@{vm.componentCatListAdapterObsv}"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="3"
                     tools:listitem="@layout/component_category_item"/>
@@ -85,7 +85,7 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:layout_marginTop="20dp"
-                    android:adapter="@{vm.componentListAdapterObs}"
+                    android:adapter="@{vm.componentListAdapterObsv}"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     tools:listitem="@layout/component_item"/>
                 <com.google.android.material.floatingactionbutton.FloatingActionButton

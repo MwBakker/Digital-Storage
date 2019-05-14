@@ -8,7 +8,6 @@ import com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler;
 import com.mwb.digitalstorage.database.RackRepository;
 import com.mwb.digitalstorage.database.StorageRepository;
 import com.mwb.digitalstorage.databinding.ActivityStorageMenuBinding;
-import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.viewmodel.StorageMenuViewModel;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -17,19 +16,18 @@ import androidx.lifecycle.ViewModelProviders;
 public class StorageMenuActivity extends BaseActivity
 {
     private StorageMenuViewModel storageMenuVM;
-    private ImageProcessor imgProcessor;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        imgProcessor = new ImageProcessor();
 
         ActivityStorageMenuBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_storage_menu);
 
         storageMenuVM = ViewModelProviders.of(this).get(StorageMenuViewModel.class);
-        storageMenuVM.setViewModelElements(new StorageRepository(getApplication()));
+        storageMenuVM.setViewModelElements();
+
         binding.setVm(storageMenuVM);
         binding.setCmdHandler(storageMenuCmdHandler());
         binding.setPhotoCmdHandler(photoCmdHandler());
@@ -46,7 +44,7 @@ public class StorageMenuActivity extends BaseActivity
             @Override
             public void addEntity()
             {
-                storageMenuVM.addStorage(new RackRepository(getApplication()));
+                storageMenuVM.addStorage(new RackRepository());
                 switchBackToOverView();
             }
             @Override
@@ -58,13 +56,13 @@ public class StorageMenuActivity extends BaseActivity
             @Override
             public void takePhoto()
             {
-                startActivityForResult(imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
+                startActivityForResult(storageMenuVM.imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
                                   getExternalFilesDir(Environment.DIRECTORY_PICTURES)), 1);
             }
             @Override
-            public void removePhoto() { storageMenuVM.storageImgObs.set(null); }
+            public void removePhoto() { storageMenuVM.storageImgObsv.set(null); }
             @Override
-            public void numberPickerValChanged(int newVal) { storageMenuVM.storageRackAmountObs.set(newVal); }
+            public void numberPickerValChanged(int newVal) { storageMenuVM.storageRackAmountObsv.set(newVal); }
             @Override
             public void cancelMenu() {
                 switchBackToOverView();
@@ -83,14 +81,14 @@ public class StorageMenuActivity extends BaseActivity
             @Override
             public void takePhoto()
             {
-                imgProcessor.setCamerabool(true);
-                startActivityForResult(imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
+                storageMenuVM.imgProcessor.setCamerabool(true);
+                startActivityForResult(storageMenuVM.imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
                                         getExternalFilesDir(Environment.DIRECTORY_PICTURES)), 1);
             }
             @Override
             public void browsePhoto()
             {
-                imgProcessor.setCamerabool(false);
+                storageMenuVM.imgProcessor.setCamerabool(false);
                 startActivityForResult(new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1);
             }
@@ -105,11 +103,11 @@ public class StorageMenuActivity extends BaseActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (imgProcessor.isFromCamera())
+        if (storageMenuVM.imgProcessor.isFromCamera())
         {
-            storageMenuVM.setStorageBitmap(imgProcessor.getImgPath());
+            storageMenuVM.setStorageBitmap(storageMenuVM.imgProcessor.getImgPath());
         }
-        else { storageMenuVM.storageImgObs.set(imgProcessor.browseImage(data, getApplication())); }
+        else { storageMenuVM.storageImgObsv.set(storageMenuVM.imgProcessor.browseImage(data, getApplication())); }
     }
 
     //

@@ -1,6 +1,5 @@
 package com.mwb.digitalstorage.database;
 
-import android.app.Application;
 import com.mwb.digitalstorage.model.Component;
 import com.mwb.digitalstorage.model.ComponentCategory;
 import com.mwb.digitalstorage.modelUI.UIComponent;
@@ -11,17 +10,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 
 
-public class ComponentRepository {
-
-    private DAO dao;
-
-
-    public ComponentRepository(Application application)
-    {
-        RoomDB db = RoomDB.getDatabase(application);
-        dao = db.dao();
-    }
-
+public class ComponentRepository
+{
     //__________________________________________________________________________
     //                      //
     //      Components      //
@@ -33,7 +23,7 @@ public class ComponentRepository {
     //
     public LiveData<List<UIComponent>> getRackComponents(long rackID)
     {
-        return Transformations.map(dao.getRackComponents(rackID), newData -> createComponentUI(newData));
+        return Transformations.map(BaseRepository.getDao().getRackComponents(rackID), newData -> createComponentUI(newData));
     }
 
     //
@@ -42,7 +32,7 @@ public class ComponentRepository {
     public LiveData<List<UIComponent>> getCatFilteredComponents(long rackId, long catID)
     {
         // transform one list to another
-        return Transformations.map(dao.getFilteredComponents(rackId, catID), newData -> createComponentUI(newData));
+        return Transformations.map(BaseRepository.getDao().getFilteredComponents(rackId, catID), newData -> createComponentUI(newData));
     }
 
     //
@@ -50,7 +40,7 @@ public class ComponentRepository {
     //
     public UIComponent getComponent(long componentID)
     {
-        Component component = dao.getComponent(componentID);
+        Component component = BaseRepository.getDao().getComponent(componentID);
         return new UIComponent(componentID, component.rackID, component.componentCategoryID, component.getCategoryName(), component.getName(),
                                 component.getCode(), component.getImgPath(), component.getCount());
     }
@@ -75,7 +65,7 @@ public class ComponentRepository {
     public void insertComponent(long rackID, long componentCatID, String componentCatName, String componentName,
                                 String componentCode, String componentImgPath, int count)
     {
-        dao.insertComponent(new Component(rackID, componentCatID, componentCatName, componentName, componentCode, componentImgPath, count));
+        BaseRepository.getDao().insertComponent(new Component(rackID, componentCatID, componentCatName, componentName, componentCode, componentImgPath, count));
     }
 
     //
@@ -83,13 +73,13 @@ public class ComponentRepository {
     //
     public void editComponent(long componentID, long componentCatID, String componentName, String componentCode, String componentImgPath)
     {
-        dao.editComponent(componentID, componentCatID, componentName, componentCode, componentImgPath);
+        BaseRepository.getDao().editComponent(componentID, componentCatID, componentName, componentCode, componentImgPath);
     }
 
     //
     //  delete component
     //
-    public void deleteComponent(long componentID) { dao.deleteComponent(componentID); }
+    public void deleteComponent(long componentID) { BaseRepository.getDao().deleteComponent(componentID); }
 
 
     //__________________________________________________________________________
@@ -103,7 +93,7 @@ public class ComponentRepository {
     //
     public LiveData<List<UIComponentCategory>> getAllComponentCategories()
     {
-        return Transformations.map(dao.getAllComponentCategories(), newData -> createComponentCatUI(newData));
+        return Transformations.map(BaseRepository.getDao().getAllComponentCategories(), newData -> createComponentCatUI(newData));
     }
 
     //
@@ -111,7 +101,7 @@ public class ComponentRepository {
     //
     public LiveData<List<UIComponentCategory>> getRackComponentCategories(long rackID)
     {
-        return Transformations.map(dao.getRackComponentCategories(rackID), newData -> createComponentCatUI(newData));
+        return Transformations.map(BaseRepository.getDao().getRackComponentCategories(rackID), newData -> createComponentCatUI(newData));
     }
 
     //
@@ -119,8 +109,8 @@ public class ComponentRepository {
     //
     public long getComponentCategory(String categoryName)
     {
-        ComponentCategory componentCategory = dao.getComponentCategory(categoryName);
-        return (componentCategory != null) ? dao.getComponentCategory(categoryName).id : 0L;
+        ComponentCategory componentCategory = BaseRepository.getDao().getComponentCategory(categoryName);
+        return (componentCategory != null) ? BaseRepository.getDao().getComponentCategory(categoryName).id : 0L;
     }
 
     //
@@ -144,7 +134,7 @@ public class ComponentRepository {
     //
     public long insertComponentCategory(String componentCatName)
     {
-       return dao.insertComponentCat(new ComponentCategory(componentCatName, 0));
+       return BaseRepository.getDao().insertComponentCat(new ComponentCategory(componentCatName, 0));
     }
 
     //
@@ -152,6 +142,6 @@ public class ComponentRepository {
     //
     public void editComponentCategory(long catID, String componentCatName)
     {
-        dao.editComponentCategory(catID, componentCatName);
+        BaseRepository.getDao().editComponentCategory(catID, componentCatName);
     }
 }

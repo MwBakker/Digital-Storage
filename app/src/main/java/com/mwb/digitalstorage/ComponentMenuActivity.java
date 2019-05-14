@@ -16,7 +16,6 @@ import androidx.lifecycle.ViewModelProviders;
 public class ComponentMenuActivity extends AppCompatActivity
 {
     private ComponentMenuViewModel componentVM;
-    private ImageProcessor imgProcessor;
 
 
     @Override
@@ -29,12 +28,10 @@ public class ComponentMenuActivity extends AppCompatActivity
         //ItemSpinnerCmdHandler itemSpinnerCmdHandler = spinnerHandler();
 
         componentVM = ViewModelProviders.of(this).get(ComponentMenuViewModel.class);
-        componentVM.setViewModelElements(new ComponentRepository(getApplication()), this, this.getApplicationContext(), getIntent().getLongExtra("rack_id", 0L));
+        componentVM.setViewModelElements(this, this.getApplicationContext(), getIntent().getLongExtra("rack_id", 0L));
 
         binding.setVm(componentVM);
         binding.setCmdHandler(handlers());
-
-        imgProcessor = new ImageProcessor();
     }
 
     //
@@ -48,13 +45,13 @@ public class ComponentMenuActivity extends AppCompatActivity
             @Override
             public void takePhoto()
             {
-                startActivityForResult(imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
+                startActivityForResult(componentVM.imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
                                         getExternalFilesDir(Environment.DIRECTORY_PICTURES)), 1);
             }
             @Override
             public void removePhoto() { componentVM.removePhoto(); }
             @Override
-            public void addNewCategory() { componentVM.newCategoryObs.set(!componentVM.newCategoryObs.get()); }
+            public void addNewCategory() { componentVM.newCategoryObsv.set(!componentVM.newCategoryObsv.get()); }
             @Override
             public void addEntity()
             {
@@ -82,7 +79,7 @@ public class ComponentMenuActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        componentVM.setComponentBitmap(imgProcessor.getImgPath());
+        componentVM.setComponentBitmap(componentVM.imgProcessor.getImgPath());
     }
 
     //

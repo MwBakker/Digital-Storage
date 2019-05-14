@@ -23,35 +23,36 @@ public class ComponentOverViewViewModel extends BaseViewModel
     private UIComponent uiComponent;
     private LifecycleOwner lifecycleOwner;
 
-    public ObservableField<String> rackNameObs = new ObservableField<>("");
-    public ObservableField<Bitmap> rackImgObs = new ObservableField<>();
-    public ObservableField<ComponentListAdapter> componentListAdapterObs = new ObservableField<>();
-    public ObservableField<ComponentCategoryListAdapter> componentCatListAdapterObs = new ObservableField<>();
+    public ObservableField<String> rackNameObsv = new ObservableField<>("");
+    public ObservableField<Bitmap> rackImgObsv = new ObservableField<>();
+    public ObservableField<ComponentListAdapter> componentListAdapterObsv = new ObservableField<>();
+    public ObservableField<ComponentCategoryListAdapter> componentCatListAdapterObsv = new ObservableField<>();
 
 
-    public void setViewModelElements(ComponentRepository componentRepository, RackRepository rackRepository, long storageID, long rackID, LifecycleOwner lifecycleOwner,
-                                      ComponentCategoryCmdHandler componentCategoryCmdHandler, ComponentCmdHandler componentCmdHandler)
+    public void setViewModelElements(long storageID, long rackID, LifecycleOwner lifecycleOwner, ComponentCategoryCmdHandler componentCategoryCmdHandler,
+                                        ComponentCmdHandler componentCmdHandler)
     {
-        this.componentRepository = componentRepository;
+        componentRepository = new ComponentRepository();
+        RackRepository rackRepository = new RackRepository();
         this.rackID = rackID;
         this.storageID = storageID;
         this.lifecycleOwner = lifecycleOwner;
 
         componentRepository.getRackComponentCategories(rackID).observe(lifecycleOwner, componentCategories ->
         {
-            componentCatListAdapterObs.set(new ComponentCategoryListAdapter(componentCategories, componentCategoryCmdHandler));
+            componentCatListAdapterObsv.set(new ComponentCategoryListAdapter(componentCategories, componentCategoryCmdHandler));
         });
 
         componentRepository.getRackComponents(rackID).observe(lifecycleOwner, components ->
         {
-            componentListAdapterObs.set(new ComponentListAdapter(components, componentCmdHandler));
+            componentListAdapterObsv.set(new ComponentListAdapter(components, componentCmdHandler));
         });
 
         executor.execute(() ->
         {
             UIRack UIRack = rackRepository.getRack(rackID);
-            rackNameObs.set(UIRack.rackName.get());
-            rackImgObs.set(UIRack.getImg());
+            rackNameObsv.set(UIRack.rackName.get());
+            rackImgObsv.set(UIRack.getImg());
         });
     }
 
@@ -98,12 +99,12 @@ public class ComponentOverViewViewModel extends BaseViewModel
         {
             componentRepository.getCatFilteredComponents(rackID, uiComponentCategory.getComponentCatID()).observe(lifecycleOwner, components ->
             {
-                componentListAdapterObs.get().setComponents(components);
+                componentListAdapterObsv.get().setComponents(components);
             });
         } else {
             componentRepository.getRackComponents(rackID).observe(lifecycleOwner, components ->
             {
-                componentListAdapterObs.get().setComponents(components);
+                componentListAdapterObsv.get().setComponents(components);
             });
         };
     }

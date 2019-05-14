@@ -13,13 +13,13 @@ public class RackMenuViewModel extends BaseViewModel
     private String rackImgPath = "";
     private RackRepository rackRepository;
 
-    public ObservableField<String> rackNameObs = new ObservableField<>("");
-    public ObservableField<Bitmap> rackImgObs = new ObservableField<>();
+    public ObservableField<String> rackNameObsv = new ObservableField<>("");
+    public ObservableField<Bitmap> rackImgObsv = new ObservableField<>();
 
 
-    public void setViewModelElements(RackRepository rackRepository, long storageID)
+    public void setViewModelElements(long storageID)
     {
-        this.rackRepository = rackRepository;
+        rackRepository = new RackRepository();
         this.storageID = storageID;
     }
 
@@ -35,7 +35,7 @@ public class RackMenuViewModel extends BaseViewModel
     {
         File imgFile = new File(imgPath);
         this.rackImgPath = imgPath;
-        rackImgObs.set(BitmapFactory.decodeFile(imgFile.getAbsolutePath()));
+        rackImgObsv.set(BitmapFactory.decodeFile(imgFile.getAbsolutePath()));
     }
 
     //
@@ -44,7 +44,7 @@ public class RackMenuViewModel extends BaseViewModel
     public void removeRackImg()
     {
         this.rackImgPath = null;
-        rackImgObs.set(null);
+        rackImgObsv.set(null);
     }
 
     //
@@ -52,6 +52,6 @@ public class RackMenuViewModel extends BaseViewModel
     //
     public void addRack()
     {
-        executor.execute(() -> { rackRepository.insertRack(storageID, rackNameObs.get(), rackImgPath); });
+        executor.execute(() -> { rackRepository.insertRack(storageID, rackNameObsv.get(), rackImgPath); });
     }
 }

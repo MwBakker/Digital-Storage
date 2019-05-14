@@ -1,8 +1,6 @@
 package com.mwb.digitalstorage.database;
 
-import android.app.Application;
 import com.mwb.digitalstorage.model.Rack;
-import com.mwb.digitalstorage.model.Storage;
 import com.mwb.digitalstorage.modelUI.UIRack;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,22 +10,13 @@ import androidx.lifecycle.Transformations;
 
 public class RackRepository
 {
-    private DAO dao;
-
-
-    public RackRepository(Application application)
-    {
-        RoomDB db = RoomDB.getDatabase(application);
-        dao = db.dao();
-    }
-
     //
     //  returns allRacks with correct storage_id
     //
     public LiveData<List<UIRack>> getRacks(long storageID)
     {
         // transform one list to another
-        return Transformations.map(dao.getStorageRacks(storageID), newData -> createRackUI(newData));
+        return Transformations.map(BaseRepository.getDao().getStorageRacks(storageID), newData -> createRackUI(newData));
     }
 
     //
@@ -49,7 +38,7 @@ public class RackRepository
     //
     public UIRack getRack(long rackID)
     {
-        Rack rack = dao.getRack(rackID);
+        Rack rack = BaseRepository.getDao().getRack(rackID);
         return new UIRack(rackID, rack.getName(), rack.getRackImgPath(), rack.getComponentCount());
     }
 
@@ -58,7 +47,7 @@ public class RackRepository
     //
     public void insertRack(long storageID, String rackName, String rackImgPath)
     {
-        dao.insertRack(new Rack(storageID, rackName, rackImgPath, 0));
+        BaseRepository.getDao().insertRack(new Rack(storageID, rackName, rackImgPath, 0));
     }
 
     //
@@ -66,7 +55,7 @@ public class RackRepository
     //
     public void editRack(long rackID, String rackName, String rackImgPath)
     {
-        dao.editRack(rackID, rackName, rackImgPath);
+        BaseRepository.getDao().editRack(rackID, rackName, rackImgPath);
     }
 
     //
@@ -74,6 +63,6 @@ public class RackRepository
     //
     public void deleteRack(long rackID)
     {
-        dao.deleteRack(rackID);
+        BaseRepository.getDao().deleteRack(rackID);
     }
 }

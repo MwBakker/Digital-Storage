@@ -1,8 +1,9 @@
 package com.mwb.digitalstorage.database;
 
-import android.app.Application;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
+
+import com.mwb.digitalstorage.BaseActivity;
 import com.mwb.digitalstorage.model.Storage;
 import com.mwb.digitalstorage.modelUI.UIStorage;
 import java.util.ArrayList;
@@ -11,18 +12,12 @@ import java.util.List;
 
 public class StorageRepository extends BaseRepository
 {
-
-    public StorageRepository(Application application)
-    {
-        super(application);
-    }
-
     //
     //  returns allRacks with correct storage_id
     //
     public LiveData<List<UIStorage>> getStorageUnits()
     {
-        LiveData<List<Storage>> storageUnits = dao.getAllStorageUnits();
+        LiveData<List<Storage>> storageUnits = BaseRepository.getDao().getAllStorageUnits();
         // transform one list to another
         return Transformations.map(storageUnits, newData -> createStorageUI(newData));
     }
@@ -45,7 +40,7 @@ public class StorageRepository extends BaseRepository
     //
     public UIStorage getStorageUnit(long storageID)
     {
-        Storage storage = dao.getStorageUnit(storageID);
+        Storage storage = BaseRepository.getDao().getStorageUnit(storageID);
         return new UIStorage(storageID, storage.getName(), storage.getLocation(), storage.getImgPath());
     }
 
@@ -54,7 +49,7 @@ public class StorageRepository extends BaseRepository
     //
     public long insertStorage(String storageName, String storageLoc, String imgPath)
     {
-        return dao.insertStorage(new Storage(storageName, storageLoc, imgPath));
+        return BaseRepository.getDao().insertStorage(new Storage(storageName, storageLoc, imgPath));
     }
 
     //
@@ -62,7 +57,7 @@ public class StorageRepository extends BaseRepository
     //
     public void editStorage(long storageID, String storageName, String storageLoc)
     {
-        dao.editStorage(storageID, storageName, storageLoc);
+        BaseRepository.getDao().editStorage(storageID, storageName, storageLoc);
     }
 
     //
@@ -70,6 +65,6 @@ public class StorageRepository extends BaseRepository
     //
     public void deleteStorage(long storageID)
     {
-        dao.deleteStorage(storageID);
+        BaseRepository.getDao().deleteStorage(storageID);
     }
 }

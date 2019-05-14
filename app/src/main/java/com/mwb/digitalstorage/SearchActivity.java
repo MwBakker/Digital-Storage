@@ -22,7 +22,7 @@ public class SearchActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        searchVM = new SearchViewModel(new SearchedEntityRepository(getApplication()));
+        searchVM = new SearchViewModel();
         searchVM.setViewModelElements(getIntent().getStringExtra("previous_activity_name"),
                                       getIntent().getLongExtra("previous_activity_id", 0L),
                                       searchedEntityCmdHandler());

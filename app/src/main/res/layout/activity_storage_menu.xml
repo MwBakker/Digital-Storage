@@ -35,7 +35,7 @@
                 android:layout_marginTop="20dp"
                 android:textColor="@android:color/white"
                 android:hint="Storage name"
-                android:text="@={vm.storageNameObs}"/>
+                android:text="@={vm.storageNameObsv}"/>
             <EditText
                 android:id="@+id/edit_storage_loc"
                 android:layout_width="0dp"
@@ -47,13 +47,13 @@
                 android:layout_marginTop="125dp"
                 android:textColor="@android:color/white"
                 android:hint="Storage location"
-                android:text="@={vm.storageLocObs}"/>
+                android:text="@={vm.storageLocObsv}"/>
             <include
                 android:id="@+id/img_view"
                 layout="@layout/img_view"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
-                app:img="@{vm.storageImgObs}"
+                app:img="@{vm.storageImgObsv}"
                 app:showImgButtons="@{true}"
                 app:cmdHandler="@{photoCmdHandler}"
                 app:layout_constraintTop_toBottomOf="@id/edit_storage_loc"/>

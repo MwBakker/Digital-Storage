@@ -23,7 +23,6 @@ import androidx.lifecycle.ViewModelProviders;
 public class RackMenuActivity extends AppCompatActivity
 {
     private RackMenuViewModel rackMenuVM;
-    private ImageProcessor imgProcessor;
 
 
     protected void onCreate(Bundle savedInstanceState)
@@ -31,10 +30,8 @@ public class RackMenuActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         ActivityRackMenuBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_rack_menu);
 
-        imgProcessor = new ImageProcessor();
-
         rackMenuVM = ViewModelProviders.of(this).get(RackMenuViewModel.class);
-        rackMenuVM.setViewModelElements(new RackRepository(getApplication()),  getIntent().getLongExtra("storage_id", 0L));
+        rackMenuVM.setViewModelElements(getIntent().getLongExtra("storage_id", 0L));
 
         binding.setVm(rackMenuVM);
         binding.setCmdHandler(handler());
@@ -52,7 +49,7 @@ public class RackMenuActivity extends AppCompatActivity
             @Override
             public void takePhoto()
             {
-                startActivityForResult(imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
+                startActivityForResult(rackMenuVM.imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
                         getExternalFilesDir(Environment.DIRECTORY_PICTURES)), 1);
             }
             @Override
@@ -85,7 +82,7 @@ public class RackMenuActivity extends AppCompatActivity
             @Override
             public void takePhoto()
             {
-                startActivityForResult(imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
+                startActivityForResult(rackMenuVM.imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
                         getExternalFilesDir(Environment.DIRECTORY_PICTURES)), 1);
             }
             @Override
@@ -107,12 +104,12 @@ public class RackMenuActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if (imgProcessor.isFromCamera())
+        if (rackMenuVM.imgProcessor.isFromCamera())
         {
-            rackMenuVM.rackImgObs.set(imgProcessor.browseImage(data, getApplication()));
+            rackMenuVM.rackImgObsv.set(rackMenuVM.imgProcessor.browseImage(data, getApplication()));
 
         }
-        else { rackMenuVM.setRackBitmap(imgProcessor.getImgPath()); }
+        else { rackMenuVM.setRackBitmap(rackMenuVM.imgProcessor.getImgPath()); }
     }
 
     //

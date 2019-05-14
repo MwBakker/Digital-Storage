@@ -20,21 +20,18 @@ import androidx.lifecycle.ViewModelProviders;
 public class RackOverViewActivity extends BaseActivity
 {
     private RackOverViewViewModel rackOverViewVM;
-    private ImageProcessor imgProcessor;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        imgProcessor = new ImageProcessor();
 
         RackCmdHandler rackCmdHandler = rackCmdHandler();
         PhotoCmdHandler photoCmdHandler = photoCmdHandler();
 
         rackOverViewVM = ViewModelProviders.of(this).get(RackOverViewViewModel.class);
-        rackOverViewVM.setViewModelElements(getIntent().getLongExtra("storage_id", 0L), new StorageRepository(getApplication()),
-                                            new RackRepository(getApplication()), this, rackCmdHandler, photoCmdHandler);
+        rackOverViewVM.setViewModelElements(getIntent().getLongExtra("storage_id", 0L),
+                                     this, rackCmdHandler, photoCmdHandler);
 
         ToolbarViewModel tbVM = new ToolbarViewModel("Racks");
 
@@ -96,14 +93,14 @@ public class RackOverViewActivity extends BaseActivity
             @Override
             public void takePhoto()
             {
-                imgProcessor.setCamerabool(true);
-                startActivityForResult(imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
+                rackOverViewVM.imgProcessor.setCamerabool(true);
+                startActivityForResult(rackOverViewVM.imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
                         getExternalFilesDir(Environment.DIRECTORY_PICTURES)), 1);
             }
             @Override
             public void browsePhoto()
             {
-                imgProcessor.setCamerabool(false);
+                rackOverViewVM.imgProcessor.setCamerabool(false);
                 startActivityForResult(new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1);
             }
@@ -118,9 +115,9 @@ public class RackOverViewActivity extends BaseActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if (imgProcessor.isFromCamera())
+        if (rackOverViewVM.imgProcessor.isFromCamera())
         {
-            rackOverViewVM.getUiRack().setImgPath(imgProcessor.getImgPath());
+            rackOverViewVM.getUiRack().setImgPath(rackOverViewVM.imgProcessor.getImgPath());
         }
         else {  }
     }

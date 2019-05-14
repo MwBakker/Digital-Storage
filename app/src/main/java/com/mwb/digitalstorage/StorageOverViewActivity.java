@@ -3,13 +3,11 @@ package com.mwb.digitalstorage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-
 import com.mwb.digitalstorage.command_handlers.StorageCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler;
 import com.mwb.digitalstorage.database.CompanyRepository;
 import com.mwb.digitalstorage.database.StorageRepository;
 import com.mwb.digitalstorage.databinding.ActivityStorageOverviewBinding;
-import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.modelUI.UIEntity;
 import com.mwb.digitalstorage.modelUI.UIStorage;
 import com.mwb.digitalstorage.viewmodel.StorageOverViewViewModel;
@@ -21,7 +19,6 @@ import androidx.lifecycle.ViewModelProviders;
 public class StorageOverViewActivity extends BaseActivity
 {
     private StorageOverViewViewModel storageOverViewVM;
-    private ImageProcessor imgProcessor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,12 +26,9 @@ public class StorageOverViewActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         StorageCmdHandler mainViewCmdHandler = storageCmdHandler();
 
-        imgProcessor = new ImageProcessor();
-
         ToolbarViewModel toolbarVM = new ToolbarViewModel("Storages");
         storageOverViewVM = ViewModelProviders.of(this).get(StorageOverViewViewModel.class);
-        storageOverViewVM.setViewModelElements(this, new CompanyRepository(getApplication()),
-                                                                new StorageRepository(getApplication()), mainViewCmdHandler);
+        storageOverViewVM.setViewModelElements(this, mainViewCmdHandler);
 
         ActivityStorageOverviewBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_storage_overview);
 
@@ -92,7 +86,7 @@ public class StorageOverViewActivity extends BaseActivity
             @Override
             public void editCompany()
             {
-                storageOverViewVM.editCompanyObs.set(true);
+                storageOverViewVM.editCompanyObsv.set(true);
             }
             @Override
             public void editCompanyName(CharSequence s, int start, int before, int count) { }
@@ -111,17 +105,16 @@ public class StorageOverViewActivity extends BaseActivity
             @Override
             public void takePhoto()
             {
-                imgProcessor.setCamerabool(true);
-                startActivityForResult(imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
+                storageOverViewVM.imgProcessor.setCamerabool(true);
+                startActivityForResult(storageOverViewVM.imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
                                        getExternalFilesDir(Environment.DIRECTORY_PICTURES)), 1);
             }
             @Override
             public void browsePhoto()
             {
-                imgProcessor.setCamerabool(false);
-                startActivityForResult(new Intent(
-                        Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1);
+                storageOverViewVM.imgProcessor.setCamerabool(false);
+                startActivityForResult(new Intent(Intent.ACTION_PICK,
+                                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1);
             }
             @Override
             public void removePhoto() { storageOverViewVM.removeStorageBitmap(); }
@@ -136,13 +129,13 @@ public class StorageOverViewActivity extends BaseActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if (imgProcessor.isFromCamera())
+        if (storageOverViewVM.imgProcessor.isFromCamera())
         {
-            storageOverViewVM.setCompanyBitmap(imgProcessor.getImgPath());
+            storageOverViewVM.setCompanyBitmap(storageOverViewVM.imgProcessor.getImgPath());
         }
         else
         {
-            storageOverViewVM.companyImgObs.set(imgProcessor.browseImage(data, getApplication()));
+            storageOverViewVM.companyImgObsv.set(storageOverViewVM.imgProcessor.browseImage(data, getApplication()));
         }
     }
 }

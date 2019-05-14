@@ -10,19 +10,18 @@ import androidx.databinding.ObservableField;
 
 public class StorageMenuViewModel extends BaseViewModel
 {
-    private StorageRepository storageRep;
+    private StorageRepository storageRepository;
     private String storageImgPath;
 
-    public ObservableField<String> storageNameObs = new ObservableField<>("");
-    public ObservableField<String> storageLocObs = new ObservableField<>("");
-    public ObservableField<Integer> storageRackAmountObs = new ObservableField<>(0);
-    public ObservableField<Bitmap> storageImgObs = new ObservableField<>();
+    public ObservableField<String> storageNameObsv = new ObservableField<>("");
+    public ObservableField<String> storageLocObsv = new ObservableField<>("");
+    public ObservableField<Integer> storageRackAmountObsv = new ObservableField<>(0);
+    public ObservableField<Bitmap> storageImgObsv = new ObservableField<>();
 
 
-    public void setViewModelElements(StorageRepository storageRepository)
+    public void setViewModelElements()
     {
-        executor = Executors.newSingleThreadExecutor();
-        this.storageRep = storageRepository;
+        storageRepository = new StorageRepository();
     }
 
     //
@@ -31,7 +30,7 @@ public class StorageMenuViewModel extends BaseViewModel
     public void setStorageBitmap(String storageImgPath)
     {
         this.storageImgPath = storageImgPath;
-        storageImgObs.set(BitmapFactory.decodeFile(storageImgPath));
+        storageImgObsv.set(BitmapFactory.decodeFile(storageImgPath));
     }
 
     //
@@ -39,7 +38,7 @@ public class StorageMenuViewModel extends BaseViewModel
     //
     public void removeStoragePhoto()
     {
-        storageImgObs.set(null);
+        storageImgObsv.set(null);
         storageImgPath = null;
     }
 
@@ -51,7 +50,7 @@ public class StorageMenuViewModel extends BaseViewModel
     {
         executor.execute(() ->
         {
-           long storageID = storageRep.insertStorage(storageNameObs.get(), storageLocObs.get(), storageImgPath);
+           long storageID = storageRepository.insertStorage(storageNameObsv.get(), storageLocObsv.get(), storageImgPath);
            addRacksToStorage(storageID, rackRepository);
         });
     }
@@ -61,7 +60,7 @@ public class StorageMenuViewModel extends BaseViewModel
     //
     private void addRacksToStorage(long storageID, RackRepository rackRepository)
     {
-        for (int i = 1; i <= storageRackAmountObs.get(); i++)
+        for (int i = 1; i <= storageRackAmountObsv.get(); i++)
         {
             String title = "Kast_" + i;
             executor.execute(() ->

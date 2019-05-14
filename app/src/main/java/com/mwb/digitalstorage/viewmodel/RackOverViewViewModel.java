@@ -19,25 +19,26 @@ public class RackOverViewViewModel extends BaseViewModel
     private String storageLoc;
     private UIRack uiRack;
 
-    public ObservableField<Bitmap> storageImgObs = new ObservableField<>();
-    public ObservableField<RackListAdapter> rackListAdapterObs = new ObservableField<>();
+    public ObservableField<Bitmap> storageImgObsv = new ObservableField<>();
+    public ObservableField<RackListAdapter> rackListAdapterObsv = new ObservableField<>();
 
 
-    public void setViewModelElements(long storageID, StorageRepository storageRepository, RackRepository rackRepository, androidx.lifecycle.LifecycleOwner owner,
+    public void setViewModelElements(long storageID, androidx.lifecycle.LifecycleOwner owner,
                                       RackCmdHandler rackCmdHandler, PhotoCmdHandler photoCmdHandler)
     {
-        this.rackRepository = rackRepository;
+        rackRepository = new RackRepository();
+        StorageRepository storageRepository = new StorageRepository();
         this.storageID = storageID;
         rackRepository.getRacks(storageID).observe(owner, racks ->
         {
-            rackListAdapterObs.set(new RackListAdapter(racks, rackCmdHandler, photoCmdHandler));
+            rackListAdapterObsv.set(new RackListAdapter(racks, rackCmdHandler, photoCmdHandler));
         });
         executor.execute(() ->
         {
             UIStorage UIStorage = storageRepository.getStorageUnit(storageID);
             storageName = UIStorage.name.get();
             storageLoc = UIStorage.location.get();
-            storageImgObs.set(UIStorage.getImg());
+            storageImgObsv.set(UIStorage.getImg());
         });
     }
 

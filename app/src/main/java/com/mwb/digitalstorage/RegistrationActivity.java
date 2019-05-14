@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
-
 import com.mwb.digitalstorage.command_handlers.RegistrationCmdHandler;
 import com.mwb.digitalstorage.database.CompanyRepository;
 import com.mwb.digitalstorage.databinding.ActivityMainBinding;
 import com.mwb.digitalstorage.viewmodel.CompanyRegistrationViewModel;
-
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -29,7 +27,7 @@ public class RegistrationActivity extends BaseActivity
         checkPermissions();
 
         companyRegistrationVM = ViewModelProviders.of(this).get(CompanyRegistrationViewModel.class);
-        companyRegistrationVM.setViewModelElements(new CompanyRepository(getApplication()));
+        companyRegistrationVM.setViewModelElements();
 
         checkExistence();
 
@@ -45,13 +43,17 @@ public class RegistrationActivity extends BaseActivity
     private void checkPermissions()
     {
         if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale((Activity)
-                    this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    this, Manifest.permission.READ_EXTERNAL_STORAGE))
+            {
 
 
-            } else {
+            }
+            else
+            {
                 ActivityCompat.requestPermissions((Activity) this,
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         200);
@@ -59,7 +61,6 @@ public class RegistrationActivity extends BaseActivity
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         200);
             }
-
         }
     }
 

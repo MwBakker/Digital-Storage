@@ -20,9 +20,9 @@ public class CompanyRegistrationViewModel extends BaseViewModel
     //
     //  sets the elements of the viewModel
     //
-    public void setViewModelElements(CompanyRepository companyRepository)
+    public void setViewModelElements()
     {
-        this.companyRepository = companyRepository;
+        companyRepository = new CompanyRepository();
     }
 
     public UICompany getCompany() { return companyRepository.getCompany(); }

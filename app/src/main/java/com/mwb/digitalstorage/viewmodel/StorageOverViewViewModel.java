@@ -10,39 +10,37 @@ import com.mwb.digitalstorage.database.StorageRepository;
 import com.mwb.digitalstorage.modelUI.UICompany;
 import com.mwb.digitalstorage.modelUI.UIStorage;
 import java.io.File;
-import java.util.concurrent.Executors;
 import androidx.databinding.ObservableField;
 
 
 public class StorageOverViewViewModel extends BaseViewModel
 {
     private StorageRepository storageRepository;
+    private CompanyRepository companyRepository;
     private UIStorage uiStorage;
     private String companyImgPath = "";
-    public ObservableField<StorageListAdapter> storageListAdapterObs = new ObservableField<>();
+    public ObservableField<StorageListAdapter> storageListAdapterObsv = new ObservableField<>();
+    public ObservableField<String> companyNameObsv = new ObservableField<>("");
+    public ObservableField<String> companyLocObsv = new ObservableField<>("");
+    public ObservableField<Bitmap> companyImgObsv = new ObservableField<>();
+    public ObservableField<Boolean> editCompanyObsv = new ObservableField<>();
 
-    public ObservableField<String> companyNameObs = new ObservableField<>("");
-    public ObservableField<String> companyLocObs = new ObservableField<>("");
-    public ObservableField<Bitmap> companyImgObs = new ObservableField<>();
-    public ObservableField<Boolean> editCompanyObs = new ObservableField<>();
 
-
-    public void setViewModelElements(androidx.lifecycle.LifecycleOwner owner, CompanyRepository companyRepository,
-                                    StorageRepository storageRepository, StorageCmdHandler mainViewCmdHandlerCallBack)
+    public void setViewModelElements(androidx.lifecycle.LifecycleOwner owner, StorageCmdHandler mainViewCmdHandlerCallBack)
     {
-        executor = Executors.newSingleThreadExecutor();
-        this.storageRepository = storageRepository;
+        storageRepository = new StorageRepository();
+        companyRepository = new CompanyRepository();
 
         executor.execute(() ->
         {
             UICompany uiCompany = companyRepository.getCompany();
-            companyNameObs.set(uiCompany.getCompanyName());
-            companyLocObs.set(uiCompany.getCompanyLoc());
-            companyImgObs.set(uiCompany.getItemBitmap());
+            companyNameObsv.set(uiCompany.getCompanyName());
+            companyLocObsv.set(uiCompany.getCompanyLoc());
+            companyImgObsv.set(uiCompany.getItemBitmap());
         });
         storageRepository.getStorageUnits().observe(owner, storageUnits ->
         {
-            storageListAdapterObs.set(new StorageListAdapter(storageUnits, mainViewCmdHandlerCallBack));
+            storageListAdapterObsv.set(new StorageListAdapter(storageUnits, mainViewCmdHandlerCallBack));
         });
     }
 
@@ -53,7 +51,7 @@ public class StorageOverViewViewModel extends BaseViewModel
     {
         File imgFile = new File(imgPath);
         this.companyImgPath = imgPath;
-        companyImgObs.set(BitmapFactory.decodeFile(imgFile.getAbsolutePath()));
+        companyImgObsv.set(BitmapFactory.decodeFile(imgFile.getAbsolutePath()));
     }
 
     //
@@ -61,7 +59,7 @@ public class StorageOverViewViewModel extends BaseViewModel
     //
     public void removeStorageBitmap()
     {
-        companyImgObs.set(null);
+        companyImgObsv.set(null);
         companyImgPath = null;
     }
 
@@ -70,9 +68,8 @@ public class StorageOverViewViewModel extends BaseViewModel
     //
     public void saveCompanyEdit(Application app)
     {
-        editCompanyObs.set(false);
-        CompanyRepository companyRepository = new CompanyRepository(app);
-        companyRepository.editCompany(companyNameObs.get(), companyLocObs.get(), companyImgPath);
+        editCompanyObsv.set(false);
+        companyRepository.editCompany(companyNameObsv.get(), companyLocObsv.get(), companyImgPath);
     }
 
     //
