@@ -1,25 +1,21 @@
 package com.mwb.digitalstorage.viewmodel;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import com.mwb.digitalstorage.database.RackRepository;
-import java.io.File;
-import androidx.databinding.ObservableField;
+import com.mwb.digitalstorage.modelUI.UIRack;
 
 
 public class RackMenuViewModel extends BaseViewModel
 {
     private long storageID;
-    private String rackImgPath = "";
     private RackRepository rackRepository;
 
-    public ObservableField<String> rackNameObsv = new ObservableField<>("");
-    public ObservableField<Bitmap> rackImgObsv = new ObservableField<>();
+    private UIRack uiRack;
 
 
     public void setViewModelElements(long storageID)
     {
         rackRepository = new RackRepository();
+        uiRack = new UIRack(0L, "", "", 0);
         this.storageID = storageID;
     }
 
@@ -29,29 +25,15 @@ public class RackMenuViewModel extends BaseViewModel
     public long getStorageID() { return storageID; }
 
     //
-    //  sets the image of the rack
+    //  gets the uiRack
     //
-    public void setRackBitmap(String imgPath)
-    {
-        File imgFile = new File(imgPath);
-        this.rackImgPath = imgPath;
-        rackImgObsv.set(BitmapFactory.decodeFile(imgFile.getAbsolutePath()));
-    }
-
-    //
-    //  removes the image of the rack
-    //
-    public void removeRackImg()
-    {
-        this.rackImgPath = null;
-        rackImgObsv.set(null);
-    }
+    public UIRack uiRack() { return uiRack; }
 
     //
     //  add rack to repository
     //
     public void addRack()
     {
-        executor.execute(() -> { rackRepository.insertRack(storageID, rackNameObsv.get(), rackImgPath); });
+        executor.execute(() -> { rackRepository.insertRack(storageID, uiRack.nameObsv.get(), uiRack.getImgPath()); });
     }
 }

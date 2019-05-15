@@ -51,7 +51,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
         executor.execute(() ->
         {
             UIRack UIRack = rackRepository.getRack(rackID);
-            rackNameObsv.set(UIRack.rackName.get());
+            rackNameObsv.set(UIRack.nameObsv.get());
             rackImgObsv.set(UIRack.getImg());
         });
     }
@@ -128,7 +128,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
     {
         executor.execute(() ->
         {
-            componentRepository.editComponent(uiComponent.getItemID(), uiComponent.getComponentCatID(), uiComponent.name.get(),
+            componentRepository.editComponent(uiComponent.getId(), uiComponent.getComponentCatID(), uiComponent.name.get(),
                                         uiComponent.code.get(), uiComponent.getImgPath());
         });
     }
@@ -138,6 +138,6 @@ public class ComponentOverViewViewModel extends BaseViewModel
     //
     public void deleteComponent()
     {
-        componentRepository.deleteComponent(uiComponent.getItemID());
+        componentRepository.deleteComponent(uiComponent.getId());
     }
 }

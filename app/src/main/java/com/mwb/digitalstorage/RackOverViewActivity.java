@@ -74,7 +74,7 @@ public class RackOverViewActivity extends BaseActivity
             @Override
             public void editEntityTitle(CharSequence s, int start, int before, int count)
             {
-                rackOverViewVM.getUiRack().rackName.set(s.toString());
+                rackOverViewVM.getUiRack().nameObsv.set(s.toString());
             }
             @Override
             public void saveEntityEdit() { rackOverViewVM.saveRackEdit(); }

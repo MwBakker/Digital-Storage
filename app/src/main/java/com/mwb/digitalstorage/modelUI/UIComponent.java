@@ -1,10 +1,8 @@
 package com.mwb.digitalstorage.modelUI;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import java.io.File;
-
 import androidx.databinding.ObservableField;
+
 
 public class UIComponent implements UIEntity
 {
@@ -30,39 +28,28 @@ public class UIComponent implements UIEntity
         this.name.set(name);
         this.componentCatName = componentCatName;
         this.code.set(code);
-        generateImg(imgPath);
+        this.imgPath = imgPath;
         this.count = Integer.toString(count);
     }
 
-    public long getItemID() { return id; }
-    public long getRackID() { return rackID; }
-    public long getComponentCatID() { return componentCatID; }
-    public String getComponentCatName() { return componentCatName; }
+
+
     public String getImgPath() { return imgPath; }
     public String getCount() { return count ; }
 
-    //
-    //  generates an image from the image path
-    //
-    private void generateImg(String imgPath)
-    {
-        this.imgPath = imgPath;
-        if (imgPath != null) {
-            File imgFile = new File(imgPath);
-            componentImg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-        } else componentImg = null;
-    }
 
     @Override
     public long getId() { return id; }
+    public long getRackID() { return rackID; }
+    public long getComponentCatID() { return componentCatID; }
     @Override
     public String getName() { return name.get(); }
+    public String getComponentCatName() { return componentCatName; }
     @Override
     public String getParentKeyName() { return null; }
     @Override
     public Bitmap getImg() { return componentImg; }
-    @Override
-    public void setImgPath(String imgPath) { }
+    public void setImgPath(String imgPath) { this.imgPath = imgPath; }
     @Override
     public void removeImg()
     {

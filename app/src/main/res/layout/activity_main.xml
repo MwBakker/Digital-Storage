@@ -68,6 +68,6 @@
             app:layout_constraintRight_toRightOf="parent"
             android:textColor="@color/orange"
             android:text="Ok"
-            android:onClick="@{(view) -> cmdHandler.registerCompany()}"/>
+            android:onClick="@{(view) -> cmdHandler.saveCompany()}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

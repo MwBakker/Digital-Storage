@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="android.view.View"/>
@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@drawable/btn_background"
         android:layout_width="match_parent"
-        android:layout_height="@{safeUnbox(UIStorage.isEdit) ? @dimen/dp_200 : @dimen/dp_125, default=wrap_content}"
+        android:layout_height="@{safeUnbox(UIStorage.isEditObsv) ? @dimen/dp_200 : @dimen/dp_125, default=wrap_content}"
         android:layout_margin="15dp"
         android:onClick="@{(view) -> cmdHandler.enterEntity(UIStorage.id)}"
         android:onLongClick="@{(view) -> cmdHandler.editEntity(UIStorage)}">
@@ -28,8 +28,8 @@
             android:layout_marginLeft="55dp"
             android:textSize="22dp"
             android:textColor="@color/orange"
-            android:text="@{UIStorage.name}"
-            android:visibility="@{safeUnbox(UIStorage.isEdit) ? View.GONE : View.VISIBLE}" />
+            android:text="@{UIStorage.nameObsv}"
+            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.GONE : View.VISIBLE}" />
         <EditText
             android:id="@+id/edit_storage_name"
             style="@style/edit_item"
@@ -40,9 +40,9 @@
             android:layout_marginLeft="50dp"
             android:textSize="22dp"
             android:textColor="@color/orange"
-            android:text="@{UIStorage.name}"
+            android:text="@{UIStorage.nameObsv}"
             android:onTextChanged="@{cmdHandler::editEntityTitle}"
-            android:visibility="@{safeUnbox(UIStorage.isEdit) ? View.VISIBLE : View.GONE}" />
+            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.VISIBLE : View.GONE}"/>
         <ImageView
             android:id="@+id/img_pin"
             style="@style/icon_pin"
@@ -62,8 +62,8 @@
             android:layout_marginLeft="60dp"
             android:textSize="22dp"
             android:textColor="@color/orange"
-            android:text="@{UIStorage.location}"
-            android:visibility="@{safeUnbox(UIStorage.isEdit) ? View.GONE : View.VISIBLE}"/>
+            android:text="@{UIStorage.locationObsv}"
+            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.GONE : View.VISIBLE}"/>
         <EditText
             android:id="@+id/edit_storage_loc"
             style="@style/edit_item"
@@ -73,9 +73,9 @@
             android:layout_marginLeft="60dp"
             android:textSize="22dp"
             android:textColor="@color/orange"
-            android:text="@{UIStorage.location}"
+            android:text="@{UIStorage.locationObsv}"
             android:onTextChanged="@{cmdHandler::editStorageLocation}"
-            android:visibility="@{safeUnbox(UIStorage.isEdit) ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.VISIBLE : View.GONE}"/>
         <ImageButton
             android:id="@+id/btn_delete"
             style="@style/icon_bin"
@@ -87,7 +87,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_margin="15dp"
             android:onClick="@{() -> cmdHandler.deleteEntity()}"
-            android:visibility="@{safeUnbox(UIStorage.isEdit) ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.VISIBLE : View.GONE}"/>
         <ImageButton
             android:id="@+id/btn_approve"
             style="@style/icon_check"
@@ -99,6 +99,6 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_margin="15dp"
             android:onClick="@{() -> cmdHandler.saveEntityEdit()}"
-            android:visibility="@{safeUnbox(UIStorage.isEdit) ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.VISIBLE : View.GONE}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

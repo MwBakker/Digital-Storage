@@ -152,7 +152,7 @@ public interface DAO
     void insertComponent(Component component);
 
     //
-    //  edit storage
+    //  edit company
     //
     @Query("UPDATE company SET name = :companyName, location = :companyLocation, img_path = :imgPath ")
     void editCompany(String companyName, String companyLocation, String imgPath);

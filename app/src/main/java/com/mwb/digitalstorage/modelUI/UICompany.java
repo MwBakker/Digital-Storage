@@ -1,36 +1,36 @@
 package com.mwb.digitalstorage.modelUI;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import androidx.databinding.ObservableField;
 
-import java.io.File;
 
 public class UICompany
 {
-    private long companyID;
-    private String companyName;
-    private String companyLoc;
-    private Bitmap companyImg;
+    private String imgPath;
+
+    public ObservableField<String> nameObsv = new ObservableField<>();
+    public ObservableField<String> locationObsv = new ObservableField<>();
+    public ObservableField<Bitmap> imgObsv = new ObservableField<>();
+    public ObservableField<Boolean> isEdit = new ObservableField<>();
 
 
     public UICompany(long companyID, String companyName, String companyLoc, String imgPath)
     {
-        this.companyID = companyID;
-        this.companyName = companyName;
-        this.companyLoc = companyLoc;
-        generateCompanyImg(imgPath);
+        this.nameObsv.set(companyName);
+        this.locationObsv.set(companyLoc);
+        this.imgPath = imgPath;
     }
 
-    public String getCompanyName(){ return companyName; }
-    public String getCompanyLoc(){ return companyLoc; }
-    public Bitmap getItemBitmap() { return companyImg; }
+    //
+    //  sets the imgPath
+    //
+    public void setImgPath(String imgPath) { this.imgPath = imgPath; }
 
-    //
-    //  generates a bitmap from the location path to the image
-    //
-    private void generateCompanyImg(String imgPath)
+    public String getImgPath() { return imgPath; }
+
+    public void removeImg()
     {
-        if (imgPath != null) { companyImg = BitmapFactory.decodeFile(imgPath); }
-        else { companyImg = null; }
+        imgObsv = null;
+        imgPath = null;
     }
 }

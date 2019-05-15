@@ -1,51 +1,43 @@
 package com.mwb.digitalstorage.modelUI;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
 import androidx.databinding.ObservableField;
 
 
 public class UIStorage implements UIEntity
 {
     public long id;
+
+    private String imgPath;
     private Bitmap img;
 
-    public ObservableField<String> name = new ObservableField<>("");
-    public ObservableField<String> location = new ObservableField<>("");
-    public ObservableField<Boolean> isEdit = new ObservableField<>(false);
+    public ObservableField<String> nameObsv = new ObservableField<>("");
+    public ObservableField<String> locationObsv = new ObservableField<>("");
+    public ObservableField<Boolean> isEditObsv = new ObservableField<>(false);
 
 
     public UIStorage(long id, String name, String location, String imgPath)
     {
         this.id = id;
-        this.name.set(name);
-        this.location.set(location);
-        generateImg(imgPath);
+        this.nameObsv.set(name);
+        this.locationObsv.set(location);
+        this.imgPath = imgPath;
     }
 
     @Override
     public long getId() { return id; }
     @Override
-    public String getName() { return name.get(); }
+    public String getName() { return nameObsv.get(); }
     @Override
     public String getParentKeyName() { return null; }
     @Override
     public Bitmap getImg() { return img; }
-    @Override
-    public void setImgPath(String imgPath) { }
+    public void setImgPath(String imgPath) { this.imgPath = imgPath; }
+    public String getImgPath() { return imgPath; }
     @Override
     public void removeImg()
     {
-        //rackImg = null;
-        //imgPath = null;
-    }
-    //
-    //  generates an image from the image path
-    //
-    private void generateImg(String imgPath)
-    {
-        if (imgPath != null) { img = BitmapFactory.decodeFile(imgPath); }
-        else { img = null; }
+        img = null;
+        imgPath = null;
     }
 }

@@ -107,7 +107,9 @@ public class StorageMenuActivity extends BaseActivity
         {
             storageMenuVM.setStorageBitmap(storageMenuVM.imgProcessor.getImgPath());
         }
-        else { storageMenuVM.storageImgObsv.set(storageMenuVM.imgProcessor.browseImage(data, getApplication())); }
+        else {
+           // storageMenuVM.storageImgObsv.set(storageMenuVM.imgProcessor.browseImage(data, getApplication()));
+        }
     }
 
     //

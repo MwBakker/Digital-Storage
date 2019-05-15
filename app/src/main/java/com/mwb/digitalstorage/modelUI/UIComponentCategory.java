@@ -1,7 +1,6 @@
 package com.mwb.digitalstorage.modelUI;
 
 import android.graphics.Color;
-
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.ObservableField;

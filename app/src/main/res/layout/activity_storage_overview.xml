@@ -35,7 +35,7 @@
             android:id="@+id/company_img"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:img="@{vm.companyImgObsv}"
+            app:img="@{vm.uiCompany.imgObsv}"
             app:layout_constraintHeight_percent="0.25"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             layout="@layout/faded_image"/>
@@ -49,8 +49,8 @@
             android:textSize="22dp"
             android:textColor="@color/orange"
             android:background="#660F0F0F"
-            android:text="@{vm.companyNameObsv}"
-            android:visibility="@{safeUnbox(vm.editCompanyObsv) ? View.GONE : View.VISIBLE}"/>
+            android:text="@{vm.uiCompany.nameObsv}"
+            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.GONE : View.VISIBLE}"/>
         <EditText
             style="@style/edit_item"
             android:layout_width="wrap_content"
@@ -61,9 +61,9 @@
             android:textSize="22dp"
             android:textColor="@color/orange"
             android:background="#660F0F0F"
-            android:text="@{vm.companyNameObsv}"
+            android:text="@{vm.uiCompany.nameObsv}"
             android:onTextChanged="@{cmdHandler::editCompanyName}"
-            android:visibility="@{safeUnbox(vm.editCompanyObsv) ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.VISIBLE : View.GONE}"/>
         <ImageButton
             android:id="@+id/icon_pin"
             style="@style/icon_pin"
@@ -81,8 +81,8 @@
             android:textSize="22dp"
             android:textColor="@color/orange"
             android:background="#660F0F0F"
-            android:text="@{vm.companyLocObsv}"
-            android:visibility="@{safeUnbox(vm.editCompanyObsv) ? View.GONE : View.VISIBLE}"/>
+            android:text="@{vm.uiCompany.locationObsv}"
+            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.GONE : View.VISIBLE}"/>
         <EditText
             style="@style/edit_item"
             android:layout_width="wrap_content"
@@ -93,9 +93,9 @@
             android:textSize="22dp"
             android:textColor="@color/orange"
             android:background="#660F0F0F"
-            android:text="@{vm.companyLocObsv}"
+            android:text="@{vm.uiCompany.locationObsv}"
             android:onTextChanged="@{cmdHandler::editCompanyName}"
-            android:visibility="@{safeUnbox(vm.editCompanyObsv) ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.VISIBLE : View.GONE}"/>
         <ImageButton
             android:id="@+id/btn_check"
             style="@style/icon_check"
@@ -105,7 +105,7 @@
             app:layout_constraintRight_toLeftOf="@id/btn_browse"
             android:layout_marginRight="30dp"
             android:onClick="@{() -> cmdHandler.saveCompanyEdit()}"
-            android:visibility="@{safeUnbox(vm.editCompanyObsv) ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.VISIBLE : View.GONE}"/>
         <ImageButton
             android:id="@+id/btn_browse"
             style="@style/icon_folder"
@@ -115,7 +115,7 @@
             app:layout_constraintRight_toLeftOf="@id/btn_add_img"
             android:layout_marginRight="30dp"
             android:onClick="@{() -> photoCmdHandler.browsePhoto()}"
-            android:visibility="@{safeUnbox(vm.editCompanyObsv) ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.VISIBLE : View.GONE}"/>
         <ImageButton
             android:id="@+id/btn_add_img"
             style="@style/icon_camera"
@@ -124,15 +124,15 @@
             app:layout_constraintBottom_toBottomOf="@id/company_img"
             app:layout_constraintRight_toRightOf="@id/company_img"
             android:onClick="@{() -> photoCmdHandler.takePhoto()}"
-            android:visibility="@{safeUnbox(vm.editCompanyObsv) ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.VISIBLE : View.GONE}"/>
         <ImageButton
             style="@style/icon_edit"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             app:layout_constraintBottom_toBottomOf="@id/company_img"
             app:layout_constraintRight_toRightOf="@id/company_img"
             android:onClick="@{() -> cmdHandler.editCompany()}"
-            android:visibility="@{safeUnbox(vm.editCompanyObsv) ? View.GONE : View.VISIBLE}"/>
+            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.GONE : View.VISIBLE}"/>
         <TextView
             android:id="@+id/txt_storage_units"
             style="@style/wrap_content"

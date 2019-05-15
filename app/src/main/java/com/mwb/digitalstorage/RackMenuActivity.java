@@ -1,20 +1,11 @@
 package com.mwb.digitalstorage;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import com.mwb.digitalstorage.command_handlers.entity.EntityMenuCmdHandler;
-import com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler;
-import com.mwb.digitalstorage.database.RackRepository;
 import com.mwb.digitalstorage.databinding.ActivityRackMenuBinding;
-import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.viewmodel.RackMenuViewModel;
-import com.mwb.digitalstorage.viewmodel.RackOverViewViewModel;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -35,7 +26,6 @@ public class RackMenuActivity extends AppCompatActivity
 
         binding.setVm(rackMenuVM);
         binding.setCmdHandler(handler());
-        binding.setPhotoCmdHandler(photoCmdHandler());
     }
 
     //
@@ -53,7 +43,13 @@ public class RackMenuActivity extends AppCompatActivity
                         getExternalFilesDir(Environment.DIRECTORY_PICTURES)), 1);
             }
             @Override
-            public void removePhoto() { rackMenuVM.removeRackImg(); }
+            public void browsePhoto()
+            {
+                startActivityForResult(new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1);
+            }
+            @Override
+            public void removePhoto() { rackMenuVM.uiRack().removeImg(); }
             @Override
             public void addEntity()
             {
@@ -61,38 +57,7 @@ public class RackMenuActivity extends AppCompatActivity
                 switchToItem();
             }
             @Override
-            public void browsePhoto()
-            {
-                startActivityForResult(new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1);
-            }
-            @Override
             public void cancelMenu() { switchToItem(); }
-        };
-    }
-
-    //
-    //  sets the handler of the photo
-    //
-    private PhotoCmdHandler photoCmdHandler()
-    {
-        // handlers and methods
-        return new PhotoCmdHandler()
-        {
-            @Override
-            public void takePhoto()
-            {
-                startActivityForResult(rackMenuVM.imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
-                        getExternalFilesDir(Environment.DIRECTORY_PICTURES)), 1);
-            }
-            @Override
-            public void browsePhoto()
-            {
-                startActivityForResult(new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1);
-            }
-            @Override
-            public void removePhoto() { rackMenuVM.removeRackImg(); }
         };
     }
 
@@ -106,10 +71,13 @@ public class RackMenuActivity extends AppCompatActivity
     {
         if (rackMenuVM.imgProcessor.isFromCamera())
         {
-            rackMenuVM.rackImgObsv.set(rackMenuVM.imgProcessor.browseImage(data, getApplication()));
+           // rackMenuVM.ra
+           // rackMenuVM.rackImgObsv.set(rackMenuVM.imgProcessor.browseImage(data, getApplication()));
 
         }
-        else { rackMenuVM.setRackBitmap(rackMenuVM.imgProcessor.getImgPath()); }
+        else {
+        //    rackMenuVM.setRackBitmap(rackMenuVM.imgProcessor.getImgPath());
+        }
     }
 
     //

@@ -28,20 +28,6 @@ public class CompanyRegistrationViewModel extends BaseViewModel
     public UICompany getCompany() { return companyRepository.getCompany(); }
 
     //
-    //  sets the image of the rack
-    //
-    public void setCompanyBitmap(String imgPath)
-    {
-        if (imgPath != null)
-        {
-            this.companyImgPath = imgPath;
-            companyImgObsv.set(BitmapFactory.decodeFile(imgPath));
-        }
-        else
-        { companyImgObsv.set(null); }
-    }
-
-    //
     //  adds the company
     //
     public void addCompany()

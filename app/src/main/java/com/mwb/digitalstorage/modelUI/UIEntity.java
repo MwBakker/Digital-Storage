@@ -12,7 +12,5 @@ public interface UIEntity
 
     Bitmap getImg();
 
-    void setImgPath(String imgPath);
-
     void removeImg();
 }

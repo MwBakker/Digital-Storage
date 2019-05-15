@@ -72,19 +72,9 @@ public class ImageProcessor
     }
 
     //
-    //  sets the image selected from device
-    //
-    public void setSelectedImgPath(Cursor cursor, String[] filePathColumn)
-    {
-        cursor.moveToFirst();
-        imgPath = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
-        cursor.close();
-    }
-
-    //
     //  returns result of browsing an image
     //
-    public Bitmap browseImage(Intent data, Application app)
+    public String browseImage(Intent data, Application app)
     {
         Uri selectedImage = data.getData();
         String[] filePathColumn = { MediaStore.Images.Media.DATA };
@@ -92,8 +82,13 @@ public class ImageProcessor
                 filePathColumn, null, null, null);
         cursor.moveToFirst();
         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        String picturePath = cursor.getString(columnIndex);
+        String imgPath = cursor.getString(columnIndex);
         cursor.close();
-        return BitmapFactory.decodeFile(picturePath);
+        return imgPath;
     }
+
+    //
+    //  decodes the imgPath to a file
+    //
+    public Bitmap decodeImgPath() { return BitmapFactory.decodeFile(imgPath); }
 }

@@ -36,8 +36,8 @@ public class RackOverViewViewModel extends BaseViewModel
         executor.execute(() ->
         {
             UIStorage UIStorage = storageRepository.getStorageUnit(storageID);
-            storageName = UIStorage.name.get();
-            storageLoc = UIStorage.location.get();
+            storageName = UIStorage.nameObsv.get();
+            storageLoc = UIStorage.locationObsv.get();
             storageImgObsv.set(UIStorage.getImg());
         });
     }
@@ -58,9 +58,9 @@ public class RackOverViewViewModel extends BaseViewModel
     {
         if (this.uiRack != null)
         {
-           this.uiRack.isEdit.set(false);
+           this.uiRack.isEditObsv.set(false);
         }
-        uiRack.isEdit.set(true);
+        uiRack.isEditObsv.set(true);
         this.uiRack = uiRack;
     }
 
@@ -71,9 +71,9 @@ public class RackOverViewViewModel extends BaseViewModel
     {
         executor.execute(() ->
         {
-            rackRepository.editRack(uiRack.id, uiRack.rackName.get(), uiRack.getImgPath());
+            rackRepository.editRack(uiRack.id, uiRack.nameObsv.get(), uiRack.getImgPath());
         });
-        uiRack.isEdit.set(false);
+        uiRack.isEditObsv.set(false);
     }
 
     //

@@ -90,7 +90,10 @@ public class StorageListAdapter extends RecyclerView.Adapter<StorageListAdapter.
                     return true;
                 }
                 @Override
-                public void editEntityTitle(CharSequence s, int start, int before, int count) { }
+                public void editEntityTitle(CharSequence s, int start, int before, int count)
+                {
+                    mainViewCmdHandlerCallBack.editEntityTitle(s, start, before, count);
+                }
                 @Override
                 public void saveEntityEdit() { mainViewCmdHandlerCallBack.saveEntityEdit(); }
                 @Override
@@ -103,7 +106,7 @@ public class StorageListAdapter extends RecyclerView.Adapter<StorageListAdapter.
                 @Override
                 public void editCompany() { mainViewCmdHandlerCallBack.editCompany(); }
                 @Override
-                public void editCompanyName(CharSequence s, int start, int before, int count) { }
+                public void editCompanyName(CharSequence s, int start, int before, int count) {  }
                 @Override
                 public void saveCompanyEdit() { mainViewCmdHandlerCallBack.saveCompanyEdit(); };
             };

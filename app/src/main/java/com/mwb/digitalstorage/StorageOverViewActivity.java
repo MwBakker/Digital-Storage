@@ -69,29 +69,30 @@ public class StorageOverViewActivity extends BaseActivity
             @Override
             public void editEntityTitle(CharSequence s, int start, int before, int count)
             {
-                if (storageOverViewVM.getUiStorage() != null )
+                if (storageOverViewVM.getUiStorage() != null)
                 {
-                    storageOverViewVM.getUiStorage().name.set(s.toString());
+                    storageOverViewVM.getUiStorage().nameObsv.set(s.toString());
                 }
             }
             @Override
             public void editStorageLocation(CharSequence s, int start, int before, int count)
             {
-                storageOverViewVM.getUiStorage().location.set(s.toString());
+                storageOverViewVM.getUiStorage().locationObsv.set(s.toString());
             }
             @Override
             public void saveEntityEdit() { storageOverViewVM.saveStorageEdit(); }
             @Override
             public void deleteEntity() { storageOverViewVM.deleteStorage(); }
             @Override
-            public void editCompany()
+            public void editCompany() { storageOverViewVM.getUiCompany().isEdit.set(true); }
+            @Override
+            public void editCompanyName(CharSequence s, int start, int before, int count)
             {
-                storageOverViewVM.editCompanyObsv.set(true);
+                storageOverViewVM.getUiCompany().nameObsv.set(s.toString());
             }
+
             @Override
-            public void editCompanyName(CharSequence s, int start, int before, int count) { }
-            @Override
-            public void saveCompanyEdit() { storageOverViewVM.saveCompanyEdit(getApplication()); }
+            public void saveCompanyEdit() { storageOverViewVM.saveCompanyEdit(); }
         };
     }
 
@@ -117,7 +118,7 @@ public class StorageOverViewActivity extends BaseActivity
                                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1);
             }
             @Override
-            public void removePhoto() { storageOverViewVM.removeStorageBitmap(); }
+            public void removePhoto() { storageOverViewVM.getUiCompany().removeImg(); }
         };
     }
 
@@ -131,11 +132,12 @@ public class StorageOverViewActivity extends BaseActivity
     {
         if (storageOverViewVM.imgProcessor.isFromCamera())
         {
-            storageOverViewVM.setCompanyBitmap(storageOverViewVM.imgProcessor.getImgPath());
+            storageOverViewVM.getUiCompany().setImgPath(storageOverViewVM.imgProcessor.getImgPath());
         }
         else
         {
-            storageOverViewVM.companyImgObsv.set(storageOverViewVM.imgProcessor.browseImage(data, getApplication()));
+            storageOverViewVM.getUiCompany().setImgPath(storageOverViewVM.imgProcessor.browseImage(data, getApplication()));
         }
+        storageOverViewVM.getUiCompany().imgObsv.set(storageOverViewVM.imgProcessor.decodeImgPath());
     }
 }

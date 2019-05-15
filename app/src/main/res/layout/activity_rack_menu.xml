@@ -32,7 +32,7 @@
                 android:backgroundTint="@android:color/white"
                 android:textColor="@android:color/white"
                 android:hint="Rack name"
-                android:text="@={vm.rackNameObsv}" />
+                android:text="@={vm.uiRack().nameObsv}" />
             <include
                 android:id="@+id/img_view"
                 layout="@layout/img_view"
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/edit_rack_name"
                 android:layout_marginTop="100dp"
-                app:img="@{vm.rackImgObsv}"
+                app:img="@{vm.uiRack.imgObsv}"
                 app:showImgButtons="@{true}"
                 app:cmdHandler="@{cmdHandler}"/>
             <Button
