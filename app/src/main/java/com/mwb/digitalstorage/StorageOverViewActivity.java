@@ -3,6 +3,8 @@ package com.mwb.digitalstorage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+
+import com.mwb.digitalstorage.command_handlers.RegistrationCmdHandler;
 import com.mwb.digitalstorage.command_handlers.StorageCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler;
 import com.mwb.digitalstorage.database.CompanyRepository;
@@ -35,7 +37,7 @@ public class StorageOverViewActivity extends BaseActivity
         binding.setVm(storageOverViewVM);
         binding.setTbvm(toolbarVM);
         binding.setCmdHandler(mainViewCmdHandler);
-        binding.setPhotoCmdHandler(photoCmdHandler());
+        binding.setCompanyCmdHandler(registrationCmdHandler());
         binding.setTbCmdHandler(getToolbarCmdHandler("Main menu", 0L));
     }
 
@@ -83,42 +85,46 @@ public class StorageOverViewActivity extends BaseActivity
             public void saveEntityEdit() { storageOverViewVM.saveStorageEdit(); }
             @Override
             public void deleteEntity() { storageOverViewVM.deleteStorage(); }
-            @Override
-            public void editCompany() { storageOverViewVM.getUiCompany().isEdit.set(true); }
-            @Override
-            public void editCompanyName(CharSequence s, int start, int before, int count)
-            {
-                storageOverViewVM.getUiCompany().nameObsv.set(s.toString());
-            }
-
-            @Override
-            public void saveCompanyEdit() { storageOverViewVM.saveCompanyEdit(); }
         };
     }
 
     //
     //  command handler for the photo
     //
-    private PhotoCmdHandler photoCmdHandler()
+    private RegistrationCmdHandler registrationCmdHandler()
     {
-        return new PhotoCmdHandler()
+        return new RegistrationCmdHandler()
         {
+            @Override
+            public void editCompany() { storageOverViewVM.getUiCompany().isEdit.set(true); }
             @Override
             public void takePhoto()
             {
                 storageOverViewVM.imgProcessor.setCamerabool(true);
                 startActivityForResult(storageOverViewVM.imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
-                                       getExternalFilesDir(Environment.DIRECTORY_PICTURES)), 1);
+                        getExternalFilesDir(Environment.DIRECTORY_PICTURES)), 1);
             }
             @Override
             public void browsePhoto()
             {
                 storageOverViewVM.imgProcessor.setCamerabool(false);
                 startActivityForResult(new Intent(Intent.ACTION_PICK,
-                                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1);
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1);
             }
             @Override
             public void removePhoto() { storageOverViewVM.getUiCompany().removeImg(); }
+            @Override
+            public void editCompanyName(CharSequence s, int start, int before, int count)
+            {
+                storageOverViewVM.getUiCompany().nameObsv.set(s.toString());
+            }
+            @Override
+            public void editCompanyLocation(CharSequence s, int start, int before, int count)
+            {
+                storageOverViewVM.getUiCompany().locationObsv.set(s.toString());
+            }
+            @Override
+            public void saveCompany() { storageOverViewVM.saveCompanyEdit(); }
         };
     }
 

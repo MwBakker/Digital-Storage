@@ -91,4 +91,5 @@ public class ImageProcessor
     //  decodes the imgPath to a file
     //
     public Bitmap decodeImgPath() { return BitmapFactory.decodeFile(imgPath); }
+    public Bitmap decodeImgPath(String path) { return BitmapFactory.decodeFile(path); }
 }

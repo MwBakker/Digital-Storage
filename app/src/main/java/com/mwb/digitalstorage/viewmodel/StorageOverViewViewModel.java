@@ -23,14 +23,19 @@ public class StorageOverViewViewModel extends BaseViewModel
         storageRepository = new StorageRepository();
         companyRepository = new CompanyRepository();
 
-        executor.execute(() ->
+
+        if (uiCompany == null)
         {
-            uiCompany = companyRepository.getCompany();
-        });
-        storageRepository.getStorageUnits().observe(owner, storageUnits ->
-        {
-            storageListAdapterObsv.set(new StorageListAdapter(storageUnits, mainViewCmdHandlerCallBack));
-        });
+            executor.execute(() ->
+            {
+                uiCompany = companyRepository.getCompany();
+                uiCompany.imgObsv.set(imgProcessor.decodeImgPath(uiCompany.getImgPath()));
+            });
+            storageRepository.getStorageUnits().observe(owner, storageUnits ->
+            {
+                storageListAdapterObsv.set(new StorageListAdapter(storageUnits, mainViewCmdHandlerCallBack));
+            });
+        }
     }
 
 

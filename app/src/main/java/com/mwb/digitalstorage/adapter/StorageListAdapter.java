@@ -103,12 +103,6 @@ public class StorageListAdapter extends RecyclerView.Adapter<StorageListAdapter.
                 {
                     mainViewCmdHandlerCallBack.editStorageLocation(s, start, before, count);
                 }
-                @Override
-                public void editCompany() { mainViewCmdHandlerCallBack.editCompany(); }
-                @Override
-                public void editCompanyName(CharSequence s, int start, int before, int count) {  }
-                @Override
-                public void saveCompanyEdit() { mainViewCmdHandlerCallBack.saveCompanyEdit(); };
             };
         }
 
