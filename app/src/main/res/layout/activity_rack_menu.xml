@@ -62,7 +62,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:textColor="@color/orange"
                 android:text="Add rack"
-                android:onClick="@{(view) -> cmdHandler.addEntity()}"/>
+                android:onClick="@{(view) -> cmdHandler.saveNewEntity()}"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

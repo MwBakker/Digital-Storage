@@ -77,12 +77,12 @@ public class StorageOverViewActivity extends BaseActivity
                 }
             }
             @Override
+            public void saveEntity(boolean isNew) { storageOverViewVM.saveStorageEdit(); }
+            @Override
             public void editStorageLocation(CharSequence s, int start, int before, int count)
             {
                 storageOverViewVM.getUiStorage().locationObsv.set(s.toString());
             }
-            @Override
-            public void saveEntityEdit() { storageOverViewVM.saveStorageEdit(); }
             @Override
             public void deleteEntity() { storageOverViewVM.deleteStorage(); }
         };

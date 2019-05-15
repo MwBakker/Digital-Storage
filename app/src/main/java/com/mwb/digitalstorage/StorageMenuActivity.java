@@ -6,7 +6,6 @@ import android.os.Environment;
 import com.mwb.digitalstorage.command_handlers.StorageMenuCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler;
 import com.mwb.digitalstorage.database.RackRepository;
-import com.mwb.digitalstorage.database.StorageRepository;
 import com.mwb.digitalstorage.databinding.ActivityStorageMenuBinding;
 import com.mwb.digitalstorage.viewmodel.StorageMenuViewModel;
 import androidx.databinding.DataBindingUtil;
@@ -42,12 +41,6 @@ public class StorageMenuActivity extends BaseActivity
         return new StorageMenuCmdHandler()
         {
             @Override
-            public void addEntity()
-            {
-                storageMenuVM.addStorage(new RackRepository());
-                switchBackToOverView();
-            }
-            @Override
             public void browsePhoto()
             {
                 Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -60,9 +53,16 @@ public class StorageMenuActivity extends BaseActivity
                                   getExternalFilesDir(Environment.DIRECTORY_PICTURES)), 1);
             }
             @Override
-            public void removePhoto() { storageMenuVM.storageImgObsv.set(null); }
+            public void removePhoto() { storageMenuVM.getUiStorage().removeImg(); }
             @Override
-            public void numberPickerValChanged(int newVal) { storageMenuVM.storageRackAmountObsv.set(newVal); }
+            public void numberPickerValChanged(int newVal) { storageMenuVM.getUiStorage().rackAmountObsv.set(newVal); }
+
+            @Override
+            public void saveNewEntity()
+            {
+                storageMenuVM.addStorage(new RackRepository());
+                switchBackToOverView();
+            }
             @Override
             public void cancelMenu() {
                 switchBackToOverView();
@@ -93,7 +93,7 @@ public class StorageMenuActivity extends BaseActivity
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1);
             }
             @Override
-            public void removePhoto() { storageMenuVM.removeStoragePhoto(); }
+            public void removePhoto() { storageMenuVM.getUiStorage().removeImg(); }
         };
     }
 
@@ -105,11 +105,13 @@ public class StorageMenuActivity extends BaseActivity
 
         if (storageMenuVM.imgProcessor.isFromCamera())
         {
-            storageMenuVM.setStorageBitmap(storageMenuVM.imgProcessor.getImgPath());
+            storageMenuVM.getUiStorage().setImgPath(storageMenuVM.imgProcessor.getImgPath());
         }
-        else {
-           // storageMenuVM.storageImgObsv.set(storageMenuVM.imgProcessor.browseImage(data, getApplication()));
+        else
+        {
+            storageMenuVM.getUiStorage().setImgPath(storageMenuVM.imgProcessor.browseImage(data, getApplication()));
         }
+        storageMenuVM.getUiStorage().imgObsv.set(storageMenuVM.imgProcessor.decodeImgPath());
     }
 
     //

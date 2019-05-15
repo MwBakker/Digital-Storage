@@ -53,15 +53,15 @@ public class ComponentMenuActivity extends AppCompatActivity
             @Override
             public void addNewCategory() { componentVM.newCategoryObsv.set(!componentVM.newCategoryObsv.get()); }
             @Override
-            public void addEntity()
-            {
-                componentVM.addComponent();
-                switchActivity(ComponentOverViewActivity.class);
-            }
-            @Override
             public void browsePhoto()
             {
 
+            }
+            @Override
+            public void saveNewEntity()
+            {
+                componentVM.addComponent();
+                switchActivity(ComponentOverViewActivity.class);
             }
             @Override
             public void cancelMenu()

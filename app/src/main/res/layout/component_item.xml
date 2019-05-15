@@ -103,7 +103,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="15dp"
-            android:onClick="@{() -> cmdHandler.saveEntityEdit()}"
+            android:onClick="@{() -> cmdHandler.saveEntity(false)}"
             android:visibility="@{safeUnbox(UIComponent.isEdit) ? View.VISIBLE : View.GONE}"/>
         <ImageButton
             style="@style/icon_bin"

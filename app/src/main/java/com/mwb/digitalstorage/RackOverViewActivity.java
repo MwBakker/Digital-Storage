@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import com.mwb.digitalstorage.command_handlers.RackCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler;
-import com.mwb.digitalstorage.database.RackRepository;
-import com.mwb.digitalstorage.database.StorageRepository;
 import com.mwb.digitalstorage.databinding.ActivityRackOverviewBinding;
-import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.modelUI.UIEntity;
 import com.mwb.digitalstorage.modelUI.UIRack;
 import com.mwb.digitalstorage.viewmodel.RackOverViewViewModel;
@@ -20,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 public class RackOverViewActivity extends BaseActivity
 {
     private RackOverViewViewModel rackOverViewVM;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,7 +37,7 @@ public class RackOverViewActivity extends BaseActivity
         binding.setVm(rackOverViewVM);
         binding.setTbvm(tbVM);
         binding.setRackCmdHandler(rackCmdHandler);
-        binding.setTbCmdHandler(getToolbarCmdHandler("Storage", rackOverViewVM.getStorageID()));
+        binding.setTbCmdHandler(getToolbarCmdHandler("Storage", rackOverViewVM.getUiStorage().id));
     }
 
     //
@@ -54,14 +52,14 @@ public class RackOverViewActivity extends BaseActivity
             {
                 Intent intent = new Intent(RackOverViewActivity.this, ComponentOverViewActivity.class);
                 intent.putExtra("rack_id", rackID);
-                intent.putExtra("storage_id", rackOverViewVM.getStorageID());
+                intent.putExtra("storage_id", rackOverViewVM.getUiStorage().id);
                 switchToItem(intent);
             }
             @Override
             public void addNewEntity()
             {
                 Intent intent = new Intent(RackOverViewActivity.this, RackMenuActivity.class);
-                intent.putExtra("storage_id", rackOverViewVM.getStorageID());
+                intent.putExtra("storage_id", rackOverViewVM.getUiStorage().id);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.fade_out);
             }
@@ -77,7 +75,7 @@ public class RackOverViewActivity extends BaseActivity
                 rackOverViewVM.getUiRack().nameObsv.set(s.toString());
             }
             @Override
-            public void saveEntityEdit() { rackOverViewVM.saveRackEdit(); }
+            public void saveEntity(boolean isNew) { rackOverViewVM.saveRackEdit(); }
             @Override
             public void deleteEntity() { rackOverViewVM.deleteRack(); }
         };
@@ -119,7 +117,11 @@ public class RackOverViewActivity extends BaseActivity
         {
             rackOverViewVM.getUiRack().setImgPath(rackOverViewVM.imgProcessor.getImgPath());
         }
-        else {  }
+        else
+        {
+            rackOverViewVM.getUiRack().setImgPath(rackOverViewVM.imgProcessor.browseImage(data, getApplication()));
+        }
+        rackOverViewVM.getUiRack().imgObsv.set(rackOverViewVM.imgProcessor.decodeImgPath());
     }
 
     //

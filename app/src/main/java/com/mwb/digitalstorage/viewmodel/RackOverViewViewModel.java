@@ -1,6 +1,5 @@
 package com.mwb.digitalstorage.viewmodel;
 
-import android.graphics.Bitmap;
 import com.mwb.digitalstorage.adapter.RackListAdapter;
 import com.mwb.digitalstorage.command_handlers.RackCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler;
@@ -8,18 +7,16 @@ import com.mwb.digitalstorage.database.RackRepository;
 import com.mwb.digitalstorage.database.StorageRepository;
 import com.mwb.digitalstorage.modelUI.UIRack;
 import com.mwb.digitalstorage.modelUI.UIStorage;
+
 import androidx.databinding.ObservableField;
 
 
 public class RackOverViewViewModel extends BaseViewModel
 {
-    private long storageID;
     private RackRepository rackRepository;
-    private String storageName;
-    private String storageLoc;
+    private UIStorage uiStorage;
     private UIRack uiRack;
 
-    public ObservableField<Bitmap> storageImgObsv = new ObservableField<>();
     public ObservableField<RackListAdapter> rackListAdapterObsv = new ObservableField<>();
 
 
@@ -28,27 +25,20 @@ public class RackOverViewViewModel extends BaseViewModel
     {
         rackRepository = new RackRepository();
         StorageRepository storageRepository = new StorageRepository();
-        this.storageID = storageID;
         rackRepository.getRacks(storageID).observe(owner, racks ->
         {
             rackListAdapterObsv.set(new RackListAdapter(racks, rackCmdHandler, photoCmdHandler));
         });
         executor.execute(() ->
         {
-            UIStorage UIStorage = storageRepository.getStorageUnit(storageID);
-            storageName = UIStorage.nameObsv.get();
-            storageLoc = UIStorage.locationObsv.get();
-            storageImgObsv.set(UIStorage.getImg());
+             uiStorage = storageRepository.getStorageUnit(storageID);
+             uiStorage.imgObsv.set(imgProcessor.decodeImgPath(uiStorage.getImgPath()));
         });
     }
 
+    public UIStorage getUiStorage() { return uiStorage; }
+
     public UIRack getUiRack() { return uiRack; }
-
-    public long getStorageID() { return storageID; }
-
-    public String getStorageName() { return storageName; }
-
-    public String getStorageLoc() { return storageLoc; }
 
     //
     //  sets the editable rack

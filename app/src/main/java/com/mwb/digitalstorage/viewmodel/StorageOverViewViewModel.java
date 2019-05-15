@@ -23,7 +23,6 @@ public class StorageOverViewViewModel extends BaseViewModel
         storageRepository = new StorageRepository();
         companyRepository = new CompanyRepository();
 
-
         if (uiCompany == null)
         {
             executor.execute(() ->

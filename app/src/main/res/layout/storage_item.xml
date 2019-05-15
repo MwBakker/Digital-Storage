@@ -98,7 +98,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_margin="15dp"
-            android:onClick="@{() -> cmdHandler.saveEntityEdit()}"
+            android:onClick="@{() -> cmdHandler.saveEntity(false)}"
             android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.VISIBLE : View.GONE}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

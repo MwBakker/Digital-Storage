@@ -9,11 +9,12 @@ public class UIStorage implements UIEntity
     public long id;
 
     private String imgPath;
-    private Bitmap img;
 
     public ObservableField<String> nameObsv = new ObservableField<>("");
     public ObservableField<String> locationObsv = new ObservableField<>("");
     public ObservableField<Boolean> isEditObsv = new ObservableField<>(false);
+    public ObservableField<Bitmap> imgObsv = new ObservableField<>();
+    public ObservableField<Integer> rackAmountObsv = new ObservableField<>();
 
 
     public UIStorage(long id, String name, String location, String imgPath)
@@ -31,13 +32,13 @@ public class UIStorage implements UIEntity
     @Override
     public String getParentKeyName() { return null; }
     @Override
-    public Bitmap getImg() { return img; }
+    public Bitmap getImg() { return imgObsv.get(); }
     public void setImgPath(String imgPath) { this.imgPath = imgPath; }
     public String getImgPath() { return imgPath; }
     @Override
     public void removeImg()
     {
-        img = null;
+        imgObsv = null;
         imgPath = null;
     }
 }

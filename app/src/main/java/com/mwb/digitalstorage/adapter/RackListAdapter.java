@@ -99,7 +99,7 @@ public class RackListAdapter extends RecyclerView.Adapter<RackListAdapter.RackVi
                     rackCmdHandlerCallBack.editEntityTitle(s, start, before, count);
                 }
                 @Override
-                public void saveEntityEdit() { rackCmdHandlerCallBack.saveEntityEdit(); }
+                public void saveEntity(boolean isNew) { rackCmdHandlerCallBack.saveEntity(false); }
                 @Override
                 public void deleteEntity() { rackCmdHandlerCallBack.deleteEntity(); }
             };

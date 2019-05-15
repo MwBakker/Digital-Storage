@@ -108,7 +108,7 @@ public class ComponentOverViewActivity extends AppCompatActivity
 
             }
             @Override
-            public void saveEntityEdit() { componentOverViewVM.saveComponentEdit(); }
+            public void saveEntity(boolean isNew) { componentOverViewVM.saveComponentEdit(); }
             @Override
             public void deleteEntity() { componentOverViewVM.deleteComponent(); }
         };

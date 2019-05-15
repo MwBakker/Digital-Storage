@@ -31,7 +31,7 @@ public class UIRack implements UIEntity
     public void setImgPath(String imgPath) { this.imgPath = imgPath; }
     public String getImgPath() { return  imgPath; }
     @Override
-    public Bitmap getImg() { return null; }
+    public Bitmap getImg() { return imgObsv.get(); }
     @Override
     public void removeImg()
     {

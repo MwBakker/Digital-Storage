@@ -51,7 +51,7 @@ public class RackMenuActivity extends AppCompatActivity
             @Override
             public void removePhoto() { rackMenuVM.uiRack().removeImg(); }
             @Override
-            public void addEntity()
+            public void saveNewEntity()
             {
                 rackMenuVM.addRack();
                 switchToItem();
