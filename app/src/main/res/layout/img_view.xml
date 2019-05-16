@@ -11,10 +11,10 @@
             name="img"
             type="android.graphics.Bitmap"/>
         <variable
-            name="showImgButtons"
+            name="isFaded"
             type="boolean"/>
         <variable
-            name="imgPresentAndIsEdit"
+            name="isEditObsv"
             type="boolean"/>
     </data>
 
@@ -25,12 +25,19 @@
         android:id="@+id/main_img"
         style="@style/img_general"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.725"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="15dp"
-        app:customSrc="@{img}"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:customSrc="@{img}"
+        />
+    <View
+        style="@style/match_parent"
+        android:background="@drawable/gradient_blue"
+        app:layout_constraintTop_toTopOf="@id/main_image"
+        app:layout_constraintRight_toRightOf="@id/main_image"
+        app:layout_constraintBottom_toBottomOf="@id/main_image"
+        app:layout_constraintLeft_toLeftOf="@id/main_image"
+        android:visibility="@{isFaded ? View.VISIBLE : View.GONE}"/>
     <TextView
         style="@style/wrap_content"
         app:layout_constraintTop_toTopOf="@+id/main_img"
@@ -46,11 +53,22 @@
         android:layout_height="0dp"
         app:layout_constraintWidth_percent="0.10"
         app:layout_constraintHeight_percent="0.15"
-        app:layout_constraintTop_toBottomOf="@id/main_img"
+        app:layout_constraintBottom_toBottomOf="@id/main_img"
         app:layout_constraintLeft_toLeftOf="@id/main_img"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
         android:onClick="@{() -> cmdHandler.removePhoto()}"
-        android:visibility="@{imgPresentAndIsEdit ? View.VISIBLE : View.GONE}"/>
+        android:visibility="@{isEditObsv ? View.VISIBLE : View.GONE}"/>
+    <ImageButton
+        android:id="@+id/btn_check"
+        style="@style/icon_check"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintLeft_toRightOf="@id/btn_remove_img"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginLeft="25dp"
+        android:layout_marginBottom="8dp"
+
+        android:visibility="@{isEditObsv ? View.VISIBLE : View.GONE}"/>
     <ImageButton
         android:id="@+id/btn_browse"
         style="@style/icon_folder"
@@ -58,12 +76,12 @@
         android:layout_height="0dp"
         app:layout_constraintWidth_percent="0.10"
         app:layout_constraintHeight_percent="0.18"
-        app:layout_constraintTop_toBottomOf="@id/main_img"
+        app:layout_constraintBottom_toBottomOf="@id/main_img"
         app:layout_constraintRight_toLeftOf="@id/btn_add_img"
-        android:layout_marginTop="15dp"
         android:layout_marginRight="60dp"
+        android:layout_marginBottom="5dp"
         android:onClick="@{() -> cmdHandler.browsePhoto()}"
-        android:visibility="@{showImgButtons ? View.VISIBLE : View.GONE}"/>
+        android:visibility="@{isEditObsv ? View.VISIBLE : View.GONE}"/>
     <ImageButton
         android:id="@+id/btn_add_img"
         style="@style/icon_camera"
@@ -71,10 +89,10 @@
         android:layout_height="0dp"
         app:layout_constraintWidth_percent="0.10"
         app:layout_constraintHeight_percent="0.18"
-        app:layout_constraintTop_toBottomOf="@id/main_img"
+        app:layout_constraintBottom_toBottomOf="@id/main_img"
         app:layout_constraintRight_toRightOf="@id/main_img"
-        android:layout_margin="15dp"
+        android:layout_margin="5dp"
         android:onClick="@{() -> cmdHandler.takePhoto()}"
-        android:visibility="@{showImgButtons ? View.VISIBLE : View.GONE}"/>
+        android:visibility="@{isEditObsv ? View.VISIBLE : View.GONE}"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -25,7 +25,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <EditText
                 android:id="@+id/storage_name"
                 android:layout_width="0dp"
@@ -51,40 +50,36 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/storage_name" />
-
             <include
                 android:id="@+id/img_view"
                 layout="@layout/img_view"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="250dp"
                 app:cmdHandler="@{photoCmdHandler}"
                 app:img="@{vm.uiStorage.imgObsv}"
                 app:layout_constraintTop_toBottomOf="@id/edit_storage_loc"
-                app:showImgButtons="@{true}" />
-
+                app:isEditObsv="@{true}" />
             <TextView
                 android:id="@+id/txt_rack_amount"
                 style="@style/wrap_content"
                 android:layout_marginTop="60dp"
                 android:layout_marginRight="100dp"
                 android:text="Amount of racks in storage unit"
-                android:textSize="28dp"
+                android:textSize="24dp"
                 app:layout_constraintRight_toLeftOf="@id/numberpicker"
                 app:layout_constraintTop_toBottomOf="@id/numberpicker"
                 app:layout_constraintTop_toTopOf="@+id/numberpicker" />
-
             <com.mwb.digitalstorage.misc.CustomNumberPicker
                 android:id="@+id/numberpicker"
                 style="@style/numberpicker"
                 max="50"
                 min="0"
-                android:layout_marginRight="75dp"
                 android:onValueChange="@{(picker,oldv,newv) -> cmdHandler.numberPickerValChanged(newv)}"
                 android:textColor="@color/orange"
+                app:layout_constraintTop_toBottomOf="@+id/img_view"
                 app:layout_constraintBottom_toTopOf="@+id/btn_add_storage"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_view" />
-
+                app:layout_constraintLeft_toRightOf="@id/txt_rack_amount"
+                android:layout_margin="15dp"/>
             <Button
                 android:id="@+id/btn_cancel"
                 style="@style/btn_general"
@@ -94,7 +89,8 @@
                 android:textColor="@color/orange"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintWidth_percent="0.5" />
+                app:layout_constraintWidth_percent="0.5"
+                />
 
             <Button
                 android:id="@+id/btn_add_storage"
@@ -105,7 +101,8 @@
                 android:textColor="@color/orange"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintWidth_percent="0.5" />
+                app:layout_constraintWidth_percent="0.5"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

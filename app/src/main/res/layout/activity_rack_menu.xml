@@ -37,11 +37,11 @@
                 android:id="@+id/img_view"
                 layout="@layout/img_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="275dp"
                 app:layout_constraintTop_toBottomOf="@+id/edit_rack_name"
                 android:layout_marginTop="100dp"
                 app:img="@{vm.uiRack.imgObsv}"
-                app:showImgButtons="@{true}"
+                app:isEditObsv="@{true}"
                 app:cmdHandler="@{cmdHandler}"/>
             <Button
                 android:id="@+id/btn_cancel"

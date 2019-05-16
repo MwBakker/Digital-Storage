@@ -73,7 +73,7 @@ public class ComponentOverViewActivity extends AppCompatActivity
             @Override
             public void editComponentName(CharSequence s, int start, int before, int count)
             {
-                componentOverViewVM.getComponent().name.set(s.toString());
+                componentOverViewVM.getComponent().nameObsv.set(s.toString());
             }
             @Override
             public void saveEdit() { componentOverViewVM.saveComponentCategoryEdit(); }

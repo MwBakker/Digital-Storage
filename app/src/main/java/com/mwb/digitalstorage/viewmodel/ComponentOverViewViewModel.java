@@ -82,9 +82,9 @@ public class ComponentOverViewViewModel extends BaseViewModel
     {
         if (this.uiComponent != null)
         {
-            this.uiComponent.isEdit.set(false);
+            this.uiComponent.isEditObsv.set(false);
         }
-        uiComponent.isEdit.set(true);
+        uiComponent.isEditObsv.set(true);
         this.uiComponent = uiComponent;
     }
 
@@ -128,8 +128,8 @@ public class ComponentOverViewViewModel extends BaseViewModel
     {
         executor.execute(() ->
         {
-            componentRepository.editComponent(uiComponent.getId(), uiComponent.getComponentCatID(), uiComponent.name.get(),
-                                        uiComponent.code.get(), uiComponent.getImgPath());
+            componentRepository.editComponent(uiComponent.getId(), uiComponent.getComponentCatID(), uiComponent.nameObsv.get(),
+                                        uiComponent.codeObsv.get(), uiComponent.getImgPath());
         });
     }
 

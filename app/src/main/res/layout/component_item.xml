@@ -66,7 +66,7 @@
             app:layout_constraintLeft_toLeftOf="@+id/component_name"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="65dp"
-            android:text="@{UIComponent.code}"/>
+            android:text="@{UIComponent.codeObsv}"/>
         <TextView
             android:id="@+id/txt_component_amount"
             style="@style/wrap_content"
@@ -104,7 +104,7 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="15dp"
             android:onClick="@{() -> cmdHandler.saveEntity(false)}"
-            android:visibility="@{safeUnbox(UIComponent.isEdit) ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{safeUnbox(UIComponent.isEditObsv) ? View.VISIBLE : View.GONE}"/>
         <ImageButton
             style="@style/icon_bin"
             android:layout_width="0dp"
@@ -115,6 +115,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="15dp"
             android:onClick="@{() -> cmdHandler.deleteEntity()}"
-            android:visibility="@{safeUnbox(UIComponent.isEdit) ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{safeUnbox(UIComponent.isEditObsv) ? View.VISIBLE : View.GONE}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

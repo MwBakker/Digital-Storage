@@ -7,6 +7,7 @@ import com.mwb.digitalstorage.R;
 import com.mwb.digitalstorage.command_handlers.RackCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler;
 import com.mwb.digitalstorage.databinding.RackItemBinding;
+import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.modelUI.UIEntity;
 import com.mwb.digitalstorage.modelUI.UIRack;
 import java.util.List;
@@ -20,13 +21,15 @@ public class RackListAdapter extends RecyclerView.Adapter<RackListAdapter.RackVi
     private RackCmdHandler rackCmdHandlerCallBack;
     private PhotoCmdHandler photoCmdHandlerCallBack;
     private List<UIRack> UIRacks;
+    private ImageProcessor imgProcessor;
 
 
-    public RackListAdapter(List<UIRack> UIRacks, RackCmdHandler rackCmdHandlerCallBack, PhotoCmdHandler photoCmdHandlerCallBack)
+    public RackListAdapter(List<UIRack> UIRacks, RackCmdHandler rackCmdHandlerCallBack, PhotoCmdHandler photoCmdHandlerCallBack, ImageProcessor imgProcessor)
     {
         this.rackCmdHandlerCallBack = rackCmdHandlerCallBack;
         this.photoCmdHandlerCallBack = photoCmdHandlerCallBack;
         this.UIRacks = UIRacks;
+        this.imgProcessor = imgProcessor;
     }
 
     //
@@ -124,9 +127,10 @@ public class RackListAdapter extends RecyclerView.Adapter<RackListAdapter.RackVi
         //
         //  binds the UIRack unit to the model
         //
-        private void bind(@NonNull UIRack UIRack)
+        private void bind(@NonNull UIRack uiRack)
         {
-            binding.setUIRack(UIRack);
+            uiRack.imgObsv.set(imgProcessor.decodeImgPath(uiRack.getImgPath()));
+            binding.setUIRack(uiRack);
             binding.executePendingBindings();
         }
     }

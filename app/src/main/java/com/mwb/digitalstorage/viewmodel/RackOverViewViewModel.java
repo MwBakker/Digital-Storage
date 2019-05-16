@@ -7,7 +7,6 @@ import com.mwb.digitalstorage.database.RackRepository;
 import com.mwb.digitalstorage.database.StorageRepository;
 import com.mwb.digitalstorage.modelUI.UIRack;
 import com.mwb.digitalstorage.modelUI.UIStorage;
-
 import androidx.databinding.ObservableField;
 
 
@@ -27,7 +26,7 @@ public class RackOverViewViewModel extends BaseViewModel
         StorageRepository storageRepository = new StorageRepository();
         rackRepository.getRacks(storageID).observe(owner, racks ->
         {
-            rackListAdapterObsv.set(new RackListAdapter(racks, rackCmdHandler, photoCmdHandler));
+            rackListAdapterObsv.set(new RackListAdapter(racks, rackCmdHandler, photoCmdHandler, imgProcessor));
         });
         executor.execute(() ->
         {

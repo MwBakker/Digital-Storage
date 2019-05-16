@@ -19,6 +19,7 @@ public class UIRack implements UIEntity
     {
         this.id = id;
         this.nameObsv.set(name);
+        this.imgPath = imgPath;
         this.componentCountObsv.set(componentCount);
     }
 

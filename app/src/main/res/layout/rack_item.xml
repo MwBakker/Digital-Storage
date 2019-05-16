@@ -20,37 +20,18 @@
         android:layout_height="300dp"
         android:longClickable="true"
         android:focusable="true"
-        android:layout_margin="15dp">
+        android:layout_margin="15dp"
+        android:onClick="@{(view) -> cmdHandler.enterEntity(UIRack.id)}"
+        android:onLongClick="@{(view) -> cmdHandler.editEntity(UIRack)}">
         <include
             android:id="@+id/main_image"
-            layout="@layout/img_view"
-            style="@style/match_parent"
-            app:img="@{UIRack.imgObsv}"
-            app:showImgButtons="@{safeUnbox(UIRack.isEditObsv)}"
-            app:imgPresentAndIsEdit="@{safeUnbox(UIRack.isEditObsv)}"
-            app:cmdHandler="@{photoCmdHandler}"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"/>
-        <View
-            android:id="@+id/fade"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="@drawable/gradient_blue"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:onClick="@{(view) -> cmdHandler.enterEntity(UIRack.id)}"
-            android:onLongClick="@{(view) -> cmdHandler.editEntity(UIRack)}"/>
-        <ImageButton
-            android:id="@+id/btn_approve"
-            style="@style/icon_check"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.125"
-            app:layout_constraintHeight_percent="0.15"
-            app:layout_constraintTop_toBottomOf="@+id/fade"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="150dp"
-            android:onClick="@{() -> cmdHandler.saveEntity(false)}"
-            android:visibility="@{safeUnbox(UIRack.isEditObsv) ? View.VISIBLE : View.GONE}"/>
+            android:layout_height="match_parent"
+            layout="@layout/img_view"
+            app:img="@{UIRack.imgObsv}"
+            app:isFaded="@{true}"
+            app:isEditObsv="@{safeUnbox(UIRack.isEditObsv)}"
+            app:cmdHandler="@{photoCmdHandler}"/>
         <TextView
             style="@style/wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"

@@ -107,9 +107,10 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
         //
         //  binds the storage unit to the model
         //
-        private void bind(@NonNull UIComponent UIComponent)
+        private void bind(@NonNull UIComponent uiComponent)
         {
-            binding.setUIComponent(UIComponent);
+
+            binding.setUIComponent(uiComponent);
             binding.executePendingBindings();
         }
     }
