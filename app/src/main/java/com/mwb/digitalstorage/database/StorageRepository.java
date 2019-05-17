@@ -12,9 +12,7 @@ import java.util.List;
 
 public class StorageRepository extends BaseRepository
 {
-    //
     //  returns allRacks with correct storage_id
-    //
     public LiveData<List<UIStorage>> getStorageUnits()
     {
         LiveData<List<Storage>> storageUnits = BaseRepository.getDao().getAllStorageUnits();
@@ -22,9 +20,7 @@ public class StorageRepository extends BaseRepository
         return Transformations.map(storageUnits, newData -> createStorageUI(newData));
     }
 
-    //
     //  manually sets the storage to storageUI
-    //
     private List<UIStorage> createStorageUI(List<Storage> storageUnits)
     {
         List<UIStorage> UIStorageList = new ArrayList<>();
@@ -35,34 +31,26 @@ public class StorageRepository extends BaseRepository
         return UIStorageList;
     }
 
-    //
     //  returns one storage unit
-    //
     public UIStorage getStorageUnit(long storageID)
     {
         Storage storage = BaseRepository.getDao().getStorageUnit(storageID);
         return new UIStorage(storageID, storage.getName(), storage.getLocation(), storage.getImgPath());
     }
 
-    //
     //  performs storage insert
-    //
     public long insertStorage(String storageName, String storageLoc, String imgPath)
     {
         return BaseRepository.getDao().insertStorage(new Storage(storageName, storageLoc, imgPath));
     }
 
-    //
     //  edits the storage
-    //
     public void editStorage(long storageID, String storageName, String storageLoc)
     {
         BaseRepository.getDao().editStorage(storageID, storageName, storageLoc);
     }
 
-    //
     //  deletes the storage
-    //
     public void deleteStorage(long storageID)
     {
         BaseRepository.getDao().deleteStorage(storageID);

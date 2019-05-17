@@ -71,20 +71,16 @@ public class ComponentMenuActivity extends AppCompatActivity
         };
     }
 
-    //
     //  immediately retrieves file from taken img
     //  sets the VM img resource property
     //  loadImg will be called on after trigger of set()
-    //
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         componentVM.setComponentBitmap(componentVM.imgProcessor.getImgPath());
     }
 
-    //
     //  handles activity switch
-    //
     void switchActivity(Class classType)
     {
         Intent intent = new Intent(ComponentMenuActivity.this, classType);

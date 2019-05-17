@@ -4,13 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.mwb.digitalstorage.command_handlers.SearchCmdHandler;
 import com.mwb.digitalstorage.command_handlers.SearchedEntityCmdHandler;
-import com.mwb.digitalstorage.database.SearchedEntityRepository;
 import com.mwb.digitalstorage.databinding.ActivitySearchBinding;
-import com.mwb.digitalstorage.modelUI.UIEntity;
 import com.mwb.digitalstorage.viewmodel.SearchViewModel;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
 
 
 public class SearchActivity extends AppCompatActivity
@@ -22,9 +19,6 @@ public class SearchActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
-
-
         searchVM = new SearchViewModel();
         searchVM.setViewModelElements(getIntent().getLongExtra("previous_activity_id", 0L),
                                       getIntent().getExtras().getClass().getSuperclass(),
@@ -50,9 +44,7 @@ public class SearchActivity extends AppCompatActivity
         };
     }
 
-    //
     //  sets the command handler for the search
-    //
     private SearchCmdHandler searchCmdHandler()
     {
         return new SearchCmdHandler()
@@ -63,13 +55,7 @@ public class SearchActivity extends AppCompatActivity
                 searchVM.searchRelevance(s.toString());
             }
             @Override
-            public void goBack(Class previousClass, long previousEntityID)
-            {
-                Intent intent = new Intent(SearchActivity.this, previousClass);
-                intent.putExtra("entity_id", previousEntityID);
-                startActivity(intent);
-                overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
-            }
+            public void goBack() { onBackPressed(); }
         };
     }
 

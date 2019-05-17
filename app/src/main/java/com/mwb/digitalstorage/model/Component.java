@@ -65,11 +65,16 @@ public class Component implements com.mwb.digitalstorage.model.Entity
 
 
     public long getRackID() { return this.rackID; }
+
     public String getCategoryName(){ return this.categoryName; }
+
     @Override
     public String getName() { return null; }
+
     @Override
     public String getImgPath() { return this.imgPath; }
+
     public String getCode(){ return this.code; }
+
     public int getCount() { return this.count; }
 }

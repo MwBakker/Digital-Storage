@@ -24,9 +24,7 @@ public abstract class BaseActivity extends AppCompatActivity
         BaseRepository.setDao(getApplication());
     }
 
-    //
     //  command handler for the toolbar
-    //
     public ToolbarCmdHandler getToolbarCmdHandler(String nameOfPrevious, long idOfPrevious)
     {
         return new ToolbarCmdHandler()
@@ -43,9 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity
         };
     }
 
-    //
     //  creates the possibility of setting variable heights
-    //
     @BindingAdapter("android:layout_height")
     public static void setLayoutHeight(View view, float height)
     {
@@ -54,10 +50,8 @@ public abstract class BaseActivity extends AppCompatActivity
         view.setLayoutParams(layoutParams);
     }
 
-    //
     //  loadImg will be called on AS SOON AS
     //  the ViewModel property bound to imgSrc is called on
-    //
     @BindingAdapter({"app:customSrc"})
     public static void loadImg(ImageView view, Bitmap imgBitmap)
     {

@@ -25,14 +25,20 @@ public class UIRack implements UIEntity
 
     @Override
     public long getId() { return id; }
+
     @Override
     public String getName() { return nameObsv.get(); }
+
     @Override
     public String getParentKeyName() { return null; }
+
     public void setImgPath(String imgPath) { this.imgPath = imgPath; }
+
     public String getImgPath() { return  imgPath; }
+
     @Override
     public Bitmap getImg() { return imgObsv.get(); }
+
     @Override
     public void removeImg()
     {

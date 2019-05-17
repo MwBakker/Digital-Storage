@@ -21,24 +21,16 @@ public class SearchViewModel extends BaseViewModel
         searchedEntityRepository = new SearchedEntityRepository();
     }
 
-    //
     //  gets the ID of the previous activity
-    //
     public long getPreviousActivityID() { return previousActivityID; }
 
-    //
     //  gets the name of the previous activity
-    //
     public String getPreviousActivityName() { return previousActivityName; }
 
-    //
     //  gets the class of the previous activity
-    //
     public Class getPreviousActivityClass() { return previousActivityClass; }
 
-    //
     //  sets the viewModel elements
-    //
     public void setViewModelElements(long previousActivityID, Class previousActivityClass, String previousActivityName,  SearchedEntityCmdHandler cmdHandlerCallBack)
     {
         this.previousActivityID = previousActivityID;
@@ -47,9 +39,7 @@ public class SearchViewModel extends BaseViewModel
         foundEntitiesAdapterObsv.set(new SearchedEntityListAdapter(cmdHandlerCallBack));
     }
 
-    //
     //  performs searching through the database
-    //
     public void searchRelevance(String s)
     {
         executor.execute(() ->

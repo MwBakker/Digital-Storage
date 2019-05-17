@@ -1,13 +1,8 @@
 package com.mwb.digitalstorage.viewmodel;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import com.mwb.digitalstorage.database.RackRepository;
 import com.mwb.digitalstorage.database.StorageRepository;
 import com.mwb.digitalstorage.modelUI.UIStorage;
-
-import java.util.concurrent.Executors;
-import androidx.databinding.ObservableField;
 
 
 public class StorageMenuViewModel extends BaseViewModel
@@ -23,15 +18,11 @@ public class StorageMenuViewModel extends BaseViewModel
         uiStorage = new UIStorage(0L, "", "", "");
     }
 
-    //
     //  gets the storage
-    //
     public UIStorage getUiStorage() { return uiStorage; }
 
-    //
     //  adds the storage, retrieves the through
     //  above callBack method
-    //
     public void addStorage(RackRepository rackRepository)
     {
         executor.execute(() ->
@@ -41,9 +32,7 @@ public class StorageMenuViewModel extends BaseViewModel
         });
     }
 
-    //
     //  adds the new racks belonging to the newly created storage
-    //
     private void addRacksToStorage(long storageID, RackRepository rackRepository)
     {
         for (int i = 1; i <= uiStorage.rackAmountObsv.get(); i++)

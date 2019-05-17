@@ -32,8 +32,10 @@ public class Storage implements com.mwb.digitalstorage.model.Entity
 
     @Override
     public String getName() { return name; }
+
     @Override
     public String getImgPath() { return imgPath; }
+
     @NonNull
     public String getLocation(){ return location; }
 }

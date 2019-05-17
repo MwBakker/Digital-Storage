@@ -26,9 +26,7 @@ public class StorageListAdapter extends RecyclerView.Adapter<StorageListAdapter.
         this.mainViewCmdHandlerCallBack = mainViewCmdHandler;
     }
 
-    //
     //  creates the viewHolder
-    //
     @Override
     public StorageListAdapter.StorageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
@@ -38,18 +36,14 @@ public class StorageListAdapter extends RecyclerView.Adapter<StorageListAdapter.
         return new StorageViewHolder(binding);
     }
 
-    //
     //  binds recyclerView to viewHolder
-    //
     @Override
     public void onBindViewHolder(@NonNull StorageListAdapter.StorageViewHolder holder, int position)
     {
         holder.bind(storageUnits.get(position));
     }
 
-    //
     //  returns the list size
-    //
     @Override
     public int getItemCount()
     {
@@ -71,9 +65,7 @@ public class StorageListAdapter extends RecyclerView.Adapter<StorageListAdapter.
             binding.setCmdHandler(storageCmdHandler());
         }
 
-        //
         //  sets handlers belonging to the holder
-        //
         private StorageCmdHandler storageCmdHandler()
         {
             // handlers and methods
@@ -110,9 +102,7 @@ public class StorageListAdapter extends RecyclerView.Adapter<StorageListAdapter.
             };
         }
 
-        //
         //  binds the UIStorage unit to the model
-        //
         private void bind(@NonNull UIStorage UIStorage)
         {
             binding.setUIStorage(UIStorage);

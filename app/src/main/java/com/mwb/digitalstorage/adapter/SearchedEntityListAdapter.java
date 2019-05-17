@@ -24,16 +24,12 @@ public class SearchedEntityListAdapter extends RecyclerView.Adapter<SearchedEnti
         this.searchedEntityCmdHandlerCallBack = searchedEntityCmdHandlerCallBack;
     }
 
-    //
     //  sets the list source of the adapter
-    //
     public void setListSource(List<UIEntity> uiEntities)
     {
         this.uiEntities = uiEntities; }
 
-    //
     //  creates the viewHolder
-    //
     @Override
     public SearchedEntityListAdapter.SearchedEntityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
@@ -43,18 +39,14 @@ public class SearchedEntityListAdapter extends RecyclerView.Adapter<SearchedEnti
         return new SearchedEntityViewHolder(binding);
     }
 
-    //
     //  binds recyclerView to viewHolder
-    //
     @Override
     public void onBindViewHolder(@NonNull SearchedEntityListAdapter.SearchedEntityViewHolder holder, int position)
     {
         holder.bind(uiEntities.get(position));
     }
 
-    //
     //  returns the list size
-    //
     @Override
     public int getItemCount() { return (uiEntities != null) ? uiEntities.size() : 0; }
 
@@ -73,9 +65,7 @@ public class SearchedEntityListAdapter extends RecyclerView.Adapter<SearchedEnti
             binding.setCmdHandler(searchedEntityCmdHandler());
         }
 
-        //
         //  sets handlers belonging to the holder
-        //
         private SearchedEntityCmdHandler searchedEntityCmdHandler()
         {
             // handlers and methods
@@ -89,9 +79,7 @@ public class SearchedEntityListAdapter extends RecyclerView.Adapter<SearchedEnti
             };
         }
 
-        //
         //  binds the storage unit to the model
-        //
         private void bind(@NonNull UIEntity UIentity)
         {
             binding.setUIEntity(UIentity);

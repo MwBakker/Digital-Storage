@@ -32,9 +32,7 @@ public class RackListAdapter extends RecyclerView.Adapter<RackListAdapter.RackVi
         this.imgProcessor = imgProcessor;
     }
 
-    //
     // viewHolder creator, returner with listener and viewItem attached
-    //
     @Override
     public RackListAdapter.RackViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
@@ -44,18 +42,14 @@ public class RackListAdapter extends RecyclerView.Adapter<RackListAdapter.RackVi
         return new RackListAdapter.RackViewHolder(binding);
     }
 
-    //
     // binds the viewHolder to the adapter
-    //
     @Override
     public void onBindViewHolder(@NonNull RackViewHolder holder, int position)
     {
         holder.bind(UIRacks.get(position));
     }
 
-    //
     //  returns the list, or 0
-    //
     @Override
     public int getItemCount()
     {
@@ -78,9 +72,7 @@ public class RackListAdapter extends RecyclerView.Adapter<RackListAdapter.RackVi
             binding.setImgCmdHandler(photoCmdHandler());
         }
 
-        //
         //  sets handlers belonging to the rack
-        //
         private RackCmdHandler rackCmdHandler()
         {
             // handlers and methods
@@ -108,9 +100,7 @@ public class RackListAdapter extends RecyclerView.Adapter<RackListAdapter.RackVi
             };
         }
 
-        //
         //  sets photo related handlers belonging to the rack
-        //
         private ImgCmdHandler photoCmdHandler()
         {
             return new ImgCmdHandler()
@@ -124,9 +114,7 @@ public class RackListAdapter extends RecyclerView.Adapter<RackListAdapter.RackVi
             };
         }
 
-        //
         //  binds the UIRack unit to the model
-        //
         private void bind(@NonNull UIRack uiRack)
         {
             uiRack.imgObsv.set(imgProcessor.decodeImgPath(uiRack.getImgPath()));

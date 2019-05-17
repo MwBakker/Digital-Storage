@@ -10,7 +10,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 
-public class BaseViewModel extends ViewModel
+public abstract class BaseViewModel extends ViewModel
 {
     public ImageProcessor imgProcessor;
     public Executor executor;

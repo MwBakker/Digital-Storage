@@ -41,9 +41,7 @@ public class ComponentCategoryListAdapter extends RecyclerView.Adapter<Component
         holder.bind(componentCategories.get(position));
     }
 
-    //
     //  returns the list, or 0
-    //
     @Override
     public int getItemCount()
     {
@@ -66,9 +64,7 @@ public class ComponentCategoryListAdapter extends RecyclerView.Adapter<Component
             binding.setCmdHandler(componentCategoryCmdHandler());
         }
 
-        //
         //  sets handlers belonging to the holder
-        //
         private ComponentCategoryCmdHandler componentCategoryCmdHandler()
         {
             return new ComponentCategoryCmdHandler()
@@ -96,9 +92,7 @@ public class ComponentCategoryListAdapter extends RecyclerView.Adapter<Component
             };
         }
 
-        //
         //  binds the component unit to the model
-        //
         private void bind(@NonNull UIComponentCategory componentCat)
         {
             binding.setUIComponentCategory(componentCat);

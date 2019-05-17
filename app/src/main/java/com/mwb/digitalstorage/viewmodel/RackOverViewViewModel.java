@@ -38,14 +38,14 @@ public class RackOverViewViewModel extends BaseViewModel
         });
     }
 
+    // gets the uiStorage
     public UIStorage getUiStorage() { return uiStorage; }
 
+    // gets the uiRack
     public UIRack getUiRack() { return uiRack; }
 
-    //
     //  sets the editable rack
     //  first set the previous rack to non-edit status
-    //
     public void setEditableRack(UIRack uiRack)
     {
         if (this.uiRack != null)
@@ -56,9 +56,7 @@ public class RackOverViewViewModel extends BaseViewModel
         this.uiRack = uiRack;
     }
 
-    //
     //  saves the edit made on the rack
-    //
     public void saveRackEdit()
     {
         executor.execute(() ->

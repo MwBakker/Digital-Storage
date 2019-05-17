@@ -3,102 +3,112 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="cmdHandler"
-            type="com.mwb.digitalstorage.command_handlers.StorageCmdHandler"/>
+            type="com.mwb.digitalstorage.command_handlers.StorageCmdHandler" />
+
         <variable
             name="UIStorage"
-            type="com.mwb.digitalstorage.modelUI.UIStorage"/>
+            type="com.mwb.digitalstorage.modelUI.UIStorage" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@drawable/btn_background"
         android:layout_width="match_parent"
         android:layout_height="@{safeUnbox(UIStorage.isEditObsv) ? @dimen/dp_200 : @dimen/dp_125, default=wrap_content}"
         android:layout_margin="15dp"
+        android:background="@drawable/btn_background"
         android:onClick="@{(view) -> cmdHandler.enterEntity(UIStorage.id)}"
         android:onLongClick="@{(view) -> cmdHandler.editEntity(UIStorage)}">
+
         <TextView
             android:id="@+id/txt_storage_name"
             style="@style/wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginStart="55dp"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="55dp"
-            android:textSize="22dp"
-            android:textColor="@color/orange"
             android:text="@{UIStorage.nameObsv}"
-            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.GONE : View.VISIBLE}" />
+            android:textColor="@color/icon_color"
+            android:textSize="22sp"
+            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/edit_storage_name"
             style="@style/edit_item"
             android:layout_width="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="50dp"
-            android:textSize="22dp"
-            android:textColor="@color/orange"
-            android:text="@{UIStorage.nameObsv}"
             android:onTextChanged="@{cmdHandler::editEntityTitle}"
-            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.VISIBLE : View.GONE}"/>
+            android:text="@{UIStorage.nameObsv}"
+            android:textColor="@color/icon_color"
+            android:textSize="22sp"
+            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/img_pin"
             style="@style/icon_pin"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="70dp"
-            android:layout_marginLeft="50dp"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/txt_storage_location"
             style="@style/wrap_content"
             android:layout_width="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/txt_storage_name"
-            app:layout_constraintLeft_toLeftOf="@id/txt_storage_name"
+            android:layout_marginStart="60dp"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="60dp"
-            android:textSize="22dp"
-            android:textColor="@color/orange"
             android:text="@{UIStorage.locationObsv}"
-            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.GONE : View.VISIBLE}"/>
+            android:textColor="@color/icon_color"
+            android:textSize="22sp"
+            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintLeft_toLeftOf="@id/txt_storage_name"
+            app:layout_constraintTop_toBottomOf="@id/txt_storage_name" />
+
         <EditText
             android:id="@+id/edit_storage_loc"
             style="@style/edit_item"
             android:layout_width="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/edit_storage_name"
-            app:layout_constraintLeft_toLeftOf="@id/edit_storage_name"
-            android:layout_marginLeft="60dp"
-            android:textSize="22dp"
-            android:textColor="@color/orange"
-            android:text="@{UIStorage.locationObsv}"
+            android:layout_marginStart="60dp"
             android:onTextChanged="@{cmdHandler::editStorageLocation}"
-            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.VISIBLE : View.GONE}"/>
+            android:text="@{UIStorage.locationObsv}"
+            android:textColor="@color/icon_color"
+            android:textSize="22sp"
+            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toStartOf="@id/edit_storage_name"
+            app:layout_constraintTop_toBottomOf="@id/edit_storage_name" />
+
         <ImageButton
             android:id="@+id/btn_delete"
             style="@style/icon_bin"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.10"
-            app:layout_constraintHeight_percent="0.15"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_margin="15dp"
             android:onClick="@{() -> cmdHandler.deleteEntity()}"
-            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.10" />
+
         <ImageButton
             android:id="@+id/btn_approve"
             style="@style/icon_check"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.10"
-            app:layout_constraintHeight_percent="0.15"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             android:layout_margin="15dp"
             android:onClick="@{() -> cmdHandler.saveEntity(false)}"
-            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.10" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

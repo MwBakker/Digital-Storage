@@ -30,5 +30,6 @@ public class ComponentCategory
     //  get the name + amount of categories at one string
     //
     public String getName() { return this.name; }
+
     public int getAmountOfComponents() { return this.amountOfComponents; }
 }

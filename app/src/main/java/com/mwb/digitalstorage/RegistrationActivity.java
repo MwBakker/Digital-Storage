@@ -36,9 +36,7 @@ public class RegistrationActivity extends BaseActivity
         binding.setCmdHandler(registrationCmdHandler);
     }
 
-    //
     //  checks for permissions
-    //
     private void checkPermissions()
     {
         if (ContextCompat.checkSelfPermission(this,
@@ -63,9 +61,7 @@ public class RegistrationActivity extends BaseActivity
         }
     }
 
-    //
     //  checks if there is already a company existing
-    //
     private void checkExistence()
     {
         companyRegistrationVM.executor.execute(() ->
@@ -77,9 +73,7 @@ public class RegistrationActivity extends BaseActivity
         });
     }
 
-    //
     //  registration activity handler
-    //
     public RegistrationCmdHandler registrationCmdHandler()
     {
         return new RegistrationCmdHandler()
@@ -119,11 +113,9 @@ public class RegistrationActivity extends BaseActivity
         };
     }
 
-    //
     //  immediately retrieves file from taken img
     //  sets the VM img resource property
     //  loadImg will be called on after trigger of set()
-    //
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -138,9 +130,7 @@ public class RegistrationActivity extends BaseActivity
         companyRegistrationVM.companyImgObsv.set(companyRegistrationVM.imgProcessor.decodeImgPath());
     }
 
-    //
     //  switches activity
-    //
     public void switchActivity()
     {
         Intent intent = new Intent(RegistrationActivity.this, StorageOverViewActivity.class);

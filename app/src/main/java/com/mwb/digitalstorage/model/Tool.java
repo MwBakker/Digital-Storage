@@ -36,12 +36,16 @@ public class Tool implements com.mwb.digitalstorage.model.Entity
 
     @Override
     public String getName() { return name; }
+
     @Override
     public String getImgPath() { return null; }
+
     @NonNull
     public String getLocation(){ return location; }
+
     @NonNull
     public String getDescription(){ return description; }
+
     @NonNull
     public boolean isAvailable() { return available; }
 }

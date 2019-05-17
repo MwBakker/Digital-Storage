@@ -40,9 +40,7 @@ public class RackOverViewActivity extends BaseActivity
         binding.setTbCmdHandler(getToolbarCmdHandler("Storage", rackOverViewVM.getUiStorage().id));
     }
 
-    //
     //  sets the rack handlers
-    //
     private RackCmdHandler rackCmdHandler()
     {
         return new RackCmdHandler()
@@ -81,9 +79,7 @@ public class RackOverViewActivity extends BaseActivity
         };
     }
 
-    //
     //  photo command handler
-    //
     private ImgCmdHandler photoCmdHandler()
     {
         return new ImgCmdHandler()
@@ -107,9 +103,7 @@ public class RackOverViewActivity extends BaseActivity
         };
     }
 
-    //
     //  after photo taken
-    //
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -124,9 +118,7 @@ public class RackOverViewActivity extends BaseActivity
         rackOverViewVM.getUiRack().imgObsv.set(rackOverViewVM.imgProcessor.decodeImgPath());
     }
 
-    //
     //  handles the backButton
-    //
     @Override
     public void onBackPressed()
     {
@@ -134,9 +126,7 @@ public class RackOverViewActivity extends BaseActivity
         switchToItem(new Intent(RackOverViewActivity.this, StorageOverViewActivity.class));
     }
 
-    //
     //  switch to item
-    //
     private void switchToItem(Intent intent)
     {
         startActivity(intent);

@@ -40,9 +40,7 @@ public class ComponentOverViewActivity extends AppCompatActivity
         binding.setVm(componentOverViewVM);
     }
 
-    //
     //  sets the handler of the toolbar
-    //
     private ToolbarCmdHandler toolbarHandler()
     {
         return new ToolbarCmdHandler()
@@ -52,9 +50,7 @@ public class ComponentOverViewActivity extends AppCompatActivity
         };
     }
 
-    //
     //  sets the handler for the item (component category)
-    //
     private ComponentCategoryCmdHandler componentCategoryHandler()
     {
         return new ComponentCategoryCmdHandler()
@@ -80,9 +76,7 @@ public class ComponentOverViewActivity extends AppCompatActivity
         };
     }
 
-    //
     //  component handler
-    //
     public ComponentCmdHandler componentCmdHandler()
     {
         return new ComponentCmdHandler()
@@ -114,9 +108,7 @@ public class ComponentOverViewActivity extends AppCompatActivity
         };
     }
 
-    //
     //  handles the back button
-    //
     @Override
     public void onBackPressed()
     {

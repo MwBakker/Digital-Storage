@@ -32,9 +32,7 @@ public class StorageMenuActivity extends BaseActivity
         binding.setImgCmdHandler(photoCmdHandler());
     }
 
-    //
     //  sets the handlers
-    //
     private StorageMenuCmdHandler storageMenuCmdHandler()
     {
         // handlers and methods
@@ -70,9 +68,7 @@ public class StorageMenuActivity extends BaseActivity
         };
     }
 
-    //
     //  sets the handler of the photo
-    //
     private ImgCmdHandler photoCmdHandler()
     {
         // handlers and methods
@@ -97,9 +93,7 @@ public class StorageMenuActivity extends BaseActivity
         };
     }
 
-    //
     //  after photo taken
-    //
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -114,9 +108,7 @@ public class StorageMenuActivity extends BaseActivity
         storageMenuVM.getUiStorage().imgObsv.set(storageMenuVM.imgProcessor.decodeImgPath());
     }
 
-    //
     //  overrides the back button pressed
-    //
     @Override
     public void onBackPressed()
     {
@@ -124,9 +116,7 @@ public class StorageMenuActivity extends BaseActivity
         switchBackToOverView();
     }
 
-    //
     //  handles activity switch
-    //
     void switchBackToOverView()
     {
         Intent intent = new Intent(StorageMenuActivity.this, StorageOverViewActivity.class);

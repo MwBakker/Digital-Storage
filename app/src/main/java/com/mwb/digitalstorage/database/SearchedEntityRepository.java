@@ -16,9 +16,7 @@ public class SearchedEntityRepository
     private List<UIEntity> uiEntities = new ArrayList<>();
 
 
-    //
     //  retrieve all found entities
-    //
     public List<UIEntity> findEntities(String s)
     {
         if (uiEntities.size() > 1) { uiEntities.clear(); }

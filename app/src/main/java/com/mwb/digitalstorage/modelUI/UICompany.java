@@ -21,13 +21,13 @@ public class UICompany
         this.imgPath = imgPath;
     }
 
-    //
-    //  sets the imgPath
-    //
+    //  sets the image path
     public void setImgPath(String imgPath) { this.imgPath = imgPath; }
 
+    // gets the image path
     public String getImgPath() { return imgPath; }
 
+    // removes the image
     public void removeImg()
     {
         imgObsv = null;

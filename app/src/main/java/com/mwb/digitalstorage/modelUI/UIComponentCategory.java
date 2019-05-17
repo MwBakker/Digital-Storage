@@ -30,17 +30,15 @@ public class UIComponentCategory extends BaseObservable
 
     public long getComponentCatID() { return this.componentCatID; }
 
-    //
+
     //  sets the component category, since this is not an official VM but a model extension
-    //
     public void onTextChanged(CharSequence s, int start, int before, int count)
     {
         componentCatName.set(s.toString());
     }
 
-    //
+
     //  defines color and state of selection
-    //
     public boolean setSelectedState()
     {
         int parsedColor = Color.parseColor("#CFD8DC");
@@ -48,9 +46,8 @@ public class UIComponentCategory extends BaseObservable
         return parsedColor != this.color.get();
     }
 
-    //
+
     //  overrides toString for the right text display
-    //
     @Override
     public String toString()
     {

@@ -1,202 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context=".RegistrationActivity"
-    android:background="@color/colorLighter">
+    android:background="@color/background"
+    tools:context=".RegistrationActivity">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="vm"
-            type="com.mwb.digitalstorage.viewmodel.StorageOverViewViewModel"/>
+            type="com.mwb.digitalstorage.viewmodel.StorageOverViewViewModel" />
+
         <variable
             name="cmdHandler"
-            type="com.mwb.digitalstorage.command_handlers.StorageCmdHandler"/>
+            type="com.mwb.digitalstorage.command_handlers.StorageCmdHandler" />
+
         <variable
             name="companyCmdHandler"
-            type="com.mwb.digitalstorage.command_handlers.RegistrationCmdHandler"/>
+            type="com.mwb.digitalstorage.command_handlers.RegistrationCmdHandler" />
+
         <variable
             name="tbvm"
-            type="com.mwb.digitalstorage.viewmodel.ToolbarViewModel"/>
+            type="com.mwb.digitalstorage.viewmodel.ToolbarViewModel" />
+
         <variable
             name="tbCmdHandler"
-            type="com.mwb.digitalstorage.command_handlers.ToolbarCmdHandler"/>
+            type="com.mwb.digitalstorage.command_handlers.ToolbarCmdHandler" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
-            style="@style/match_parent"
-            android:focusableInTouchMode="true">
+        style="@style/match_parent"
+        android:focusableInTouchMode="true">
+
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar"
-            app:vm="@{tbvm}"
-            app:cmdHandler="@{tbCmdHandler}"/>
+            app:cmdHandler="@{tbCmdHandler}"
+            app:vm="@{tbvm}" />
+
         <include
             android:id="@+id/company_img"
+            layout="@layout/img_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.25"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:img="@{vm.uiCompany.imgObsv}"
             app:cmdHandler="@{companyCmdHandler}"
-            app:isFaded="@{true}"
+            app:img="@{vm.uiCompany.imgObsv}"
             app:isEditObsv="@{safeUnbox(vm.uiCompany.isEdit)}"
-            layout="@layout/img_view"/>
+            app:isFaded="@{true}"
+            app:layout_constraintHeight_percent="0.24"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
         <ImageButton
             android:id="@+id/btn_check"
             style="@style/icon_check"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/company_img"
-            android:layout_marginLeft="75dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="76dp"
             android:layout_marginBottom="8dp"
             android:onClick="@{() -> companyCmdHandler.saveCompany()}"
-            android:visibility="@{vm.uiCompany.isEdit ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{vm.uiCompany.isEdit ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/company_img"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
         <TextView
             android:id="@+id/txt_main_title"
             style="@style/wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/company_img"
-            app:layout_constraintBottom_toBottomOf="@id/company_img"
             android:layout_marginLeft="100dp"
             android:layout_marginBottom="125dp"
-            android:textSize="22dp"
-            android:textColor="@color/orange"
             android:background="#660F0F0F"
             android:text="@{vm.uiCompany.nameObsv}"
-            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.GONE : View.VISIBLE}"/>
+            android:textColor="@color/icon_color"
+            android:textSize="22dp"
+            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@id/company_img"
+            app:layout_constraintLeft_toLeftOf="@id/company_img" />
+
         <EditText
             style="@style/edit_item"
             android:layout_width="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/company_img"
-            app:layout_constraintBottom_toBottomOf="@id/company_img"
             android:layout_marginLeft="100dp"
             android:layout_marginBottom="125dp"
-            android:textSize="22dp"
-            android:textColor="@color/orange"
             android:background="#660F0F0F"
-            android:text="@{vm.uiCompany.nameObsv}"
             android:onTextChanged="@{companyCmdHandler::editCompanyName}"
-            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.VISIBLE : View.GONE}"/>
+            android:text="@{vm.uiCompany.nameObsv}"
+            android:textColor="@color/icon_color"
+            android:textSize="22dp"
+            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/company_img"
+            app:layout_constraintLeft_toLeftOf="@id/company_img" />
+
         <ImageButton
             android:id="@+id/icon_pin"
             style="@style/icon_pin"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginBottom="52dp"
             app:layout_constraintBottom_toBottomOf="@id/company_img"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginBottom="50dp"
-            android:layout_marginLeft="60dp"/>
+            app:layout_constraintLeft_toLeftOf="parent" />
+
         <TextView
             style="@style/wrap_content"
-            app:layout_constraintTop_toTopOf="@+id/icon_pin"
-            app:layout_constraintLeft_toRightOf="@id/icon_pin"
-            android:layout_marginLeft="25dp"
-            android:textSize="22dp"
-            android:textColor="@color/orange"
+            android:layout_marginStart="24dp"
             android:background="#660F0F0F"
             android:text="@{vm.uiCompany.locationObsv}"
-            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.GONE : View.VISIBLE}"/>
+            android:textColor="@color/icon_color"
+            android:textSize="24sp"
+            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintLeft_toRightOf="@id/icon_pin"
+            app:layout_constraintTop_toTopOf="@+id/icon_pin" />
+
         <EditText
             style="@style/edit_item"
             android:layout_width="wrap_content"
-            app:layout_constraintTop_toTopOf="@+id/icon_pin"
-            app:layout_constraintLeft_toRightOf="@id/icon_pin"
             android:layout_marginLeft="25dp"
             android:layout_marginBottom="150dp"
-            android:textSize="22dp"
-            android:textColor="@color/orange"
             android:background="#660F0F0F"
-            android:text="@{vm.uiCompany.locationObsv}"
             android:onTextChanged="@{companyCmdHandler::editCompanyLocation}"
-            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.VISIBLE : View.GONE}"/>
+            android:text="@{vm.uiCompany.locationObsv}"
+            android:textColor="@color/icon_color"
+            android:textSize="22dp"
+            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintLeft_toRightOf="@id/icon_pin"
+            app:layout_constraintTop_toTopOf="@+id/icon_pin" />
+
         <ImageButton
             style="@style/icon_edit"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            app:layout_constraintBottom_toBottomOf="@id/company_img"
-            app:layout_constraintRight_toRightOf="@id/company_img"
             android:onClick="@{() -> companyCmdHandler.editCompany()}"
-            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.GONE : View.VISIBLE}"/>
+            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@id/company_img"
+            app:layout_constraintRight_toRightOf="@id/company_img" />
+
         <TextView
             android:id="@+id/txt_storage_units"
             style="@style/wrap_content"
-            android:text="Storage units"
-            app:layout_constraintTop_toBottomOf="@id/company_img"
-            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="40dp"
+            android:text="@string/storage_units"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="40dp"/>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/company_img" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.7"
+            android:layout_marginTop="20dp"
             android:fillViewport="true"
-            app:layout_constraintTop_toBottomOf="@id/txt_storage_units"
-            android:layout_marginTop="20dp">
+            app:layout_constraintHeight_percent="0.7"
+            app:layout_constraintTop_toBottomOf="@id/txt_storage_units">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_storage_units"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        app:layout_constraintHeight_percent="0.55"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:layout_marginTop="15dp"
-                        android:adapter="@{vm.storageListAdapterObsv}"
-                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                        app:spanCount="2"
-                        tools:listitem="@layout/storage_item" />
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/FAB_Storage"
-                        style="@style/floating_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/add"
-                        app:layout_constraintTop_toBottomOf="@+id/rv_storage_units"
-                        app:layout_constraintRight_toRightOf="@+id/hr"
-                        android:layout_margin="15dp"
-                        android:onClick="@{(view) -> cmdHandler.addNewEntity()}"/>
-                    <View
-                        android:id="@+id/hr"
-                        style="@style/hr_white"
-                        app:layout_constraintTop_toBottomOf="@id/FAB_Storage"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent" />
-                    <TextView
-                        android:id="@+id/txt_tools"
-                        style="@style/wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/hr"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:layout_marginTop="15dp"
-                        android:text="Tools"/>
-                    <Button
-                        android:id="@+id/btn_available"
-                        style="@style/btn_general"
-                        android:textColor="@color/orange"
-                        android:layout_width="0dp"
-                        android:layout_height="100dp"
-                        app:layout_constraintWidth_percent="0.45"
-                        app:layout_constraintTop_toBottomOf="@+id/hr"
-                        app:layout_constraintRight_toLeftOf="@+id/txt_tools"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:text="Available"/>
-                    <Button
-                        android:id="@+id/btn_lent"
-                        style="@style/btn_general"
-                        android:textColor="@color/orange"
-                        android:layout_width="0dp"
-                        android:layout_height="100dp"
-                        app:layout_constraintWidth_percent="0.45"
-                        app:layout_constraintTop_toBottomOf="@+id/hr"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toRightOf="@+id/txt_tools"
-                        android:text="Lent"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_storage_units"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="15dp"
+                    android:adapter="@{vm.storageListAdapterObsv}"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintHeight_percent="0.55"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:spanCount="2"
+                    tools:listitem="@layout/storage_item" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/FAB_Storage"
+                    style="@style/floating_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:onClick="@{(view) -> cmdHandler.addNewEntity()}"
+                    android:src="@mipmap/add"
+                    app:layout_constraintRight_toRightOf="@+id/hr"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_storage_units" />
+
+                <View
+                    android:id="@+id/hr"
+                    style="@style/hr_white"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/FAB_Storage" />
+
+                <TextView
+                    android:id="@+id/txt_tools"
+                    style="@style/wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/tools"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/hr" />
+
+                <Button
+                    android:id="@+id/btn_available"
+                    style="@style/btn_general"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:text="Available"
+                    android:textColor="@color/icon_color"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/txt_tools"
+                    app:layout_constraintTop_toBottomOf="@+id/hr"
+                    app:layout_constraintWidth_percent="0.45" />
+
+                <Button
+                    android:id="@+id/btn_lent"
+                    style="@style/btn_general"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:text="Lent"
+                    android:textColor="@color/icon_color"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/txt_tools"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/hr"
+                    app:layout_constraintWidth_percent="0.45" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,9 +28,7 @@ public class ImageProcessor
     public String getImgPath() { return imgPath; }
 
 
-    //
     //  creates the intent
-    //
     public Intent dispatchTakePictureIntent(Context context, File storageDir)
     {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -57,9 +55,7 @@ public class ImageProcessor
         return takePictureIntent;
     }
 
-    //
     //  creates a file from taken image
-    //
     private File createImageFile(File storageDir) throws IOException
     {
         // Create an image file name
@@ -71,9 +67,7 @@ public class ImageProcessor
         return image;
     }
 
-    //
     //  returns result of browsing an image
-    //
     public String browseImage(Intent data, Application app)
     {
         Uri selectedImage = data.getData();
@@ -87,9 +81,8 @@ public class ImageProcessor
         return imgPath;
     }
 
-    //
     //  decodes the imgPath to a file
-    //
     public Bitmap decodeImgPath() { return BitmapFactory.decodeFile(imgPath); }
+
     public Bitmap decodeImgPath(String path) { return BitmapFactory.decodeFile(path); }
 }

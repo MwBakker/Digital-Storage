@@ -6,95 +6,117 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="windowActionBar">false</item>
-        <item name="android:textColor">@color/slightwhite</item>
+        <item name="android:textColor">@color/general_txt_color</item>
         <item name="android:textSize">24sp</item>
     </style>
+
     <style name="match_parent">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
+
     <style name="wrap_content">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
     <style name="match_and_wrap">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
     <style name="recycler_view_storages" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">match_parent</item>
     </style>
+
     <style name="word_title">
         <item name="android:layout_height">26dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginBottom">6dp</item>
         <item name="android:paddingLeft">8dp</item>
     </style>
+
     <style name="btn_general" parent="wrap_content">
         <item name="android:padding">8dp</item>
         <item name="android:background">@drawable/btn_background</item>
         <item name="android:clickable">true</item>
         <item name="android:radius">5dp</item>
     </style>
+
     <style name="img_general">
         <item name="android:padding">2dp</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:scaleType">fitXY</item>
     </style>
+
     <style name="edit_item" parent="match_and_wrap">
         <item name="android:textSize">27sp</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
     </style>
+
     <style name="floating_button" parent="wrap_content">
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:src">@mipmap/add</item>
         <item name="android:background">@drawable/btn_icon_background</item>
     </style>
-    <style name="numberpicker" parent="wrap_content">
-        <item name="android:textColorPrimary">@color/slightwhite</item>
+
+    <style name="number_picker" parent="wrap_content">
+        <item name="android:textColorPrimary">@color/general_txt_color</item>
     </style>
+
     <style name="spinner_item" parent="wrap_content">
-        <item name="android:textColor">@color/slightwhite</item>
+        <item name="android:textColor">@color/general_txt_color</item>
         <item name="android:padding">10dp</item>
         <item name="android:textSize">25dp</item>
     </style>
+
     <style name="hr_white">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">0.5dp</item>
         <item name="android:layout_marginLeft">12.5dp</item>
         <item name="android:layout_marginRight">12.5dp</item>
-        <item name="android:background">@color/slightwhite</item>
+        <item name="android:background">@color/general_txt_color</item>
     </style>
+
     <style name="icon_def" parent="wrap_content">
         <item name="android:background">@drawable/btn_icon_background</item>
         <item name="android:scaleType">fitXY</item>
     </style>
+
     <style name="icon_check" parent="icon_def">
         <item name="android:src">@mipmap/checkmark</item>
     </style>
+
     <style name="icon_del" parent="icon_def">
         <item name="android:src">@mipmap/close</item>
     </style>
+
     <style name="icon_bin" parent="icon_def">
         <item name="android:src">@mipmap/garbage</item>
     </style>
+
     <style name="icon_add" parent="icon_def">
         <item name="android:src">@mipmap/add</item>
     </style>
+
     <style name="icon_search" parent="icon_def">
         <item name="android:src">@mipmap/search</item>
     </style>
+
     <style name="icon_folder" parent="icon_def">
         <item name="android:src">@mipmap/folder</item>
     </style>
+
     <style name="icon_camera" parent="icon_def">
         <item name="android:src">@mipmap/photo_camera</item>
     </style>
+
     <style name="icon_pin" parent="icon_def">
         <item name="android:src">@mipmap/pinpoint</item>
     </style>
+
     <style name="icon_edit" parent="icon_def">
         <item name="android:src">@mipmap/edit</item>
     </style>

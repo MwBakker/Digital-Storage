@@ -29,6 +29,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
     public ObservableField<ComponentCategoryListAdapter> componentCatListAdapterObsv = new ObservableField<>();
 
 
+    // sets the elements belonging to the viewModel
     public void setViewModelElements(long storageID, long rackID, LifecycleOwner lifecycleOwner, ComponentCategoryCmdHandler componentCategoryCmdHandler,
                                         ComponentCmdHandler componentCmdHandler)
     {
@@ -56,10 +57,13 @@ public class ComponentOverViewViewModel extends BaseViewModel
         });
     }
 
+    // gets the storage ID
     public long getStorageID() { return storageID; }
 
+    // gets the rack ID
     public long getRackID() { return rackID; }
 
+    // gets the component
     public UIComponent getComponent() { return uiComponent; }
 
     //
@@ -75,9 +79,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
         this.uiComponentCategory = uiComponentCategory;
     }
 
-    //
     //  sets the to-be-edited component
-    //
     public void setComponent(UIComponent uiComponent)
     {
         if (this.uiComponent != null)
@@ -88,9 +90,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
         this.uiComponent = uiComponent;
     }
 
-    //
     //  performs sorting on the components per selected category
-    //
     public void sort(UIComponentCategory uiComponentCategory)
     {
         uiComponentCategory.setSelectedState();
@@ -109,9 +109,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
         };
     }
 
-    //
     //  saves the category edit
-    //
     public void saveComponentCategoryEdit()
     {
         executor.execute(() ->
@@ -121,9 +119,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
         });
     }
 
-    //
     //  saves the component edit
-    //
     public void saveComponentEdit()
     {
         executor.execute(() ->
@@ -133,9 +129,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
         });
     }
 
-    //
     //  removes the component
-    //
     public void deleteComponent()
     {
         componentRepository.deleteComponent(uiComponent.getId());

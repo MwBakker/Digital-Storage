@@ -1,68 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".StorageMenuActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".StorageMenuActivity">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="cmdHandler"
-            type="com.mwb.digitalstorage.command_handlers.entity.EntityMenuCmdHandler"/>
+            type="com.mwb.digitalstorage.command_handlers.entity.EntityMenuCmdHandler" />
+
         <variable
             name="imgCmdHandler"
-            type="com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler"/>
+            type="com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler" />
+
         <variable
             name="vm"
-            type="com.mwb.digitalstorage.viewmodel.RackMenuViewModel"/>
+            type="com.mwb.digitalstorage.viewmodel.RackMenuViewModel" />
     </data>
 
     <ScrollView
         style="@style/match_parent"
         android:fillViewport="true">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <EditText
                 android:id="@+id/edit_rack_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@android:color/white"
+                android:hint="@string/rack_name_hint"
+                android:text="@={vm.uiRack().nameObsv}"
                 android:textColor="@android:color/white"
-                android:hint="Rack name"
-                android:text="@={vm.uiRack().nameObsv}" />
+                app:layout_constraintTop_toTopOf="parent" />
+
             <include
                 android:id="@+id/img_view"
                 layout="@layout/img_view"
                 android:layout_width="match_parent"
                 android:layout_height="275dp"
-                app:layout_constraintTop_toBottomOf="@+id/edit_rack_name"
                 android:layout_marginTop="100dp"
+                app:cmdHandler="@{cmdHandler}"
                 app:img="@{vm.uiRack.imgObsv}"
                 app:isEditObsv="@{true}"
-                app:cmdHandler="@{cmdHandler}"/>
+                app:layout_constraintTop_toBottomOf="@+id/edit_rack_name" />
+
             <Button
                 android:id="@+id/btn_cancel"
                 style="@style/btn_general"
                 android:layout_width="0dp"
-                app:layout_constraintWidth_percent="0.5"
+                android:onClick="@{(view) -> cmdHandler.cancelMenu()}"
+                android:text="Cancel"
+                android:textColor="@color/icon_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:textColor="@color/orange"
-                android:text="Cancel"
-                android:onClick="@{(view) -> cmdHandler.cancelMenu()}"/>
+                app:layout_constraintWidth_percent="0.5" />
+
             <Button
                 android:id="@+id/btn_add_storage"
                 style="@style/btn_general"
                 android:layout_width="0dp"
-                app:layout_constraintWidth_percent="0.5"
+                android:onClick="@{(view) -> cmdHandler.saveNewEntity()}"
+                android:text="Add rack"
+                android:textColor="@color/icon_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:textColor="@color/orange"
-                android:text="Add rack"
-                android:onClick="@{(view) -> cmdHandler.saveNewEntity()}"/>
+                app:layout_constraintWidth_percent="0.5" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

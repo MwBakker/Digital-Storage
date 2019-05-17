@@ -40,16 +40,24 @@ public class UIComponent implements UIEntity
 
     @Override
     public long getId() { return id; }
+
     public long getRackID() { return rackID; }
+
     public long getComponentCatID() { return componentCatID; }
+
     @Override
     public String getName() { return nameObsv.get(); }
+
     public String getComponentCatName() { return componentCatName; }
+
     @Override
     public String getParentKeyName() { return null; }
+
     @Override
     public Bitmap getImg() { return imgObsv.get(); }
+
     public void setImgPath(String imgPath) { this.imgPath = imgPath; }
+
     @Override
     public void removeImg()
     {

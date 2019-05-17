@@ -17,13 +17,9 @@ public class ToolbarViewModel extends ViewModel
         date = sdf.format(new Date());
     }
 
-    //
     //  gets previous activity
-    //
     public String getActivityName() { return activityName; }
 
-    //
     //  gets date
-    //
     public String getDate() { return date; }
 }

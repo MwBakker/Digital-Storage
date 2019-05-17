@@ -28,9 +28,7 @@ public class RackMenuActivity extends AppCompatActivity
         binding.setCmdHandler(handler());
     }
 
-    //
     //  sets the handlers
-    //
     private EntityMenuCmdHandler handler()
     {
         // handlers and methods
@@ -61,11 +59,9 @@ public class RackMenuActivity extends AppCompatActivity
         };
     }
 
-    //
     //  immediately retrieves file from taken img
     //  sets the VM img resource property
     //  loadImg will be called on after trigger of set()
-    //
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -80,9 +76,7 @@ public class RackMenuActivity extends AppCompatActivity
         }
     }
 
-    //
     //  handles activity switch
-    //
     private void switchToItem()
     {
         Intent intent = new Intent(RackMenuActivity.this, RackOverViewActivity.class);

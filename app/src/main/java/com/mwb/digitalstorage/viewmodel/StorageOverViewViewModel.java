@@ -38,14 +38,10 @@ public class StorageOverViewViewModel extends BaseViewModel
     }
 
 
-    //
     //  gets the involved uiCompany
-    //
     public UICompany getUiCompany() { return uiCompany; }
 
-    //
     //  saves the company edit
-    //
     public void saveCompanyEdit()
     {
         uiCompany.isEdit.set(false);
@@ -55,23 +51,17 @@ public class StorageOverViewViewModel extends BaseViewModel
         });
     }
 
-    //
     //  sets the storage to be edited
-    //
     public void setEditableStorage(UIStorage uiStorage)
     {
         this.uiStorage = uiStorage;
         uiStorage.isEditObsv.set(true);
     }
 
-    //
     //  gets the editable storage
-    //
     public UIStorage getUiStorage() { return uiStorage; }
 
-    //
     //  edits the storage
-    //
     public void saveStorageEdit()
     {
         executor.execute(() ->
@@ -81,9 +71,7 @@ public class StorageOverViewViewModel extends BaseViewModel
         uiStorage.isEditObsv.set(false);
     }
 
-    //
     //  delete the storage
-    //
     public void deleteStorage()
     {
         executor.execute(() -> { storageRepository.deleteStorage(uiStorage.id); });

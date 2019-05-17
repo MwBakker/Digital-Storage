@@ -1,86 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="cmdHandler"
-            type="com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler"/>
+            type="com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler" />
+
         <variable
             name="img"
-            type="android.graphics.Bitmap"/>
+            type="android.graphics.Bitmap" />
+
         <variable
             name="isFaded"
-            type="boolean"/>
+            type="boolean" />
+
         <variable
             name="isEditObsv"
-            type="boolean"/>
+            type="boolean" />
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="400dp">
-    <ImageView
-        android:id="@+id/main_img"
-        style="@style/img_general"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:customSrc="@{img}"/>
-    <View
-        style="@style/match_parent"
-        android:background="@drawable/gradient_blue"
-        app:layout_constraintTop_toTopOf="@id/main_image"
-        app:layout_constraintRight_toRightOf="@id/main_image"
-        app:layout_constraintBottom_toBottomOf="@id/main_image"
-        app:layout_constraintLeft_toLeftOf="@id/main_image"
-        android:visibility="@{isFaded ? View.VISIBLE : View.GONE}"/>
-    <TextView
-        style="@style/wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/main_img"
-        app:layout_constraintRight_toRightOf="@+id/main_img"
-        app:layout_constraintBottom_toBottomOf="@+id/main_img"
-        app:layout_constraintLeft_toLeftOf="@+id/main_img"
-        android:text="No image"
-        android:visibility="@{img == null ? View.VISIBLE : View.GONE}"/>
-    <ImageButton
-        android:id="@+id/btn_remove_img"
-        style="@style/icon_del"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintWidth_percent="0.10"
-        app:layout_constraintHeight_percent="0.15"
-        app:layout_constraintBottom_toBottomOf="@id/main_img"
-        app:layout_constraintLeft_toLeftOf="@id/main_img"
-        android:layout_margin="10dp"
-        android:onClick="@{() -> cmdHandler.removePhoto()}"
-        android:visibility="@{isEditObsv ? View.VISIBLE : View.GONE}"/>
-    <ImageButton
-        android:id="@+id/btn_browse"
-        style="@style/icon_folder"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintWidth_percent="0.10"
-        app:layout_constraintHeight_percent="0.18"
-        app:layout_constraintBottom_toBottomOf="@id/main_img"
-        app:layout_constraintRight_toLeftOf="@id/btn_add_img"
-        android:layout_marginRight="60dp"
-        android:layout_marginBottom="5dp"
-        android:onClick="@{() -> cmdHandler.browsePhoto()}"
-        android:visibility="@{isEditObsv ? View.VISIBLE : View.GONE}"/>
-    <ImageButton
-        android:id="@+id/btn_add_img"
-        style="@style/icon_camera"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintWidth_percent="0.10"
-        app:layout_constraintHeight_percent="0.18"
-        app:layout_constraintBottom_toBottomOf="@id/main_img"
-        app:layout_constraintRight_toRightOf="@id/main_img"
-        android:layout_margin="5dp"
-        android:onClick="@{() -> cmdHandler.takePhoto()}"
-        android:visibility="@{isEditObsv ? View.VISIBLE : View.GONE}"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="400dp">
+
+        <ImageView
+            android:id="@+id/main_img"
+            style="@style/img_general"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:customSrc="@{img}"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            style="@style/match_parent"
+            android:background="@drawable/gradient_blue"
+            android:visibility="@{isFaded ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/main_image"
+            app:layout_constraintLeft_toLeftOf="@id/main_image"
+            app:layout_constraintRight_toRightOf="@id/main_image"
+            app:layout_constraintTop_toTopOf="@id/main_image" />
+
+        <TextView
+            style="@style/wrap_content"
+            android:text="@string/no_image"
+            android:visibility="@{img == null ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@+id/main_img"
+            app:layout_constraintLeft_toLeftOf="@+id/main_img"
+            app:layout_constraintRight_toRightOf="@+id/main_img"
+            app:layout_constraintTop_toTopOf="@+id/main_img" />
+
+        <ImageButton
+            android:id="@+id/btn_remove_img"
+            style="@style/icon_del"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="10dp"
+            android:onClick="@{() -> cmdHandler.removePhoto()}"
+            android:visibility="@{isEditObsv ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/main_img"
+            app:layout_constraintLeft_toLeftOf="@id/main_img" />
+
+        <ImageButton
+            android:id="@+id/btn_browse"
+            style="@style/icon_folder"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="5dp"
+            android:onClick="@{() -> cmdHandler.browsePhoto()}"
+            android:visibility="@{isEditObsv ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/main_img"
+            app:layout_constraintRight_toLeftOf="@id/btn_add_img" />
+
+        <ImageButton
+            android:id="@+id/btn_add_img"
+            style="@style/icon_camera"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="5dp"
+            android:onClick="@{() -> cmdHandler.takePhoto()}"
+            android:visibility="@{isEditObsv ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/main_img"
+            app:layout_constraintRight_toRightOf="@id/main_img" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="cmdHandler"
-            type="com.mwb.digitalstorage.command_handlers.ComponentCmdHandler"/>
+            type="com.mwb.digitalstorage.command_handlers.ComponentCmdHandler" />
+
         <variable
             name="UIComponent"
-            type="com.mwb.digitalstorage.modelUI.UIComponent"/>
+            type="com.mwb.digitalstorage.modelUI.UIComponent" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,104 +20,114 @@
         android:layout_height="150dp"
         android:background="#65030303"
         android:onLongClick="@{(view) -> cmdHandler.editEntity(UIComponent)}">
+
         <ImageView
             android:id="@+id/img"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:layout_constraintWidth_percent="0.25"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.25" />
+
         <TextView
             android:id="@+id/component_category"
             style="@style/wrap_content"
-            android:textSize="25sp"
-            android:textColor="@color/orange"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/img"
-            app:layout_constraintBottom_toTopOf="@id/hr"
             android:layout_marginLeft="40dp"
-            android:text="@{UIComponent.componentCatName}"/>
+            android:text="@{UIComponent.componentCatName}"
+            android:textColor="@color/icon_color"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@id/hr"
+            app:layout_constraintLeft_toRightOf="@id/img"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             style="@style/wrap_content"
-            android:textColor="#A4FFA726"
-            app:layout_constraintTop_toTopOf="@+id/img"
-            app:layout_constraintLeft_toLeftOf="@+id/img"
-            app:layout_constraintBottom_toBottomOf="@+id/img"
-            app:layout_constraintRight_toRightOf="@+id/img"
             android:text="No image"
-            android:visibility="@{UIComponent.getImg == null ? View.VISIBLE : View.GONE}" />
+            android:textColor="#A4FFA726"
+            android:visibility="@{UIComponent.getImg == null ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@+id/img"
+            app:layout_constraintLeft_toLeftOf="@+id/img"
+            app:layout_constraintRight_toRightOf="@+id/img"
+            app:layout_constraintTop_toTopOf="@+id/img" />
+
         <TextView
             android:id="@+id/component_name"
             style="@style/wrap_content"
-            android:textSize="25sp"
-            android:textColor="@color/orange"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="@id/txt_component_amount"
-            app:layout_constraintLeft_toRightOf="@id/img"
-            app:layout_constraintBottom_toTopOf="@id/hr"
-            android:layout_marginBottom="20dp"
             android:layout_marginRight="10dp"
-            android:text="@{UIComponent.name}"/>
+            android:layout_marginBottom="20dp"
+            android:text="@{UIComponent.name}"
+            android:textColor="@color/icon_color"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@id/hr"
+            app:layout_constraintLeft_toRightOf="@id/img"
+            app:layout_constraintRight_toRightOf="@id/txt_component_amount"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/txt_component_code"
             style="@style/wrap_content"
-            android:textSize="23sp"
-            android:textColor="@color/orange"
-            app:layout_constraintTop_toBottomOf="@+id/component_name"
-            app:layout_constraintRight_toRightOf="@+id/component_name"
-            app:layout_constraintLeft_toLeftOf="@+id/component_name"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="65dp"
-            android:text="@{UIComponent.codeObsv}"/>
+            android:layout_marginTop="15dp"
+            android:text="@{UIComponent.codeObsv}"
+            android:textColor="@color/icon_color"
+            android:textSize="23sp"
+            app:layout_constraintLeft_toLeftOf="@+id/component_name"
+            app:layout_constraintRight_toRightOf="@+id/component_name"
+            app:layout_constraintTop_toBottomOf="@+id/component_name" />
+
         <TextView
             android:id="@+id/txt_component_amount"
             style="@style/wrap_content"
+            android:layout_marginRight="3dp"
+            android:text="@{UIComponent.count}"
             android:textColor="#A4FFA726"
             android:textSize="28sp"
-            app:layout_constraintTop_toTopOf="@id/txt_component_amount_add_on"
             app:layout_constraintRight_toLeftOf="@id/txt_component_amount_add_on"
-            android:layout_marginRight="3dp"
-            android:text="@{UIComponent.count}"/>
+            app:layout_constraintTop_toTopOf="@id/txt_component_amount_add_on" />
+
         <TextView
             android:id="@+id/txt_component_amount_add_on"
             style="@style/wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="X"
             android:textColor="#A4FFA726"
             android:textSize="28sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/btn_add"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginRight="5dp"
-            android:text="X"/>
+            app:layout_constraintRight_toLeftOf="@id/btn_add"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <View
             android:id="@+id/hr"
             style="@style/hr_white"
-            app:layout_constraintTop_toBottomOf="@id/txt_component_code"
+            android:layout_marginTop="23dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="23dp"/>
+            app:layout_constraintTop_toBottomOf="@id/txt_component_code" />
+
         <ImageButton
             android:id="@+id/btn_add"
             style="@style/icon_check"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.10"
-            app:layout_constraintHeight_percent="0.25"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="15dp"
             android:onClick="@{() -> cmdHandler.saveEntity(false)}"
-            android:visibility="@{safeUnbox(UIComponent.isEditObsv) ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{safeUnbox(UIComponent.isEditObsv) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintHeight_percent="0.25"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.10" />
+
         <ImageButton
             style="@style/icon_bin"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.10"
-            app:layout_constraintHeight_percent="0.25"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="15dp"
             android:onClick="@{() -> cmdHandler.deleteEntity()}"
-            android:visibility="@{safeUnbox(UIComponent.isEditObsv) ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{safeUnbox(UIComponent.isEditObsv) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.25"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintWidth_percent="0.10" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

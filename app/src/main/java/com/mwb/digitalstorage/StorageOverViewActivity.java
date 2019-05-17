@@ -38,9 +38,7 @@ public class StorageOverViewActivity extends BaseActivity
         binding.setTbCmdHandler(getToolbarCmdHandler("Main menu", 0L));
     }
 
-    //
     //  command handler for the storage
-    //
     private StorageCmdHandler storageCmdHandler()
     {
         return new StorageCmdHandler()
@@ -85,9 +83,7 @@ public class StorageOverViewActivity extends BaseActivity
         };
     }
 
-    //
     //  command handler for the photo
-    //
     private RegistrationCmdHandler registrationCmdHandler()
     {
         return new RegistrationCmdHandler()
@@ -125,11 +121,9 @@ public class StorageOverViewActivity extends BaseActivity
         };
     }
 
-    //
     //  immediately retrieves file from taken img
     //  sets the VM img resource property
     //  loadImg will be called on after trigger of set()
-    //
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {

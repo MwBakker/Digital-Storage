@@ -49,9 +49,13 @@ public class Rack implements com.mwb.digitalstorage.model.Entity
 
     @Override
     public String getName() { return name; }
+
     @Override
     public String getImgPath() { return imgPath; }
+
     public long getStorageID() { return this.storageID; }
+
     public String getRackImgPath(){ return this.imgPath; }
+
     public int getComponentCount() {return this.componentCount; }
 }

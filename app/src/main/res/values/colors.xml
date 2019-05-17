@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorDark">#0f0f0f</color>
-    <color name="colorLighter">#282828</color>
-    <color name="orange">#ffa726</color>
-    <color name="slightwhite">#CFD8DC</color>
-    <color name="slightwhiteDarker">#535458</color>
+    <color name="general_btn_background">#0f0f0f</color>
+
+    <color name="background">#282828</color>
+
+    <color name="icon_color">#ffa726</color>
+
+    <color name="general_txt_color">#CFD8DC</color>
+
+    <color name="general_txt_colorDarker">#535458</color>
 </resources>

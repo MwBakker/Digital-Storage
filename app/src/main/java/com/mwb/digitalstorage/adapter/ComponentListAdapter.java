@@ -27,17 +27,13 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
         this.componentCmdHandlerCallBack = componentCmdHandlerCallBack;
     }
 
-    //
     //  sets the filtered components
-    //
     public void setComponents(List<UIComponent> components)
     {
         this.components = components;
     }
 
-    //
     //  creates the viewHolder
-    //
     @Override
     public ComponentListAdapter.ComponentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
@@ -47,18 +43,14 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
         return new ComponentViewHolder(binding);
     }
 
-    //
     //  binding each model class to it's xml element
-    //
     @Override
     public void onBindViewHolder(@NonNull ComponentListAdapter.ComponentViewHolder holder, int position)
     {
         holder.bind(components.get(position));
     }
 
-    //
     //  returns the list size
-    //
     @Override
     public int getItemCount()
     {
@@ -80,9 +72,7 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
             binding.setCmdHandler(componentCmdHandler());
         }
 
-        //
         //  sets handlers belonging to the holder
-        //
         private ComponentCmdHandler componentCmdHandler()
         {
             return new ComponentCmdHandler() {
@@ -104,9 +94,7 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
             };
         }
 
-        //
         //  binds the storage unit to the model
-        //
         private void bind(@NonNull UIComponent uiComponent)
         {
 
