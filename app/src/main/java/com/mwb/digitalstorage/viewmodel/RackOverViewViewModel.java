@@ -2,7 +2,7 @@ package com.mwb.digitalstorage.viewmodel;
 
 import com.mwb.digitalstorage.adapter.RackListAdapter;
 import com.mwb.digitalstorage.command_handlers.RackCmdHandler;
-import com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler;
+import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;
 import com.mwb.digitalstorage.database.RackRepository;
 import com.mwb.digitalstorage.database.StorageRepository;
 import com.mwb.digitalstorage.modelUI.UIRack;
@@ -20,18 +20,21 @@ public class RackOverViewViewModel extends BaseViewModel
 
 
     public void setViewModelElements(long storageID, androidx.lifecycle.LifecycleOwner owner,
-                                      RackCmdHandler rackCmdHandler, PhotoCmdHandler photoCmdHandler)
+                                      RackCmdHandler rackCmdHandler, ImgCmdHandler imgCmdHandler)
     {
-        rackRepository = new RackRepository();
-        StorageRepository storageRepository = new StorageRepository();
-        rackRepository.getRacks(storageID).observe(owner, racks ->
+        if (rackRepository == null)
         {
-            rackListAdapterObsv.set(new RackListAdapter(racks, rackCmdHandler, photoCmdHandler, imgProcessor));
-        });
+            rackRepository = new RackRepository();
+            rackRepository.getRacks(storageID).observe(owner, racks ->
+            {
+                rackListAdapterObsv.set(new RackListAdapter(racks, rackCmdHandler, imgCmdHandler, imgProcessor));
+            });
+        }
+        StorageRepository storageRepository = new StorageRepository();
         executor.execute(() ->
         {
-             uiStorage = storageRepository.getStorageUnit(storageID);
-             uiStorage.imgObsv.set(imgProcessor.decodeImgPath(uiStorage.getImgPath()));
+            uiStorage = storageRepository.getStorageUnit(storageID);
+            uiStorage.imgObsv.set(imgProcessor.decodeImgPath(uiStorage.getImgPath()));
         });
     }
 

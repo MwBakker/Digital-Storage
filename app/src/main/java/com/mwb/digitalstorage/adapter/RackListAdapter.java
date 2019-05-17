@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import com.mwb.digitalstorage.R;
 import com.mwb.digitalstorage.command_handlers.RackCmdHandler;
-import com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler;
+import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;
 import com.mwb.digitalstorage.databinding.RackItemBinding;
 import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.modelUI.UIEntity;
@@ -19,15 +19,15 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RackListAdapter extends RecyclerView.Adapter<RackListAdapter.RackViewHolder>
 {
     private RackCmdHandler rackCmdHandlerCallBack;
-    private PhotoCmdHandler photoCmdHandlerCallBack;
+    private ImgCmdHandler imgCmdHandlerCallBack;
     private List<UIRack> UIRacks;
     private ImageProcessor imgProcessor;
 
 
-    public RackListAdapter(List<UIRack> UIRacks, RackCmdHandler rackCmdHandlerCallBack, PhotoCmdHandler photoCmdHandlerCallBack, ImageProcessor imgProcessor)
+    public RackListAdapter(List<UIRack> UIRacks, RackCmdHandler rackCmdHandlerCallBack, ImgCmdHandler imgCmdHandlerCallBack, ImageProcessor imgProcessor)
     {
         this.rackCmdHandlerCallBack = rackCmdHandlerCallBack;
-        this.photoCmdHandlerCallBack = photoCmdHandlerCallBack;
+        this.imgCmdHandlerCallBack = imgCmdHandlerCallBack;
         this.UIRacks = UIRacks;
         this.imgProcessor = imgProcessor;
     }
@@ -75,7 +75,7 @@ public class RackListAdapter extends RecyclerView.Adapter<RackListAdapter.RackVi
             super(binding.getRoot());
             this.binding = binding;
             binding.setCmdHandler(rackCmdHandler());
-            binding.setPhotoCmdHandler(photoCmdHandler());
+            binding.setImgCmdHandler(photoCmdHandler());
         }
 
         //
@@ -111,16 +111,16 @@ public class RackListAdapter extends RecyclerView.Adapter<RackListAdapter.RackVi
         //
         //  sets photo related handlers belonging to the rack
         //
-        private PhotoCmdHandler photoCmdHandler()
+        private ImgCmdHandler photoCmdHandler()
         {
-            return new PhotoCmdHandler()
+            return new ImgCmdHandler()
             {
                 @Override
-                public void takePhoto() { photoCmdHandlerCallBack.takePhoto(); }
+                public void takePhoto() { imgCmdHandlerCallBack.takePhoto(); }
                 @Override
-                public void browsePhoto() { photoCmdHandlerCallBack.browsePhoto(); }
+                public void browsePhoto() { imgCmdHandlerCallBack.browsePhoto(); }
                 @Override
-                public void removePhoto() { photoCmdHandlerCallBack.removePhoto(); }
+                public void removePhoto() { imgCmdHandlerCallBack.removePhoto(); }
             };
         }
 

@@ -1,6 +1,6 @@
 package com.mwb.digitalstorage.command_handlers.entity;
 
-public interface PhotoCmdHandler
+public interface ImgCmdHandler
 {
     void takePhoto();
 

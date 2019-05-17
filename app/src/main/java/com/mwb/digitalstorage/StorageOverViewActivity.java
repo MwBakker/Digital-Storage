@@ -6,9 +6,6 @@ import android.os.Environment;
 
 import com.mwb.digitalstorage.command_handlers.RegistrationCmdHandler;
 import com.mwb.digitalstorage.command_handlers.StorageCmdHandler;
-import com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler;
-import com.mwb.digitalstorage.database.CompanyRepository;
-import com.mwb.digitalstorage.database.StorageRepository;
 import com.mwb.digitalstorage.databinding.ActivityStorageOverviewBinding;
 import com.mwb.digitalstorage.modelUI.UIEntity;
 import com.mwb.digitalstorage.modelUI.UIStorage;

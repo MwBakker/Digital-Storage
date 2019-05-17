@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import com.mwb.digitalstorage.command_handlers.RackCmdHandler;
-import com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler;
+import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;
 import com.mwb.digitalstorage.databinding.ActivityRackOverviewBinding;
 import com.mwb.digitalstorage.modelUI.UIEntity;
 import com.mwb.digitalstorage.modelUI.UIRack;
@@ -25,11 +25,11 @@ public class RackOverViewActivity extends BaseActivity
         super.onCreate(savedInstanceState);
 
         RackCmdHandler rackCmdHandler = rackCmdHandler();
-        PhotoCmdHandler photoCmdHandler = photoCmdHandler();
+        ImgCmdHandler imgCmdHandler = photoCmdHandler();
 
         rackOverViewVM = ViewModelProviders.of(this).get(RackOverViewViewModel.class);
         rackOverViewVM.setViewModelElements(getIntent().getLongExtra("storage_id", 0L),
-                                     this, rackCmdHandler, photoCmdHandler);
+                                     this, rackCmdHandler, imgCmdHandler);
 
         ToolbarViewModel tbVM = new ToolbarViewModel("Racks");
 
@@ -84,9 +84,9 @@ public class RackOverViewActivity extends BaseActivity
     //
     //  photo command handler
     //
-    private PhotoCmdHandler photoCmdHandler()
+    private ImgCmdHandler photoCmdHandler()
     {
-        return new PhotoCmdHandler()
+        return new ImgCmdHandler()
         {
             @Override
             public void takePhoto()

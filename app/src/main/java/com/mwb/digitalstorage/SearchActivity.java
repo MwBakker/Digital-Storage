@@ -22,9 +22,13 @@ public class SearchActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+
+
         searchVM = new SearchViewModel();
-        searchVM.setViewModelElements(getIntent().getStringExtra("previous_activity_name"),
-                                      getIntent().getLongExtra("previous_activity_id", 0L),
+        searchVM.setViewModelElements(getIntent().getLongExtra("previous_activity_id", 0L),
+                                      getIntent().getExtras().getClass().getSuperclass(),
+                                      getIntent().getStringExtra("previous_activity_name"),
                                       searchedEntityCmdHandler());
         ActivitySearchBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
         binding.setVm(searchVM);
@@ -36,11 +40,10 @@ public class SearchActivity extends AppCompatActivity
         return new SearchedEntityCmdHandler()
         {
             @Override
-            public void goToSearchedEntity(UIEntity uiEntity)
+            public void goToSearchedEntity(Class entityClass, long entityID)
             {
-                Intent intent = new Intent(SearchActivity.this, uiEntity.getClass());
-                intent.putExtra("entity_id", uiEntity.getId());
-                intent.putExtra("is_searched", true);
+                Intent intent = new Intent(SearchActivity.this, entityClass);
+                intent.putExtra("entity_id", entityID);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
@@ -58,6 +61,14 @@ public class SearchActivity extends AppCompatActivity
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
                 searchVM.searchRelevance(s.toString());
+            }
+            @Override
+            public void goBack(Class previousClass, long previousEntityID)
+            {
+                Intent intent = new Intent(SearchActivity.this, previousClass);
+                intent.putExtra("entity_id", previousEntityID);
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
             }
         };
     }

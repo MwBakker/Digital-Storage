@@ -82,9 +82,9 @@ public class SearchedEntityListAdapter extends RecyclerView.Adapter<SearchedEnti
             return new SearchedEntityCmdHandler()
             {
                 @Override
-                public void goToSearchedEntity(UIEntity uiEntity)
+                public void goToSearchedEntity(Class className, long id)
                 {
-                    searchedEntityCmdHandlerCallBack.goToSearchedEntity(uiEntity);
+                    searchedEntityCmdHandlerCallBack.goToSearchedEntity(className, id);
                 }
             };
         }

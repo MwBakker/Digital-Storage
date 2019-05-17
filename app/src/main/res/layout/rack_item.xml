@@ -8,8 +8,8 @@
             name="cmdHandler"
             type="com.mwb.digitalstorage.command_handlers.RackCmdHandler"/>
         <variable
-            name="photoCmdHandler"
-            type="com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler"/>
+            name="imgCmdHandler"
+            type="com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler"/>
         <variable
             name="UIRack"
             type="com.mwb.digitalstorage.modelUI.UIRack"/>
@@ -31,7 +31,18 @@
             app:img="@{UIRack.imgObsv}"
             app:isFaded="@{true}"
             app:isEditObsv="@{safeUnbox(UIRack.isEditObsv)}"
-            app:cmdHandler="@{photoCmdHandler}"/>
+            app:cmdHandler="@{imgCmdHandler}"/>
+        <ImageButton
+            android:id="@+id/btn_check"
+            style="@style/icon_check"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/main_image"
+            android:layout_marginLeft="75dp"
+            android:layout_marginBottom="8dp"
+            android:onClick="@{() -> cmdHandler.saveEntity(false)}"
+            android:visibility="@{UIRack.isEditObsv ? View.VISIBLE : View.GONE}"/>
         <TextView
             style="@style/wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"

@@ -9,9 +9,10 @@ import androidx.databinding.ObservableField;
 public class SearchViewModel extends BaseViewModel
 {
     private long previousActivityID;
+    private Class previousActivityClass;
+    private String previousActivityName;
     private SearchedEntityRepository searchedEntityRepository;
 
-    public ObservableField<String> previousActivityNameObsv = new ObservableField<>("");
     public ObservableField<SearchedEntityListAdapter> foundEntitiesAdapterObsv = new ObservableField<>();
 
 
@@ -21,12 +22,28 @@ public class SearchViewModel extends BaseViewModel
     }
 
     //
+    //  gets the ID of the previous activity
+    //
+    public long getPreviousActivityID() { return previousActivityID; }
+
+    //
+    //  gets the name of the previous activity
+    //
+    public String getPreviousActivityName() { return previousActivityName; }
+
+    //
+    //  gets the class of the previous activity
+    //
+    public Class getPreviousActivityClass() { return previousActivityClass; }
+
+    //
     //  sets the viewModel elements
     //
-    public void setViewModelElements(String previousActivity, long previousActivityID, SearchedEntityCmdHandler cmdHandlerCallBack)
+    public void setViewModelElements(long previousActivityID, Class previousActivityClass, String previousActivityName,  SearchedEntityCmdHandler cmdHandlerCallBack)
     {
-        this.previousActivityNameObsv.set("< " + previousActivity);
         this.previousActivityID = previousActivityID;
+        this.previousActivityClass = previousActivityClass;
+        this.previousActivityName = "< " + previousActivityName;
         foundEntitiesAdapterObsv.set(new SearchedEntityListAdapter(cmdHandlerCallBack));
     }
 

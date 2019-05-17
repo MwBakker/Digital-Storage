@@ -37,6 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity
                 Intent intent = new Intent(BaseActivity.this, SearchActivity.class);
                 intent.putExtra("previous_activity_id", idOfPrevious);
                 intent.putExtra("previous_activity_name", nameOfPrevious);
+                startActivity(intent);
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             }
         };

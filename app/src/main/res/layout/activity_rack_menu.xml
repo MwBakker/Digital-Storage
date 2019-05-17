@@ -10,8 +10,8 @@
             name="cmdHandler"
             type="com.mwb.digitalstorage.command_handlers.entity.EntityMenuCmdHandler"/>
         <variable
-            name="photoCmdHandler"
-            type="com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler"/>
+            name="imgCmdHandler"
+            type="com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler"/>
         <variable
             name="vm"
             type="com.mwb.digitalstorage.viewmodel.RackMenuViewModel"/>

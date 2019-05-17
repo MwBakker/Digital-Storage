@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import com.mwb.digitalstorage.command_handlers.StorageMenuCmdHandler;
-import com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler;
+import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;
 import com.mwb.digitalstorage.database.RackRepository;
 import com.mwb.digitalstorage.databinding.ActivityStorageMenuBinding;
 import com.mwb.digitalstorage.viewmodel.StorageMenuViewModel;
@@ -29,7 +29,7 @@ public class StorageMenuActivity extends BaseActivity
 
         binding.setVm(storageMenuVM);
         binding.setCmdHandler(storageMenuCmdHandler());
-        binding.setPhotoCmdHandler(photoCmdHandler());
+        binding.setImgCmdHandler(photoCmdHandler());
     }
 
     //
@@ -73,10 +73,10 @@ public class StorageMenuActivity extends BaseActivity
     //
     //  sets the handler of the photo
     //
-    private PhotoCmdHandler photoCmdHandler()
+    private ImgCmdHandler photoCmdHandler()
     {
         // handlers and methods
-        return new PhotoCmdHandler()
+        return new ImgCmdHandler()
         {
             @Override
             public void takePhoto()

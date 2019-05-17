@@ -11,8 +11,8 @@
             name="cmdHandler"
             type="com.mwb.digitalstorage.command_handlers.StorageMenuCmdHandler"/>
         <variable
-            name="photoCmdHandler"
-            type="com.mwb.digitalstorage.command_handlers.entity.PhotoCmdHandler"/>
+            name="imgCmdHandler"
+            type="com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler"/>
         <variable
             name="vm"
             type="com.mwb.digitalstorage.viewmodel.StorageMenuViewModel"/>
@@ -55,7 +55,7 @@
                 layout="@layout/img_view"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                app:cmdHandler="@{photoCmdHandler}"
+                app:cmdHandler="@{imgCmdHandler}"
                 app:img="@{vm.uiStorage.imgObsv}"
                 app:layout_constraintTop_toBottomOf="@id/edit_storage_loc"
                 app:isEditObsv="@{true}" />
