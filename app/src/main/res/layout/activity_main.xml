@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="com.mwb.digitalstorage.viewmodel.CompanyRegistrationViewModel" />
+            type="com.mwb.digitalstorage.viewmodel.RegistrationViewModel" />
 
         <variable
             name="cmdHandler"

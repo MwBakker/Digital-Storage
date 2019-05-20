@@ -38,11 +38,19 @@ public class UIStorage implements UIEntity
     public String getParentKeyName() { return null; }
 
     @Override
-    public Bitmap getImg() { return imgObsv.get(); }
+    public String getImgPath() { return imgPath; }
+
+    @Override
+    public void setImg(Bitmap img) { imgObsv.set(img); }
+
+    @Override
+    public Bitmap getImg()
+    {
+        Bitmap img = imgObsv.get();
+        return imgObsv.get();
+    }
 
     public void setImgPath(String imgPath) { this.imgPath = imgPath; }
-
-    public String getImgPath() { return imgPath; }
 
     @Override
     public void removeImg()

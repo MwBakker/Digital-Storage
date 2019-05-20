@@ -19,7 +19,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="?attr/actionBarSize"
         android:elevation="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout style="@style/match_parent">
@@ -40,7 +40,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="false"
-                android:hint="@string/search"
+                android:hint="@string/search_icon"
                 android:onClick="@{() -> cmdHandler.openSearchActivity()}"
                 android:textColor="@color/icon_color"
                 android:textColorHint="@color/icon_color"

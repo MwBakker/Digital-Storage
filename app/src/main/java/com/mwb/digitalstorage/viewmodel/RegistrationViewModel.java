@@ -5,15 +5,14 @@ import com.mwb.digitalstorage.database.CompanyRepository;
 import com.mwb.digitalstorage.modelUI.UICompany;
 
 
-public class CompanyRegistrationViewModel extends BaseViewModel
+public class RegistrationViewModel extends BaseViewModel
 {
     private UICompany uiCompany;
 
     private CompanyRepository companyRepository;
 
-    //
+
     //  sets the elements of the viewModel
-    //
     public void setViewModelElements(CompanyExistenceCmdHandler companyExistenceCallBack)
     {
         companyRepository = new CompanyRepository();
@@ -30,9 +29,7 @@ public class CompanyRegistrationViewModel extends BaseViewModel
 
     public UICompany getUiCompany() { return uiCompany; }
 
-    //
     //  adds the company
-    //
     public void addCompany()
     {
         companyRepository.insertCompany(uiCompany.nameObsv.get(), uiCompany.locationObsv.get(), uiCompany.getImgPath());

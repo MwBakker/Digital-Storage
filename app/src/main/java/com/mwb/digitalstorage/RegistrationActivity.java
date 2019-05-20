@@ -10,7 +10,8 @@ import android.os.Environment;
 import com.mwb.digitalstorage.command_handlers.CompanyExistenceCmdHandler;
 import com.mwb.digitalstorage.command_handlers.RegistrationCmdHandler;
 import com.mwb.digitalstorage.databinding.ActivityMainBinding;
-import com.mwb.digitalstorage.viewmodel.CompanyRegistrationViewModel;
+import com.mwb.digitalstorage.viewmodel.RegistrationViewModel;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -19,7 +20,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 public class RegistrationActivity extends BaseActivity
 {
-    private CompanyRegistrationViewModel companyRegistrationVM;
+    private RegistrationViewModel companyRegistrationVM;
 
 
     protected void onCreate(Bundle savedInstanceState)
@@ -28,7 +29,7 @@ public class RegistrationActivity extends BaseActivity
 
         checkPermissions();
 
-        companyRegistrationVM = ViewModelProviders.of(this).get(CompanyRegistrationViewModel.class);
+        companyRegistrationVM = ViewModelProviders.of(this).get(RegistrationViewModel.class);
         companyRegistrationVM.setViewModelElements(companyExistenceCallBack());
 
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);

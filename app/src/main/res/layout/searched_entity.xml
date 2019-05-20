@@ -35,6 +35,7 @@
             style="@style/wrap_content"
             android:text="@string/no_image"
             android:textColor="#A4FFA726"
+            android:visibility="@{UIEntity.img == null ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@+id/img"
             app:layout_constraintLeft_toLeftOf="@+id/img"
             app:layout_constraintRight_toRightOf="@+id/img"

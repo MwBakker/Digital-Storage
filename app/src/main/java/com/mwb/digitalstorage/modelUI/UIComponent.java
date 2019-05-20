@@ -34,10 +34,6 @@ public class UIComponent implements UIEntity
     }
 
 
-
-    public String getImgPath() { return imgPath; }
-
-
     @Override
     public long getId() { return id; }
 
@@ -56,10 +52,16 @@ public class UIComponent implements UIEntity
     @Override
     public String getParentKeyName() { return null; }
 
+    public void setImgPath(String imgPath) { this.imgPath = imgPath; }
+
+    @Override
+    public String getImgPath() { return imgPath; }
+
+    @Override
+    public void setImg(Bitmap img) { imgObsv.set(img); }
+
     @Override
     public Bitmap getImg() { return imgObsv.get(); }
-
-    public void setImgPath(String imgPath) { this.imgPath = imgPath; }
 
     @Override
     public void removeImg()

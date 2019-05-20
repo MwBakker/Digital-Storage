@@ -8,6 +8,7 @@ import com.mwb.digitalstorage.databinding.ActivitySearchBinding;
 import com.mwb.digitalstorage.viewmodel.SearchViewModel;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 
 public class SearchActivity extends AppCompatActivity
@@ -19,32 +20,16 @@ public class SearchActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        searchVM = new SearchViewModel();
-        searchVM.setViewModelElements(getIntent().getLongExtra("previous_activity_id", 0L),
-                                      getIntent().getExtras().getClass().getSuperclass(),
-                                      getIntent().getStringExtra("previous_activity_name"),
-                                      searchedEntityCmdHandler());
+
+        searchVM = ViewModelProviders.of(this).get(SearchViewModel.class);
+        searchVM.setViewModelElements( getIntent().getStringExtra("previous_activity_name"), searchedEntityCmdHandler());
+
         ActivitySearchBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
         binding.setVm(searchVM);
         binding.setCmdHandler(searchCmdHandler());
     }
 
-    private SearchedEntityCmdHandler searchedEntityCmdHandler()
-    {
-        return new SearchedEntityCmdHandler()
-        {
-            @Override
-            public void goToSearchedEntity(Class entityClass, long entityID)
-            {
-                Intent intent = new Intent(SearchActivity.this, entityClass);
-                intent.putExtra("entity_id", entityID);
-                startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            }
-        };
-    }
-
-    //  sets the command handler for the search
+    //  handler for the search activity
     private SearchCmdHandler searchCmdHandler()
     {
         return new SearchCmdHandler()
@@ -59,4 +44,19 @@ public class SearchActivity extends AppCompatActivity
         };
     }
 
+    // handler for the searched entity
+    private SearchedEntityCmdHandler searchedEntityCmdHandler()
+    {
+        return new SearchedEntityCmdHandler()
+        {
+            @Override
+            public void goToSearchedEntity(Class entityClass, long entityID)
+            {
+                Intent intent = new Intent(SearchActivity.this, entityClass);
+                intent.putExtra("entity_id", entityID);
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+        };
+    }
 }

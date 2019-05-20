@@ -12,6 +12,10 @@ public interface UIEntity
 
     String getParentKeyName();
 
+    String getImgPath();
+
+    void setImg(Bitmap img);
+
     Bitmap getImg();
 
     void removeImg();
