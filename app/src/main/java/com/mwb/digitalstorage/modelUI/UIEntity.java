@@ -8,6 +8,8 @@ public interface UIEntity
 
     String getName();
 
+    String getClassName();
+
     String getParentKeyName();
 
     Bitmap getImg();

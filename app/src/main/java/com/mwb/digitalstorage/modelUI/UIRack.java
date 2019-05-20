@@ -30,6 +30,9 @@ public class UIRack implements UIEntity
     public String getName() { return nameObsv.get(); }
 
     @Override
+    public String getClassName() { return "Rack"; }
+
+    @Override
     public String getParentKeyName() { return null; }
 
     public void setImgPath(String imgPath) { this.imgPath = imgPath; }

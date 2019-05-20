@@ -29,7 +29,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.25" />
+            app:layout_constraintWidth_percent="0.3" />
 
         <TextView
             style="@style/wrap_content"
@@ -44,7 +44,7 @@
             android:id="@+id/txt_entity_type"
             style="@style/wrap_content"
             android:layout_marginStart="72dp"
-            android:text="@{UIEntity.getClass().getSimpleName()}"
+            android:text="@{UIEntity.className}"
             android:textColor="@color/icon_color"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -55,7 +55,7 @@
             android:id="@+id/txt_entity_name"
             style="@style/wrap_content"
             android:layout_marginTop="36dp"
-            android:layout_marginEnd="200dp"
+            android:layout_marginEnd="125dp"
             android:text="@{UIEntity.name}"
             android:textColor="@color/icon_color"
             android:textSize="24sp"

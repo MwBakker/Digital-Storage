@@ -48,6 +48,9 @@ public class UIComponent implements UIEntity
     @Override
     public String getName() { return nameObsv.get(); }
 
+    @Override
+    public String getClassName() { return "Component"; }
+
     public String getComponentCatName() { return componentCatName; }
 
     @Override

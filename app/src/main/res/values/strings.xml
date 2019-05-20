@@ -3,6 +3,8 @@
     <string name="app_name">DigitalStorage</string>
     <string name="action_settings">Settings</string>
     <string name="ok">OK</string>
+    <string name="available">Available</string>
+    <string name="lent">Lent</string>
     <string name="register_company">Please register your company</string>
     <string name="categories">Categories</string>
     <string name="company_name">Company name</string>

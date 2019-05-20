@@ -32,6 +32,9 @@ public class UIStorage implements UIEntity
     public String getName() { return nameObsv.get(); }
 
     @Override
+    public String getClassName() { return "Storage"; }
+
+    @Override
     public String getParentKeyName() { return null; }
 
     @Override

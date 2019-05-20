@@ -49,7 +49,7 @@
             app:img="@{vm.uiCompany.imgObsv}"
             app:isEditObsv="@{safeUnbox(vm.uiCompany.isEdit)}"
             app:isFaded="@{true}"
-            app:layout_constraintHeight_percent="0.24"
+            app:layout_constraintHeight_percent="0.35"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <ImageButton
@@ -135,26 +135,25 @@
             app:layout_constraintBottom_toBottomOf="@id/company_img"
             app:layout_constraintRight_toRightOf="@id/company_img" />
 
-        <TextView
-            android:id="@+id/txt_storage_units"
-            style="@style/wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="@string/storage_units"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/company_img" />
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="20dp"
             android:fillViewport="true"
             app:layout_constraintHeight_percent="0.7"
-            app:layout_constraintTop_toBottomOf="@id/txt_storage_units">
+            app:layout_constraintTop_toBottomOf="@id/company_img">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txt_storage_units"
+                    style="@style/wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/storage_units"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_storage_units"
@@ -163,10 +162,10 @@
                     android:layout_marginTop="15dp"
                     android:adapter="@{vm.storageListAdapterObsv}"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:layout_constraintHeight_percent="0.35"
+                    app:layout_constraintHeight_percent="0.40"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_storage_units"
                     app:spanCount="2"
                     tools:listitem="@layout/storage_item" />
 
@@ -203,7 +202,7 @@
                     android:layout_width="0dp"
                     android:layout_height="72dp"
                     android:layout_margin="10dp"
-                    android:text="Available"
+                    android:text="@string/available"
                     android:textColor="@color/icon_color"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_tools"
@@ -215,7 +214,7 @@
                     android:layout_width="0dp"
                     android:layout_height="72dp"
                     android:layout_margin="10dp"
-                    android:text="Lent"
+                    android:text="@string/lent"
                     android:textColor="@color/icon_color"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_tools"
