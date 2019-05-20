@@ -27,7 +27,7 @@ public class StorageOverViewViewModel extends BaseViewModel
         {
             executor.execute(() ->
             {
-                uiCompany = companyRepository.getCompany();
+                uiCompany = companyRepository.getUiCompany();
                 uiCompany.imgObsv.set(imgProcessor.decodeImgPath(uiCompany.getImgPath()));
             });
             storageRepository.getStorageUnits().observe(owner, storageUnits ->

@@ -7,9 +7,9 @@ import com.mwb.digitalstorage.modelUI.UICompany;
 public class CompanyRepository
 {
     //  returns allRacks with correct storage_id
-    public UICompany getCompany()
+    public UICompany getUiCompany()
     {
-        Company company = BaseRepository.getDao().getCompany();
+        Company company = BaseRepository.getDao().getUiCompany();
         return company != null ?
                 new UICompany(company.id, company.getName(), company.getLocation(), company.getImgPath()) : null;
     }

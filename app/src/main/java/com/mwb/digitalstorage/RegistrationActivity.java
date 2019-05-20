@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+
+import com.mwb.digitalstorage.command_handlers.CompanyExistenceCmdHandler;
 import com.mwb.digitalstorage.command_handlers.RegistrationCmdHandler;
 import com.mwb.digitalstorage.databinding.ActivityMainBinding;
 import com.mwb.digitalstorage.viewmodel.CompanyRegistrationViewModel;
@@ -23,12 +25,11 @@ public class RegistrationActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         checkPermissions();
 
         companyRegistrationVM = ViewModelProviders.of(this).get(CompanyRegistrationViewModel.class);
-        companyRegistrationVM.setViewModelElements();
-
-        checkExistence();
+        companyRegistrationVM.setViewModelElements(companyExistenceCallBack());
 
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         RegistrationCmdHandler registrationCmdHandler = registrationCmdHandler();
@@ -47,7 +48,6 @@ public class RegistrationActivity extends BaseActivity
                     this, Manifest.permission.READ_EXTERNAL_STORAGE))
             {
 
-
             }
             else
             {
@@ -61,17 +61,16 @@ public class RegistrationActivity extends BaseActivity
         }
     }
 
-    //  checks if there is already a company existing
-    private void checkExistence()
+    //  switch activity if company is present
+    public CompanyExistenceCmdHandler companyExistenceCallBack()
     {
-        companyRegistrationVM.executor.execute(() ->
+        return new CompanyExistenceCmdHandler()
         {
-            if (companyRegistrationVM.getCompany() != null)
-            {
-                switchActivity();
-            }
-        });
+            @Override
+            public void goToMainPage() { switchActivity(); }
+        };
     }
+
 
     //  registration activity handler
     public RegistrationCmdHandler registrationCmdHandler()
@@ -96,7 +95,7 @@ public class RegistrationActivity extends BaseActivity
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1);
             }
             @Override
-            public void removePhoto() { companyRegistrationVM.companyImgObsv.set(null); }
+            public void removePhoto() { companyRegistrationVM.getUiCompany().imgObsv.set(null); }
             @Override
             public void editCompanyName(CharSequence s, int start, int before, int count) { }
             @Override
@@ -121,13 +120,13 @@ public class RegistrationActivity extends BaseActivity
     {
         if (companyRegistrationVM.imgProcessor.isFromCamera())
         {
-            companyRegistrationVM.getCompany().setImgPath(companyRegistrationVM.imgProcessor.getImgPath());
+            companyRegistrationVM.getUiCompany().setImgPath(companyRegistrationVM.imgProcessor.getImgPath());
         }
         else
         {
-            companyRegistrationVM.getCompany().setImgPath(companyRegistrationVM.imgProcessor.browseImage(data, getApplication()));
+            companyRegistrationVM.getUiCompany().setImgPath(companyRegistrationVM.imgProcessor.browseImage(data, getApplication()));
         }
-        companyRegistrationVM.companyImgObsv.set(companyRegistrationVM.imgProcessor.decodeImgPath());
+        companyRegistrationVM.getUiCompany().imgObsv.set(companyRegistrationVM.imgProcessor.decodeImgPath());
     }
 
     //  switches activity

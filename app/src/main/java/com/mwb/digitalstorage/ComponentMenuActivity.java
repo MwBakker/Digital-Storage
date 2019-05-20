@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import com.mwb.digitalstorage.command_handlers.ComponentCategoryMenuCmdHandler;
-import com.mwb.digitalstorage.database.ComponentRepository;
 import com.mwb.digitalstorage.databinding.ActivityComponentMenuBinding;
-import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.viewmodel.ComponentMenuViewModel;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -61,13 +59,10 @@ public class ComponentMenuActivity extends AppCompatActivity
             public void saveNewEntity()
             {
                 componentVM.addComponent();
-                switchActivity(ComponentOverViewActivity.class);
+                switchBackToOverView();
             }
             @Override
-            public void cancelMenu()
-            {
-                switchActivity(ComponentOverViewActivity.class);
-            }
+            public void cancelMenu() { switchBackToOverView(); }
         };
     }
 
@@ -81,11 +76,11 @@ public class ComponentMenuActivity extends AppCompatActivity
     }
 
     //  handles activity switch
-    void switchActivity(Class classType)
+    private void switchBackToOverView()
     {
-        Intent intent = new Intent(ComponentMenuActivity.this, classType);
-        intent.putExtra("rack_id", componentVM.getRackID());
+        Intent intent = new Intent(ComponentMenuActivity.this, ComponentOverViewActivity.class);
         startActivity(intent);
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
+        finish();
     }
 }

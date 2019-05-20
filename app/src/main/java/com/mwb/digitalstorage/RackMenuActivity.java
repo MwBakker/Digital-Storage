@@ -28,10 +28,9 @@ public class RackMenuActivity extends AppCompatActivity
         binding.setCmdHandler(handler());
     }
 
-    //  sets the handlers
+    //  sets the handler
     private EntityMenuCmdHandler handler()
     {
-        // handlers and methods
         return new EntityMenuCmdHandler()
         {
             @Override
@@ -47,15 +46,15 @@ public class RackMenuActivity extends AppCompatActivity
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1);
             }
             @Override
-            public void removePhoto() { rackMenuVM.uiRack().removeImg(); }
+            public void removePhoto() { rackMenuVM.getUiRack().removeImg(); }
             @Override
             public void saveNewEntity()
             {
                 rackMenuVM.addRack();
-                switchToItem();
+                switchBackToOverView();
             }
             @Override
-            public void cancelMenu() { switchToItem(); }
+            public void cancelMenu() { switchBackToOverView(); }
         };
     }
 
@@ -67,21 +66,24 @@ public class RackMenuActivity extends AppCompatActivity
     {
         if (rackMenuVM.imgProcessor.isFromCamera())
         {
-           // rackMenuVM.ra
-           // rackMenuVM.rackImgObsv.set(rackMenuVM.imgProcessor.browseImage(data, getApplication()));
-
+            rackMenuVM.getUiRack().setImgPath(rackMenuVM.imgProcessor.getImgPath());
         }
-        else {
-        //    rackMenuVM.setRackBitmap(rackMenuVM.imgProcessor.getImgPath());
+        else
+        {
+            rackMenuVM.getUiRack().setImgPath(rackMenuVM.imgProcessor.browseImage(data, getApplication()));
         }
+        rackMenuVM.getUiRack().imgObsv.set(rackMenuVM.imgProcessor.decodeImgPath());
     }
 
+    @Override
+    public void onBackPressed() { switchBackToOverView(); }
+
     //  handles activity switch
-    private void switchToItem()
+    private void switchBackToOverView()
     {
         Intent intent = new Intent(RackMenuActivity.this, RackOverViewActivity.class);
-        intent.putExtra("storage_id", rackMenuVM.getStorageID());
         startActivity(intent);
         overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
+        finish();
     }
 }

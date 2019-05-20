@@ -20,7 +20,7 @@ public interface DAO
     //  get company
     //
     @Query("SELECT * FROM company LIMIT 1")
-    Company getCompany();
+    Company getUiCompany();
 
     //
     //  get all the storage units

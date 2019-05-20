@@ -3,7 +3,6 @@ package com.mwb.digitalstorage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-
 import com.mwb.digitalstorage.command_handlers.RegistrationCmdHandler;
 import com.mwb.digitalstorage.command_handlers.StorageCmdHandler;
 import com.mwb.digitalstorage.databinding.ActivityStorageOverviewBinding;
@@ -25,7 +24,7 @@ public class StorageOverViewActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         StorageCmdHandler mainViewCmdHandler = storageCmdHandler();
 
-        ToolbarViewModel toolbarVM = new ToolbarViewModel("Storages");
+        ToolbarViewModel toolbarVM = new ToolbarViewModel("Storage Units");
         storageOverViewVM = ViewModelProviders.of(this).get(StorageOverViewViewModel.class);
         storageOverViewVM.setViewModelElements(this, mainViewCmdHandler);
 
@@ -35,7 +34,7 @@ public class StorageOverViewActivity extends BaseActivity
         binding.setTbvm(toolbarVM);
         binding.setCmdHandler(mainViewCmdHandler);
         binding.setCompanyCmdHandler(registrationCmdHandler());
-        binding.setTbCmdHandler(getToolbarCmdHandler("Main menu", 0L));
+        binding.setTbCmdHandler(toolbarCmdHandler("Main menu"));
     }
 
     //  command handler for the storage

@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import com.mwb.digitalstorage.R;
 import com.mwb.digitalstorage.command_handlers.ComponentCmdHandler;
 import com.mwb.digitalstorage.databinding.ComponentItemBinding;
+import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.modelUI.UIComponent;
 import com.mwb.digitalstorage.modelUI.UIEntity;
 
@@ -19,6 +20,7 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
 {
     private List<UIComponent> components;
     private ComponentCmdHandler componentCmdHandlerCallBack;
+    private ImageProcessor imgProcessor;
 
 
     public ComponentListAdapter(List<UIComponent> components, ComponentCmdHandler componentCmdHandlerCallBack)
@@ -97,7 +99,7 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
         //  binds the storage unit to the model
         private void bind(@NonNull UIComponent uiComponent)
         {
-
+            uiComponent.imgObsv.set(imgProcessor.decodeImgPath(uiComponent.getImgPath()));
             binding.setUIComponent(uiComponent);
             binding.executePendingBindings();
         }

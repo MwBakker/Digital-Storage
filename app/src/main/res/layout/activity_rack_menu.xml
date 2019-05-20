@@ -36,7 +36,7 @@
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@android:color/white"
                 android:hint="@string/rack_name_hint"
-                android:text="@={vm.uiRack().nameObsv}"
+                android:text="@={vm.uiRack.nameObsv}"
                 android:textColor="@android:color/white"
                 app:layout_constraintTop_toTopOf="parent" />
 

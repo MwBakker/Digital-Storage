@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.mwb.digitalstorage.command_handlers.ToolbarCmdHandler;
 import com.mwb.digitalstorage.database.BaseRepository;
-import com.mwb.digitalstorage.database.DAO;
-import com.mwb.digitalstorage.database.RoomDB;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.BindingAdapter;
 
@@ -25,7 +23,7 @@ public abstract class BaseActivity extends AppCompatActivity
     }
 
     //  command handler for the toolbar
-    public ToolbarCmdHandler getToolbarCmdHandler(String nameOfPrevious, long idOfPrevious)
+    public ToolbarCmdHandler toolbarCmdHandler(String nameOfPrevious)
     {
         return new ToolbarCmdHandler()
         {
@@ -33,7 +31,6 @@ public abstract class BaseActivity extends AppCompatActivity
             public void openSearchActivity()
             {
                 Intent intent = new Intent(BaseActivity.this, SearchActivity.class);
-                intent.putExtra("previous_activity_id", idOfPrevious);
                 intent.putExtra("previous_activity_name", nameOfPrevious);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);

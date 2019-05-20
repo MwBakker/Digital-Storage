@@ -4,21 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.mwb.digitalstorage.command_handlers.ComponentCategoryCmdHandler;
 import com.mwb.digitalstorage.command_handlers.ComponentCmdHandler;
-import com.mwb.digitalstorage.command_handlers.ToolbarCmdHandler;
-import com.mwb.digitalstorage.database.ComponentRepository;
-import com.mwb.digitalstorage.database.RackRepository;
 import com.mwb.digitalstorage.databinding.ActivityComponentOverviewBinding;
 import com.mwb.digitalstorage.modelUI.UIComponent;
 import com.mwb.digitalstorage.modelUI.UIComponentCategory;
 import com.mwb.digitalstorage.modelUI.UIEntity;
 import com.mwb.digitalstorage.viewmodel.ComponentOverViewViewModel;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
 
-public class ComponentOverViewActivity extends AppCompatActivity
+public class ComponentOverViewActivity extends BaseActivity
 {
     private ComponentOverViewViewModel componentOverViewVM;
 
@@ -37,17 +32,8 @@ public class ComponentOverViewActivity extends AppCompatActivity
                                     this, componentCategoryCmdHandler, componentCmdHandler());
 
         binding.setComponentCmdHandler(componentCmdHandler);
+        binding.setTbCmdHandler(toolbarCmdHandler("Components"));
         binding.setVm(componentOverViewVM);
-    }
-
-    //  sets the handler of the toolbar
-    private ToolbarCmdHandler toolbarHandler()
-    {
-        return new ToolbarCmdHandler()
-        {
-            @Override
-            public void openSearchActivity() { }
-        };
     }
 
     //  sets the handler for the item (component category)
@@ -82,7 +68,7 @@ public class ComponentOverViewActivity extends AppCompatActivity
         return new ComponentCmdHandler()
         {
             @Override
-            public void enterEntity(long id) { }
+            public void enterEntity(long id) {}
             @Override
             public void addNewEntity()
             {
@@ -94,12 +80,13 @@ public class ComponentOverViewActivity extends AppCompatActivity
             @Override
             public boolean editEntity(UIEntity uiEntity)
             {
-                //componentOverViewVM.setEditableComponentCategory((UIComponent)uiEntity);
+                componentOverViewVM.setEditableComponent((UIComponent) uiEntity);
                 return true;
             }
             @Override
-            public void editEntityTitle(CharSequence s, int start, int before, int count) {
-
+            public void editEntityTitle(CharSequence s, int start, int before, int count)
+            {
+                componentOverViewVM.getComponent().nameObsv.set(s.toString());
             }
             @Override
             public void saveEntity(boolean isNew) { componentOverViewVM.saveComponentEdit(); }
@@ -109,6 +96,7 @@ public class ComponentOverViewActivity extends AppCompatActivity
     }
 
     //  handles the back button
+    /*
     @Override
     public void onBackPressed()
     {
@@ -118,4 +106,5 @@ public class ComponentOverViewActivity extends AppCompatActivity
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
+    */
 }

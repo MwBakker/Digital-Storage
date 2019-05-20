@@ -37,7 +37,7 @@ public class RackOverViewActivity extends BaseActivity
         binding.setVm(rackOverViewVM);
         binding.setTbvm(tbVM);
         binding.setRackCmdHandler(rackCmdHandler);
-        binding.setTbCmdHandler(getToolbarCmdHandler("Storage", rackOverViewVM.getUiStorage().id));
+        binding.setTbCmdHandler(toolbarCmdHandler("Storage"));
     }
 
     //  sets the rack handlers

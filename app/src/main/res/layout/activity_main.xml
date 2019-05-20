@@ -36,7 +36,7 @@
             android:layout_marginTop="80dp"
             android:backgroundTint="@android:color/white"
             android:hint="@string/company_name"
-            android:text="@={vm.companyNameObsv}"
+            android:text="@={vm.uiCompany.nameObsv}"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -50,7 +50,7 @@
             android:layout_marginTop="80dp"
             android:backgroundTint="@android:color/white"
             android:hint="@string/company_location"
-            android:text="@={vm.companyLocObsv}"
+            android:text="@={vm.uiCompany.locationObsv}"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -64,7 +64,7 @@
             android:layout_height="260dp"
             android:layout_marginTop="25dp"
             app:cmdHandler="@{cmdHandler}"
-            app:img="@{vm.companyImgObsv}"
+            app:img="@{vm.uiCompany.imgObsv}"
             app:isEditObsv="@{true}"
             app:layout_constraintTop_toBottomOf="@id/edit_company_location" />
 

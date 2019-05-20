@@ -70,14 +70,17 @@ public class ImageProcessor
     //  returns result of browsing an image
     public String browseImage(Intent data, Application app)
     {
-        Uri selectedImage = data.getData();
-        String[] filePathColumn = { MediaStore.Images.Media.DATA };
-        Cursor cursor = app.getContentResolver().query(selectedImage,
-                filePathColumn, null, null, null);
-        cursor.moveToFirst();
-        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        String imgPath = cursor.getString(columnIndex);
-        cursor.close();
+        if (data != null)
+        {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            Cursor cursor = app.getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            imgPath = cursor.getString(columnIndex);
+            cursor.close();
+        }
         return imgPath;
     }
 

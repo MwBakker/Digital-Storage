@@ -110,11 +110,7 @@ public class StorageMenuActivity extends BaseActivity
 
     //  overrides the back button pressed
     @Override
-    public void onBackPressed()
-    {
-        super.onBackPressed();
-        switchBackToOverView();
-    }
+    public void onBackPressed() { switchBackToOverView(); }
 
     //  handles activity switch
     void switchBackToOverView()
@@ -122,5 +118,6 @@ public class StorageMenuActivity extends BaseActivity
         Intent intent = new Intent(StorageMenuActivity.this, StorageOverViewActivity.class);
         startActivity(intent);
         overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
+        finish();
     }
 }

@@ -19,11 +19,11 @@ public class RackMenuViewModel extends BaseViewModel
         this.storageID = storageID;
     }
 
+    //  gets the uiRack
+    public UIRack getUiRack() { return uiRack; }
+
     //  gets the involved storage
     public long getStorageID() { return storageID; }
-
-    //  gets the uiRack
-    public UIRack uiRack() { return uiRack; }
 
     //  add rack to repository
     public void addRack()

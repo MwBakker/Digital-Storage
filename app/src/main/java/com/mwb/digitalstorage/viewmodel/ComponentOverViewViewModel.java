@@ -80,7 +80,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
     }
 
     //  sets the to-be-edited component
-    public void setComponent(UIComponent uiComponent)
+    public void setEditableComponent(UIComponent uiComponent)
     {
         if (this.uiComponent != null)
         {
