@@ -35,8 +35,8 @@ public class ComponentRepository
     public UIComponent getComponent(long componentID)
     {
         Component component = BaseRepository.getDao().getComponent(componentID);
-        return new UIComponent(componentID, component.rackID, component.componentCategoryID, component.getCategoryName(), component.getName(),
-                                component.getCode(), component.getImgPath(), component.getCount());
+        return new UIComponent(componentID, component.rackID, component.componentCategoryID, "", component.getCategoryName(),
+                                component.getName(), component.getCode(), component.getImgPath(), component.getCount());
     }
 
     //  manually sets the rack to rackUI
@@ -45,8 +45,8 @@ public class ComponentRepository
         List<UIComponent> UIComponentList = new ArrayList<>();
         for (Component component : components)
         {
-            UIComponentList.add(new UIComponent(component.componentID, component.rackID, component.componentCategoryID, component.getCategoryName(), component.getName(),
-                                                component.getCode(), component.getImgPath(), component.getCount()));
+            UIComponentList.add(new UIComponent(component.componentID, component.rackID, component.componentCategoryID, "", component.getCategoryName(),
+                                                component.getName(), component.getCode(), component.getImgPath(), component.getCount()));
         }
         return UIComponentList;
     }

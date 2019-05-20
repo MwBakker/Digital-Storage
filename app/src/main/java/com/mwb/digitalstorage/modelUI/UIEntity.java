@@ -10,7 +10,9 @@ public interface UIEntity
 
     String getClassName();
 
-    String getParentKeyName();
+    Class getBelongingOverViewActivity();
+
+    String getForeignKeyname();
 
     String getImgPath();
 

@@ -1,6 +1,7 @@
 package com.mwb.digitalstorage.modelUI;
 
 import android.graphics.Bitmap;
+import com.mwb.digitalstorage.StorageOverViewActivity;
 import androidx.databinding.ObservableField;
 
 
@@ -35,7 +36,10 @@ public class UIStorage implements UIEntity
     public String getClassName() { return "Storage"; }
 
     @Override
-    public String getParentKeyName() { return null; }
+    public Class getBelongingOverViewActivity() { return StorageOverViewActivity.class; }
+
+    @Override
+    public String getForeignKeyname() { return ""; }
 
     @Override
     public String getImgPath() { return imgPath; }

@@ -1,5 +1,6 @@
 package com.mwb.digitalstorage.database;
 
+import com.mwb.digitalstorage.BaseActivity;
 import com.mwb.digitalstorage.model.Component;
 import com.mwb.digitalstorage.model.Rack;
 import com.mwb.digitalstorage.model.Storage;
@@ -27,12 +28,14 @@ public class SearchedEntityRepository
         }
         for (Rack rack : BaseRepository.getDao().searchRacks("%" + s + "%"))
         {
-            uiEntities.add(new UIRack(rack.id, rack.getName(), rack.getRackImgPath(), rack.getComponentCount()));
+            String belongingStorage = BaseRepository.getDao().getStorageUnit(rack.storageID).getName() + " (Rack)";
+            uiEntities.add(new UIRack(rack.id, belongingStorage, rack.getName(), rack.getRackImgPath(), rack.getComponentCount()));
         }
         for (Component component : BaseRepository.getDao().searchComponents("%" + s + "%"))
         {
-            uiEntities.add(new UIComponent(component.componentID, component.rackID, component.componentCategoryID, component.getCategoryName(),component.getName(),
-                                           component.getCode(), component.getImgPath(), component.getCount()));
+            String belongingRack = BaseRepository.getDao().getRack(component.rackID).getName() + " (Storage)";
+            uiEntities.add(new UIComponent(component.componentID, component.rackID, component.componentCategoryID, belongingRack, component.getCategoryName(),
+                                            component.getName(), component.getCode(), component.getImgPath(), component.getCount()));
         }
         return uiEntities;
     }

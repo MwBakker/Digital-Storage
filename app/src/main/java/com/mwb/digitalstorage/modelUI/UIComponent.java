@@ -1,6 +1,9 @@
 package com.mwb.digitalstorage.modelUI;
 
 import android.graphics.Bitmap;
+
+import com.mwb.digitalstorage.ComponentOverViewActivity;
+
 import androidx.databinding.ObservableField;
 
 
@@ -9,6 +12,7 @@ public class UIComponent implements UIEntity
     private long id;
     private long componentCatID;
     public long rackID;
+    private String foreignKeyname;
     private String componentCatName;
     private String imgPath;
 
@@ -20,12 +24,13 @@ public class UIComponent implements UIEntity
 
 
 
-    public UIComponent(long id, long rackID, long componentCatID, String componentCatName,
+    public UIComponent(long id, long rackID, long componentCatID, String foreignKeyname, String componentCatName,
                         String name, String code, String imgPath, int count)
     {
         this.id = id;
         this.rackID = rackID;
         this.componentCatID = componentCatID;
+        this.foreignKeyname = foreignKeyname;
         this.nameObsv.set(name);
         this.componentCatName = componentCatName;
         this.codeObsv.set(code);
@@ -47,10 +52,16 @@ public class UIComponent implements UIEntity
     @Override
     public String getClassName() { return "Component"; }
 
+    @Override
+    public Class getBelongingOverViewActivity()
+    {
+        return ComponentOverViewActivity.class;
+    }
+
     public String getComponentCatName() { return componentCatName; }
 
     @Override
-    public String getParentKeyName() { return null; }
+    public String getForeignKeyname() { return null; }
 
     public void setImgPath(String imgPath) { this.imgPath = imgPath; }
 

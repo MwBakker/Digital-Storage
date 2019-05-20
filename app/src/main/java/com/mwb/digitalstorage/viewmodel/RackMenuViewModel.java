@@ -15,7 +15,7 @@ public class RackMenuViewModel extends BaseViewModel
     public void setViewModelElements(long storageID)
     {
         rackRepository = new RackRepository();
-        uiRack = new UIRack(0L, "", "", 0);
+        uiRack = new UIRack(0L, "", "", "", 0);
         this.storageID = storageID;
     }
 

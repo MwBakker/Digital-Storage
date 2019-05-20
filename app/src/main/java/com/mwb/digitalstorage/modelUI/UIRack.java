@@ -1,6 +1,9 @@
 package com.mwb.digitalstorage.modelUI;
 
 import android.graphics.Bitmap;
+
+import com.mwb.digitalstorage.RackOverViewActivity;
+
 import androidx.databinding.ObservableField;
 
 
@@ -8,6 +11,7 @@ public class UIRack implements UIEntity
 {
     public long id;
     private String imgPath;
+    private String foreignKeyname;
 
     public ObservableField<String> nameObsv = new ObservableField<>("");
     public ObservableField<Integer> componentCountObsv = new ObservableField<>();
@@ -15,9 +19,10 @@ public class UIRack implements UIEntity
     public ObservableField<Boolean> isEditObsv = new ObservableField<>(false);
 
 
-    public UIRack(long id, String name, String imgPath, int componentCount)
+    public UIRack(long id, String foreignKeyname, String name, String imgPath, int componentCount)
     {
         this.id = id;
+        this.foreignKeyname = foreignKeyname;
         this.nameObsv.set(name);
         this.imgPath = imgPath;
         this.componentCountObsv.set(componentCount);
@@ -33,7 +38,13 @@ public class UIRack implements UIEntity
     public String getClassName() { return "Rack"; }
 
     @Override
-    public String getParentKeyName() { return null; }
+    public Class getBelongingOverViewActivity()
+    {
+        return RackOverViewActivity.class;
+    }
+
+    @Override
+    public String getForeignKeyname() { return foreignKeyname; }
 
     public void setImgPath(String imgPath) { this.imgPath = imgPath; }
 

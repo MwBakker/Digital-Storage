@@ -99,7 +99,10 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
         //  binds the storage unit to the model
         private void bind(@NonNull UIComponent uiComponent)
         {
-            uiComponent.imgObsv.set(imgProcessor.decodeImgPath(uiComponent.getImgPath()));
+            if (uiComponent.getImgPath() != null)
+            {
+                uiComponent.imgObsv.set(imgProcessor.decodeImgPath(uiComponent.getImgPath()));
+            }
             binding.setUIComponent(uiComponent);
             binding.executePendingBindings();
         }
