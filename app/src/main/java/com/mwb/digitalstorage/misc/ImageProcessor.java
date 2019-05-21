@@ -107,18 +107,8 @@ public class ImageProcessor
     // process the decoding
     private Bitmap decode(String path)
     {
-        BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
-        decodeOptions.inJustDecodeBounds = true;
-
-        final int REQUIRED_WIDTH = 800;
-        final int REQUIRED_HIGHT = 600;
-        int scale = 1;
-
-        while (decodeOptions.outWidth / scale / 2 >= REQUIRED_WIDTH && decodeOptions.outHeight / scale / 2 >= REQUIRED_HIGHT) {
-            scale *= 2;
-        }
-
-         Bitmap meuk = BitmapFactory.decodeFile(path);
-        return  meuk;
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        Bitmap bitmap = BitmapFactory.decodeFile(path, bmOptions);
+        return Bitmap.createScaledBitmap(bitmap,800,600,true);
     }
 }
