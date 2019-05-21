@@ -37,7 +37,11 @@ public class SearchActivity extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
-                searchVM.searchRelevance(s.toString());
+                String input = s.toString();
+                if (input != "")
+                {
+                    searchVM.searchRelevance(input);
+                }
             }
             @Override
             public void goBack() { onBackPressed(); }
