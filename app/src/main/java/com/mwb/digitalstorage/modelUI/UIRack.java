@@ -1,9 +1,7 @@
 package com.mwb.digitalstorage.modelUI;
 
 import android.graphics.Bitmap;
-
 import com.mwb.digitalstorage.RackOverViewActivity;
-
 import androidx.databinding.ObservableField;
 
 

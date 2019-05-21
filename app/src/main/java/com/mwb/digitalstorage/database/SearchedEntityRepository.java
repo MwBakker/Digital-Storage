@@ -1,6 +1,5 @@
 package com.mwb.digitalstorage.database;
 
-import com.mwb.digitalstorage.BaseActivity;
 import com.mwb.digitalstorage.model.Component;
 import com.mwb.digitalstorage.model.Rack;
 import com.mwb.digitalstorage.model.Storage;
@@ -20,8 +19,7 @@ public class SearchedEntityRepository
     //  retrieve all found entities
     public List<UIEntity> findEntities(String s)
     {
-        if (uiEntities.size() > 1) { uiEntities.clear(); }
-
+        if (uiEntities.size() > 0) { uiEntities.clear(); }
         for (Storage storage : BaseRepository.getDao().searchStorages("%" + s + "%"))
         {
             uiEntities.add(new UIStorage(storage.id, storage.getName(), storage.getLocation(), storage.getImgPath()));

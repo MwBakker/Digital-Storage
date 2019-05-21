@@ -85,7 +85,7 @@ public class SearchedEntityListAdapter extends RecyclerView.Adapter<SearchedEnti
         //  binds the storage unit to the model
         private void bind(@NonNull UIEntity UIentity)
         {
-            if (UIentity.getImgPath() != null)
+            if (UIentity.getImgPath() != null && UIentity.getImgPath() != "")
             {
                 UIentity.setImg(imgProcessor.decodeImgPath(UIentity.getImgPath()));
             }

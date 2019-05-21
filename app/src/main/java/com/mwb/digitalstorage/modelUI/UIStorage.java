@@ -48,11 +48,7 @@ public class UIStorage implements UIEntity
     public void setImg(Bitmap img) { imgObsv.set(img); }
 
     @Override
-    public Bitmap getImg()
-    {
-        Bitmap img = imgObsv.get();
-        return imgObsv.get();
-    }
+    public Bitmap getImg() { return imgObsv.get(); }
 
     public void setImgPath(String imgPath) { this.imgPath = imgPath; }
 
