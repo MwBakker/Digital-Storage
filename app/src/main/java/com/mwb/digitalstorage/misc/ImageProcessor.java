@@ -108,6 +108,7 @@ public class ImageProcessor
     private Bitmap decode(String path)
     {
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds= true;
         Bitmap bitmap = BitmapFactory.decodeFile(path, bmOptions);
         return Bitmap.createScaledBitmap(bitmap,800,600,true);
     }
