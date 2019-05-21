@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 public class ComponentMenuActivity extends AppCompatActivity
 {
-    private ComponentMenuViewModel componentVM;
+    private ComponentMenuViewModel componentMenuVM;
 
 
     @Override
@@ -25,17 +25,17 @@ public class ComponentMenuActivity extends AppCompatActivity
 
         //ItemSpinnerCmdHandler itemSpinnerCmdHandler = spinnerHandler();
 
-        componentVM = ViewModelProviders.of(this).get(ComponentMenuViewModel.class);
-        componentVM.setViewModelElements(this, this.getApplicationContext(), getIntent().getLongExtra("rack_id", 0L));
+        componentMenuVM = ViewModelProviders.of(this).get(ComponentMenuViewModel.class);
+        componentMenuVM.setViewModelElements(this, this.getApplicationContext(), getIntent().getLongExtra("rack_id", 0L));
 
-        binding.setVm(componentVM);
-        binding.setCmdHandler(handlers());
+        binding.setVm(componentMenuVM);
+        binding.setCmdHandler(componentCategoryMenuCmdHandler());
     }
 
     //
     //  sets the handlers
     //
-    private ComponentCategoryMenuCmdHandler handlers()
+    private ComponentCategoryMenuCmdHandler componentCategoryMenuCmdHandler()
     {
         // handlers and methods
         return new ComponentCategoryMenuCmdHandler()
@@ -43,22 +43,23 @@ public class ComponentMenuActivity extends AppCompatActivity
             @Override
             public void takePhoto()
             {
-                startActivityForResult(componentVM.imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
+                startActivityForResult(componentMenuVM.imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
                                         getExternalFilesDir(Environment.DIRECTORY_PICTURES)), 1);
             }
             @Override
-            public void removePhoto() { componentVM.removePhoto(); }
+            public void removePhoto() { componentMenuVM.getUiComponent().removeImg(); }
             @Override
-            public void addNewCategory() { componentVM.newCategoryObsv.set(!componentVM.newCategoryObsv.get()); }
+            public void addNewCategory() { componentMenuVM.newCategoryObsv.set(!componentMenuVM.newCategoryObsv.get()); }
             @Override
             public void browsePhoto()
             {
-
+                startActivityForResult(new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1);
             }
             @Override
             public void saveNewEntity()
             {
-                componentVM.addComponent();
+                componentMenuVM.addComponent();
                 switchBackToOverView();
             }
             @Override
@@ -72,7 +73,15 @@ public class ComponentMenuActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        componentVM.setComponentBitmap(componentVM.imgProcessor.getImgPath());
+        if (componentMenuVM.imgProcessor.isFromCamera())
+        {
+            componentMenuVM.getUiComponent().setImgPath(componentMenuVM.imgProcessor.getImgPath());
+        }
+        else
+        {
+            componentMenuVM.getUiComponent().setImgPath(componentMenuVM.imgProcessor.browseImage(data, getApplication()));
+        }
+        componentMenuVM.getUiComponent().imgObsv.set(componentMenuVM.imgProcessor.decodeImgPath());
     }
 
     //  handles activity switch

@@ -28,8 +28,9 @@ public class RackOverViewActivity extends BaseActivity
         ImgCmdHandler imgCmdHandler = photoCmdHandler();
 
         rackOverViewVM = ViewModelProviders.of(this).get(RackOverViewViewModel.class);
+
         rackOverViewVM.setViewModelElements(getIntent().getLongExtra("storage_id", 0L),
-                                     this, rackCmdHandler, imgCmdHandler);
+                                            this, rackCmdHandler, imgCmdHandler);
 
         ToolbarViewModel tbVM = new ToolbarViewModel("Racks");
 
@@ -37,7 +38,7 @@ public class RackOverViewActivity extends BaseActivity
         binding.setVm(rackOverViewVM);
         binding.setTbvm(tbVM);
         binding.setRackCmdHandler(rackCmdHandler);
-        binding.setTbCmdHandler(toolbarCmdHandler("Storage"));
+        binding.setTbCmdHandler(toolbarCmdHandler());
     }
 
     //  sets the rack handlers
@@ -70,7 +71,11 @@ public class RackOverViewActivity extends BaseActivity
             @Override
             public void editEntityTitle(CharSequence s, int start, int before, int count)
             {
-                rackOverViewVM.getUiRack().nameObsv.set(s.toString());
+                // onTextChanged of EditText gets called on during refresh on the RV(!)
+                if (rackOverViewVM.getUiRack() != null)
+                {
+                    rackOverViewVM.getUiRack().nameObsv.set(s.toString());
+                }
             }
             @Override
             public void saveEntity(boolean isNew) { rackOverViewVM.saveRackEdit(); }

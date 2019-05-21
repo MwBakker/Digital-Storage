@@ -15,10 +15,6 @@
         <variable
             name="vm"
             type="com.mwb.digitalstorage.viewmodel.ComponentMenuViewModel" />
-
-        <variable
-            name="UIComponentCategory"
-            type="com.mwb.digitalstorage.modelUI.UIComponentCategory" />
     </data>
 
     <ScrollView
@@ -35,7 +31,7 @@
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@android:color/white"
                 android:hint="@string/component_name"
-                android:text="@={vm.componentNameObsv}"
+                android:text="@={vm.uiComponent.nameObsv}"
                 android:textColor="@android:color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +42,7 @@
                 android:layout_marginTop="40dp"
                 android:backgroundTint="@android:color/white"
                 android:hint="@string/component_code"
-                android:text="@={vm.componentCodeObsv}"
+                android:text="@={vm.uiComponent.codeObsv}"
                 android:textColor="@android:color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/component_name" />
@@ -56,7 +52,7 @@
                 style="@style/wrap_content"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="45dp"
-                android:selectedItemPosition="@={UIComponentCategory.selectedItemPosition}"
+
                 android:visibility="@{safeUnbox(vm.newCategoryObsv) ? View.GONE : View.VISIBLE}"
                 app:adapter="@{vm.spinnerAdapterObsv}"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -115,7 +111,7 @@
                 app:layout_constraintHeight_percent="0.325"
                 android:layout_marginTop="100dp"
                 app:cmdHandler="@{cmdHandler}"
-                app:img="@{vm.componentImgObsv}"
+                app:img="@{vm.uiComponent.imgObsv}"
                 app:layout_constraintTop_toBottomOf="@+id/txt_category_descr" />
 
             <Button

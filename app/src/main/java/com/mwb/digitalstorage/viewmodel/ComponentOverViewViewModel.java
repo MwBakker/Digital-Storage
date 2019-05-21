@@ -64,7 +64,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
     public long getRackID() { return rackID; }
 
     // gets the component
-    public UIComponent getComponent() { return uiComponent; }
+    public UIComponent getUiComponent() { return uiComponent; }
 
     //
     //  sets the to-be-edited component category

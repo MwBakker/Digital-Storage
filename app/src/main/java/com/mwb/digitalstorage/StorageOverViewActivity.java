@@ -34,7 +34,7 @@ public class StorageOverViewActivity extends BaseActivity
         binding.setTbvm(toolbarVM);
         binding.setCmdHandler(mainViewCmdHandler);
         binding.setCompanyCmdHandler(registrationCmdHandler());
-        binding.setTbCmdHandler(toolbarCmdHandler("Main menu"));
+        binding.setTbCmdHandler(toolbarCmdHandler());
     }
 
     //  command handler for the storage

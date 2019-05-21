@@ -82,6 +82,7 @@ public class RackMenuActivity extends AppCompatActivity
     private void switchBackToOverView()
     {
         Intent intent = new Intent(RackMenuActivity.this, RackOverViewActivity.class);
+        intent.putExtra("storage_id", rackMenuVM.getStorageID());
         startActivity(intent);
         overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
         finish();

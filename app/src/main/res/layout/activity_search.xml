@@ -23,9 +23,10 @@
             android:id="@+id/txt_arrow"
             style="@style/wrap_content"
             android:layout_width="wrap_content"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="16dp"
             android:onClick="@{(view) -> cmdHandler.goBack()}"
-            android:text="<-"
+            android:text="Back"
             android:textColor="@color/icon_color"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

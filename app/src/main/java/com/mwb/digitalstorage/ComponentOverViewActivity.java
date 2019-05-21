@@ -32,7 +32,7 @@ public class ComponentOverViewActivity extends BaseActivity
                                     this, componentCategoryCmdHandler, componentCmdHandler());
 
         binding.setComponentCmdHandler(componentCmdHandler);
-        binding.setTbCmdHandler(toolbarCmdHandler("Components"));
+        binding.setTbCmdHandler(toolbarCmdHandler());
         binding.setVm(componentOverViewVM);
     }
 
@@ -55,7 +55,7 @@ public class ComponentOverViewActivity extends BaseActivity
             @Override
             public void editComponentName(CharSequence s, int start, int before, int count)
             {
-                componentOverViewVM.getComponent().nameObsv.set(s.toString());
+                componentOverViewVM.getUiComponent().nameObsv.set(s.toString());
             }
             @Override
             public void saveEdit() { componentOverViewVM.saveComponentCategoryEdit(); }
@@ -86,7 +86,11 @@ public class ComponentOverViewActivity extends BaseActivity
             @Override
             public void editEntityTitle(CharSequence s, int start, int before, int count)
             {
-                componentOverViewVM.getComponent().nameObsv.set(s.toString());
+                // onTextChanged of EditText gets called on during refresh on the RV(!)
+                if (componentOverViewVM.getUiComponent() != null)
+                {
+                    componentOverViewVM.getUiComponent().nameObsv.set(s.toString());
+                }
             }
             @Override
             public void saveEntity(boolean isNew) { componentOverViewVM.saveComponentEdit(); }

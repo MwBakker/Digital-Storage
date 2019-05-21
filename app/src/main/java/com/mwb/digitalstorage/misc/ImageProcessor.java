@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -85,7 +87,38 @@ public class ImageProcessor
     }
 
     //  decodes the imgPath to a file
-    public Bitmap decodeImgPath() { return BitmapFactory.decodeFile(imgPath); }
+    public Bitmap decodeImgPath()
+    {
+        if (imgPath != null && !imgPath.isEmpty())
+        {
+            return decode(imgPath);
+        } else {return null; }
+    }
 
-    public Bitmap decodeImgPath(String path) { return BitmapFactory.decodeFile(path); }
+    //  decodes the imgPath to a file (overload)
+    public Bitmap decodeImgPath(String path)
+    {
+        if (path != null && !path.isEmpty())
+        {
+            return decode(path);
+        } else { return null; }
+    }
+
+    // process the decoding
+    private Bitmap decode(String path)
+    {
+        BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
+        decodeOptions.inJustDecodeBounds = true;
+
+        final int REQUIRED_WIDTH = 800;
+        final int REQUIRED_HIGHT = 600;
+        int scale = 1;
+
+        while (decodeOptions.outWidth / scale / 2 >= REQUIRED_WIDTH && decodeOptions.outHeight / scale / 2 >= REQUIRED_HIGHT) {
+            scale *= 2;
+        }
+
+         Bitmap meuk = BitmapFactory.decodeFile(path);
+        return  meuk;
+    }
 }
