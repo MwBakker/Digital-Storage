@@ -88,6 +88,7 @@ public class ComponentMenuActivity extends AppCompatActivity
     private void switchBackToOverView()
     {
         Intent intent = new Intent(ComponentMenuActivity.this, ComponentOverViewActivity.class);
+        intent.putExtra("rack_id", componentMenuVM.getRackID());
         startActivity(intent);
         overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
         finish();

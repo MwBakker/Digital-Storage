@@ -32,7 +32,7 @@
             android:id="@+id/main_image"
             layout="@layout/img_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="250dp"
             app:cmdHandler="@{imgCmdHandler}"
             app:img="@{UIRack.imgObsv}"
             app:isEditObsv="@{safeUnbox(UIRack.isEditObsv)}"

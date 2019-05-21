@@ -31,7 +31,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
 
     // sets the elements belonging to the viewModel
     public void setViewModelElements(long storageID, long rackID, LifecycleOwner lifecycleOwner, ComponentCategoryCmdHandler componentCategoryCmdHandler,
-                                        ComponentCmdHandler componentCmdHandler)
+                                     ComponentCmdHandler componentCmdHandler)
     {
         componentRepository = new ComponentRepository();
         RackRepository rackRepository = new RackRepository();
@@ -46,7 +46,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
 
         componentRepository.getRackComponents(rackID).observe(lifecycleOwner, components ->
         {
-            componentListAdapterObsv.set(new ComponentListAdapter(components, componentCmdHandler));
+            componentListAdapterObsv.set(new ComponentListAdapter(components, componentCmdHandler, imgProcessor));
         });
 
         executor.execute(() ->

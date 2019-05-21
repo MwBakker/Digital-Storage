@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:img="@{vm.uiStorage.imgObsv}"
-            app:layout_constraintHeight_percent="0.215"
+            app:layout_constraintHeight_percent="0.3"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <ScrollView
@@ -57,7 +57,7 @@
                 <View
                     android:id="@+id/hr"
                     style="@style/hr_white"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="20dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

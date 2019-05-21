@@ -6,6 +6,8 @@ import com.mwb.digitalstorage.R;
 import com.mwb.digitalstorage.database.ComponentRepository;
 import com.mwb.digitalstorage.modelUI.UIComponent;
 import com.mwb.digitalstorage.modelUI.UIComponentCategory;
+
+import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.LifecycleOwner;
 
@@ -15,6 +17,8 @@ public class ComponentMenuViewModel extends BaseViewModel
     private UIComponent uiComponent;
     private long rackID;
     private long catID;
+
+    public ObservableField<Integer> catIDObsv = new ObservableField<>();
 
     private ComponentRepository componentRepository;
 
@@ -50,6 +54,8 @@ public class ComponentMenuViewModel extends BaseViewModel
     //  checks if category is new
     public void addComponent()
     {
+        int whatsInTheBox = catIDObsv.get();
+
         executor.execute(() ->
         {
             if (newCategoryObsv.get()) { processNewCategoryInput(); }

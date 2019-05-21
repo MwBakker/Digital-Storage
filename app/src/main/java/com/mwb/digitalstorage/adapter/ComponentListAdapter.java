@@ -23,10 +23,11 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
     private ImageProcessor imgProcessor;
 
 
-    public ComponentListAdapter(List<UIComponent> components, ComponentCmdHandler componentCmdHandlerCallBack)
+    public ComponentListAdapter(List<UIComponent> components, ComponentCmdHandler componentCmdHandlerCallBack, ImageProcessor imgProcessor)
     {
         this.components = components;
         this.componentCmdHandlerCallBack = componentCmdHandlerCallBack;
+        this.imgProcessor = imgProcessor;
     }
 
     //  sets the filtered components
