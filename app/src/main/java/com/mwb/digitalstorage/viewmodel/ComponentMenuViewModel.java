@@ -39,6 +39,8 @@ public class ComponentMenuViewModel extends BaseViewModel
         componentRepository = new ComponentRepository();
         componentRepository.getAllComponentCategories().observe(owner, componentCategories ->
         {
+            String componentCategoryPos = componentCategories.get(1).componentCatName.get();
+
             spinnerAdapterObsv.set(new ArrayAdapter<>(context, R.layout.component_category_spinner_item, componentCategories));
         });
     }
