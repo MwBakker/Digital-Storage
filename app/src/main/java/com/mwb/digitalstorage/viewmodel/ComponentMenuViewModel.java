@@ -17,6 +17,7 @@ public class ComponentMenuViewModel extends BaseViewModel
     private UIComponent uiComponent;
     private long rackID;
     private long catID;
+    private LifecycleOwner owner;
 
     public ObservableField<Integer> catIDObsv = new ObservableField<>();
 
@@ -34,13 +35,12 @@ public class ComponentMenuViewModel extends BaseViewModel
     public void setViewModelElements(LifecycleOwner owner, Context context, long rackID)
     {
         this.rackID = rackID;
+        this.owner = owner;
         uiComponent = new UIComponent(0L,0L,0L,"","","","","",0);
 
         componentRepository = new ComponentRepository();
         componentRepository.getAllComponentCategories().observe(owner, componentCategories ->
         {
-            String componentCategoryPos = componentCategories.get(1).componentCatName.get();
-
             spinnerAdapterObsv.set(new ArrayAdapter<>(context, R.layout.component_category_spinner_item, componentCategories));
         });
     }
@@ -56,13 +56,14 @@ public class ComponentMenuViewModel extends BaseViewModel
     //  checks if category is new
     public void addComponent()
     {
-        int whatsInTheBox = catIDObsv.get();
-
-        executor.execute(() ->
+        componentRepository.getAllComponentCategories().observe(owner, componentCategories ->
         {
-            if (newCategoryObsv.get()) { processNewCategoryInput(); }
-            componentRepository.insertComponent(rackID, catID, null, uiComponent.nameObsv.get(),
-                                                uiComponent.codeObsv.get(), uiComponent.getImgPath(), 0);
+            executor.execute(() ->
+            {
+                if (newCategoryObsv.get()) { processNewCategoryInput(); }
+                componentRepository.insertComponent(rackID, componentCategories.get(catIDObsv.get()).getComponentCatID(), null,
+                                                    uiComponent.nameObsv.get(), uiComponent.codeObsv.get(), uiComponent.getImgPath(), 0);
+            });
         });
     }
 
