@@ -22,7 +22,7 @@ public class SearchActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         searchVM = ViewModelProviders.of(this).get(SearchViewModel.class);
-        searchVM.setViewModelElements( getIntent().getStringExtra("previous_activity_name"), searchedEntityCmdHandler());
+        searchVM.setViewModelElements(searchedEntityCmdHandler());
 
         ActivitySearchBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
         binding.setVm(searchVM);
@@ -38,10 +38,7 @@ public class SearchActivity extends AppCompatActivity
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
                 String input = s.toString();
-                if (input != "")
-                {
-                    searchVM.searchRelevance(input);
-                }
+                if (input != "") { searchVM.searchRelevance(input); }
             }
             @Override
             public void goBack() { onBackPressed(); }

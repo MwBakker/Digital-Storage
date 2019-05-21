@@ -23,16 +23,14 @@ public abstract class BaseActivity extends AppCompatActivity
     }
 
     //  command handler for the toolbar
-    public ToolbarCmdHandler toolbarCmdHandler(String nameOfPrevious)
+    public ToolbarCmdHandler toolbarCmdHandler()
     {
         return new ToolbarCmdHandler()
         {
             @Override
             public void openSearchActivity()
             {
-                Intent intent = new Intent(BaseActivity.this, SearchActivity.class);
-                intent.putExtra("previous_activity_name", nameOfPrevious);
-                startActivity(intent);
+                startActivity(new Intent(BaseActivity.this, SearchActivity.class));
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             }
         };
