@@ -18,7 +18,7 @@ public class ComponentRepository
     //                      //
     //__________________________________________________________________________
 
-    //  returns all components from rack
+    //  returns all components from specific rack
     public LiveData<List<UIComponent>> getRackComponents(long rackID)
     {
         return Transformations.map(BaseRepository.getDao().getRackComponents(rackID), newData -> createComponentUI(newData));

@@ -20,7 +20,7 @@ public class SearchedEntityRepository
     public List<UIEntity> findEntities(String s)
     {
         if (uiEntities.size() > 0) { uiEntities.clear(); }
-        for (Storage storage : BaseRepository.getDao().searchStorages("%" + s + "%"))
+        for (Storage storage : BaseRepository.getDao().searchStorageUnits("%" + s + "%"))
         {
             uiEntities.add(new UIStorage(storage.id, storage.getName(), storage.getLocation(), storage.getImgPath()));
         }

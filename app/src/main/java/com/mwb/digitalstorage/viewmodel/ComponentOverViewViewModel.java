@@ -43,7 +43,6 @@ public class ComponentOverViewViewModel extends BaseViewModel
         {
             componentCatListAdapterObsv.set(new ComponentCategoryListAdapter(componentCategories, componentCategoryCmdHandler));
         });
-
         componentRepository.getRackComponents(rackID).observe(lifecycleOwner, components ->
         {
             componentListAdapterObsv.set(new ComponentListAdapter(components, componentCmdHandler, imgProcessor));

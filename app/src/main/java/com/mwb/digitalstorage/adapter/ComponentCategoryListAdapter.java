@@ -7,7 +7,6 @@ import com.mwb.digitalstorage.R;
 import com.mwb.digitalstorage.command_handlers.ComponentCategoryCmdHandler;
 import com.mwb.digitalstorage.databinding.ComponentCategoryItemBinding;
 import com.mwb.digitalstorage.modelUI.UIComponentCategory;
-
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -18,6 +17,7 @@ public class ComponentCategoryListAdapter extends RecyclerView.Adapter<Component
 {
     private List<UIComponentCategory> componentCategories;
     private ComponentCategoryCmdHandler componentCategoryCmdHandler;
+
 
     public ComponentCategoryListAdapter(List<UIComponentCategory> componentCats, ComponentCategoryCmdHandler componentCategoryCmdHandler)
     {
@@ -31,7 +31,8 @@ public class ComponentCategoryListAdapter extends RecyclerView.Adapter<Component
     {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        ComponentCategoryItemBinding binding = DataBindingUtil.inflate(inflater, R.layout.component_category_item, parent, false);
+        ComponentCategoryItemBinding binding = DataBindingUtil.inflate(inflater, R.layout.component_category_item,
+                                                                        parent, false);
         return new ComponentCategoryViewHolder(binding);
     }
 

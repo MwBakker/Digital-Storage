@@ -23,8 +23,6 @@ public class ComponentMenuActivity extends AppCompatActivity
 
         ActivityComponentMenuBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_component_menu);
 
-        //ItemSpinnerCmdHandler itemSpinnerCmdHandler = spinnerHandler();
-
         componentMenuVM = ViewModelProviders.of(this).get(ComponentMenuViewModel.class);
         componentMenuVM.setViewModelElements(this, this.getApplicationContext(), getIntent().getLongExtra("rack_id", 0L));
 
@@ -32,9 +30,7 @@ public class ComponentMenuActivity extends AppCompatActivity
         binding.setCmdHandler(componentCategoryMenuCmdHandler());
     }
 
-    //
-    //  sets the handlers
-    //
+    //  sets the handler
     private ComponentCategoryMenuCmdHandler componentCategoryMenuCmdHandler()
     {
         // handlers and methods

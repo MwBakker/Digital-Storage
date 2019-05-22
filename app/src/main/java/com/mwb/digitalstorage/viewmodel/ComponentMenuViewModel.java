@@ -6,8 +6,6 @@ import com.mwb.digitalstorage.R;
 import com.mwb.digitalstorage.database.ComponentRepository;
 import com.mwb.digitalstorage.modelUI.UIComponent;
 import com.mwb.digitalstorage.modelUI.UIComponentCategory;
-
-import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.LifecycleOwner;
 
@@ -36,7 +34,8 @@ public class ComponentMenuViewModel extends BaseViewModel
     {
         this.rackID = rackID;
         this.owner = owner;
-        uiComponent = new UIComponent(0L,0L,0L,"","","","","",0);
+        uiComponent = new UIComponent(0L,0L,0L,"",
+                                    "","","","",0);
 
         componentRepository = new ComponentRepository();
         componentRepository.getAllComponentCategories().observe(owner, componentCategories ->
