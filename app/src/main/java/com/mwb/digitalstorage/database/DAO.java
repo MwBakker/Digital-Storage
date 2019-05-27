@@ -59,23 +59,20 @@ public interface DAO
     @Query("SELECT * FROM component_category WHERE name == :componentCat")
     ComponentCategory getComponentCategory(String componentCat);
 
-    //  get all components belonging to a rack
-    @Query("SELECT c.id, cc.name as category_name, c.rack_id, c.component_category_id, c.name, c.img_path, c.code, " +
-            "       (SELECT COUNT(c.name) " +
-            "        FROM component r ) as count " +
+    //  get all components belonging to a certain rack
+    @Query("SELECT c.id, c.rack_id, c.component_category_id, c.name, c.code, " +
+            "            (SELECT COUNT(c.id) " +
+            "             WHERE c.rack_id = :rackID ) as count " +
             "FROM component c " +
-            "INNER JOIN component_category cc ON cc.id = c.component_category_id " +
-            "WHERE c.rack_id = :rackID and cc.id = c.component_category_id " +
-            "ORDER BY c.name ASC")
+            "WHERE c.rack_id = :rackID ")
     LiveData<List<Component>> getRackComponents(long rackID);
 
     //  get all components belonging to a rack and certain specific category
-    @Query("SELECT c.id, COUNT(c.name) as count, cc.name as category_name, c.rack_id, c.component_category_id, c.name, c.img_path, c.code " +
+    @Query("SELECT c.id, c.rack_id, c.component_category_id, c.name, c.code, " +
+            "            (SELECT COUNT(c.id) " +
+            "             WHERE c.id = :rackID ) as count " +
             "FROM component c " +
-            "INNER JOIN component_category cc ON cc.id = c.component_category_id " +
-            "WHERE c.rack_id = :rackID and cc.id = :categoryID " +
-            "GROUP BY c.name " +
-            "ORDER BY c.name ASC")
+            "WHERE c.rack_id = :rackID AND c.component_category_id = :categoryID ")
     LiveData<List<Component>> getFilteredComponents(long rackID, long categoryID);
 
     //
