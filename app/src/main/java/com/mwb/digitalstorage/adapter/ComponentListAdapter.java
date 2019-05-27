@@ -89,8 +89,6 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
                 @Override
                 public void addNewEntity() { }
                 @Override
-                public void editEntityTitle(CharSequence s, int start, int before, int count) { }
-                @Override
                 public void saveEntity(boolean isNew) { }
                 @Override
                 public void deleteEntity() { }

@@ -69,7 +69,7 @@ public class Component implements com.mwb.digitalstorage.model.Entity
     public String getCategoryName(){ return this.categoryName; }
 
     @Override
-    public String getName() { return null; }
+    public String getName() { return this.name; }
 
     @Override
     public String getImgPath() { return this.imgPath; }

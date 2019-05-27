@@ -69,15 +69,6 @@ public class RackOverViewActivity extends BaseActivity
                 return true;
             }
             @Override
-            public void editEntityTitle(CharSequence s, int start, int before, int count)
-            {
-                // onTextChanged of EditText gets called on during refresh on the RV(!)
-                if (rackOverViewVM.getUiRack() != null)
-                {
-                    rackOverViewVM.getUiRack().nameObsv.set(s.toString());
-                }
-            }
-            @Override
             public void saveEntity(boolean isNew) { rackOverViewVM.saveRackEdit(); }
             @Override
             public void deleteEntity() { rackOverViewVM.deleteRack(); }

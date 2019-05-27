@@ -63,14 +63,6 @@ public class StorageOverViewActivity extends BaseActivity
                 return true;
             }
             @Override
-            public void editEntityTitle(CharSequence s, int start, int before, int count)
-            {
-                if (storageOverViewVM.getUiStorage() != null)
-                {
-                    storageOverViewVM.getUiStorage().nameObsv.set(s.toString());
-                }
-            }
-            @Override
             public void saveEntity(boolean isNew) { storageOverViewVM.saveStorageEdit(); }
             @Override
             public void editStorageLocation(CharSequence s, int start, int before, int count)

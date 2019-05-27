@@ -82,12 +82,6 @@ public class StorageListAdapter extends RecyclerView.Adapter<StorageListAdapter.
                     return true;
                 }
                 @Override
-                public void editEntityTitle(CharSequence s, int start, int before, int count)
-                {
-                    mainViewCmdHandlerCallBack.editEntityTitle(s, start, before, count);
-                }
-
-                @Override
                 public void saveEntity(boolean isNew)
                 {
                     mainViewCmdHandlerCallBack.saveEntity(false);

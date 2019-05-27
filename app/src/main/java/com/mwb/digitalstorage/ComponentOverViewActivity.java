@@ -84,15 +84,6 @@ public class ComponentOverViewActivity extends BaseActivity
                 return true;
             }
             @Override
-            public void editEntityTitle(CharSequence s, int start, int before, int count)
-            {
-                // onTextChanged of EditText gets called on during refresh on the RV(!)
-                if (componentOverViewVM.getUiComponent() != null)
-                {
-                    componentOverViewVM.getUiComponent().nameObsv.set(s.toString());
-                }
-            }
-            @Override
             public void saveEntity(boolean isNew) { componentOverViewVM.saveComponentEdit(); }
             @Override
             public void deleteEntity() { componentOverViewVM.deleteComponent(); }
