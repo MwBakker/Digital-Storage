@@ -11,8 +11,6 @@ public interface EntityCmdHandler
 
     boolean editEntity(UIEntity uiEntity);
 
-    void editEntityTitle(CharSequence s, int start, int before, int count);
-
     void saveEntity(boolean isNew);
 
     void deleteEntity();

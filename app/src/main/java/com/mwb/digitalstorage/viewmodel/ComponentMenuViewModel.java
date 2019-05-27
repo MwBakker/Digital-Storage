@@ -22,8 +22,6 @@ public class ComponentMenuViewModel extends BaseViewModel
     private ComponentRepository componentRepository;
 
     public ObservableField<ArrayAdapter<UIComponentCategory>> spinnerAdapterObsv = new ObservableField<>();
-    // the selected category from the spinner
-    public ObservableField<UIComponentCategory> selectedCategoryObsv = new ObservableField<>();
     // new category
     public ObservableField<String> newComponentCategoryObsv = new ObservableField<>();
     public ObservableField<Boolean> newCategoryObsv = new ObservableField<>(false);
@@ -36,7 +34,6 @@ public class ComponentMenuViewModel extends BaseViewModel
         this.owner = owner;
         uiComponent = new UIComponent(0L,0L,0L,"",
                                     "","","","",0);
-
         componentRepository = new ComponentRepository();
         componentRepository.getAllComponentCategories().observe(owner, componentCategories ->
         {
