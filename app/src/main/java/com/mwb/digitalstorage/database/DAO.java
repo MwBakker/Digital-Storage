@@ -60,7 +60,7 @@ public interface DAO
     ComponentCategory getComponentCategory(String componentCat);
 
     //  get all components belonging to a certain rack
-    @Query("SELECT c.id, c.rack_id, c.component_category_id, c.name, c.code, " +
+    @Query("SELECT c.id, c.rack_id, c.component_category_id, c.name, c.code, c.img_path, " +
             "            (SELECT COUNT(c.id) " +
             "             WHERE c.rack_id = :rackID ) as count " +
             "FROM component c " +
@@ -68,7 +68,7 @@ public interface DAO
     LiveData<List<Component>> getRackComponents(long rackID);
 
     //  get all components belonging to a rack and certain specific category
-    @Query("SELECT c.id, c.rack_id, c.component_category_id, c.name, c.code, " +
+    @Query("SELECT c.id, c.rack_id, c.component_category_id, c.name, c.code, c.img_path, " +
             "            (SELECT COUNT(c.id) " +
             "             WHERE c.id = :rackID ) as count " +
             "FROM component c " +

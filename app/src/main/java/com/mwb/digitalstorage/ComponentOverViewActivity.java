@@ -89,17 +89,4 @@ public class ComponentOverViewActivity extends BaseActivity
             public void deleteEntity() { componentOverViewVM.deleteComponent(); }
         };
     }
-
-    //  handles the back button
-    /*
-    @Override
-    public void onBackPressed()
-    {
-        super.onBackPressed();
-        Intent intent = new Intent(ComponentOverViewActivity.this, RackOverViewActivity.class);
-        intent.putExtra("storage_id", componentOverViewVM.getStorageID());
-        startActivity(intent);
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-    }
-    */
 }

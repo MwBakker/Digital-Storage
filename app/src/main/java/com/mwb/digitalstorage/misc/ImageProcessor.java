@@ -89,7 +89,8 @@ public class ImageProcessor
     //  decodes the imgPath to a file
     public Bitmap decodeImgPath()
     {
-        if (imgPath != null && !imgPath.isEmpty())
+        File file = new File(imgPath);
+        if (file.exists() && file.length() > 0)
         {
             return decode(imgPath);
         } else {return null; }
@@ -98,7 +99,8 @@ public class ImageProcessor
     //  decodes the imgPath to a file (overload)
     public Bitmap decodeImgPath(String path)
     {
-        if (path != null && !path.isEmpty())
+        File file = new File(path);
+        if (file.exists() && file.length() > 0)
         {
             return decode(path);
         } else { return null; }
@@ -110,6 +112,6 @@ public class ImageProcessor
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inSampleSize = 2;
         Bitmap bitmap = BitmapFactory.decodeFile(path, bmOptions);
-        return Bitmap.createScaledBitmap(bitmap,1920,720,true);
+        return Bitmap.createScaledBitmap(bitmap, 1280, 720, true);
     }
 }

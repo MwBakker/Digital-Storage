@@ -1,9 +1,7 @@
 package com.mwb.digitalstorage.modelUI;
 
 import android.graphics.Bitmap;
-
 import com.mwb.digitalstorage.ComponentOverViewActivity;
-
 import androidx.databinding.ObservableField;
 
 
@@ -21,7 +19,6 @@ public class UIComponent implements UIEntity
     public ObservableField<String> count = new ObservableField<>();
     public ObservableField<Bitmap> imgObsv = new ObservableField<>();
     public ObservableField<Boolean> isEditObsv = new ObservableField<>();
-
 
 
     public UIComponent(long id, long rackID, long componentCatID, String foreignKeyname, String componentCatName,
