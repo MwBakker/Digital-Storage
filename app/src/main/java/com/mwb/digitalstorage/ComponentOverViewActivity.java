@@ -2,8 +2,10 @@ package com.mwb.digitalstorage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import com.mwb.digitalstorage.command_handlers.ComponentCategoryCmdHandler;
 import com.mwb.digitalstorage.command_handlers.ComponentCmdHandler;
+import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;
 import com.mwb.digitalstorage.databinding.ActivityComponentOverviewBinding;
 import com.mwb.digitalstorage.modelUI.UIComponent;
 import com.mwb.digitalstorage.modelUI.UIComponentCategory;
@@ -29,7 +31,7 @@ public class ComponentOverViewActivity extends BaseActivity
 
         componentOverViewVM = ViewModelProviders.of(this).get(ComponentOverViewViewModel.class);
         componentOverViewVM.setViewModelElements(getIntent().getLongExtra("storage_id", 0L), getIntent().getLongExtra("rack_id", 0L),
-                                    this, componentCategoryCmdHandler, componentCmdHandler());
+                                                this, componentCategoryCmdHandler, componentCmdHandler(), imgCmdHandler());
 
         binding.setComponentCmdHandler(componentCmdHandler);
         binding.setTbCmdHandler(toolbarCmdHandler());
@@ -47,15 +49,10 @@ public class ComponentOverViewActivity extends BaseActivity
                 componentOverViewVM.sort(uiComponentCategory);
             }
             @Override
-            public boolean editComponentCat(UIComponentCategory uiComponentCategory)
+            public boolean editComponentCategory(UIComponentCategory uiComponentCategory)
             {
                 componentOverViewVM.setEditableComponentCategory(uiComponentCategory);
                 return false;
-            }
-            @Override
-            public void editComponentName(CharSequence s, int start, int before, int count)
-            {
-                componentOverViewVM.getUiComponent().nameObsv.set(s.toString());
             }
             @Override
             public void saveEdit() { componentOverViewVM.saveComponentCategoryEdit(); }
@@ -68,7 +65,7 @@ public class ComponentOverViewActivity extends BaseActivity
         return new ComponentCmdHandler()
         {
             @Override
-            public void enterEntity(long id) {}
+            public void enterEntity(long id) { }
             @Override
             public void addNewEntity()
             {
@@ -88,5 +85,46 @@ public class ComponentOverViewActivity extends BaseActivity
             @Override
             public void deleteEntity() { componentOverViewVM.deleteComponent(); }
         };
+    }
+
+    //  image cmd handler
+    public ImgCmdHandler imgCmdHandler()
+    {
+        return new ImgCmdHandler()
+        {
+            @Override
+            public void takePhoto()
+            {
+                componentOverViewVM.imgProcessor.setCamerabool(true);
+                startActivityForResult(componentOverViewVM.imgProcessor.dispatchTakePictureIntent(getApplicationContext(),
+                        getExternalFilesDir(Environment.DIRECTORY_PICTURES)), 1);
+            }
+            @Override
+            public void browsePhoto()
+            {
+                componentOverViewVM.imgProcessor.setCamerabool(false);
+                startActivityForResult(new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1);
+            }
+            @Override
+            public void removePhoto() { componentOverViewVM.getUiComponent().removeImg();  }
+        };
+    }
+
+    //  immediately retrieves file from taken img
+    //  sets the VM img resource property
+    //  loadImg will be called on after trigger of set()
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (componentOverViewVM.imgProcessor.isFromCamera())
+        {
+            componentOverViewVM.getUiComponent().setImgPath(componentOverViewVM.imgProcessor.getImgPath());
+        }
+        else
+        {
+            componentOverViewVM.getUiComponent().setImgPath(componentOverViewVM.imgProcessor.browseImage(data, getApplication()));
+        }
+        componentOverViewVM.getUiComponent().imgObsv.set(componentOverViewVM.imgProcessor.decodeImgPath());
     }
 }

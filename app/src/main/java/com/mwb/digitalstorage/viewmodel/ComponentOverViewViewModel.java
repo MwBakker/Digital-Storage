@@ -5,6 +5,7 @@ import com.mwb.digitalstorage.adapter.ComponentCategoryListAdapter;
 import com.mwb.digitalstorage.adapter.ComponentListAdapter;
 import com.mwb.digitalstorage.command_handlers.ComponentCategoryCmdHandler;
 import com.mwb.digitalstorage.command_handlers.ComponentCmdHandler;
+import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;
 import com.mwb.digitalstorage.database.ComponentRepository;
 import com.mwb.digitalstorage.database.RackRepository;
 import com.mwb.digitalstorage.modelUI.UIComponent;
@@ -31,7 +32,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
 
     // sets the elements belonging to the viewModel
     public void setViewModelElements(long storageID, long rackID, LifecycleOwner lifecycleOwner, ComponentCategoryCmdHandler componentCategoryCmdHandler,
-                                     ComponentCmdHandler componentCmdHandler)
+                                     ComponentCmdHandler componentCmdHandler, ImgCmdHandler imgCmdHandler)
     {
         componentRepository = new ComponentRepository();
         RackRepository rackRepository = new RackRepository();
@@ -45,7 +46,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
         });
         componentRepository.getRackComponents(rackID).observe(lifecycleOwner, components ->
         {
-            componentListAdapterObsv.set(new ComponentListAdapter(components, componentCmdHandler, imgProcessor));
+            componentListAdapterObsv.set(new ComponentListAdapter(components, componentCmdHandler, imgCmdHandler, imgProcessor));
         });
 
         executor.execute(() ->
@@ -72,9 +73,9 @@ public class ComponentOverViewViewModel extends BaseViewModel
     {
         if (this.uiComponentCategory != null)
         {
-            this.uiComponentCategory.isEdit.set(false);
+            this.uiComponentCategory.isEditObsv.set(false);
         }
-        uiComponentCategory.isEdit.set(true);
+        uiComponentCategory.isEditObsv.set(true);
         this.uiComponentCategory = uiComponentCategory;
     }
 
@@ -94,9 +95,9 @@ public class ComponentOverViewViewModel extends BaseViewModel
     {
         uiComponentCategory.setSelectedState();
 
-        if (this.uiComponentCategory.getComponentCatID() == uiComponentCategory.getComponentCatID())
+        if (this.uiComponentCategory.getID() == uiComponentCategory.getID())
         {
-            componentRepository.getCatFilteredComponents(rackID, uiComponentCategory.getComponentCatID()).observe(lifecycleOwner, components ->
+            componentRepository.getCatFilteredComponents(rackID, uiComponentCategory.getID()).observe(lifecycleOwner, components ->
             {
                 componentListAdapterObsv.get().setComponents(components);
             });
@@ -113,8 +114,8 @@ public class ComponentOverViewViewModel extends BaseViewModel
     {
         executor.execute(() ->
         {
-            componentRepository.editComponentCategory(uiComponentCategory.getComponentCatID(),
-                                                uiComponentCategory.componentCatName.get());
+            componentRepository.editComponentCategory(uiComponentCategory.getID(),
+                                                uiComponentCategory.nameObsv.get());
         });
     }
 

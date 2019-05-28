@@ -25,12 +25,10 @@ public class RackOverViewActivity extends BaseActivity
         super.onCreate(savedInstanceState);
 
         RackCmdHandler rackCmdHandler = rackCmdHandler();
-        ImgCmdHandler imgCmdHandler = photoCmdHandler();
 
         rackOverViewVM = ViewModelProviders.of(this).get(RackOverViewViewModel.class);
-
         rackOverViewVM.setViewModelElements(getIntent().getLongExtra("storage_id", 0L),
-                                            this, rackCmdHandler, imgCmdHandler);
+                                            this, rackCmdHandler,  imgCmdHandler());
 
         ToolbarViewModel tbVM = new ToolbarViewModel("Racks");
 
@@ -76,7 +74,7 @@ public class RackOverViewActivity extends BaseActivity
     }
 
     //  photo command handler
-    private ImgCmdHandler photoCmdHandler()
+    private ImgCmdHandler imgCmdHandler()
     {
         return new ImgCmdHandler()
         {

@@ -11,7 +11,6 @@ public class UIComponent implements UIEntity
     private long componentCatID;
     public long rackID;
     private String foreignKeyname;
-    private String componentCatName;
     private String imgPath;
 
     public ObservableField<String> nameObsv = new ObservableField<>();
@@ -22,7 +21,7 @@ public class UIComponent implements UIEntity
     public ObservableField<Boolean> isEditObsv = new ObservableField<>();
 
 
-    public UIComponent(long id, long rackID, long componentCatID, String foreignKeyname, String componentCatName,
+    public UIComponent(long id, long rackID, long componentCatID, String foreignKeyname,
                         String name, String code, String imgPath, int count)
     {
         this.id = id;
@@ -30,7 +29,6 @@ public class UIComponent implements UIEntity
         this.componentCatID = componentCatID;
         this.foreignKeyname = foreignKeyname;
         this.nameObsv.set(name);
-        this.componentCatName = componentCatName;
         this.codeObsv.set(code);
         this.imgPath = imgPath;
         this.countObsv.set(Integer.toString(count));
@@ -55,8 +53,6 @@ public class UIComponent implements UIEntity
     {
         return ComponentOverViewActivity.class;
     }
-
-    public String getComponentCatName() { return componentCatName; }
 
     @Override
     public String getForeignKeyname() { return null; }

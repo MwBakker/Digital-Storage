@@ -78,15 +78,10 @@ public class ComponentCategoryListAdapter extends RecyclerView.Adapter<Component
                     componentCategoryCmdHandler.sort(uiComponentCategory);
                 }
                 @Override
-                public boolean editComponentCat(UIComponentCategory uiComponentCategory)
+                public boolean editComponentCategory(UIComponentCategory uiComponentCategory)
                 {
-                    componentCategoryCmdHandler.editComponentCat(uiComponentCategory);
+                    componentCategoryCmdHandler.editComponentCategory(uiComponentCategory);
                     return false;
-                }
-                @Override
-                public void editComponentName(CharSequence s, int start, int before, int count)
-                {
-                    componentCategoryCmdHandler.editComponentName(s, start, before, count);
                 }
                 @Override
                 public void saveEdit() { componentCategoryCmdHandler.saveEdit(); }

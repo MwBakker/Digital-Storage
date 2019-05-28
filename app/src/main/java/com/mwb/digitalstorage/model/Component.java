@@ -36,9 +36,6 @@ public class Component implements com.mwb.digitalstorage.model.Entity
     @ColumnInfo(name="component_category_id")
     public long componentCategoryID;
 
-    @ColumnInfo(name = "category_name")
-    private String categoryName;
-
     @ColumnInfo(name = "name")
     private String name;
 
@@ -51,13 +48,12 @@ public class Component implements com.mwb.digitalstorage.model.Entity
     @ColumnInfo(name = "count")
     private int count;
 
-    public Component(long rackID, long componentCategoryID, String categoryName, String name,
+    public Component(long rackID, long componentCategoryID, String name,
                      String code, String imgPath, int count)
     {
         this.rackID = rackID;
         this.componentCategoryID = componentCategoryID;
         this.name = name;
-        this.categoryName = categoryName;
         this.code = code;
         this.imgPath = imgPath;
         this.count = count;
@@ -65,8 +61,6 @@ public class Component implements com.mwb.digitalstorage.model.Entity
 
 
     public long getRackID() { return this.rackID; }
-
-    public String getCategoryName(){ return this.categoryName; }
 
     @Override
     public String getName() { return this.name; }

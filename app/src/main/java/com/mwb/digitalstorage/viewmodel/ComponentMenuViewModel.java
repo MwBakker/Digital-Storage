@@ -14,16 +14,13 @@ public class ComponentMenuViewModel extends BaseViewModel
 {
     private UIComponent uiComponent;
     private long rackID;
-    private long catID;
     private LifecycleOwner owner;
-
-    public ObservableField<Integer> catIDObsv = new ObservableField<>();
-
     private ComponentRepository componentRepository;
 
+    public ObservableField<Integer> categoryIdObsv = new ObservableField<>();
     public ObservableField<ArrayAdapter<UIComponentCategory>> spinnerAdapterObsv = new ObservableField<>();
     // new category
-    public ObservableField<String> newComponentCategoryObsv = new ObservableField<>();
+    public ObservableField<String> newComponentCategoryNameObsv = new ObservableField<>();
     public ObservableField<Boolean> newCategoryObsv = new ObservableField<>(false);
 
 
@@ -32,8 +29,8 @@ public class ComponentMenuViewModel extends BaseViewModel
     {
         this.rackID = rackID;
         this.owner = owner;
-        uiComponent = new UIComponent(0L,0L,0L,"",
-                                    "","","","",0);
+        uiComponent = new UIComponent(0L,0L,0L, "",
+                                     "","","", 0);
         componentRepository = new ComponentRepository();
         componentRepository.getAllComponentCategories().observe(owner, componentCategories ->
         {
@@ -56,24 +53,32 @@ public class ComponentMenuViewModel extends BaseViewModel
         {
             executor.execute(() ->
             {
-                if (newCategoryObsv.get()) { processNewCategoryInput(); }
-                componentRepository.insertComponent(rackID, componentCategories.get(catIDObsv.get()).getComponentCatID(), null,
-                                                    uiComponent.nameObsv.get(), uiComponent.codeObsv.get(), uiComponent.getImgPath(), 0);
+                if (newCategoryObsv.get())
+                {
+                    componentRepository.insertComponent(rackID, processNewCategoryInput(), uiComponent.nameObsv.get(), uiComponent.codeObsv.get(),
+                                                        uiComponent.getImgPath(), 0);
+                }
+                else
+                {
+                    componentRepository.insertComponent(rackID, componentCategories.get(categoryIdObsv.get()).getID(), uiComponent.nameObsv.get(),
+                            uiComponent.codeObsv.get(), uiComponent.getImgPath(), 0);
+                }
             });
         });
     }
 
 
-    //  checks if category exists
-    //  if not, add the new category and set the ID
-    private void processNewCategoryInput()
+    //  retrieves possible existing long categoryID or creates one
+    private long processNewCategoryInput()
     {
-        catID = componentRepository.getComponentCategory(newComponentCategoryObsv.get());
+        // check if category exists
+        long categoryID = componentRepository.getComponentCategory(newComponentCategoryNameObsv.get());
         // if default value is returned...
-        if (catID == 0L)
+        if (categoryID == 0L)
         {
             // add the new category
-            catID = componentRepository.insertComponentCategory(newComponentCategoryObsv.get());
+            categoryID = componentRepository.insertComponentCategory(newComponentCategoryNameObsv.get());
         }
+        return categoryID;
     }
 }

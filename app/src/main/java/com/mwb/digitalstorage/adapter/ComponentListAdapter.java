@@ -5,11 +5,11 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import com.mwb.digitalstorage.R;
 import com.mwb.digitalstorage.command_handlers.ComponentCmdHandler;
+import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;
 import com.mwb.digitalstorage.databinding.ComponentItemBinding;
 import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.modelUI.UIComponent;
 import com.mwb.digitalstorage.modelUI.UIEntity;
-
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -20,13 +20,16 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
 {
     private List<UIComponent> components;
     private ComponentCmdHandler componentCmdHandlerCallBack;
+    private ImgCmdHandler imgCmdHandlerCallback;
     private ImageProcessor imgProcessor;
 
 
-    public ComponentListAdapter(List<UIComponent> components, ComponentCmdHandler componentCmdHandlerCallBack, ImageProcessor imgProcessor)
+    public ComponentListAdapter(List<UIComponent> components, ComponentCmdHandler componentCmdHandlerCallBack,
+                                ImgCmdHandler imgCmdHandlerCallback, ImageProcessor imgProcessor)
     {
         this.components = components;
         this.componentCmdHandlerCallBack = componentCmdHandlerCallBack;
+        this.imgCmdHandlerCallback = imgCmdHandlerCallback;
         this.imgProcessor = imgProcessor;
     }
 
@@ -73,6 +76,7 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
             super(binding.getRoot());
             this.binding = binding;
             binding.setCmdHandler(componentCmdHandler());
+            binding.setImgCmdHandler(imgCmdHandler());
         }
 
         //  sets handlers belonging to the holder
@@ -80,18 +84,34 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
         {
             return new ComponentCmdHandler() {
                 @Override
-                public void enterEntity(long id) { }
+                public void enterEntity(long id) {}
                 @Override
                 public boolean editEntity(UIEntity uiEntity)
                 {
-                    return false;
+                     componentCmdHandlerCallBack.editEntity(uiEntity);
+                     return true;
                 }
                 @Override
-                public void addNewEntity() { }
+                public void addNewEntity() {}
                 @Override
-                public void saveEntity(boolean isNew) { }
+                public void saveEntity(boolean isNew) { componentCmdHandlerCallBack.saveEntity(false); }
                 @Override
-                public void deleteEntity() { }
+                public void deleteEntity() { componentCmdHandlerCallBack.deleteEntity(); }
+            };
+        }
+
+        //  binds the image related commands
+        //  sets photo related handlers belonging to the rack
+        private ImgCmdHandler imgCmdHandler()
+        {
+            return new ImgCmdHandler()
+            {
+                @Override
+                public void takePhoto() { imgCmdHandlerCallback.takePhoto(); }
+                @Override
+                public void browsePhoto() { imgCmdHandlerCallback.browsePhoto(); }
+                @Override
+                public void removePhoto() { imgCmdHandlerCallback.removePhoto(); }
             };
         }
 

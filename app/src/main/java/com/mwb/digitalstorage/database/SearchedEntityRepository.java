@@ -32,7 +32,7 @@ public class SearchedEntityRepository
         for (Component component : BaseRepository.getDao().searchComponents("%" + s + "%"))
         {
             String belongingRack = BaseRepository.getDao().getRack(component.rackID).getName() + " (Storage)";
-            uiEntities.add(new UIComponent(component.componentID, component.rackID, component.componentCategoryID, belongingRack, component.getCategoryName(),
+            uiEntities.add(new UIComponent(component.componentID, component.rackID, component.componentCategoryID, belongingRack,
                                             component.getName(), component.getCode(), component.getImgPath(), component.getCount()));
         }
         return uiEntities;

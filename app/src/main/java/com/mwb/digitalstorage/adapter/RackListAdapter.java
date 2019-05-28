@@ -69,7 +69,7 @@ public class RackListAdapter extends RecyclerView.Adapter<RackListAdapter.RackVi
             super(binding.getRoot());
             this.binding = binding;
             binding.setCmdHandler(rackCmdHandler());
-            binding.setImgCmdHandler(photoCmdHandler());
+            binding.setImgCmdHandler(imgCmdHandler());
         }
 
         //  sets handlers belonging to the rack
@@ -96,7 +96,7 @@ public class RackListAdapter extends RecyclerView.Adapter<RackListAdapter.RackVi
         }
 
         //  sets photo related handlers belonging to the rack
-        private ImgCmdHandler photoCmdHandler()
+        private ImgCmdHandler imgCmdHandler()
         {
             return new ImgCmdHandler()
             {

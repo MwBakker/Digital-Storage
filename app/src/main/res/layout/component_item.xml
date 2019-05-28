@@ -8,12 +8,17 @@
         <import type="android.view.View" />
 
         <variable
+            name="UIComponent"
+            type="com.mwb.digitalstorage.modelUI.UIComponent" />
+
+        <variable
             name="cmdHandler"
             type="com.mwb.digitalstorage.command_handlers.ComponentCmdHandler" />
 
         <variable
-            name="UIComponent"
-            type="com.mwb.digitalstorage.modelUI.UIComponent" />
+            name="imgCmdHandler"
+            type="com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +39,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.42" />
+            app:layout_constraintWidth_percent="0.4" />
 
         <TextView
             android:id="@+id/txt_component_name"
@@ -44,6 +49,7 @@
             android:textColor="@color/icon_color"
             android:textSize="22sp"
             app:layout_constraintLeft_toRightOf="@id/img"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="This is a name" />
 
@@ -55,6 +61,7 @@
             android:textSize="22sp"
             android:visibility="@{safeUnbox(UIComponent.isEditObsv) ? View.VISIBLE : View.GONE}"
             app:layout_constraintLeft_toRightOf="@id/img"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="This is a name" />
 
@@ -65,8 +72,9 @@
             android:text="@{UIComponent.codeObsv}"
             android:textColor="@color/icon_color"
             android:textSize="22sp"
-            app:layout_constraintLeft_toLeftOf="@id/txt_component_name"
-            app:layout_constraintTop_toBottomOf="@id/txt_component_name"
+            app:layout_constraintLeft_toRightOf="@+id/img"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_component_name"
             tools:text="This is a code" />
 
         <EditText
@@ -76,18 +84,20 @@
             android:textColor="@color/icon_color"
             android:textSize="22sp"
             android:visibility="@{safeUnbox(UIComponent.isEditObsv) ? View.VISIBLE : View.GONE}"
-            app:layout_constraintLeft_toLeftOf="@id/edit_component_name"
-            app:layout_constraintTop_toBottomOf="@id/edit_component_name"
+            app:layout_constraintLeft_toRightOf="@+id/img"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_component_name"
             tools:text="This is a code" />
 
         <TextView
             android:id="@+id/txt_component_category"
             style="@style/wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="22dp"
             android:text="@{UIComponent.categoryNameObsv}"
             android:textColor="@color/icon_color"
             android:textSize="23sp"
-            app:layout_constraintLeft_toLeftOf="@+id/txt_component_code"
+            app:layout_constraintLeft_toRightOf="@+id/img"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_component_code"
             tools:text="This is a category" />
 
@@ -98,50 +108,42 @@
             android:textColor="@color/icon_color"
             android:textSize="23sp"
             android:visibility="@{safeUnbox(UIComponent.isEditObsv) ? View.VISIBLE : View.GONE}"
-            app:layout_constraintLeft_toLeftOf="@+id/edit_component_code"
+            app:layout_constraintLeft_toRightOf="@+id/img"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_component_code"
             tools:text="This is a category" />
 
         <TextView
             android:id="@+id/txt_component_amount"
             style="@style/wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="24dp"
             android:text="@{UIComponent.countObsv}"
             android:textColor="#A4FFA726"
-            android:textSize="28sp"
-            android:layout_marginRight="24dp"
-            android:layout_marginBottom="24dp"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="100" />
 
         <TextView
             android:id="@+id/txt_component_amount_add_on"
             style="@style/wrap_content"
+            android:layout_marginLeft="2dp"
             android:text="X"
             android:textColor="#A4FFA726"
-            android:textSize="28sp"
+            android:textSize="20sp"
             app:layout_constraintLeft_toRightOf="@id/txt_component_amount"
             app:layout_constraintTop_toTopOf="@id/txt_component_amount" />
 
         <View
             android:id="@+id/hr"
             style="@style/hr_white"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginBottom="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="1dp"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-        <ImageButton
-            android:id="@+id/btn_add"
-            style="@style/icon_check"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="8dp"
-            android:onClick="@{() -> cmdHandler.saveEntity(false)}"
-            android:visibility="@{safeUnbox(UIComponent.isEditObsv) ? View.VISIBLE : View.GONE}"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             style="@style/icon_bin"

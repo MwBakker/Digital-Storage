@@ -45,7 +45,9 @@ public class ComponentMenuActivity extends AppCompatActivity
             @Override
             public void removePhoto() { componentMenuVM.getUiComponent().removeImg(); }
             @Override
-            public void addNewCategory() { componentMenuVM.newCategoryObsv.set(!componentMenuVM.newCategoryObsv.get()); }
+            public void addNewCategory() { componentMenuVM.newCategoryObsv.set(true); }
+            @Override
+            public void removeNewCategory() { componentMenuVM.newCategoryObsv.set(false); }
             @Override
             public void browsePhoto()
             {

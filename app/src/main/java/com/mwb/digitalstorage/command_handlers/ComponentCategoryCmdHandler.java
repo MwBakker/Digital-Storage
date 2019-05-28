@@ -6,9 +6,7 @@ public interface ComponentCategoryCmdHandler
 {
     void sort(UIComponentCategory uiComponentCategory);
 
-    boolean editComponentCat(UIComponentCategory uiComponentCategory);
-
-    void editComponentName(CharSequence s, int start, int before, int count);
+    boolean editComponentCategory(UIComponentCategory uiComponentCategory);
 
     void saveEdit();
 }
