@@ -42,7 +42,7 @@
                 android:layout_marginTop="40dp"
                 android:backgroundTint="@android:color/white"
                 android:hint="@string/component_code"
-                android:text="@{vm.uiComponent.codeObsv}"
+                android:text="@={vm.uiComponent.codeObsv}"
                 android:textColor="@android:color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/component_name" />
@@ -108,6 +108,7 @@
                 android:layout_height="0dp"
                 app:layout_constraintHeight_percent="0.325"
                 android:layout_marginTop="100dp"
+                app:isEditObsv="@{true}"
                 app:cmdHandler="@{cmdHandler}"
                 app:img="@{vm.uiComponent.imgObsv}"
                 app:layout_constraintTop_toBottomOf="@+id/txt_category_descr" />

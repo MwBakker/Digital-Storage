@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -41,10 +42,10 @@
         <ImageButton
             android:id="@+id/btn_check"
             style="@style/icon_check"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="76dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
             android:onClick="@{() -> cmdHandler.saveEntity(false)}"
             android:visibility="@{UIRack.isEditObsv ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@id/main_image"
@@ -53,28 +54,29 @@
         <TextView
             style="@style/wrap_content"
             android:layout_marginStart="52dp"
-            android:layout_marginBottom="100dp"
-            android:background="#660F0F0F"
+            android:layout_marginTop="40dp"
+            android:background="#3C0F0F0F"
             android:text="@{UIRack.nameObsv}"
             android:textColor="@color/icon_color"
             android:textSize="22dp"
             android:visibility="@{safeUnbox(UIRack.isEditObsv) ? View.GONE : View.VISIBLE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:text="This is a name"/>
 
         <EditText
             style="@style/edit_item"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_marginStart="52dp"
-            android:layout_marginBottom="100dp"
-            android:background="#660F0F0F"
-            android:onTextChanged="@{cmdHandler::editEntityTitle}"
-            android:text="@{UIRack.nameObsv}"
+            android:layout_marginTop="40dp"
+            android:background="#3C0F0F0F"
+            android:text="@={UIRack.nameObsv}"
             android:textColor="@color/icon_color"
             android:textSize="22sp"
             android:visibility="@{safeUnbox(UIRack.isEditObsv) ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:text="This is a name"/>
 
         <ImageButton
             android:id="@+id/btn_delete"

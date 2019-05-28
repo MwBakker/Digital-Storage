@@ -16,7 +16,8 @@ public class UIComponent implements UIEntity
 
     public ObservableField<String> nameObsv = new ObservableField<>();
     public ObservableField<String> codeObsv = new ObservableField<>();
-    public ObservableField<String> count = new ObservableField<>();
+    public ObservableField<String> categoryNameObsv = new ObservableField<>();
+    public ObservableField<String> countObsv = new ObservableField<>();
     public ObservableField<Bitmap> imgObsv = new ObservableField<>();
     public ObservableField<Boolean> isEditObsv = new ObservableField<>();
 
@@ -32,7 +33,7 @@ public class UIComponent implements UIEntity
         this.componentCatName = componentCatName;
         this.codeObsv.set(code);
         this.imgPath = imgPath;
-        this.count.set(Integer.toString(count));
+        this.countObsv.set(Integer.toString(count));
     }
 
 
