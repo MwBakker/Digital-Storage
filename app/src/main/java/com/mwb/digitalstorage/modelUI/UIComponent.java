@@ -8,9 +8,8 @@ import androidx.databinding.ObservableField;
 public class UIComponent implements UIEntity
 {
     private long id;
-    private long componentCatID;
+    private long componentCategoryID;
     public long rackID;
-    private String foreignKeyname;
     private String imgPath;
 
     public ObservableField<String> nameObsv = new ObservableField<>();
@@ -21,13 +20,13 @@ public class UIComponent implements UIEntity
     public ObservableField<Boolean> isEditObsv = new ObservableField<>();
 
 
-    public UIComponent(long id, long rackID, long componentCatID, String foreignKeyname,
+    public UIComponent(long id, long rackID, long componentCategoryID, String componentCategoryName,
                         String name, String code, String imgPath, int count)
     {
         this.id = id;
         this.rackID = rackID;
-        this.componentCatID = componentCatID;
-        this.foreignKeyname = foreignKeyname;
+        this.componentCategoryID = componentCategoryID;
+        this.categoryNameObsv.set(componentCategoryName);
         this.nameObsv.set(name);
         this.codeObsv.set(code);
         this.imgPath = imgPath;
@@ -40,7 +39,7 @@ public class UIComponent implements UIEntity
 
     public long getRackID() { return rackID; }
 
-    public long getComponentCatID() { return componentCatID; }
+    public long getComponentCatID() { return componentCategoryID; }
 
     @Override
     public String getName() { return nameObsv.get(); }

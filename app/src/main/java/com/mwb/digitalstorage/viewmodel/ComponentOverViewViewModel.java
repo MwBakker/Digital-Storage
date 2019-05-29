@@ -34,7 +34,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
     public void setViewModelElements(long storageID, long rackID, LifecycleOwner lifecycleOwner, ComponentCategoryCmdHandler componentCategoryCmdHandler,
                                      ComponentCmdHandler componentCmdHandler, ImgCmdHandler imgCmdHandler)
     {
-        componentRepository = new ComponentRepository();
+        componentRepository = new ComponentRepository(executor);
         RackRepository rackRepository = new RackRepository();
         this.rackID = rackID;
         this.storageID = storageID;
@@ -97,7 +97,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
 
         if (this.uiComponentCategory.getID() == uiComponentCategory.getID())
         {
-            componentRepository.getCatFilteredComponents(rackID, uiComponentCategory.getID()).observe(lifecycleOwner, components ->
+            componentRepository.getCategoryFilteredComponents(rackID, uiComponentCategory.getID()).observe(lifecycleOwner, components ->
             {
                 componentListAdapterObsv.get().setComponents(components);
             });

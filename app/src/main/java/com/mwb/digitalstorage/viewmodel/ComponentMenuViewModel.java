@@ -31,7 +31,7 @@ public class ComponentMenuViewModel extends BaseViewModel
         this.owner = owner;
         uiComponent = new UIComponent(0L,0L,0L, "",
                                      "","","", 0);
-        componentRepository = new ComponentRepository();
+        componentRepository = new ComponentRepository(executor);
         componentRepository.getAllComponentCategories().observe(owner, componentCategories ->
         {
             spinnerAdapterObsv.set(new ArrayAdapter<>(context, R.layout.component_category_spinner_item, componentCategories));

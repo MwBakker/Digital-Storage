@@ -55,24 +55,26 @@ public interface DAO
             "GROUP BY cc.name ")
     LiveData<List<ComponentCategory>> getRackComponentCategories(long rackID);
 
-    //  get a certain category
-    @Query("SELECT * FROM component_category WHERE name == :componentCat")
-    ComponentCategory getComponentCategory(String componentCat);
+    //  get a certain category by name
+    @Query("SELECT * FROM component_category WHERE name == :name")
+    ComponentCategory getComponentCategory(String name);
+
+    //  get a certain category by id
+    @Query("SELECT * FROM component_category WHERE id == :id")
+    ComponentCategory getComponentCategory(long id);
 
     //  get all components belonging to a certain rack
-    @Query("SELECT c.id, c.rack_id, c.component_category_id, c.name, c.code, c.img_path, " +
-            "            (SELECT COUNT(c.id) " +
-            "             WHERE c.rack_id = :rackID ) as count " +
+    @Query("SELECT id, rack_id, component_category_id, name, code, img_path, COUNT(id) as count " +
             "FROM component c " +
-            "WHERE c.rack_id = :rackID ")
+            "WHERE rack_id = :rackID " +
+            "GROUP BY code")
     LiveData<List<Component>> getRackComponents(long rackID);
 
     //  get all components belonging to a rack and certain specific category
-    @Query("SELECT c.id, c.rack_id, c.component_category_id, c.name, c.code, c.img_path, " +
-            "            (SELECT COUNT(c.id) " +
-            "             WHERE c.id = :rackID ) as count " +
+    @Query("SELECT id, rack_id, component_category_id, name, code, img_path, COUNT(id) as count " +
             "FROM component c " +
-            "WHERE c.rack_id = :rackID AND c.component_category_id = :categoryID ")
+            "WHERE c.rack_id = :rackID AND c.component_category_id = :categoryID "
+            "GROUP BY code")
     LiveData<List<Component>> getFilteredComponents(long rackID, long categoryID);
 
     //
@@ -118,7 +120,7 @@ public interface DAO
 
     //  insert component category
     @Insert
-    long insertComponentCat(ComponentCategory componentCategory);
+    long insertComponentCategory(ComponentCategory componentCategory);
 
     //  insert component
     @Insert

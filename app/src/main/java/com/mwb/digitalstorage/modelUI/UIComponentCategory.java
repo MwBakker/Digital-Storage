@@ -18,10 +18,10 @@ public class UIComponentCategory extends BaseObservable
     public ObservableField<Integer> colorObsv = new ObservableField<>();
 
 
-    public UIComponentCategory(long id, String componentCatName, int amountOfComponents)
+    public UIComponentCategory(long id, String name, int amountOfComponents)
     {
         this.id = id;
-        this.nameObsv.set(componentCatName);
+        this.nameObsv.set(name);
         this.componentAmountObsv.set("(" + amountOfComponents + ")");
         isEditObsv.set(false);
         isSelectedObsv.set(false);
