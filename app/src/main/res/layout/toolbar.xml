@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/general_btn_background">
 
     <data>
@@ -26,14 +27,16 @@
 
             <TextView
                 android:id="@+id/txt_currentActivity"
-                style="@style/wrap_content"
                 android:layout_width="0dp"
-                android:layout_marginTop="15dp"
+                android:layout_height="wrap_content"
                 android:text="@{vm.activityName}"
                 android:textColor="@color/icon_color"
+                android:textSize="18sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.15" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintWidth_percent="0.32"
+                tools:text="storage overview" />
 
             <EditText
                 android:id="@+id/edit_search"
@@ -44,22 +47,24 @@
                 android:onClick="@{() -> cmdHandler.openSearchActivity()}"
                 android:textColor="@color/icon_color"
                 android:textColorHint="@color/icon_color"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@id/txt_currentActivity"
-                app:layout_constraintLeft_toLeftOf="@id/txt_currentActivity"
+                app:layout_constraintLeft_toRightOf="@id/txt_currentActivity"
                 app:layout_constraintRight_toLeftOf="@id/txt_date"
                 app:layout_constraintTop_toTopOf="@id/txt_currentActivity"
-                app:layout_constraintWidth_percent="0.55" />
+                app:layout_constraintWidth_percent="0.5" />
 
             <TextView
                 android:id="@+id/txt_date"
                 style="@style/wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="2dp"
                 android:text="@{vm.date}"
                 android:textColor="@color/icon_color"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@id/edit_search"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/edit_search" />
+                app:layout_constraintTop_toTopOf="@id/edit_search"
+                tools:text="26/03" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 </layout>

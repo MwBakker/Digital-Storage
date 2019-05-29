@@ -49,7 +49,7 @@
             app:img="@{vm.uiCompany.imgObsv}"
             app:isEditObsv="@{safeUnbox(vm.uiCompany.isEdit)}"
             app:isFaded="@{true}"
-            app:layout_constraintHeight_percent="0.35"
+            app:layout_constraintHeight_percent="0.36"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <ImageButton

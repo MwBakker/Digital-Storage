@@ -67,14 +67,14 @@ public interface DAO
     @Query("SELECT id, rack_id, component_category_id, name, code, img_path, COUNT(id) as count " +
             "FROM component c " +
             "WHERE rack_id = :rackID " +
-            "GROUP BY code")
+            "GROUP BY code ")
     LiveData<List<Component>> getRackComponents(long rackID);
 
     //  get all components belonging to a rack and certain specific category
     @Query("SELECT id, rack_id, component_category_id, name, code, img_path, COUNT(id) as count " +
             "FROM component c " +
-            "WHERE c.rack_id = :rackID AND c.component_category_id = :categoryID "
-            "GROUP BY code")
+            "WHERE c.rack_id = :rackID AND c.component_category_id = :categoryID " +
+            "GROUP BY code ")
     LiveData<List<Component>> getFilteredComponents(long rackID, long categoryID);
 
     //
