@@ -52,7 +52,7 @@
                 style="@style/wrap_content"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="45dp"
-                android:selectedItemPosition="@={vm.categoryIdObsv}"
+                android:selectedItemPosition="@={vm.categoryListPosition}"
                 android:visibility="@{safeUnbox(vm.newCategoryObsv) ? View.GONE : View.VISIBLE}"
                 app:adapter="@{vm.spinnerAdapterObsv}"
                 app:layout_constraintLeft_toLeftOf="parent"

@@ -136,14 +136,16 @@
             app:layout_constraintLeft_toRightOf="@id/txt_component_amount"
             app:layout_constraintTop_toTopOf="@id/txt_component_amount" />
 
-        <View
-            android:id="@+id/hr"
-            style="@style/hr_white"
-            android:layout_marginBottom="1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+        <ImageButton
+            android:id="@+id/btn_check"
+            style="@style/icon_check"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:onClick="@{() -> cmdHandler.saveEntity(false)}"
+            android:visibility="@{UIComponent.isEditObsv ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
-
 
         <ImageButton
             style="@style/icon_bin"
@@ -153,6 +155,14 @@
             android:onClick="@{() -> cmdHandler.deleteEntity()}"
             android:visibility="@{safeUnbox(UIComponent.isEditObsv) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <View
+            android:id="@+id/hr"
+            style="@style/hr_white"
+            android:layout_marginBottom="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

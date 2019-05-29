@@ -13,7 +13,7 @@ public class StorageOverViewViewModel extends BaseViewModel
 {
     private StorageRepository storageRepository;
     private CompanyRepository companyRepository;
-    public UIStorage uiStorage;
+    private UIStorage uiStorage;
     private UICompany uiCompany;
 
     public ObservableField<StorageListAdapter> storageListAdapterObsv = new ObservableField<>();
@@ -23,20 +23,16 @@ public class StorageOverViewViewModel extends BaseViewModel
         storageRepository = new StorageRepository();
         companyRepository = new CompanyRepository();
 
-        if (uiCompany == null)
+        executor.execute(() ->
         {
-            executor.execute(() ->
-            {
-                uiCompany = companyRepository.getUiCompany();
-                uiCompany.imgObsv.set(imgProcessor.decodeImgPath(uiCompany.getImgPath()));
-            });
-            storageRepository.getStorageUnits().observe(owner, storageUnits ->
-            {
-                storageListAdapterObsv.set(new StorageListAdapter(storageUnits, mainViewCmdHandlerCallBack));
-            });
-        }
+            uiCompany = companyRepository.getUiCompany();
+            uiCompany.imgObsv.set(imgProcessor.decodeImgPath(uiCompany.getImgPath()));
+        });
+        storageRepository.getStorageUnits().observe(owner, storageUnits ->
+        {
+            storageListAdapterObsv.set(new StorageListAdapter(storageUnits, mainViewCmdHandlerCallBack));
+        });
     }
-
 
     //  gets the involved uiCompany
     public UICompany getUiCompany() { return uiCompany; }

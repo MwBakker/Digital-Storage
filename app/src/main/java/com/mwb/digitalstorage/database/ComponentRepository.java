@@ -41,14 +41,6 @@ public class ComponentRepository
         return Transformations.map(BaseRepository.getDao().getFilteredComponents(rackId, catID), newData -> createComponentUI(newData));
     }
 
-    //  get certain component
-    public UIComponent getComponent(long componentID)
-    {
-        Component component = BaseRepository.getDao().getComponent(componentID);
-        return new UIComponent(componentID, component.rackID, component.componentCategoryID, "", component.getName(),
-                                component.getCode(), component.getImgPath(), component.getCount());
-    }
-
     //  manually sets the rack to rackUI
     private List<UIComponent> createComponentUI(List<Component> components)
     {
@@ -88,13 +80,6 @@ public class ComponentRepository
     //  ComponentCategories  //
     //                       //
     //__________________________________________________________________________
-
-    //  returns one component category based on the id
-    public String getComponentCategoryName(long id)
-    {
-        ComponentCategory componentCategory = BaseRepository.getDao().getComponentCategory(id);
-        return (componentCategory != null) ? componentCategory.getName() : null;
-    }
 
     //  returns one component category per name
     public long getComponentCategory(String categoryName)

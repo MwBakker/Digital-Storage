@@ -22,14 +22,11 @@ public class RackOverViewViewModel extends BaseViewModel
     public void setViewModelElements(long storageID, androidx.lifecycle.LifecycleOwner owner,
                                       RackCmdHandler rackCmdHandler, ImgCmdHandler imgCmdHandler)
     {
-        if (rackRepository == null)
+        rackRepository = new RackRepository();
+        rackRepository.getRacks(storageID).observe(owner, racks ->
         {
-            rackRepository = new RackRepository();
-            rackRepository.getRacks(storageID).observe(owner, racks ->
-            {
-                rackListAdapterObsv.set(new RackListAdapter(racks, rackCmdHandler, imgCmdHandler, imgProcessor));
-            });
-        }
+            rackListAdapterObsv.set(new RackListAdapter(racks, rackCmdHandler, imgCmdHandler, imgProcessor));
+        });
         StorageRepository storageRepository = new StorageRepository();
         executor.execute(() ->
         {

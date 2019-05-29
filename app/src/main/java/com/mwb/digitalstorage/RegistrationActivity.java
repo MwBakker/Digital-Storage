@@ -136,5 +136,6 @@ public class RegistrationActivity extends BaseActivity
         Intent intent = new Intent(RegistrationActivity.this, StorageOverViewActivity.class);
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_out, android.R.anim.fade_in);
+        finish();
     }
 }

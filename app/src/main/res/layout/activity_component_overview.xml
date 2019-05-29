@@ -40,10 +40,10 @@
         <include
             android:id="@+id/main_image"
             layout="@layout/img_view"
-            app:isEditObsv="@{true}"
-            app:isFaded="@{true}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:isEditObsv="@{true}"
+            app:isFaded="@{true}"
             app:layout_constraintHeight_percent="0.28"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
@@ -108,8 +108,11 @@
                     android:id="@+id/FABStorage"
                     style="@style/floating_button"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="28dp"
+                    android:layout_marginBottom="76dp"
+                    android:backgroundTint="#02FFA726"
                     android:onClick="@{(view) -> componentCmdHandler.addNewEntity()}"
+                    app:backgroundTint="@color/icon_color"
+                    android:tint="@color/general_txt_color"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>

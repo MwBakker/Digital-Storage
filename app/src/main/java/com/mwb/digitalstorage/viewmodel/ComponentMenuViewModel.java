@@ -13,11 +13,11 @@ import androidx.lifecycle.LifecycleOwner;
 public class ComponentMenuViewModel extends BaseViewModel
 {
     private UIComponent uiComponent;
+    private ComponentRepository componentRepository;
     private long rackID;
     private LifecycleOwner owner;
-    private ComponentRepository componentRepository;
 
-    public ObservableField<Integer> categoryIdObsv = new ObservableField<>();
+    public ObservableField<Integer> categoryListPosition = new ObservableField<>();
     public ObservableField<ArrayAdapter<UIComponentCategory>> spinnerAdapterObsv = new ObservableField<>();
     // new category
     public ObservableField<String> newComponentCategoryNameObsv = new ObservableField<>();
@@ -29,7 +29,7 @@ public class ComponentMenuViewModel extends BaseViewModel
     {
         this.rackID = rackID;
         this.owner = owner;
-        uiComponent = new UIComponent(0L,0L,0L, "",
+        uiComponent = new UIComponent(0L, rackID,0L, "",
                                      "","","", 0);
         componentRepository = new ComponentRepository(executor);
         componentRepository.getAllComponentCategories().observe(owner, componentCategories ->
@@ -38,7 +38,7 @@ public class ComponentMenuViewModel extends BaseViewModel
         });
     }
 
-    //  gets the rack id
+    //  gets the rackID
     public long getRackID() { return rackID; }
 
     //  gets the uiComponent
@@ -49,24 +49,23 @@ public class ComponentMenuViewModel extends BaseViewModel
     //  checks if category is new
     public void addComponent()
     {
-        componentRepository.getAllComponentCategories().observe(owner, componentCategories ->
+        if (newCategoryObsv.get())
         {
             executor.execute(() ->
             {
-                if (newCategoryObsv.get())
-                {
-                    componentRepository.insertComponent(rackID, processNewCategoryInput(), uiComponent.nameObsv.get(), uiComponent.codeObsv.get(),
-                                                        uiComponent.getImgPath(), 0);
-                }
-                else
-                {
-                    componentRepository.insertComponent(rackID, componentCategories.get(categoryIdObsv.get()).getID(), uiComponent.nameObsv.get(),
-                            uiComponent.codeObsv.get(), uiComponent.getImgPath(), 0);
-                }
+                componentRepository.insertComponent(rackID, processNewCategoryInput(), uiComponent.nameObsv.get(), uiComponent.codeObsv.get(),
+                                                    uiComponent.getImgPath(), 0);
             });
-        });
+        }
+        else
+        {
+            componentRepository.getAllComponentCategories().observe(owner, componentCategories ->
+            {
+                componentRepository.insertComponent(rackID, componentCategories.get(categoryListPosition.get()).getID(), uiComponent.nameObsv.get(),
+                                                    uiComponent.codeObsv.get(), uiComponent.getImgPath(), 0);
+            });
+        }
     }
-
 
     //  retrieves possible existing long categoryID or creates one
     private long processNewCategoryInput()

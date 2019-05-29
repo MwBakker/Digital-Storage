@@ -1,6 +1,7 @@
 <resources>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!-- Base application theme. -->
@@ -59,7 +60,6 @@
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:src">@mipmap/add</item>
-        <item name="android:background">@drawable/btn_icon_background</item>
     </style>
 
     <style name="number_picker" parent="wrap_content">

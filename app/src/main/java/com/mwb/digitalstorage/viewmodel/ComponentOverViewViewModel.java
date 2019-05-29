@@ -19,6 +19,8 @@ public class ComponentOverViewViewModel extends BaseViewModel
 {
     private long rackID;
     private long storageID;
+    private long selectedCategoryID;
+
     private ComponentRepository componentRepository;
     private UIComponentCategory uiComponentCategory;
     private UIComponent uiComponent;
@@ -93,20 +95,22 @@ public class ComponentOverViewViewModel extends BaseViewModel
     //  performs sorting on the components per selected category
     public void sort(UIComponentCategory uiComponentCategory)
     {
-        uiComponentCategory.setSelectedState();
-
-        if (this.uiComponentCategory.getID() == uiComponentCategory.getID())
+        if (uiComponentCategory.getID() != selectedCategoryID)
         {
             componentRepository.getCategoryFilteredComponents(rackID, uiComponentCategory.getID()).observe(lifecycleOwner, components ->
             {
                 componentListAdapterObsv.get().setComponents(components);
             });
-        } else {
+        }
+        else
+        {
             componentRepository.getRackComponents(rackID).observe(lifecycleOwner, components ->
             {
                 componentListAdapterObsv.get().setComponents(components);
             });
-        };
+        }
+        
+        uiComponentCategory.setSelectedState();
     }
 
     //  saves the category edit
@@ -124,7 +128,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
     {
         executor.execute(() ->
         {
-            componentRepository.editComponent(uiComponent.getId(), uiComponent.getComponentCatID(), uiComponent.nameObsv.get(),
+            componentRepository.editComponent(uiComponent.getId(), uiComponent.getComponentCategoryID(), uiComponent.nameObsv.get(),
                                         uiComponent.codeObsv.get(), uiComponent.getImgPath());
         });
     }
@@ -132,6 +136,9 @@ public class ComponentOverViewViewModel extends BaseViewModel
     //  removes the component
     public void deleteComponent()
     {
-        componentRepository.deleteComponent(uiComponent.getId());
+        executor.execute(() ->
+        {
+            componentRepository.deleteComponent(uiComponent.getId());
+        });
     }
 }

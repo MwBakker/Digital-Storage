@@ -21,7 +21,7 @@ public class UIComponent implements UIEntity
 
 
     public UIComponent(long id, long rackID, long componentCategoryID, String componentCategoryName,
-                        String name, String code, String imgPath, int count)
+                       String name, String code, String imgPath, int count)
     {
         this.id = id;
         this.rackID = rackID;
@@ -39,10 +39,12 @@ public class UIComponent implements UIEntity
 
     public long getRackID() { return rackID; }
 
-    public long getComponentCatID() { return componentCategoryID; }
+    public long getComponentCategoryID() { return componentCategoryID; }
 
     @Override
     public String getName() { return nameObsv.get(); }
+
+    public int getCount() { return Integer.parseInt(countObsv.get()); }
 
     @Override
     public String getClassName() { return "Component"; }

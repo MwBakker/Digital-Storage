@@ -112,6 +112,6 @@ public class ImageProcessor
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inSampleSize = 2;
         Bitmap bitmap = BitmapFactory.decodeFile(path, bmOptions);
-        return Bitmap.createScaledBitmap(bitmap, 1280, 720, true);
+        return Bitmap.createScaledBitmap(bitmap, 800, 600, true);
     }
 }
