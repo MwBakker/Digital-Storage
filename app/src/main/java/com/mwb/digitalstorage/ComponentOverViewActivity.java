@@ -77,7 +77,10 @@ public class ComponentOverViewActivity extends BaseActivity
             @Override
             public boolean editEntity(UIEntity uiEntity)
             {
-                componentOverViewVM.setEditableComponent((UIComponent) uiEntity);
+                componentOverViewVM.executor.execute(() ->
+                {
+                    componentOverViewVM.setEditableComponent((UIComponent) uiEntity);
+                });
                 return true;
             }
             @Override

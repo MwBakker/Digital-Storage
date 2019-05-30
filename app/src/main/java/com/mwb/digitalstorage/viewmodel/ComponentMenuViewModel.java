@@ -61,8 +61,11 @@ public class ComponentMenuViewModel extends BaseViewModel
         {
             componentRepository.getAllComponentCategories().observe(owner, componentCategories ->
             {
+                executor.execute(() ->
+                {
                 componentRepository.insertComponent(rackID, componentCategories.get(categoryListPosition.get()).getID(), uiComponent.nameObsv.get(),
                                                     uiComponent.codeObsv.get(), uiComponent.getImgPath(), 0);
+                });
             });
         }
     }

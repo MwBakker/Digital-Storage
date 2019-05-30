@@ -10,6 +10,8 @@ import com.mwb.digitalstorage.databinding.ComponentItemBinding;
 import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.modelUI.UIComponent;
 import com.mwb.digitalstorage.modelUI.UIEntity;
+
+import java.util.ArrayList;
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -37,6 +39,7 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
     public void setComponents(List<UIComponent> components)
     {
         this.components = components;
+        notifyDataSetChanged();
     }
 
     //  creates the viewHolder
@@ -88,8 +91,8 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
                 @Override
                 public boolean editEntity(UIEntity uiEntity)
                 {
-                     componentCmdHandlerCallBack.editEntity(uiEntity);
-                     return true;
+                    componentCmdHandlerCallBack.editEntity(uiEntity);
+                    return true;
                 }
                 @Override
                 public void addNewEntity() {}

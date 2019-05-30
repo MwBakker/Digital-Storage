@@ -11,6 +11,9 @@ import com.mwb.digitalstorage.database.RackRepository;
 import com.mwb.digitalstorage.modelUI.UIComponent;
 import com.mwb.digitalstorage.modelUI.UIComponentCategory;
 import com.mwb.digitalstorage.modelUI.UIRack;
+
+import java.util.concurrent.Executor;
+
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.LifecycleOwner;
 
@@ -44,13 +47,18 @@ public class ComponentOverViewViewModel extends BaseViewModel
 
         componentRepository.getRackComponentCategories(rackID).observe(lifecycleOwner, componentCategories ->
         {
-            componentCatListAdapterObsv.set(new ComponentCategoryListAdapter(componentCategories, componentCategoryCmdHandler));
+            executor.execute(() ->
+            {
+                componentCatListAdapterObsv.set(new ComponentCategoryListAdapter(componentCategories, componentCategoryCmdHandler));
+            });
         });
         componentRepository.getRackComponents(rackID).observe(lifecycleOwner, components ->
         {
-            componentListAdapterObsv.set(new ComponentListAdapter(components, componentCmdHandler, imgCmdHandler, imgProcessor));
+            executor.execute(() ->
+            {
+                componentListAdapterObsv.set(new ComponentListAdapter(components, componentCmdHandler, imgCmdHandler, imgProcessor));
+            });
         });
-
         executor.execute(() ->
         {
             UIRack UIRack = rackRepository.getRack(rackID);
@@ -95,9 +103,12 @@ public class ComponentOverViewViewModel extends BaseViewModel
     //  performs sorting on the components per selected category
     public void sort(UIComponentCategory uiComponentCategory)
     {
-        if (uiComponentCategory.getID() != selectedCategoryID)
+        long selectedCategoryID = uiComponentCategory.getID();
+
+        if (selectedCategoryID != this.selectedCategoryID)
         {
-            componentRepository.getCategoryFilteredComponents(rackID, uiComponentCategory.getID()).observe(lifecycleOwner, components ->
+            this.selectedCategoryID = uiComponentCategory.getID();
+            componentRepository.getCategoryFilteredComponents(rackID, selectedCategoryID).observe(lifecycleOwner, components ->
             {
                 componentListAdapterObsv.get().setComponents(components);
             });
@@ -109,7 +120,6 @@ public class ComponentOverViewViewModel extends BaseViewModel
                 componentListAdapterObsv.get().setComponents(components);
             });
         }
-        
         uiComponentCategory.setSelectedState();
     }
 
