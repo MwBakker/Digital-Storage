@@ -3,9 +3,13 @@ package com.mwb.digitalstorage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.widget.ArrayAdapter;
 import com.mwb.digitalstorage.command_handlers.ComponentCategoryMenuCmdHandler;
+import com.mwb.digitalstorage.command_handlers.SpinnerSetterCmdHandler;
 import com.mwb.digitalstorage.databinding.ActivityComponentMenuBinding;
+import com.mwb.digitalstorage.modelUI.UIComponentCategory;
 import com.mwb.digitalstorage.viewmodel.ComponentMenuViewModel;
+import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -24,7 +28,7 @@ public class ComponentMenuActivity extends AppCompatActivity
         ActivityComponentMenuBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_component_menu);
 
         componentMenuVM = ViewModelProviders.of(this).get(ComponentMenuViewModel.class);
-        componentMenuVM.setViewModelElements(this, this.getApplicationContext(), getIntent().getLongExtra("rack_id", 0L));
+        componentMenuVM.setViewModelElements(this, spinnerSetterCmdHandler(), getIntent().getLongExtra("rack_id", 0L));
 
         binding.setVm(componentMenuVM);
         binding.setCmdHandler(componentCategoryMenuCmdHandler());
@@ -62,6 +66,20 @@ public class ComponentMenuActivity extends AppCompatActivity
             }
             @Override
             public void cancelMenu() { switchBackToOverView(); }
+        };
+    }
+
+    //  sets the handler to set the spinner
+    public SpinnerSetterCmdHandler spinnerSetterCmdHandler()
+    {
+        return new SpinnerSetterCmdHandler()
+        {
+            @Override
+            public ArrayAdapter setComponentCategorySpinner(List<UIComponentCategory> uiComponentCategories)
+            {
+                return new ArrayAdapter<>(getApplicationContext(), R.layout.component_category_spinner_item,
+                        uiComponentCategories);
+            }
         };
     }
 

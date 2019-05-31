@@ -3,6 +3,7 @@ package com.mwb.digitalstorage.viewmodel;
 import android.content.Context;
 import android.widget.ArrayAdapter;
 import com.mwb.digitalstorage.R;
+import com.mwb.digitalstorage.command_handlers.SpinnerSetterCmdHandler;
 import com.mwb.digitalstorage.database.ComponentRepository;
 import com.mwb.digitalstorage.modelUI.UIComponent;
 import com.mwb.digitalstorage.modelUI.UIComponentCategory;
@@ -25,16 +26,19 @@ public class ComponentMenuViewModel extends BaseViewModel
 
 
     //  sets the elements belonging to the viewModel
-    public void setViewModelElements(LifecycleOwner owner, Context context, long rackID)
+    public void setViewModelElements(LifecycleOwner owner, SpinnerSetterCmdHandler spinnerSetterCmdHandlerCallback, long rackID)
     {
         this.rackID = rackID;
         this.owner = owner;
         uiComponent = new UIComponent(0L, rackID,0L, "",
                                      "","","", 0);
         componentRepository = new ComponentRepository(executor);
-        componentRepository.getAllComponentCategories().observe(owner, componentCategories ->
+
+
+
+        componentRepository.getAllComponentCategories().observe(owner, uiComponentCategories ->
         {
-            spinnerAdapterObsv.set(new ArrayAdapter<>(context, R.layout.component_category_spinner_item, componentCategories));
+            spinnerAdapterObsv.set(spinnerSetterCmdHandlerCallback.setComponentCategorySpinner(uiComponentCategories));
         });
     }
 
