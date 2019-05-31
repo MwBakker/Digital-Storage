@@ -1,6 +1,7 @@
 package com.mwb.digitalstorage.modelUI;
 
 import android.graphics.Bitmap;
+import android.widget.ArrayAdapter;
 import com.mwb.digitalstorage.ComponentOverViewActivity;
 import androidx.databinding.ObservableField;
 
@@ -14,6 +15,8 @@ public class UIComponent implements UIEntity
 
     public ObservableField<String> nameObsv = new ObservableField<>();
     public ObservableField<String> codeObsv = new ObservableField<>();
+    public ObservableField<ArrayAdapter<UIComponentCategory>> uiComponentCategorySpinnerAdapterObsv = new ObservableField<>();
+    public ObservableField<Integer> selctedCategoryInListObsv = new ObservableField<>();
     public ObservableField<String> categoryNameObsv = new ObservableField<>();
     public ObservableField<String> countObsv = new ObservableField<>();
     public ObservableField<Bitmap> imgObsv = new ObservableField<>();

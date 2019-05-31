@@ -18,7 +18,7 @@ public class ComponentMenuViewModel extends BaseViewModel
     private long rackID;
     private LifecycleOwner owner;
 
-    public ObservableField<Integer> categoryListPosition = new ObservableField<>();
+    public ObservableField<Integer> categoryListPositionObsv = new ObservableField<>();
     public ObservableField<ArrayAdapter<UIComponentCategory>> spinnerAdapterObsv = new ObservableField<>();
     // new category
     public ObservableField<String> newComponentCategoryNameObsv = new ObservableField<>();
@@ -33,9 +33,6 @@ public class ComponentMenuViewModel extends BaseViewModel
         uiComponent = new UIComponent(0L, rackID,0L, "",
                                      "","","", 0);
         componentRepository = new ComponentRepository(executor);
-
-
-
         componentRepository.getAllComponentCategories().observe(owner, uiComponentCategories ->
         {
             spinnerAdapterObsv.set(spinnerSetterCmdHandlerCallback.setComponentCategorySpinner(uiComponentCategories));
@@ -67,7 +64,7 @@ public class ComponentMenuViewModel extends BaseViewModel
             {
                 executor.execute(() ->
                 {
-                componentRepository.insertComponent(rackID, componentCategories.get(categoryListPosition.get()).getID(), uiComponent.nameObsv.get(),
+                componentRepository.insertComponent(rackID, componentCategories.get(categoryListPositionObsv.get()).getID(), uiComponent.nameObsv.get(),
                                                     uiComponent.codeObsv.get(), uiComponent.getImgPath(), 0);
                 });
             });

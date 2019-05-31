@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import com.mwb.digitalstorage.R;
 import com.mwb.digitalstorage.command_handlers.ComponentCmdHandler;
+import com.mwb.digitalstorage.command_handlers.SpinnerSetterCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;
 import com.mwb.digitalstorage.databinding.ComponentItemBinding;
 import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.modelUI.UIComponent;
+import com.mwb.digitalstorage.modelUI.UIComponentCategory;
 import com.mwb.digitalstorage.modelUI.UIEntity;
 
 import java.util.ArrayList;
@@ -20,25 +22,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdapter.ComponentViewHolder>
 {
-    private List<UIComponent> components;
+    private List<UIComponentCategory> uiComponentCategories;
+    private List<UIComponent> uiComponents;
     private ComponentCmdHandler componentCmdHandlerCallBack;
+    private SpinnerSetterCmdHandler spinnerSetterCmdHandlerCallBack;
     private ImgCmdHandler imgCmdHandlerCallback;
     private ImageProcessor imgProcessor;
 
 
-    public ComponentListAdapter(List<UIComponent> components, ComponentCmdHandler componentCmdHandlerCallBack,
+    public ComponentListAdapter(List<UIComponentCategory> uiComponentCategories, List<UIComponent> uiComponents, ComponentCmdHandler componentCmdHandlerCallBack, SpinnerSetterCmdHandler spinnerSetterCmdHandlerCallBack,
                                 ImgCmdHandler imgCmdHandlerCallback, ImageProcessor imgProcessor)
     {
-        this.components = components;
+        this.uiComponentCategories = uiComponentCategories;
+        this.uiComponents = uiComponents;
         this.componentCmdHandlerCallBack = componentCmdHandlerCallBack;
+        this.spinnerSetterCmdHandlerCallBack = spinnerSetterCmdHandlerCallBack;
         this.imgCmdHandlerCallback = imgCmdHandlerCallback;
         this.imgProcessor = imgProcessor;
     }
 
     //  sets the filtered components
-    public void setComponents(List<UIComponent> components)
+    public void setComponents(List<UIComponent> uiComponents)
     {
-        this.components = components;
+        this.uiComponents = uiComponents;
         notifyDataSetChanged();
     }
 
@@ -56,14 +62,14 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
     @Override
     public void onBindViewHolder(@NonNull ComponentListAdapter.ComponentViewHolder holder, int position)
     {
-        holder.bind(components.get(position));
+        holder.bind(uiComponents.get(position));
     }
 
     //  returns the list size
     @Override
     public int getItemCount()
     {
-       return (components != null) ? components.size() : 0;
+       return (uiComponents != null) ? uiComponents.size() : 0;
     }
 
     //__________________________________________________________________________________________________
@@ -122,6 +128,7 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
         private void bind(@NonNull UIComponent uiComponent)
         {
             uiComponent.imgObsv.set(imgProcessor.decodeImgPath(uiComponent.getImgPath()));
+            uiComponent.uiComponentCategorySpinnerAdapterObsv.set(spinnerSetterCmdHandlerCallBack.setComponentCategorySpinner(uiComponentCategories));
             binding.setUIComponent(uiComponent);
             binding.executePendingBindings();
         }

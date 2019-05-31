@@ -3,14 +3,20 @@ package com.mwb.digitalstorage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.widget.ArrayAdapter;
+
 import com.mwb.digitalstorage.command_handlers.ComponentCategoryCmdHandler;
 import com.mwb.digitalstorage.command_handlers.ComponentCmdHandler;
+import com.mwb.digitalstorage.command_handlers.SpinnerSetterCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;
 import com.mwb.digitalstorage.databinding.ActivityComponentOverviewBinding;
 import com.mwb.digitalstorage.modelUI.UIComponent;
 import com.mwb.digitalstorage.modelUI.UIComponentCategory;
 import com.mwb.digitalstorage.modelUI.UIEntity;
 import com.mwb.digitalstorage.viewmodel.ComponentOverViewViewModel;
+
+import java.util.List;
+
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -27,11 +33,10 @@ public class ComponentOverViewActivity extends BaseActivity
         ActivityComponentOverviewBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_component_overview);
 
         ComponentCmdHandler componentCmdHandler = componentCmdHandler();
-        ComponentCategoryCmdHandler componentCategoryCmdHandler = componentCategoryHandler();
 
         componentOverViewVM = ViewModelProviders.of(this).get(ComponentOverViewViewModel.class);
         componentOverViewVM.setViewModelElements(getIntent().getLongExtra("storage_id", 0L), getIntent().getLongExtra("rack_id", 0L),
-                                                this, componentCategoryCmdHandler, componentCmdHandler(), imgCmdHandler());
+                                                this, spinnerSetterCmdHandler(), componentCategoryHandler(), componentCmdHandler, imgCmdHandler());
 
         binding.setComponentCmdHandler(componentCmdHandler);
         binding.setTbCmdHandler(toolbarCmdHandler());
@@ -111,6 +116,20 @@ public class ComponentOverViewActivity extends BaseActivity
             }
             @Override
             public void removePhoto() { componentOverViewVM.getUiComponent().removeImg();  }
+        };
+    }
+
+    //  sets the handler to set the spinner
+    public SpinnerSetterCmdHandler spinnerSetterCmdHandler()
+    {
+        return new SpinnerSetterCmdHandler()
+        {
+            @Override
+            public ArrayAdapter setComponentCategorySpinner(List<UIComponentCategory> uiComponentCategories)
+            {
+                return new ArrayAdapter<>(getApplicationContext(), R.layout.component_category_spinner_item,
+                        uiComponentCategories);
+            }
         };
     }
 

@@ -5,15 +5,13 @@ import com.mwb.digitalstorage.adapter.ComponentCategoryListAdapter;
 import com.mwb.digitalstorage.adapter.ComponentListAdapter;
 import com.mwb.digitalstorage.command_handlers.ComponentCategoryCmdHandler;
 import com.mwb.digitalstorage.command_handlers.ComponentCmdHandler;
+import com.mwb.digitalstorage.command_handlers.SpinnerSetterCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;
 import com.mwb.digitalstorage.database.ComponentRepository;
 import com.mwb.digitalstorage.database.RackRepository;
 import com.mwb.digitalstorage.modelUI.UIComponent;
 import com.mwb.digitalstorage.modelUI.UIComponentCategory;
 import com.mwb.digitalstorage.modelUI.UIRack;
-
-import java.util.concurrent.Executor;
-
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.LifecycleOwner;
 
@@ -22,10 +20,12 @@ public class ComponentOverViewViewModel extends BaseViewModel
 {
     private long rackID;
     private long storageID;
-    private long selectedCategoryID;
+    private long selectedSortCategoryID;
+    private UIComponentCategory previousSortComponentCategory;
 
     private ComponentRepository componentRepository;
     private UIComponentCategory uiComponentCategory;
+
     private UIComponent uiComponent;
     private LifecycleOwner lifecycleOwner;
 
@@ -36,9 +36,10 @@ public class ComponentOverViewViewModel extends BaseViewModel
 
 
     // sets the elements belonging to the viewModel
-    public void setViewModelElements(long storageID, long rackID, LifecycleOwner lifecycleOwner, ComponentCategoryCmdHandler componentCategoryCmdHandler,
-                                     ComponentCmdHandler componentCmdHandler, ImgCmdHandler imgCmdHandler)
+    public void setViewModelElements(long storageID, long rackID, LifecycleOwner lifecycleOwner, SpinnerSetterCmdHandler spinnerSetterCmdHandler, ComponentCategoryCmdHandler componentCategoryCmdHandler,
+                                    ComponentCmdHandler componentCmdHandler, ImgCmdHandler imgCmdHandler)
     {
+        previousSortComponentCategory = new UIComponentCategory(0L, "", 0);
         componentRepository = new ComponentRepository(executor);
         RackRepository rackRepository = new RackRepository();
         this.rackID = rackID;
@@ -52,11 +53,15 @@ public class ComponentOverViewViewModel extends BaseViewModel
                 componentCatListAdapterObsv.set(new ComponentCategoryListAdapter(componentCategories, componentCategoryCmdHandler));
             });
         });
-        componentRepository.getRackComponents(rackID).observe(lifecycleOwner, components ->
+        componentRepository.getAllComponentCategories().observe(lifecycleOwner, uiComponentCategories ->
         {
-            executor.execute(() ->
+            componentRepository.getRackComponents(rackID).observe(lifecycleOwner, uiComponents ->
             {
-                componentListAdapterObsv.set(new ComponentListAdapter(components, componentCmdHandler, imgCmdHandler, imgProcessor));
+                executor.execute(() ->
+                {
+                    componentListAdapterObsv.set(new ComponentListAdapter(uiComponentCategories, uiComponents, componentCmdHandler, spinnerSetterCmdHandler,
+                                                                            imgCmdHandler, imgProcessor));
+                });
             });
         });
         executor.execute(() ->
@@ -101,17 +106,16 @@ public class ComponentOverViewViewModel extends BaseViewModel
     }
 
     //  performs sorting on the components per selected category
-    public void sort(UIComponentCategory uiComponentCategory)
+    public void sort(UIComponentCategory toBeSorteduiComponentCategory)
     {
-        long selectedCategoryID = uiComponentCategory.getID();
-
-        if (selectedCategoryID != this.selectedCategoryID)
+        if (previousSortComponentCategory.getID() != toBeSorteduiComponentCategory.getID())
         {
-            this.selectedCategoryID = uiComponentCategory.getID();
-            componentRepository.getCategoryFilteredComponents(rackID, selectedCategoryID).observe(lifecycleOwner, components ->
+            previousSortComponentCategory.setSelectedState();
+            componentRepository.getCategoryFilteredComponents(rackID, previousSortComponentCategory.getID()).observe(lifecycleOwner, components ->
             {
                 componentListAdapterObsv.get().setComponents(components);
             });
+            previousSortComponentCategory = toBeSorteduiComponentCategory;
         }
         else
         {
@@ -136,10 +140,14 @@ public class ComponentOverViewViewModel extends BaseViewModel
     //  saves the component edit
     public void saveComponentEdit()
     {
-        executor.execute(() ->
+        componentRepository.getAllComponentCategories().observe(lifecycleOwner, uiComponentCategories ->
         {
-            componentRepository.editComponent(uiComponent.getId(), uiComponent.getComponentCategoryID(), uiComponent.nameObsv.get(),
-                                        uiComponent.codeObsv.get(), uiComponent.getImgPath());
+            long categoryID = uiComponentCategories.get(uiComponent.selctedCategoryInListObsv.get()).getID();
+            executor.execute(() ->
+            {
+                componentRepository.editComponent(uiComponent.getId(), categoryID, uiComponent.nameObsv.get(),
+                        uiComponent.codeObsv.get(), uiComponent.getImgPath());
+            });
         });
     }
 
