@@ -26,14 +26,18 @@ public class SearchedEntityRepository
         }
         for (Rack rack : BaseRepository.getDao().searchRacks("%" + s + "%"))
         {
-            String belongingStorage = BaseRepository.getDao().getStorageUnit(rack.storageID).getName() + " (Rack)";
-            uiEntities.add(new UIRack(rack.id, belongingStorage, rack.getName(), rack.getRackImgPath(), rack.getComponentCount()));
+            UIRack uiRack = new UIRack(rack.id, rack.getName(), rack.getRackImgPath(), rack.getComponentCount());
+            uiRack.setStorageName(BaseRepository.getDao().getStorageUnit(rack.storageID).getName() + " (Storage)");
+            uiEntities.add(uiRack);
         }
         for (Component component : BaseRepository.getDao().searchComponents("%" + s + "%"))
         {
-            String belongingRack = BaseRepository.getDao().getRack(component.rackID).getName() + " (Storage)";
-            uiEntities.add(new UIComponent(component.componentID, component.rackID, component.componentCategoryID, belongingRack,
-                                            component.getName(), component.getCode(), component.getImgPath(), component.getCount()));
+            UIComponent uiComponent = new UIComponent(component.componentID, component.rackID, component.componentCategoryID,
+                                                        component.getName(), component.getCode(), component.getImgPath(), component.getCount());
+            Rack rack = BaseRepository.getDao().getRack(component.rackID);
+            uiComponent.setRackName(BaseRepository.getDao().getRack(component.rackID).getName() + " (Rack)");
+            uiComponent.setStorageName(BaseRepository.getDao().getStorageUnit(rack.storageID).getName() + " (Storage)");
+            uiEntities.add(uiComponent);
         }
         return uiEntities;
     }

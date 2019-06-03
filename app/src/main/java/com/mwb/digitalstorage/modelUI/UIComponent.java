@@ -47,7 +47,7 @@ public class UIComponent implements UIEntity
     @Override
     public String getName() { return nameObsv.get(); }
 
-    public void setStorageName() { this.storageName = storageName; }
+    public void setStorageName(String storageName) { this.storageName = storageName; }
 
     @Override
     public String getForeignKeyName() { return rackName; }
@@ -55,7 +55,7 @@ public class UIComponent implements UIEntity
     @Override
     public String getSecondaryForeignKeyName() { return storageName; }
 
-    public void setRackName() { this.rackName = rackName; }
+    public void setRackName(String rackName) { this.rackName = rackName; }
 
     @Override
     public String getClassName() { return "Component"; }

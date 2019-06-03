@@ -16,7 +16,7 @@ public class RackMenuViewModel extends BaseViewModel
     {
         this.storageID = storageID;
         rackRepository = new RackRepository();
-        uiRack = new UIRack(0L, "", "", "", 0);
+        uiRack = new UIRack(0L, "", "", 0);
     }
 
     //  gets the uiRack

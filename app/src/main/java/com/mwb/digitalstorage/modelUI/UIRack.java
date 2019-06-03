@@ -9,7 +9,7 @@ public class UIRack implements UIEntity
 {
     public long id;
     private String imgPath;
-    private String foreignKeyname;
+    private String storageName;
 
     public ObservableField<String> nameObsv = new ObservableField<>("");
     public ObservableField<Integer> componentCountObsv = new ObservableField<>();
@@ -32,7 +32,9 @@ public class UIRack implements UIEntity
     public String getName() { return nameObsv.get(); }
 
     @Override
-    public String getForeignKeyName() { return foreignKeyname; }
+    public String getForeignKeyName() { return storageName; }
+
+    public void setStorageName(String storageName) { this.storageName = storageName; }
 
     @Override
     public String getSecondaryForeignKeyName() { return null; }

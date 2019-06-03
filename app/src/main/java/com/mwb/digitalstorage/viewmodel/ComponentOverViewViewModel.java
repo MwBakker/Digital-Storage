@@ -137,7 +137,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
     {
         componentRepository.getAllComponentCategories().observe(lifecycleOwner, uiComponentCategories ->
         {
-            long categoryID = uiComponentCategories.get(uiComponent.selctedCategoryInListObsv.get()).getID();
+            long categoryID = uiComponentCategories.get(uiComponent.selectedCategoryInListObsv.get()).getID();
             executor.execute(() ->
             {
                 componentRepository.editComponent(uiComponent.getId(), categoryID, uiComponent.nameObsv.get(),

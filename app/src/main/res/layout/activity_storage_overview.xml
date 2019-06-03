@@ -121,7 +121,7 @@
             android:onTextChanged="@{companyCmdHandler::editCompanyLocation}"
             android:text="@{vm.uiCompany.locationObsv}"
             android:textColor="@color/icon_color"
-            android:textSize="22dp"
+            android:textSize="22sp"
             android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.VISIBLE : View.GONE}"
             app:layout_constraintLeft_toRightOf="@id/icon_pin"
             app:layout_constraintTop_toTopOf="@+id/icon_pin" />
@@ -135,98 +135,84 @@
             app:layout_constraintBottom_toBottomOf="@id/company_img"
             app:layout_constraintRight_toRightOf="@id/company_img" />
 
-        <ScrollView
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txt_storage_units"
+            style="@style/wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/storage_units"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/company_img" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_storage_units"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            android:adapter="@{vm.storageListAdapterObsv}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintHeight_percent="0.32"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_storage_units"
+            app:spanCount="2"
+            tools:listitem="@layout/storage_item" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/FAB_Storage"
+            style="@style/floating_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:onClick="@{(view) -> cmdHandler.addNewEntity()}"
+            android:src="@mipmap/add"
+            android:tint="@color/general_txt_color"
+            app:backgroundTint="@color/icon_color"
+            app:layout_constraintRight_toRightOf="@+id/hr"
+            app:layout_constraintTop_toBottomOf="@+id/rv_storage_units" />
+
+        <View
+            android:id="@+id/hr"
+            style="@style/hr_white"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/FAB_Storage" />
+
+        <TextView
+            android:id="@+id/txt_tools"
+            style="@style/wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/tools"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hr" />
+
+        <Button
+            android:id="@+id/btn_available"
+            style="@style/btn_general"
+            android:layout_width="0dp"
+            android:layout_height="58dp"
+            android:layout_margin="10dp"
+            android:text="@string/available"
+            android:textColor="@color/icon_color"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/company_img">
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintWidth_percent="0.45" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/txt_storage_units"
-                    style="@style/wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/storage_units"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_storage_units"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="15dp"
-                    android:adapter="@{vm.storageListAdapterObsv}"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:layout_constraintHeight_percent="0.45"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/txt_storage_units"
-                    app:spanCount="2"
-                    tools:listitem="@layout/storage_item" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/FAB_Storage"
-                    style="@style/floating_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="20dp"
-                    android:onClick="@{(view) -> cmdHandler.addNewEntity()}"
-                    android:src="@mipmap/add"
-                    android:tint="@color/general_txt_color"
-                    app:backgroundTint="@color/icon_color"
-                    app:layout_constraintRight_toRightOf="@+id/hr"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_storage_units" />
-
-                <View
-                    android:id="@+id/hr"
-                    style="@style/hr_white"
-                    android:layout_marginTop="12dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/FAB_Storage" />
-
-                <TextView
-                    android:id="@+id/txt_tools"
-                    style="@style/wrap_content"
-                    android:text="@string/tools"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/hr" />
-
-                <Button
-                    android:id="@+id/btn_available"
-                    style="@style/btn_general"
-                    android:layout_width="0dp"
-                    android:layout_height="58dp"
-                    android:layout_margin="10dp"
-                    android:text="@string/available"
-                    android:textColor="@color/icon_color"
-                    android:textSize="18sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_tools"
-                    app:layout_constraintWidth_percent="0.45" />
-
-                <Button
-                    android:id="@+id/btn_lent"
-                    style="@style/btn_general"
-                    android:layout_width="0dp"
-                    android:layout_height="58dp"
-                    android:layout_margin="10dp"
-                    android:text="@string/lent"
-                    android:textColor="@color/icon_color"
-                    android:textSize="18sp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_tools"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintWidth_percent="0.45" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+        <Button
+            android:id="@+id/btn_lent"
+            style="@style/btn_general"
+            android:layout_width="0dp"
+            android:layout_height="58dp"
+            android:layout_margin="10dp"
+            android:text="@string/lent"
+            android:textColor="@color/icon_color"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintWidth_percent="0.45" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -23,7 +23,7 @@ public class RackRepository
         List<UIRack> UIRackList = new ArrayList<>();
         for (Rack rack : rackList)
         {
-            UIRackList.add(new UIRack(rack.id, "", rack.getName(), rack.getRackImgPath(),
+            UIRackList.add(new UIRack(rack.id, rack.getName(), rack.getRackImgPath(),
                                       rack.getComponentCount()));
         }
         return UIRackList;
@@ -33,7 +33,7 @@ public class RackRepository
     public UIRack getRack(long rackID)
     {
         Rack rack = BaseRepository.getDao().getRack(rackID);
-        return new UIRack(rackID, "", rack.getName(), rack.getRackImgPath(), rack.getComponentCount());
+        return new UIRack(rackID, rack.getName(), rack.getRackImgPath(), rack.getComponentCount());
     }
 
     //  performs rack insert
