@@ -35,7 +35,7 @@ public class RackOverViewActivity extends BaseActivity
         ActivityRackOverviewBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_rack_overview);
         binding.setVm(rackOverViewVM);
         binding.setTbvm(tbVM);
-        binding.setRackCmdHandler(rackCmdHandler);
+        binding.setCmdHandler(rackCmdHandler);
         binding.setTbCmdHandler(toolbarCmdHandler());
     }
 

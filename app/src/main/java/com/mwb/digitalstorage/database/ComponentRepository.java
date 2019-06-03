@@ -51,7 +51,7 @@ public class ComponentRepository
             for (Component component : components)
             {
                 String categoryName = BaseRepository.getDao().getComponentCategory(component.componentCategoryID).getName();
-                UIComponentList.add(new UIComponent(component.componentID, component.rackID, component.componentCategoryID, categoryName,
+                UIComponentList.add(new UIComponent(component.componentID, component.rackID, component.componentCategoryID,
                         component.getName(), component.getCode(), component.getImgPath(), component.getCount()));
             }
         });

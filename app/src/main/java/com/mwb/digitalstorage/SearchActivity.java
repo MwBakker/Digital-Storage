@@ -54,9 +54,9 @@ public class SearchActivity extends AppCompatActivity
             public void goToSearchedEntity(Class entityClass, long entityID)
             {
                 Intent intent = new Intent(SearchActivity.this, entityClass);
-                intent.putExtra("entity_id", entityID);
-                startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                //intent.putExtra("entity_id", entityID);
+                //startActivity(intent);
+                //overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         };
     }

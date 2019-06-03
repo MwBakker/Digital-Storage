@@ -8,17 +8,23 @@ public interface UIEntity
 
     String getName();
 
+    String getForeignKeyName();
+
+    String getSecondaryForeignKeyName();
+
     String getClassName();
 
     Class getBelongingOverViewActivity();
 
-    String getForeignKeyname();
+    void setImg(Bitmap img);
 
     String getImgPath();
-
-    void setImg(Bitmap img);
 
     Bitmap getImg();
 
     void removeImg();
+
+    int getCount();
+
+    boolean isComponent();
 }

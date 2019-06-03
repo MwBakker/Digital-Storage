@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -35,6 +36,7 @@
             style="@style/wrap_content"
             android:text="@string/no_image"
             android:textColor="#A4FFA726"
+            android:textSize="18sp"
             android:visibility="@{UIEntity.img == null ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@+id/img"
             app:layout_constraintLeft_toLeftOf="@+id/img"
@@ -44,34 +46,73 @@
         <TextView
             android:id="@+id/txt_entity_type"
             style="@style/wrap_content"
-            android:layout_marginStart="72dp"
+            android:layout_marginStart="8dp"
             android:text="@{UIEntity.className}"
             android:textColor="@color/icon_color"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/img"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Component" />
 
         <TextView
             android:id="@+id/txt_entity_name"
             style="@style/wrap_content"
-            android:layout_marginTop="36dp"
-            android:layout_marginEnd="125dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:text="@{UIEntity.name}"
             android:textColor="@color/icon_color"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Kast linksachter" />
+
+        <TextView
+            android:id="@+id/txt_component_amount"
+            style="@style/wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="24dp"
+            android:text="@{UIEntity.count}"
+            android:textColor="#A4FFA726"
+            android:textSize="20sp"
+            android:visibility="@{UIEntity.isComponent ? View.VISIBLE : View.GONE}"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_entity_name"
+            tools:text="100" />
+
+        <TextView
+            android:id="@+id/txt_component_amount_add_on"
+            style="@style/wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="@string/X"
+            android:textColor="#A4FFA726"
+            android:textSize="20sp"
+            android:visibility="@{UIEntity.isComponent ? View.VISIBLE : View.GONE}"
+            app:layout_constraintLeft_toRightOf="@id/txt_component_amount"
+            app:layout_constraintTop_toTopOf="@id/txt_component_amount" />
 
         <TextView
             android:id="@+id/txt_entity_belonging"
             style="@style/wrap_content"
+            android:layout_marginTop="44dp"
             android:text="@{UIEntity.foreignKeyname}"
             android:textColor="@color/icon_color"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="20sp"
             app:layout_constraintLeft_toLeftOf="@id/txt_entity_name"
-            app:layout_constraintTop_toBottomOf="@id/txt_entity_name" />
+            app:layout_constraintTop_toBottomOf="@id/txt_entity_name"
+            tools:text="Magazijn Tejin" />
+
+        <TextView
+            style="@style/wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@{UIEntity.secondForeignKeyname}"
+            android:textColor="@color/icon_color"
+            android:textSize="20sp"
+            android:visibility="@{UIEntity.isComponent ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/txt_entity_belonging"
+            tools:text="Magazijn Tejin" />
 
         <View
             android:id="@+id/hr"

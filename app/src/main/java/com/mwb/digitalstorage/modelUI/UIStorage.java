@@ -1,6 +1,8 @@
 package com.mwb.digitalstorage.modelUI;
 
 import android.graphics.Bitmap;
+
+import com.mwb.digitalstorage.RackOverViewActivity;
 import com.mwb.digitalstorage.StorageOverViewActivity;
 import androidx.databinding.ObservableField;
 
@@ -33,16 +35,18 @@ public class UIStorage implements UIEntity
     public String getName() { return nameObsv.get(); }
 
     @Override
+    public String getForeignKeyName() { return null; }
+
+    @Override
+    public String getSecondaryForeignKeyName() { return null; }
+
+    @Override
     public String getClassName() { return "Storage"; }
 
     @Override
-    public Class getBelongingOverViewActivity() { return StorageOverViewActivity.class; }
+    public Class getBelongingOverViewActivity() { return RackOverViewActivity.class; }
 
-    @Override
-    public String getForeignKeyname() { return ""; }
-
-    @Override
-    public String getImgPath() { return imgPath; }
+    public void setImgPath(String imgPath) { this.imgPath = imgPath; }
 
     @Override
     public void setImg(Bitmap img) { imgObsv.set(img); }
@@ -50,12 +54,29 @@ public class UIStorage implements UIEntity
     @Override
     public Bitmap getImg() { return imgObsv.get(); }
 
-    public void setImgPath(String imgPath) { this.imgPath = imgPath; }
-
     @Override
     public void removeImg()
     {
         imgObsv = null;
         imgPath = null;
     }
+
+    @Override
+    public String getImgPath() { return imgPath; }
+
+    @Override
+    public int getCount() { return 0; }
+
+    @Override
+    public boolean isComponent() { return false; }
+
+
+
+
+
+
+
+
+
+
 }

@@ -19,8 +19,6 @@ import androidx.lifecycle.LifecycleOwner;
 public class ComponentOverViewViewModel extends BaseViewModel
 {
     private long rackID;
-    private long storageID;
-    private long selectedSortCategoryID;
     private UIComponentCategory previousSortComponentCategory;
 
     private ComponentRepository componentRepository;
@@ -36,14 +34,13 @@ public class ComponentOverViewViewModel extends BaseViewModel
 
 
     // sets the elements belonging to the viewModel
-    public void setViewModelElements(long storageID, long rackID, LifecycleOwner lifecycleOwner, SpinnerSetterCmdHandler spinnerSetterCmdHandler, ComponentCategoryCmdHandler componentCategoryCmdHandler,
+    public void setViewModelElements(long rackID, LifecycleOwner lifecycleOwner, SpinnerSetterCmdHandler spinnerSetterCmdHandler, ComponentCategoryCmdHandler componentCategoryCmdHandler,
                                     ComponentCmdHandler componentCmdHandler, ImgCmdHandler imgCmdHandler)
     {
         previousSortComponentCategory = new UIComponentCategory(0L, "", 0);
         componentRepository = new ComponentRepository(executor);
         RackRepository rackRepository = new RackRepository();
         this.rackID = rackID;
-        this.storageID = storageID;
         this.lifecycleOwner = lifecycleOwner;
 
         componentRepository.getRackComponentCategories(rackID).observe(lifecycleOwner, componentCategories ->
@@ -71,9 +68,6 @@ public class ComponentOverViewViewModel extends BaseViewModel
             rackImgObsv.set(UIRack.getImg());
         });
     }
-
-    // gets the storage ID
-    public long getStorageID() { return storageID; }
 
     // gets the rack ID
     public long getRackID() { return rackID; }
@@ -106,16 +100,17 @@ public class ComponentOverViewViewModel extends BaseViewModel
     }
 
     //  performs sorting on the components per selected category
-    public void sort(UIComponentCategory toBeSorteduiComponentCategory)
+    public void sort(UIComponentCategory toBeSortedUiComponentCategory)
     {
-        if (previousSortComponentCategory.getID() != toBeSorteduiComponentCategory.getID())
+        if (previousSortComponentCategory.getID() != toBeSortedUiComponentCategory.getID())
         {
-            previousSortComponentCategory.setSelectedState();
-            componentRepository.getCategoryFilteredComponents(rackID, previousSortComponentCategory.getID()).observe(lifecycleOwner, components ->
+            componentRepository.getCategoryFilteredComponents(rackID, toBeSortedUiComponentCategory.getID()).observe(lifecycleOwner, components ->
             {
                 componentListAdapterObsv.get().setComponents(components);
             });
-            previousSortComponentCategory = toBeSorteduiComponentCategory;
+            previousSortComponentCategory.setSelectedState();
+            previousSortComponentCategory = toBeSortedUiComponentCategory;
+            previousSortComponentCategory.setSelectedState();
         }
         else
         {
@@ -123,8 +118,8 @@ public class ComponentOverViewViewModel extends BaseViewModel
             {
                 componentListAdapterObsv.get().setComponents(components);
             });
+            previousSortComponentCategory.setSelectedState();
         }
-        uiComponentCategory.setSelectedState();
     }
 
     //  saves the category edit

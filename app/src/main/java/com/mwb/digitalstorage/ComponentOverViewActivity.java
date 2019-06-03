@@ -35,8 +35,8 @@ public class ComponentOverViewActivity extends BaseActivity
         ComponentCmdHandler componentCmdHandler = componentCmdHandler();
 
         componentOverViewVM = ViewModelProviders.of(this).get(ComponentOverViewViewModel.class);
-        componentOverViewVM.setViewModelElements(getIntent().getLongExtra("storage_id", 0L), getIntent().getLongExtra("rack_id", 0L),
-                                                this, spinnerSetterCmdHandler(), componentCategoryHandler(), componentCmdHandler, imgCmdHandler());
+        componentOverViewVM.setViewModelElements(getIntent().getLongExtra("rack_id", 0L), this, spinnerSetterCmdHandler(),
+                                                                            componentCategoryHandler(), componentCmdHandler, imgCmdHandler());
 
         binding.setComponentCmdHandler(componentCmdHandler);
         binding.setTbCmdHandler(toolbarCmdHandler());

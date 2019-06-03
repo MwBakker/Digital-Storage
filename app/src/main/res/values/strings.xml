@@ -26,4 +26,5 @@
     <string name="number_picker_descr">Amount of racks in storage unit</string>
     <string name="add_storage">Add storage</string>
     <string name="cancel">Cancel</string>
+    <string name="X">X</string>
 </resources>

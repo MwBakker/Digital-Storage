@@ -1,7 +1,7 @@
 package com.mwb.digitalstorage.modelUI;
 
 import android.graphics.Bitmap;
-import com.mwb.digitalstorage.RackOverViewActivity;
+import com.mwb.digitalstorage.StorageOverViewActivity;
 import androidx.databinding.ObservableField;
 
 
@@ -17,10 +17,9 @@ public class UIRack implements UIEntity
     public ObservableField<Boolean> isEditObsv = new ObservableField<>(false);
 
 
-    public UIRack(long id, String foreignKeyname, String name, String imgPath, int componentCount)
+    public UIRack(long id, String name, String imgPath, int componentCount)
     {
         this.id = id;
-        this.foreignKeyname = foreignKeyname;
         this.nameObsv.set(name);
         this.imgPath = imgPath;
         this.componentCountObsv.set(componentCount);
@@ -33,21 +32,18 @@ public class UIRack implements UIEntity
     public String getName() { return nameObsv.get(); }
 
     @Override
+    public String getForeignKeyName() { return foreignKeyname; }
+
+    @Override
+    public String getSecondaryForeignKeyName() { return null; }
+
+    @Override
     public String getClassName() { return "Rack"; }
 
     @Override
-    public Class getBelongingOverViewActivity()
-    {
-        return RackOverViewActivity.class;
-    }
-
-    @Override
-    public String getForeignKeyname() { return foreignKeyname; }
+    public Class getBelongingOverViewActivity() { return StorageOverViewActivity.class; }
 
     public void setImgPath(String imgPath) { this.imgPath = imgPath; }
-
-    @Override
-    public String getImgPath() { return  imgPath; }
 
     @Override
     public void setImg(Bitmap img) { imgObsv.set(img); }
@@ -61,4 +57,13 @@ public class UIRack implements UIEntity
         imgObsv = null;
         imgPath = null;
     }
+
+    @Override
+    public String getImgPath() { return imgPath; }
+
+    @Override
+    public int getCount() { return 0; }
+
+    @Override
+    public boolean isComponent() { return false; }
 }

@@ -137,7 +137,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/company_img">
 
@@ -161,7 +161,7 @@
                     android:layout_marginTop="15dp"
                     android:adapter="@{vm.storageListAdapterObsv}"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:layout_constraintHeight_percent="0.40"
+                    app:layout_constraintHeight_percent="0.45"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txt_storage_units"
@@ -193,10 +193,10 @@
                 <TextView
                     android:id="@+id/txt_tools"
                     style="@style/wrap_content"
-                    android:layout_marginTop="8dp"
                     android:text="@string/tools"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/hr" />
 
                 <Button
@@ -209,6 +209,7 @@
                     android:textColor="@color/icon_color"
                     android:textSize="18sp"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_tools"
                     app:layout_constraintWidth_percent="0.45" />
 
@@ -223,6 +224,7 @@
                     android:textSize="18sp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_tools"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintWidth_percent="0.45" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
