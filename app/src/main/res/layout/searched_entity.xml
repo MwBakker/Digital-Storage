@@ -18,7 +18,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/match_and_wrap"
-        android:layout_height="150dp"
+        android:layout_height="160dp"
         android:background="#65030303"
         android:onClick="@{(view) -> cmdHandler.goToSearchedEntity(UIEntity.getBelongingOverViewActivity(), UIEntity.getId())}">
 
@@ -30,7 +30,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.3" />
+            app:layout_constraintWidth_percent="0.25" />
 
         <TextView
             android:id="@+id/textView"
@@ -47,7 +47,6 @@
         <TextView
             android:id="@+id/txt_entity_type"
             style="@style/wrap_content"
-            android:layout_marginStart="8dp"
             android:text="@{UIEntity.className}"
             android:textColor="@color/icon_color"
             android:textSize="20sp"
@@ -60,16 +59,15 @@
         <TextView
             android:id="@+id/txt_entity_name"
             android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.375"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginRight="20dp"
-            android:gravity="start"
             android:text="@{UIEntity.name}"
             android:textColor="@color/icon_color"
             android:textSize="20sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Kast meubulair" />
+            tools:text="Magazijn Tejin" />
 
         <TextView
             android:id="@+id/txt_component_amount"
@@ -78,7 +76,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="24dp"
-            android:gravity="start"
             android:text="@{UIEntity.isComponent ? UIEntity.count : null}"
             android:textColor="#A4FFA726"
             android:textSize="20sp"
@@ -101,9 +98,9 @@
         <TextView
             android:id="@+id/txt_entity_belonging"
             android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.35"
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
-            android:gravity="start"
             android:text="@{UIEntity.foreignKeyName}"
             android:textColor="@color/icon_color"
             android:textSize="20sp"
@@ -114,9 +111,9 @@
         <TextView
             android:id="@+id/textView2"
             android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.35"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:gravity="start"
             android:text="@{UIEntity.secondaryForeignKeyName}"
             android:textColor="@color/icon_color"
             android:textSize="20sp"
