@@ -40,6 +40,17 @@
             app:isFaded="@{true}" />
 
         <ImageButton
+            android:id="@+id/btn_delete"
+            style="@style/icon_bin"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="16dp"
+            android:onClick="@{() -> cmdHandler.deleteEntity()}"
+            android:visibility="@{safeUnbox(UIRack.isEditObsv) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintRight_toLeftOf="@id/btn_check"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
             android:id="@+id/btn_check"
             style="@style/icon_check"
             android:layout_width="36dp"
@@ -47,8 +58,8 @@
             android:layout_margin="16dp"
             android:onClick="@{() -> cmdHandler.saveEntity(false)}"
             android:visibility="@{UIRack.isEditObsv ? View.VISIBLE : View.GONE}"
-            app:layout_constraintTop_toTopOf="@id/main_image"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/main_image" />
 
         <TextView
             style="@style/wrap_content"
@@ -59,9 +70,9 @@
             android:textColor="@color/icon_color"
             android:textSize="22dp"
             android:visibility="@{safeUnbox(UIRack.isEditObsv) ? View.GONE : View.VISIBLE}"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            tools:text="This is a name"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="This is a name" />
 
         <EditText
             style="@style/edit_item"
@@ -73,19 +84,8 @@
             android:textColor="@color/icon_color"
             android:textSize="22sp"
             android:visibility="@{safeUnbox(UIRack.isEditObsv) ? View.VISIBLE : View.GONE}"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            tools:text="This is a name"/>
-
-        <ImageButton
-            android:id="@+id/btn_delete"
-            style="@style/icon_bin"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_margin="16dp"
-            android:onClick="@{() -> cmdHandler.deleteEntity()}"
-            android:visibility="@{safeUnbox(UIRack.isEditObsv) ? View.VISIBLE : View.GONE}"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="This is a name" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -24,7 +24,7 @@ public interface UIEntity
 
     void removeImg();
 
-    int getCount();
+    String getCount();
 
     boolean isComponent();
 }

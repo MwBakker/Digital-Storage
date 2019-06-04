@@ -82,7 +82,7 @@ public class UIComponent implements UIEntity
     public String getImgPath() { return imgPath; }
 
     @Override
-    public int getCount() { return Integer.parseInt(countObsv.get()); }
+    public String getCount() { return countObsv.get(); }
 
     @Override
     public boolean isComponent() { return true; }

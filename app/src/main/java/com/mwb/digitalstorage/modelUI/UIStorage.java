@@ -3,7 +3,6 @@ package com.mwb.digitalstorage.modelUI;
 import android.graphics.Bitmap;
 
 import com.mwb.digitalstorage.RackOverViewActivity;
-import com.mwb.digitalstorage.StorageOverViewActivity;
 import androidx.databinding.ObservableField;
 
 
@@ -65,7 +64,7 @@ public class UIStorage implements UIEntity
     public String getImgPath() { return imgPath; }
 
     @Override
-    public int getCount() { return 0; }
+    public String getCount() { return " "; }
 
     @Override
     public boolean isComponent() { return false; }

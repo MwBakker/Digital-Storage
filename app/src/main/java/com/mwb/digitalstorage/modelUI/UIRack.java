@@ -64,7 +64,7 @@ public class UIRack implements UIEntity
     public String getImgPath() { return imgPath; }
 
     @Override
-    public int getCount() { return 0; }
+    public String getCount() { return " "; }
 
     @Override
     public boolean isComponent() { return false; }

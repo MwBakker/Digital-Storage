@@ -56,6 +56,7 @@
             android:id="@+id/rv_racks"
             style="@style/recycler_view_storages"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginTop="20dp"
             android:adapter="@{vm.rackListAdapterObsv}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
