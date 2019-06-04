@@ -119,6 +119,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
                 componentListAdapterObsv.get().setComponents(components);
             });
             previousSortComponentCategory.setSelectedState();
+            previousSortComponentCategory = new UIComponentCategory(0L, "", 0);
         }
     }
 
