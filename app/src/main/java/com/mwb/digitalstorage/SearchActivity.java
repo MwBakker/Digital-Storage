@@ -51,12 +51,12 @@ public class SearchActivity extends AppCompatActivity
         return new SearchedEntityCmdHandler()
         {
             @Override
-            public void goToSearchedEntity(Class entityClass, long entityID)
+            public void goToSearchedEntity(Class entityClass, String className, long entityID)
             {
                 Intent intent = new Intent(SearchActivity.this, entityClass);
-                //intent.putExtra("entity_id", entityID);
-                //startActivity(intent);
-                //overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                intent.putExtra(className.toLowerCase() + "_id", entityID);
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         };
     }

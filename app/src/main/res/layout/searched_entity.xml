@@ -19,8 +19,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/match_and_wrap"
         android:layout_height="160dp"
+        android:layout_marginBottom="1dp"
         android:background="#65030303"
-        android:onClick="@{(view) -> cmdHandler.goToSearchedEntity(UIEntity.getBelongingOverViewActivity(), UIEntity.getId())}">
+        android:onClick="@{(view) -> cmdHandler.goToSearchedEntity(UIEntity.getBelongingOverViewActivity(), UIEntity.className, UIEntity.getId())}">
 
         <ImageView
             android:id="@+id/img"
@@ -126,6 +127,6 @@
             android:id="@+id/hr"
             style="@style/hr_white"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

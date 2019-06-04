@@ -99,7 +99,10 @@ public interface DAO
     List<Rack> searchRacks(String input);
 
     //  searches components based on string input
-    @Query("SELECT * FROM component WHERE name LIKE :input or code LIKE :input")
+    @Query("SELECT id, rack_id, component_category_id, name, code, img_path, COUNT(id) as count " +
+            "FROM component c " +
+            "WHERE name LIKE :input or code LIKE :input " +
+            "GROUP BY code ")
     List<Component> searchComponents(String input);
 
     //  get component

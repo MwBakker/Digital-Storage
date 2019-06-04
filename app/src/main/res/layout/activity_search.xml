@@ -60,7 +60,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
             android:fillViewport="true"
-            app:layout_constraintHeight_percent="0.725"
+            app:layout_constraintHeight_percent="0.925"
             app:layout_constraintTop_toBottomOf="@id/txt_arrow">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -71,7 +71,6 @@
                     android:id="@+id/rv_storage_units"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="16dp"
                     android:adapter="@{vm.foundEntitiesAdapterObsv}"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintLeft_toLeftOf="parent"
