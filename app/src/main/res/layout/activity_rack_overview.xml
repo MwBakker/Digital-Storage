@@ -60,10 +60,10 @@
             android:layout_marginTop="20dp"
             android:adapter="@{vm.rackListAdapterObsv}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/FAB_rack"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/hr"
-            app:layout_constraintBottom_toTopOf="@id/FAB_rack"
             app:spanCount="2"
             tools:listitem="@layout/rack_item" />
 
@@ -72,11 +72,11 @@
             style="@style/floating_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
+            android:layout_margin="12dp"
+            android:backgroundTint="#02FFA726"
             android:onClick="@{(view) -> cmdHandler.addNewEntity()}"
             android:src="@mipmap/add"
-            android:tint="@color/general_txt_color"
+            android:tint="@color/icon_color"
             app:backgroundTint="@color/icon_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />

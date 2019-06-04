@@ -59,11 +59,12 @@
             style="@style/icon_del"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:layout_margin="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginEnd="24dp"
             android:onClick="@{() -> cmdHandler.removePhoto()}"
             android:visibility="@{isEditObsv ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@id/main_img"
-            app:layout_constraintLeft_toLeftOf="@id/main_img" />
+            app:layout_constraintRight_toLeftOf="@id/btn_browse" />
 
         <ImageButton
             android:id="@+id/btn_browse"

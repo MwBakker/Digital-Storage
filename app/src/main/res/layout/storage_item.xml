@@ -18,7 +18,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@{safeUnbox(UIStorage.isEditObsv) ? @dimen/dp_160 : @dimen/dp_110, default=wrap_content}"
+        android:layout_height="@{safeUnbox(UIStorage.isEditObsv) ? @dimen/dp_230 : @dimen/dp_180, default=wrap_content}"
         android:layout_margin="15dp"
         android:background="@drawable/btn_background"
         android:onClick="@{(view) -> cmdHandler.enterEntity(UIStorage.id)}"
@@ -55,7 +55,7 @@
             style="@style/icon_pin"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:layout_marginStart="6dp"
+            android:layout_marginStart="28dp"
             android:layout_marginTop="62dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -64,7 +64,7 @@
             android:id="@+id/txt_storage_location"
             style="@style/wrap_content"
             android:layout_width="wrap_content"
-            android:layout_marginStart="36dp"
+            android:layout_marginStart="52dp"
             android:layout_marginTop="20dp"
             android:text="@{UIStorage.locationObsv}"
             android:textColor="@color/icon_color"
@@ -78,7 +78,7 @@
             android:id="@+id/edit_storage_loc"
             style="@style/edit_item"
             android:layout_width="wrap_content"
-            android:layout_marginStart="36dp"
+            android:layout_marginStart="52dp"
             android:text="@={UIStorage.locationObsv}"
             android:textColor="@color/icon_color"
             android:textSize="22sp"
@@ -86,6 +86,34 @@
             app:layout_constraintStart_toStartOf="@id/edit_storage_name"
             app:layout_constraintTop_toBottomOf="@id/edit_storage_name"
             tools:text="this is a location" />
+
+        <TextView
+            android:id="@+id/txt_rack_amount"
+            style="@style/wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="20dp"
+
+            android:textColor="@color/icon_color"
+            android:textSize="22sp"
+            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintLeft_toLeftOf="@id/txt_storage_name"
+            app:layout_constraintTop_toBottomOf="@id/txt_storage_location"
+            tools:text="120 racks" />
+
+        <TextView
+            android:id="@+id/txt_component_amount"
+            style="@style/wrap_content"
+            android:layout_width="wrap_content"
+
+            android:layout_marginTop="8dp"
+
+            android:textColor="@color/icon_color"
+            android:textSize="22sp"
+            android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintLeft_toLeftOf="@id/txt_rack_amount"
+            app:layout_constraintTop_toBottomOf="@id/txt_rack_amount"
+            tools:text="533 components" />
 
         <ImageButton
             android:id="@+id/btn_delete"

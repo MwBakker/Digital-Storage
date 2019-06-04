@@ -60,7 +60,6 @@
         <TextView
             android:id="@+id/txt_entity_name"
             android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.375"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@{UIEntity.name}"
@@ -68,6 +67,7 @@
             android:textSize="20sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.375"
             tools:text="Magazijn Tejin" />
 
         <TextView
@@ -99,7 +99,6 @@
         <TextView
             android:id="@+id/txt_entity_belonging"
             android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.35"
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
             android:text="@{UIEntity.foreignKeyName}"
@@ -107,12 +106,12 @@
             android:textSize="20sp"
             app:layout_constraintLeft_toLeftOf="@id/txt_entity_name"
             app:layout_constraintTop_toBottomOf="@id/txt_entity_name"
+            app:layout_constraintWidth_percent="0.35"
             tools:text="Magazijn Tejin" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.35"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:text="@{UIEntity.secondaryForeignKeyName}"
@@ -121,12 +120,13 @@
             android:visibility="@{UIEntity.isComponent ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/txt_entity_belonging"
+            app:layout_constraintWidth_percent="0.35"
             tools:text="Magazijn Tejin" />
 
         <View
             android:id="@+id/hr"
             style="@style/hr_white"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

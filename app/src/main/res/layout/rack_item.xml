@@ -22,7 +22,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="@{safeUnbox(UIStorage.isEditObsv) ? @dimen/dp_310 : @dimen/dp_250, default=wrap_content}"
         android:layout_margin="16dp"
         android:focusable="true"
         android:longClickable="true"
@@ -39,32 +39,10 @@
             app:isEditObsv="@{safeUnbox(UIRack.isEditObsv)}"
             app:isFaded="@{true}" />
 
-        <ImageButton
-            android:id="@+id/btn_delete"
-            style="@style/icon_bin"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_margin="16dp"
-            android:onClick="@{() -> cmdHandler.deleteEntity()}"
-            android:visibility="@{safeUnbox(UIRack.isEditObsv) ? View.VISIBLE : View.GONE}"
-            app:layout_constraintRight_toLeftOf="@id/btn_check"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btn_check"
-            style="@style/icon_check"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_margin="16dp"
-            android:onClick="@{() -> cmdHandler.saveEntity(false)}"
-            android:visibility="@{UIRack.isEditObsv ? View.VISIBLE : View.GONE}"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/main_image" />
-
         <TextView
             style="@style/wrap_content"
             android:layout_marginStart="52dp"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="40dp"
             android:background="#3C0F0F0F"
             android:text="@{UIRack.nameObsv}"
             android:textColor="@color/icon_color"
@@ -72,13 +50,13 @@
             android:visibility="@{safeUnbox(UIRack.isEditObsv) ? View.GONE : View.VISIBLE}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="This is a name" />
+            tools:text="This is a rack name" />
 
         <EditText
             style="@style/edit_item"
             android:layout_width="wrap_content"
             android:layout_marginStart="52dp"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="40dp"
             android:background="#3C0F0F0F"
             android:text="@={UIRack.nameObsv}"
             android:textColor="@color/icon_color"
@@ -86,6 +64,41 @@
             android:visibility="@{safeUnbox(UIRack.isEditObsv) ? View.VISIBLE : View.GONE}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="This is a name" />
+            tools:text="This is a rack name" />
+
+        <TextView
+            style="@style/wrap_content"
+            android:layout_marginStart="76dp"
+            android:layout_marginTop="76dp"
+            android:background="#3C0F0F0F"
+            android:text="@{UIRack.nameObsv}"
+            android:textColor="@color/icon_color"
+            android:textSize="22dp"
+            android:visibility="@{safeUnbox(UIRack.isEditObsv) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="230 components" />
+
+        <ImageButton
+            android:id="@+id/btn_delete"
+            style="@style/icon_bin"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="8dp"
+            android:onClick="@{() -> cmdHandler.deleteEntity()}"
+            android:visibility="@{safeUnbox(UIRack.isEditObsv) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_check"
+            style="@style/icon_check"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="8dp"
+            android:onClick="@{() -> cmdHandler.saveEntity(false)}"
+            android:visibility="@{UIRack.isEditObsv ? View.VISIBLE : View.GONE}"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

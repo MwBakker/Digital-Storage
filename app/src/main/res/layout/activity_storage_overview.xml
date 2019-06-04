@@ -52,44 +52,70 @@
             app:layout_constraintHeight_percent="0.36"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-        <ImageButton
-            android:id="@+id/btn_check"
-            style="@style/icon_check"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="76dp"
-            android:layout_marginBottom="8dp"
-            android:onClick="@{() -> companyCmdHandler.saveCompany()}"
-            android:visibility="@{vm.uiCompany.isEdit ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="@id/company_img"
-            app:layout_constraintLeft_toLeftOf="parent" />
+        <TextView
+            android:id="@+id/txt_storage_unit_amount"
+            style="@style/wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="8dp"
+            android:background="#660F0F0F"
+            android:textColor="@color/icon_color"
+            android:textSize="16sp"
+            app:layout_constraintRight_toRightOf="@id/company_img"
+            app:layout_constraintTop_toTopOf="@id/company_img"
+            tools:text="Storage units: 120" />
+
+        <TextView
+            android:id="@+id/txt_rack_amount"
+            style="@style/wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="8dp"
+            android:background="#660F0F0F"
+            android:textColor="@color/icon_color"
+            android:textSize="16sp"
+            app:layout_constraintRight_toRightOf="@id/company_img"
+            app:layout_constraintTop_toBottomOf="@id/txt_storage_unit_amount"
+            tools:text="Racks: 312" />
+
+        <TextView
+            android:id="@+id/txt_component_amount"
+            style="@style/wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="8dp"
+            android:background="#660F0F0F"
+            android:textColor="@color/icon_color"
+            android:textSize="16sp"
+            app:layout_constraintRight_toRightOf="@id/company_img"
+            app:layout_constraintTop_toBottomOf="@id/txt_rack_amount"
+            tools:text="Components: 1119" />
 
         <TextView
             android:id="@+id/txt_main_title"
             style="@style/wrap_content"
             android:layout_marginStart="64dp"
-            android:layout_marginBottom="125dp"
+            android:layout_marginTop="64dp"
             android:background="#660F0F0F"
             android:text="@{vm.uiCompany.nameObsv}"
             android:textColor="@color/icon_color"
-            android:textSize="22dp"
+            android:textSize="22sp"
             android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.GONE : View.VISIBLE}"
-            app:layout_constraintBottom_toBottomOf="@id/company_img"
-            app:layout_constraintLeft_toLeftOf="@id/company_img" />
+            app:layout_constraintLeft_toLeftOf="@id/company_img"
+            app:layout_constraintTop_toTopOf="@id/company_img"
+            tools:text="Company name" />
 
         <EditText
             style="@style/edit_item"
             android:layout_width="wrap_content"
             android:layout_marginStart="64dp"
-            android:layout_marginBottom="125dp"
+            android:layout_marginTop="64dp"
             android:background="#660F0F0F"
             android:onTextChanged="@{companyCmdHandler::editCompanyName}"
             android:text="@{vm.uiCompany.nameObsv}"
             android:textColor="@color/icon_color"
-            android:textSize="22dp"
+            android:textSize="22sp"
             android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="@id/company_img"
-            app:layout_constraintLeft_toLeftOf="@id/company_img" />
+            app:layout_constraintLeft_toLeftOf="@id/company_img"
+            app:layout_constraintTop_toTopOf="@id/company_img"
+            tools:text="Company name" />
 
         <ImageButton
             android:id="@+id/icon_pin"
@@ -97,34 +123,49 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="60dp"
-            android:layout_marginBottom="52dp"
+            android:layout_marginBottom="76dp"
             app:layout_constraintBottom_toBottomOf="@id/company_img"
             app:layout_constraintLeft_toLeftOf="parent" />
 
         <TextView
             style="@style/wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="20dp"
             android:background="#660F0F0F"
             android:text="@{vm.uiCompany.locationObsv}"
             android:textColor="@color/icon_color"
             android:textSize="24sp"
             android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/icon_pin"
             app:layout_constraintLeft_toRightOf="@id/icon_pin"
-            app:layout_constraintTop_toTopOf="@+id/icon_pin" />
+            app:layout_constraintTop_toTopOf="@+id/icon_pin"
+            tools:text="Company location " />
 
         <EditText
             style="@style/edit_item"
             android:layout_width="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginBottom="150dp"
+            android:layout_marginStart="20dp"
             android:background="#660F0F0F"
             android:onTextChanged="@{companyCmdHandler::editCompanyLocation}"
             android:text="@{vm.uiCompany.locationObsv}"
             android:textColor="@color/icon_color"
-            android:textSize="22sp"
+            android:textSize="24sp"
             android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@+id/icon_pin"
             app:layout_constraintLeft_toRightOf="@id/icon_pin"
-            app:layout_constraintTop_toTopOf="@+id/icon_pin" />
+            app:layout_constraintTop_toTopOf="@+id/icon_pin"
+            tools:text="Company location" />
+
+        <ImageButton
+            android:id="@+id/btn_check"
+            style="@style/icon_check"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="172dp"
+            android:layout_marginBottom="8dp"
+            android:onClick="@{() -> companyCmdHandler.saveCompany()}"
+            android:visibility="@{vm.uiCompany.isEdit ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/company_img"
+            app:layout_constraintLeft_toLeftOf="parent" />
 
         <ImageButton
             style="@style/icon_edit"
@@ -163,11 +204,11 @@
             style="@style/floating_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
+            android:layout_margin="12dp"
+            android:backgroundTint="#02FFA726"
             android:onClick="@{(view) -> cmdHandler.addNewEntity()}"
             android:src="@mipmap/add"
-            android:tint="@color/general_txt_color"
+            android:tint="@color/icon_color"
             app:backgroundTint="@color/icon_color"
             app:layout_constraintRight_toRightOf="@+id/hr"
             app:layout_constraintTop_toBottomOf="@+id/rv_storage_units" />
