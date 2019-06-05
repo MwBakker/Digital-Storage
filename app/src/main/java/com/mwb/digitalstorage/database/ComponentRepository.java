@@ -7,12 +7,11 @@ import com.mwb.digitalstorage.modelUI.UIComponentCategory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 
 
-public class ComponentRepository
+public class ComponentRepository extends BaseRepository
 {
     private Executor executor;
 
@@ -31,14 +30,14 @@ public class ComponentRepository
     //  returns all components from specific rack
     public LiveData<List<UIComponent>> getRackComponents(long rackID)
     {
-        return Transformations.map(BaseRepository.getDao().getComponents(rackID), newData -> createComponentUI(newData));
+        return Transformations.map(getDao().getComponents(rackID), newData -> createComponentUI(newData));
     }
 
     //  returns components filtered by category
     public LiveData<List<UIComponent>> getCategoryFilteredComponents(long rackId, long catID)
     {
         // transform one list to another
-        return Transformations.map(BaseRepository.getDao().getFilteredComponents(rackId, catID), newData -> createComponentUI(newData));
+        return Transformations.map(getDao().getFilteredComponents(rackId, catID), newData -> createComponentUI(newData));
     }
 
     //  manually sets the rack to rackUI
@@ -51,7 +50,7 @@ public class ComponentRepository
             for (Component component : components)
             {
                 UIComponent uiComponent = new UIComponent(component.componentID, component.getName(), component.getCode(), component.getImgPath());
-                uiComponent.setCategoryName(BaseRepository.getDao().getComponentCategory(component.componentCategoryID).getName());
+                uiComponent.setCategoryName(getDao().getComponentCategory(component.componentCategoryID).getName());
                 UIComponentList.add(uiComponent);
             }
         });
@@ -62,17 +61,17 @@ public class ComponentRepository
     public void insertComponent(long rackID, long componentCatID, String componentCatName,
                                 String componentCode, String componentImgPath, int count)
     {
-        BaseRepository.getDao().insertComponent(new Component(rackID, componentCatID, componentCatName, componentCode, componentImgPath, count));
+        getDao().insertComponent(new Component(rackID, componentCatID, componentCatName, componentCode, componentImgPath, count));
     }
 
     //  component edit
     public void editComponent(long componentID, long componentCatID, String componentName, String componentCode, String componentImgPath)
     {
-        BaseRepository.getDao().editComponent(componentID, componentCatID, componentName, componentCode, componentImgPath);
+        getDao().editComponent(componentID, componentCatID, componentName, componentCode, componentImgPath);
     }
 
     //  delete component
-    public void deleteComponent(long componentID) { BaseRepository.getDao().deleteComponent(componentID); }
+    public void deleteComponent(long componentID) { getDao().deleteComponent(componentID); }
 
 
     //__________________________________________________________________________
@@ -84,20 +83,20 @@ public class ComponentRepository
     //  returns one component category per name
     public long getComponentCategory(String categoryName)
     {
-        ComponentCategory componentCategory = BaseRepository.getDao().getComponentCategory(categoryName);
+        ComponentCategory componentCategory = getDao().getComponentCategory(categoryName);
         return (componentCategory != null) ? componentCategory.id : 0L;
     }
 
     //  returns all component categories belonging to rack
     public LiveData<List<UIComponentCategory>> getAllComponentCategories()
     {
-        return Transformations.map(BaseRepository.getDao().getComponentCategories(), newData -> createComponentCategoryUI(newData));
+        return Transformations.map(getDao().getComponentCategories(), newData -> createComponentCategoryUI(newData));
     }
 
     //  returns all categories of the components
     public LiveData<List<UIComponentCategory>> getRackComponentCategories(long rackID)
     {
-        return Transformations.map(BaseRepository.getDao().getComponentCategories(rackID), newData -> createComponentCategoryUI(newData));
+        return Transformations.map(getDao().getComponentCategories(rackID), newData -> createComponentCategoryUI(newData));
     }
 
     //  transforms the Component list to a ComponentUI list
@@ -117,12 +116,12 @@ public class ComponentRepository
     //  the generated ID after insert must be passed per callback
     public long insertComponentCategory(String componentCatName)
     {
-       return BaseRepository.getDao().insertComponentCategory(new ComponentCategory(componentCatName, 0));
+       return getDao().insertComponentCategory(new ComponentCategory(componentCatName, 0));
     }
 
     //  edits the name of a component category per database
     public void editComponentCategory(long catID, String componentCatName)
     {
-        BaseRepository.getDao().editComponentCategory(catID, componentCatName);
+        getDao().editComponentCategory(catID, componentCatName);
     }
 }

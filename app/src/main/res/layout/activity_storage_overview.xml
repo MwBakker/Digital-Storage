@@ -55,8 +55,8 @@
         <TextView
             android:id="@+id/txt_storage_unit_amount"
             style="@style/wrap_content"
-            android:layout_marginStart="64dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:background="#660F0F0F"
             android:text="@{vm.uiCompany.amountOfStorages}"
             android:textColor="@color/icon_color"
@@ -68,26 +68,24 @@
         <TextView
             android:id="@+id/txt_rack_amount"
             style="@style/wrap_content"
-            android:layout_marginStart="64dp"
             android:layout_marginTop="8dp"
             android:background="#660F0F0F"
             android:text="@{vm.uiCompany.amountOfRacks}"
             android:textColor="@color/icon_color"
             android:textSize="16sp"
-            app:layout_constraintRight_toRightOf="@id/company_img"
+            app:layout_constraintRight_toRightOf="@id/txt_storage_unit_amount"
             app:layout_constraintTop_toBottomOf="@id/txt_storage_unit_amount"
             tools:text="Racks: 312" />
 
         <TextView
             android:id="@+id/txt_component_amount"
             style="@style/wrap_content"
-            android:layout_marginStart="64dp"
             android:layout_marginTop="8dp"
             android:background="#660F0F0F"
             android:text="@{vm.uiCompany.amountOfComponents}"
             android:textColor="@color/icon_color"
             android:textSize="16sp"
-            app:layout_constraintRight_toRightOf="@id/company_img"
+            app:layout_constraintRight_toRightOf="@id/txt_rack_amount"
             app:layout_constraintTop_toBottomOf="@id/txt_rack_amount"
             tools:text="Components: 1119" />
 

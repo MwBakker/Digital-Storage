@@ -14,7 +14,7 @@ public class RackRepository extends BaseRepository
     public LiveData<List<UIRack>> getRacks(long storageID)
     {
         // transform one list to another
-        return Transformations.map(BaseRepository.getDao().getRacks(storageID), newData -> createRackUI(newData));
+        return Transformations.map(getDao().getRacks(storageID), newData -> createRackUI(newData));
     }
 
     //  manually sets the rack to rackUI
@@ -33,7 +33,7 @@ public class RackRepository extends BaseRepository
     //  returns rack
     public UIRack getUIRack(long rackID)
     {
-        Rack rack = BaseRepository.getDao().getRack(rackID);
+        Rack rack = getDao().getRack(rackID);
         UIRack uiRack = new UIRack(rackID, rack.getName(), rack.getRackImgPath());
         uiRack.setAmountOfComponents(getDao().getAmountOfComponents(rack.id));
         return uiRack;
@@ -42,18 +42,18 @@ public class RackRepository extends BaseRepository
     //  performs rack insert
     public void insertRack(long storageID, String rackName, String rackImgPath)
     {
-        BaseRepository.getDao().insertRack(new Rack(storageID, rackName, rackImgPath));
+        getDao().insertRack(new Rack(storageID, rackName, rackImgPath));
     }
 
     //  edits the rack
     public void editRack(long rackID, String rackName, String rackImgPath)
     {
-        BaseRepository.getDao().editRack(rackID, rackName, rackImgPath);
+        getDao().editRack(rackID, rackName, rackImgPath);
     }
 
     //  deletes the rack
     public void deleteRack(long rackID)
     {
-        BaseRepository.getDao().deleteRack(rackID);
+        getDao().deleteRack(rackID);
     }
 }

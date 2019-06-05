@@ -34,6 +34,7 @@ public class StorageRepository extends BaseRepository
     {
         Storage storage = BaseRepository.getDao().getStorageUnit(id);
         UIStorage uiStorage = new UIStorage(id, storage.getName(), storage.getLocation(), storage.getImgPath());
+        int impossible = getDao().getAmountOfRacks(id);
         uiStorage.setAmountOfRacks(getDao().getAmountOfRacks(id));
         uiStorage.setAmountOfComponents(getDao().getAmountOfComponents(id));
         return uiStorage;

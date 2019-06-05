@@ -9,7 +9,7 @@ public class CompanyRepository extends BaseRepository
     //  returns allRacks with correct storage_id
     public UICompany getUiCompany()
     {
-        Company company = BaseRepository.getDao().getCompany();
+        Company company = getDao().getCompany();
         if (company != null)
         {
             UICompany uiCompany = new UICompany(company.id, company.getName(), company.getLocation(), company.getImgPath());
@@ -24,12 +24,12 @@ public class CompanyRepository extends BaseRepository
     //  performs storage insert
     public void insertCompany(String companyName, String companyLoc, String companyImgPath)
     {
-        BaseRepository.getDao().insertCompany(new Company(companyName, companyLoc, companyImgPath));
+        getDao().insertCompany(new Company(companyName, companyLoc, companyImgPath));
     }
 
     //  performs storage insert
     public void editCompany(String companyName, String companyLoc, String companyImgPath)
     {
-        BaseRepository.getDao().editCompany(companyName, companyLoc, companyImgPath);
+        getDao().editCompany(companyName, companyLoc, companyImgPath);
     }
 }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SearchedEntityRepository
+public class SearchedEntityRepository extends BaseRepository
 {
     private List<UIEntity> uiEntities = new ArrayList<>();
 
@@ -20,22 +20,22 @@ public class SearchedEntityRepository
     public List<UIEntity> findEntities(String s)
     {
         if (uiEntities.size() > 0) { uiEntities.clear(); }
-        for (Storage storage : BaseRepository.getDao().getStorageUnits("%" + s + "%"))
+        for (Storage storage : getDao().getStorageUnits("%" + s + "%"))
         {
             uiEntities.add(new UIStorage(storage.id, storage.getName(), storage.getLocation(), storage.getImgPath()));
         }
-        for (Rack rack : BaseRepository.getDao().getRacks("%" + s + "%"))
+        for (Rack rack : getDao().getRacks("%" + s + "%"))
         {
             UIRack uiRack = new UIRack(rack.id, rack.getName(), rack.getRackImgPath());
-            uiRack.setStorageName("(Storage) " + BaseRepository.getDao().getStorageUnit(rack.storageID).getName());
+            uiRack.setStorageName("(Storage) " + getDao().getStorageUnit(rack.storageID).getName());
             uiEntities.add(uiRack);
         }
-        for (Component component : BaseRepository.getDao().getComponents("%" + s + "%"))
+        for (Component component : getDao().getComponents("%" + s + "%"))
         {
             UIComponent uiComponent = new UIComponent(component.componentID, component.getName(), component.getCode(), component.getImgPath());
-            Rack rack = BaseRepository.getDao().getRack(component.rackID);
-            uiComponent.setRackName("(Rack) " + BaseRepository.getDao().getRack(component.rackID).getName());
-            uiComponent.setStorageName("(Storage) " + BaseRepository.getDao().getStorageUnit(rack.storageID).getName());
+            Rack rack = getDao().getRack(component.rackID);
+            uiComponent.setRackName("(Rack) " + getDao().getRack(component.rackID).getName());
+            uiComponent.setStorageName("(Storage) " + getDao().getStorageUnit(rack.storageID).getName());
             uiEntities.add(uiComponent);
         }
         return uiEntities;
