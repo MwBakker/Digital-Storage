@@ -31,7 +31,7 @@ public class ComponentRepository
     //  returns all components from specific rack
     public LiveData<List<UIComponent>> getRackComponents(long rackID)
     {
-        return Transformations.map(BaseRepository.getDao().getRackComponents(rackID), newData -> createComponentUI(newData));
+        return Transformations.map(BaseRepository.getDao().getComponents(rackID), newData -> createComponentUI(newData));
     }
 
     //  returns components filtered by category
@@ -50,9 +50,9 @@ public class ComponentRepository
         {
             for (Component component : components)
             {
-                String categoryName = BaseRepository.getDao().getComponentCategory(component.componentCategoryID).getName();
-                UIComponentList.add(new UIComponent(component.componentID, component.rackID, component.componentCategoryID,
-                        component.getName(), component.getCode(), component.getImgPath(), component.getCount()));
+                UIComponent uiComponent = new UIComponent(component.componentID, component.getName(), component.getCode(), component.getImgPath());
+                uiComponent.setCategoryName(BaseRepository.getDao().getComponentCategory(component.componentCategoryID).getName());
+                UIComponentList.add(uiComponent);
             }
         });
         return UIComponentList;
@@ -91,13 +91,13 @@ public class ComponentRepository
     //  returns all component categories belonging to rack
     public LiveData<List<UIComponentCategory>> getAllComponentCategories()
     {
-        return Transformations.map(BaseRepository.getDao().getAllComponentCategories(), newData -> createComponentCategoryUI(newData));
+        return Transformations.map(BaseRepository.getDao().getComponentCategories(), newData -> createComponentCategoryUI(newData));
     }
 
     //  returns all categories of the components
     public LiveData<List<UIComponentCategory>> getRackComponentCategories(long rackID)
     {
-        return Transformations.map(BaseRepository.getDao().getRackComponentCategories(rackID), newData -> createComponentCategoryUI(newData));
+        return Transformations.map(BaseRepository.getDao().getComponentCategories(rackID), newData -> createComponentCategoryUI(newData));
     }
 
     //  transforms the Component list to a ComponentUI list

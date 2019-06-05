@@ -41,13 +41,13 @@
                 android:textColor="@android:color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/edit_storage_loc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="125dp"
+                android:layout_marginTop="72dp"
                 android:backgroundTint="@android:color/white"
                 android:hint="@string/storage_location"
                 android:text="@={vm.uiStorage.locationObsv}"
@@ -71,7 +71,8 @@
                 style="@style/wrap_content"
                 android:layout_marginTop="60dp"
                 android:text="@string/number_picker_descr"
-                android:textSize="24sp"
+                android:textSize="22sp"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/number_picker"
                 app:layout_constraintTop_toBottomOf="@id/number_picker"
                 app:layout_constraintTop_toTopOf="@+id/number_picker" />
@@ -81,11 +82,14 @@
                 style="@style/number_picker"
                 max="50"
                 min="0"
-                android:layout_margin="15dp"
+                android:layout_marginStart="320dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:onValueChange="@{(picker,oldv,newv) -> cmdHandler.numberPickerValChanged(newv)}"
                 android:textColor="@color/icon_color"
                 app:layout_constraintBottom_toTopOf="@+id/btn_add_storage"
-                app:layout_constraintLeft_toRightOf="@id/txt_rack_amount"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_view" />
 
             <Button

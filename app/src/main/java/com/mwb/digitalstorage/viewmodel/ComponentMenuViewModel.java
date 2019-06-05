@@ -30,8 +30,7 @@ public class ComponentMenuViewModel extends BaseViewModel
     {
         this.rackID = rackID;
         this.owner = owner;
-        uiComponent = new UIComponent(0L, rackID,0L,
-                                     "","","", 0);
+        uiComponent = new UIComponent(0L, "","","");
         componentRepository = new ComponentRepository(executor);
         componentRepository.getAllComponentCategories().observe(owner, uiComponentCategories ->
         {

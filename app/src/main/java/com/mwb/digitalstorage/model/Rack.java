@@ -34,16 +34,12 @@ public class Rack implements com.mwb.digitalstorage.model.Entity
     @ColumnInfo(name = "img_path")
     private String imgPath;
 
-    @ColumnInfo(name = "component_count")
-    private int componentCount;
 
-
-    public Rack(long storageID, String name, String imgPath, int componentCount)
+    public Rack(long storageID, String name, String imgPath)
     {
         this.storageID = storageID;
         this.name = name;
         this.imgPath = imgPath;
-        this.componentCount = componentCount;
     }
 
 
@@ -56,6 +52,4 @@ public class Rack implements com.mwb.digitalstorage.model.Entity
     public long getStorageID() { return this.storageID; }
 
     public String getRackImgPath(){ return this.imgPath; }
-
-    public int getComponentCount() {return this.componentCount; }
 }

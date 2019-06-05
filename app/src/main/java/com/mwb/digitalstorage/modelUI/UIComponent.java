@@ -9,12 +9,9 @@ import androidx.databinding.ObservableField;
 public class UIComponent implements UIEntity
 {
     private long id;
-    private long rackID;
-    private long componentCategoryID;
 
     private String storageName;
     private String rackName;
-
     private String imgPath;
 
     public ObservableField<String> nameObsv = new ObservableField<>();
@@ -28,16 +25,12 @@ public class UIComponent implements UIEntity
     public ObservableField<Integer> selectedCategoryInListObsv = new ObservableField<>();
 
 
-    public UIComponent(long id, long rackID, long componentCategoryID,
-                       String name, String code, String imgPath, int count)
+    public UIComponent(long id, String name, String code, String imgPath)
     {
         this.id = id;
-        this.rackID = rackID;
-        this.componentCategoryID = componentCategoryID;
         this.nameObsv.set(name);
         this.codeObsv.set(code);
         this.imgPath = imgPath;
-        this.countObsv.set(Integer.toString(count));
     }
 
 
@@ -56,6 +49,8 @@ public class UIComponent implements UIEntity
     public String getSecondaryForeignKeyName() { return storageName; }
 
     public void setRackName(String rackName) { this.rackName = rackName; }
+
+    public void setCategoryName(String categoryName) { categoryNameObsv.set(categoryName); }
 
     @Override
     public String getClassName() { return "Component"; }
@@ -80,6 +75,8 @@ public class UIComponent implements UIEntity
 
     @Override
     public String getImgPath() { return imgPath; }
+
+    void setCount(int count) { countObsv.set(Integer.toString(count)); }
 
     @Override
     public String getCount() { return countObsv.get(); }

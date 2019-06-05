@@ -8,8 +8,9 @@ import androidx.databinding.ObservableField;
 public class UIRack implements UIEntity
 {
     public long id;
-    private String imgPath;
     private String storageName;
+    private int amountOfComponents;
+    private String imgPath;
 
     public ObservableField<String> nameObsv = new ObservableField<>("");
     public ObservableField<Integer> componentCountObsv = new ObservableField<>();
@@ -17,12 +18,11 @@ public class UIRack implements UIEntity
     public ObservableField<Boolean> isEditObsv = new ObservableField<>(false);
 
 
-    public UIRack(long id, String name, String imgPath, int componentCount)
+    public UIRack(long id, String name, String imgPath)
     {
         this.id = id;
         this.nameObsv.set(name);
         this.imgPath = imgPath;
-        this.componentCountObsv.set(componentCount);
     }
 
     @Override
@@ -36,6 +36,8 @@ public class UIRack implements UIEntity
 
     public void setStorageName(String storageName) { this.storageName = storageName; }
 
+    public void setAmountOfComponents(int amount) { componentCountObsv.set(amount); }
+
     @Override
     public String getSecondaryForeignKeyName() { return null; }
 
@@ -44,6 +46,9 @@ public class UIRack implements UIEntity
 
     @Override
     public Class getBelongingOverViewActivity() { return StorageOverViewActivity.class; }
+
+    public String getAmountOfComponents() { return "Components: " + amountOfComponents; }
+
 
     public void setImgPath(String imgPath) { this.imgPath = imgPath; }
 

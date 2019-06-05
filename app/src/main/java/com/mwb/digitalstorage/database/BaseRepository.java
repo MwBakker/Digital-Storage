@@ -2,7 +2,9 @@ package com.mwb.digitalstorage.database;
 
 import android.app.Application;
 
-public class BaseRepository
+import com.mwb.digitalstorage.database.DAO.DAO;
+
+public abstract class BaseRepository
 {
     private static DAO dao;
 
@@ -12,5 +14,5 @@ public class BaseRepository
         dao = db.dao();
     }
 
-    public static DAO getDao() { return dao; }
+    static DAO getDao() { return dao; }
 }

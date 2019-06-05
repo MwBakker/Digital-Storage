@@ -7,6 +7,8 @@ import androidx.room.RoomDatabase;
 import android.content.Context;
 import android.os.AsyncTask;
 import androidx.annotation.NonNull;
+
+import com.mwb.digitalstorage.database.DAO.DAO;
 import com.mwb.digitalstorage.model.Company;
 import com.mwb.digitalstorage.model.Component;
 import com.mwb.digitalstorage.model.ComponentCategory;

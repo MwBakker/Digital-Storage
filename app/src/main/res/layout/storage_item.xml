@@ -93,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_marginStart="64dp"
             android:layout_marginTop="20dp"
-
+            android:text="@{UIStorage.amountOfRacks}"
             android:textColor="@color/icon_color"
             android:textSize="22sp"
             android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.GONE : View.VISIBLE}"
@@ -105,15 +105,14 @@
             android:id="@+id/txt_component_amount"
             style="@style/wrap_content"
             android:layout_width="wrap_content"
-
+            android:text="@{UIStorage.amountOfComponents}"
             android:layout_marginTop="8dp"
-
             android:textColor="@color/icon_color"
             android:textSize="22sp"
             android:visibility="@{safeUnbox(UIStorage.isEditObsv) ? View.GONE : View.VISIBLE}"
             app:layout_constraintLeft_toLeftOf="@id/txt_rack_amount"
             app:layout_constraintTop_toBottomOf="@id/txt_rack_amount"
-            tools:text="533 components" />
+            tools:text="5335 components" />
 
         <ImageButton
             android:id="@+id/btn_delete"

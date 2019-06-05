@@ -7,6 +7,9 @@ import androidx.databinding.ObservableField;
 public class UICompany
 {
     private String imgPath;
+    private int amountOfStorageUnits;
+    private int amountOfRacks;
+    private int amountOfComponents;
 
     public ObservableField<String> nameObsv = new ObservableField<>();
     public ObservableField<String> locationObsv = new ObservableField<>();
@@ -24,7 +27,7 @@ public class UICompany
     //  sets the image path
     public void setImgPath(String imgPath) { this.imgPath = imgPath; }
 
-    // gets the image path
+    //  gets the image path
     public String getImgPath() { return imgPath; }
 
     // removes the image
@@ -33,4 +36,16 @@ public class UICompany
         imgObsv = null;
         imgPath = null;
     }
+
+    public String getAmountOfStorages() { return "Storage Units: " + amountOfStorageUnits; }
+
+    public void setAmountOfStorages(int amountOfStorageUnits) { this.amountOfStorageUnits = amountOfStorageUnits; }
+
+    public String getAmountOfRacks() { return "Racks " + amountOfRacks; }
+
+    public void setAmountOfRacks(int amountOfRacks) { this.amountOfRacks = amountOfRacks; }
+
+    public String getAmountOfComponents() { return "Components " + amountOfComponents; }
+
+    public void setAmountOfComponents(int amountOfComponents) { this.amountOfComponents = amountOfComponents; }
 }

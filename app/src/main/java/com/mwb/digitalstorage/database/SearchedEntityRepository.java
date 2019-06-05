@@ -20,20 +20,19 @@ public class SearchedEntityRepository
     public List<UIEntity> findEntities(String s)
     {
         if (uiEntities.size() > 0) { uiEntities.clear(); }
-        for (Storage storage : BaseRepository.getDao().searchStorageUnits("%" + s + "%"))
+        for (Storage storage : BaseRepository.getDao().getStorageUnits("%" + s + "%"))
         {
             uiEntities.add(new UIStorage(storage.id, storage.getName(), storage.getLocation(), storage.getImgPath()));
         }
-        for (Rack rack : BaseRepository.getDao().searchRacks("%" + s + "%"))
+        for (Rack rack : BaseRepository.getDao().getRacks("%" + s + "%"))
         {
-            UIRack uiRack = new UIRack(rack.id, rack.getName(), rack.getRackImgPath(), rack.getComponentCount());
+            UIRack uiRack = new UIRack(rack.id, rack.getName(), rack.getRackImgPath());
             uiRack.setStorageName("(Storage) " + BaseRepository.getDao().getStorageUnit(rack.storageID).getName());
             uiEntities.add(uiRack);
         }
-        for (Component component : BaseRepository.getDao().searchComponents("%" + s + "%"))
+        for (Component component : BaseRepository.getDao().getComponents("%" + s + "%"))
         {
-            UIComponent uiComponent = new UIComponent(component.componentID, component.rackID, component.componentCategoryID,
-                                                        component.getName(), component.getCode(), component.getImgPath(), component.getCount());
+            UIComponent uiComponent = new UIComponent(component.componentID, component.getName(), component.getCode(), component.getImgPath());
             Rack rack = BaseRepository.getDao().getRack(component.rackID);
             uiComponent.setRackName("(Rack) " + BaseRepository.getDao().getRack(component.rackID).getName());
             uiComponent.setStorageName("(Storage) " + BaseRepository.getDao().getStorageUnit(rack.storageID).getName());

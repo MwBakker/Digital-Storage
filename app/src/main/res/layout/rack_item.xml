@@ -22,7 +22,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@{safeUnbox(UIStorage.isEditObsv) ? @dimen/dp_310 : @dimen/dp_250, default=wrap_content}"
+        android:layout_height="@{safeUnbox(UIRack.isEditObsv) ? @dimen/dp_310 : @dimen/dp_250, default=wrap_content}"
         android:layout_margin="16dp"
         android:focusable="true"
         android:longClickable="true"
@@ -71,7 +71,7 @@
             android:layout_marginStart="76dp"
             android:layout_marginTop="76dp"
             android:background="#3C0F0F0F"
-            android:text="@{UIRack.nameObsv}"
+            android:text="@{UIRack.amountOfComponents}"
             android:textColor="@color/icon_color"
             android:textSize="22dp"
             android:visibility="@{safeUnbox(UIRack.isEditObsv) ? View.GONE : View.VISIBLE}"

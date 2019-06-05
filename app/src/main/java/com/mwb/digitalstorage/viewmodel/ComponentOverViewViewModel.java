@@ -63,7 +63,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
         });
         executor.execute(() ->
         {
-            UIRack UIRack = rackRepository.getRack(rackID);
+            UIRack UIRack = rackRepository.getUIRack(rackID);
             rackNameObsv.set(UIRack.nameObsv.get());
             rackImgObsv.set(UIRack.getImg());
         });

@@ -58,6 +58,7 @@
             android:layout_marginStart="64dp"
             android:layout_marginTop="8dp"
             android:background="#660F0F0F"
+            android:text="@{vm.uiCompany.amountOfStorages}"
             android:textColor="@color/icon_color"
             android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@id/company_img"
@@ -70,6 +71,7 @@
             android:layout_marginStart="64dp"
             android:layout_marginTop="8dp"
             android:background="#660F0F0F"
+            android:text="@{vm.uiCompany.amountOfRacks}"
             android:textColor="@color/icon_color"
             android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@id/company_img"
@@ -82,6 +84,7 @@
             android:layout_marginStart="64dp"
             android:layout_marginTop="8dp"
             android:background="#660F0F0F"
+            android:text="@{vm.uiCompany.amountOfComponents}"
             android:textColor="@color/icon_color"
             android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@id/company_img"
@@ -192,7 +195,7 @@
                     android:text="@string/storage_units"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_storage_units"
@@ -248,8 +251,8 @@
                     android:text="@string/available"
                     android:textColor="@color/icon_color"
                     android:textSize="18sp"
-                    app:layout_constraintTop_toBottomOf="@id/txt_tools"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_tools"
                     app:layout_constraintWidth_percent="0.45" />
 
                 <Button
@@ -261,11 +264,9 @@
                     android:text="@string/lent"
                     android:textColor="@color/icon_color"
                     android:textSize="18sp"
-                    app:layout_constraintTop_toBottomOf="@id/txt_tools"
                     app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_tools"
                     app:layout_constraintWidth_percent="0.45" />
-
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

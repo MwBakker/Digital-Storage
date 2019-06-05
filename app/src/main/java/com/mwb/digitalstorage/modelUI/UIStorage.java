@@ -1,7 +1,6 @@
 package com.mwb.digitalstorage.modelUI;
 
 import android.graphics.Bitmap;
-
 import com.mwb.digitalstorage.RackOverViewActivity;
 import androidx.databinding.ObservableField;
 
@@ -9,7 +8,8 @@ import androidx.databinding.ObservableField;
 public class UIStorage implements UIEntity
 {
     public long id;
-
+    private int amountOfRacks;
+    private int amountOfComponents;
     private String imgPath;
 
     public ObservableField<String> nameObsv = new ObservableField<>("");
@@ -63,12 +63,19 @@ public class UIStorage implements UIEntity
     @Override
     public String getImgPath() { return imgPath; }
 
+    public void setAmountOfRacks(int amountOfRacks)  { this.amountOfRacks = amountOfRacks; }
+
+    public String getAmountOfRacks() { return amountOfRacks + " Racks"; }
+
+    public void setAmountOfComponents(int amountOfComponents)  { this.amountOfComponents = amountOfComponents; }
+
+    public String getAmountOfComponents() { return amountOfComponents + " Components"; }
+
     @Override
     public String getCount() { return " "; }
 
     @Override
     public boolean isComponent() { return false; }
-
 
 
 
