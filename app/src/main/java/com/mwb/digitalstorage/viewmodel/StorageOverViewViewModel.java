@@ -18,6 +18,7 @@ public class StorageOverViewViewModel extends BaseViewModel
 
     public ObservableField<StorageListAdapter> storageListAdapterObsv = new ObservableField<>();
 
+
     public void setViewModelElements(androidx.lifecycle.LifecycleOwner owner, StorageCmdHandler mainViewCmdHandlerCallBack)
     {
         storageRepository = new StorageRepository();
@@ -28,7 +29,7 @@ public class StorageOverViewViewModel extends BaseViewModel
             uiCompany = companyRepository.getUiCompany();
             uiCompany.imgObsv.set(imgProcessor.decodeImgPath(uiCompany.getImgPath()));
         });
-        storageRepository.getStorageUnits().observe(owner, storageUnits ->
+        storageRepository.getStorageUnits(executor).observe(owner, storageUnits ->
         {
             storageListAdapterObsv.set(new StorageListAdapter(storageUnits, mainViewCmdHandlerCallBack));
         });

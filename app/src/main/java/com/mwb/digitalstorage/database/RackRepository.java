@@ -4,6 +4,8 @@ import com.mwb.digitalstorage.model.Rack;
 import com.mwb.digitalstorage.modelUI.UIRack;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 
@@ -11,30 +13,36 @@ import androidx.lifecycle.Transformations;
 public class RackRepository extends BaseRepository
 {
     //  returns all racks with correct storage_id
-    public LiveData<List<UIRack>> getRacks(long storageID)
+    public LiveData<List<UIRack>> getRacks(long storageID, Executor executor)
     {
         // transform one list to another
-        return Transformations.map(getDao().getRacks(storageID), newData -> createRackUI(newData));
+        return Transformations.map(getDao().getRacks(storageID), newData -> createRackUIList(newData, executor));
     }
 
     //  manually sets the rack to rackUI
-    private List<UIRack> createRackUI(List<Rack> rackList)
+    private List<UIRack> createRackUIList(List<Rack> rackList, Executor executor)
     {
         List<UIRack> UIRackList = new ArrayList<>();
-        for (Rack rack : rackList)
+        executor.execute(() ->
         {
-            UIRack uiRack = new UIRack(rack.id, rack.getName(), rack.getRackImgPath());
-            uiRack.setAmountOfComponents(getDao().getAmountOfComponents(rack.id));
-            UIRackList.add(uiRack);
-        }
+            for (Rack rack : rackList)
+            {
+                UIRackList.add(createUIRack(rack));
+            }
+        });
         return UIRackList;
     }
 
     //  returns rack
     public UIRack getUIRack(long rackID)
     {
-        Rack rack = getDao().getRack(rackID);
-        UIRack uiRack = new UIRack(rackID, rack.getName(), rack.getRackImgPath());
+        return createUIRack(getDao().getRack(rackID));
+    }
+
+    //  return uiRack from rack
+    private UIRack createUIRack(Rack rack)
+    {
+        UIRack uiRack = new UIRack(rack.id, rack.getName(), rack.getRackImgPath());
         uiRack.setAmountOfComponents(getDao().getAmountOfComponents(rack.id));
         return uiRack;
     }

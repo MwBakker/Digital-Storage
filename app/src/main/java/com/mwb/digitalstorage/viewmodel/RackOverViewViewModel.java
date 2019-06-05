@@ -23,14 +23,14 @@ public class RackOverViewViewModel extends BaseViewModel
                                       RackCmdHandler rackCmdHandler, ImgCmdHandler imgCmdHandler)
     {
         rackRepository = new RackRepository();
-        rackRepository.getRacks(storageID).observe(owner, racks ->
+        rackRepository.getRacks(storageID, executor).observe(owner, racks ->
         {
             rackListAdapterObsv.set(new RackListAdapter(racks, rackCmdHandler, imgCmdHandler, imgProcessor));
         });
         StorageRepository storageRepository = new StorageRepository();
         executor.execute(() ->
         {
-            uiStorage = storageRepository.getStorageUnit(storageID);
+            uiStorage = storageRepository.getUIStorageUnit(storageID);
             uiStorage.imgObsv.set(imgProcessor.decodeImgPath(uiStorage.getImgPath()));
         });
     }
