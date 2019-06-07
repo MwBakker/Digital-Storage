@@ -8,7 +8,6 @@ import com.mwb.digitalstorage.modelUI.UIStorage;
 public class StorageMenuViewModel extends BaseViewModel
 {
     private StorageRepository storageRepository;
-
     private UIStorage uiStorage;
 
 
@@ -27,7 +26,7 @@ public class StorageMenuViewModel extends BaseViewModel
     {
         executor.execute(() ->
         {
-           long storageID = storageRepository.insertStorage(uiStorage.nameObsv.get(), uiStorage.locationObsv.get(), uiStorage.getImgPath());
+           long storageID = storageRepository.insertStorage(uiStorage.getName(), uiStorage.getLocation(), uiStorage.getImgPath());
            addRacksToStorage(storageID, rackRepository);
         });
     }

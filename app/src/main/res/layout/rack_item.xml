@@ -42,41 +42,41 @@
         <TextView
             style="@style/wrap_content"
             android:layout_marginStart="52dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginBottom="72dp"
             android:background="#3C0F0F0F"
-            android:text="@{UIRack.nameObsv}"
+            android:text="@{UIRack.name}"
             android:textColor="@color/icon_color"
             android:textSize="22dp"
             android:visibility="@{safeUnbox(UIRack.isEditObsv) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="This is a rack name" />
 
         <EditText
             style="@style/edit_item"
             android:layout_width="wrap_content"
             android:layout_marginStart="52dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginBottom="72dp"
             android:background="#3C0F0F0F"
-            android:text="@={UIRack.nameObsv}"
+            android:text="@={UIRack.name}"
             android:textColor="@color/icon_color"
             android:textSize="22sp"
             android:visibility="@{safeUnbox(UIRack.isEditObsv) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="This is a rack name" />
 
         <TextView
             style="@style/wrap_content"
             android:layout_marginStart="76dp"
-            android:layout_marginTop="76dp"
+            android:layout_marginBottom="24dp"
             android:background="#3C0F0F0F"
             android:text="@{UIRack.amountOfComponents}"
             android:textColor="@color/icon_color"
             android:textSize="22dp"
             android:visibility="@{safeUnbox(UIRack.isEditObsv) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="230 components" />
 
         <ImageButton
@@ -87,8 +87,8 @@
             android:layout_margin="8dp"
             android:onClick="@{() -> cmdHandler.deleteEntity()}"
             android:visibility="@{safeUnbox(UIRack.isEditObsv) ? View.VISIBLE : View.GONE}"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
 
         <ImageButton
             android:id="@+id/btn_check"
@@ -98,7 +98,7 @@
             android:layout_margin="8dp"
             android:onClick="@{() -> cmdHandler.saveEntity(false)}"
             android:visibility="@{UIRack.isEditObsv ? View.VISIBLE : View.GONE}"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

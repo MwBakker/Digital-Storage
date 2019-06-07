@@ -1,8 +1,6 @@
 package com.mwb.digitalstorage.viewmodel;
 
-import android.content.Context;
 import android.widget.ArrayAdapter;
-import com.mwb.digitalstorage.R;
 import com.mwb.digitalstorage.command_handlers.SpinnerSetterCmdHandler;
 import com.mwb.digitalstorage.database.ComponentRepository;
 import com.mwb.digitalstorage.modelUI.UIComponent;
@@ -53,7 +51,7 @@ public class ComponentMenuViewModel extends BaseViewModel
         {
             executor.execute(() ->
             {
-                componentRepository.insertComponent(rackID, processNewCategoryInput(), uiComponent.nameObsv.get(), uiComponent.codeObsv.get(),
+                componentRepository.insertComponent(rackID, processNewCategoryInput(), uiComponent.getName(), uiComponent.getCode(),
                                                     uiComponent.getImgPath(), 0);
             });
         }
@@ -63,8 +61,8 @@ public class ComponentMenuViewModel extends BaseViewModel
             {
                 executor.execute(() ->
                 {
-                componentRepository.insertComponent(rackID, componentCategories.get(categoryListPositionObsv.get()).getID(), uiComponent.nameObsv.get(),
-                                                    uiComponent.codeObsv.get(), uiComponent.getImgPath(), 0);
+                componentRepository.insertComponent(rackID, componentCategories.get(categoryListPositionObsv.get()).getID(), uiComponent.getName(),
+                                                    uiComponent.getCode(), uiComponent.getImgPath(), 0);
                 });
             });
         }

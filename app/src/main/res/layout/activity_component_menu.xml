@@ -31,7 +31,7 @@
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@android:color/white"
                 android:hint="@string/component_name"
-                android:text="@={vm.uiComponent.nameObsv}"
+                android:text="@={vm.uiComponent.name}"
                 android:textColor="@android:color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +42,7 @@
                 android:layout_marginTop="40dp"
                 android:backgroundTint="@android:color/white"
                 android:hint="@string/component_code"
-                android:text="@={vm.uiComponent.codeObsv}"
+                android:text="@={vm.uiComponent.code}"
                 android:textColor="@android:color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/component_name" />
@@ -128,9 +128,10 @@
                 android:id="@+id/btn_add_component"
                 style="@style/btn_general"
                 android:layout_width="0dp"
+                android:clickable="@{vm.uiComponent.allFieldsSetObsv}"
                 android:onClick="@{(view) -> cmdHandler.saveNewEntity()}"
                 android:text="@string/add_component"
-                android:textColor="@color/icon_color"
+                android:textColor="@{vm.uiComponent.allFieldsSetObsv ? @color/icon_color : @color/general_txt_colorDarker}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintWidth_percent="0.5" />

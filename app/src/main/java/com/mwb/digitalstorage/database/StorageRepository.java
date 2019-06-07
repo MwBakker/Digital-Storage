@@ -5,7 +5,6 @@ import com.mwb.digitalstorage.modelUI.UIStorage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 
@@ -24,29 +23,25 @@ public class StorageRepository extends BaseRepository
     private List<UIStorage> createStorageUIList(List<Storage> storageUnits, Executor executor)
     {
         List<UIStorage> UIStorageList = new ArrayList<>();
-        executor.execute(() ->
+        for (Storage storage : storageUnits)
         {
-            for (Storage storage : storageUnits)
-            {
-                UIStorageList.add(createUIStorage(storage));
-            }
-        });
+            UIStorageList.add(new UIStorage(storage.id, storage.getName(), storage.getLocation(), storage.getImgPath()));
+        }
         return UIStorageList;
+    }
+
+    //  sets the elements of the uiStorage
+    public void setUIStorageElements(UIStorage uiStorage)
+    {
+        uiStorage.setAmountOfRacks(getDao().getAmountOfRacks(uiStorage.id));
+        uiStorage.setAmountOfComponents(getDao().getAmountOfComponents(uiStorage.id));
     }
 
     //  returns one storage unit
     public UIStorage getUIStorageUnit(long id)
     {
-        return createUIStorage(getDao().getStorageUnit(id));
-    }
-
-    //  returns uiStorage from storage
-    private UIStorage createUIStorage(Storage storage)
-    {
-        UIStorage uiStorage = new UIStorage(storage.id, storage.getName(), storage.getLocation(), storage.getImgPath());
-        uiStorage.setAmountOfRacks(getDao().getAmountOfRacks(storage.id));
-        uiStorage.setAmountOfComponents(getDao().getAmountOfComponents(storage.id));
-        return uiStorage;
+        Storage storage = getDao().getStorageUnit(id);
+        return new UIStorage(storage.id, storage.getName(), storage.getLocation(), storage.getImgPath());
     }
 
     //  performs storage insert

@@ -13,38 +13,34 @@ import androidx.lifecycle.Transformations;
 public class RackRepository extends BaseRepository
 {
     //  returns all racks with correct storage_id
-    public LiveData<List<UIRack>> getRacks(long storageID, Executor executor)
+    public LiveData<List<UIRack>> getRacks(long storageID)
     {
         // transform one list to another
-        return Transformations.map(getDao().getRacks(storageID), newData -> createRackUIList(newData, executor));
+        return Transformations.map(getDao().getRacks(storageID), newData -> createRackUIList(newData));
     }
 
     //  manually sets the rack to rackUI
-    private List<UIRack> createRackUIList(List<Rack> rackList, Executor executor)
+    private List<UIRack> createRackUIList(List<Rack> rackList)
     {
         List<UIRack> UIRackList = new ArrayList<>();
-        executor.execute(() ->
+        for (Rack rack : rackList)
         {
-            for (Rack rack : rackList)
-            {
-                UIRackList.add(createUIRack(rack));
-            }
-        });
+            UIRackList.add(new UIRack(rack.id, rack.getName(), rack.getRackImgPath()));
+        }
         return UIRackList;
     }
 
     //  returns rack
     public UIRack getUIRack(long rackID)
     {
-        return createUIRack(getDao().getRack(rackID));
+        Rack rack = getDao().getRack(rackID);
+        return  new UIRack(rack.id, rack.getName(), rack.getRackImgPath());
     }
 
-    //  return uiRack from rack
-    private UIRack createUIRack(Rack rack)
+    //  sets the elements of the uiStorage
+    public void setUIRackElements(UIRack uiRack)
     {
-        UIRack uiRack = new UIRack(rack.id, rack.getName(), rack.getRackImgPath());
-        uiRack.setAmountOfComponents(getDao().getAmountOfComponents(rack.id));
-        return uiRack;
+        uiRack.setAmountOfComponents(getDao().getAmountOfComponents(uiRack.id));
     }
 
     //  performs rack insert

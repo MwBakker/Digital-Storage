@@ -28,6 +28,6 @@ public class RackMenuViewModel extends BaseViewModel
     //  add rack to repository
     public void addRack()
     {
-        executor.execute(() -> { rackRepository.insertRack(storageID, uiRack.nameObsv.get(), uiRack.getImgPath()); });
+        executor.execute(() -> { rackRepository.insertRack(storageID, uiRack.getName(), uiRack.getImgPath()); });
     }
 }

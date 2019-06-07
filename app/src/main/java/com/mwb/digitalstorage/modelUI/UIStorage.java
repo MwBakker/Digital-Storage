@@ -2,18 +2,21 @@ package com.mwb.digitalstorage.modelUI;
 
 import android.graphics.Bitmap;
 import com.mwb.digitalstorage.RackOverViewActivity;
+import androidx.databinding.BaseObservable;
 import androidx.databinding.ObservableField;
 
 
-public class UIStorage implements UIEntity
+public class UIStorage extends BaseObservable implements UIEntity
 {
     public long id;
     private int amountOfRacks;
     private int amountOfComponents;
     private String imgPath;
 
-    public ObservableField<String> nameObsv = new ObservableField<>("");
-    public ObservableField<String> locationObsv = new ObservableField<>("");
+    private String name;
+    private String location;
+
+    public ObservableField<Boolean> allFieldsSetObsv = new ObservableField<>();
     public ObservableField<Boolean> isEditObsv = new ObservableField<>(false);
     public ObservableField<Bitmap> imgObsv = new ObservableField<>();
     public ObservableField<Integer> rackAmountObsv = new ObservableField<>();
@@ -22,8 +25,8 @@ public class UIStorage implements UIEntity
     public UIStorage(long id, String name, String location, String imgPath)
     {
         this.id = id;
-        this.nameObsv.set(name);
-        this.locationObsv.set(location);
+        this.name = name;
+        this.location = location;
         this.imgPath = imgPath;
     }
 
@@ -31,7 +34,30 @@ public class UIStorage implements UIEntity
     public long getId() { return id; }
 
     @Override
-    public String getName() { return nameObsv.get(); }
+    public String getName() { return name; }
+
+    public void setName(String name)
+    {
+        this.name = name;
+        setAllFieldsSet();
+    }
+
+    public String getLocation() { return location; }
+
+    public void setLocation(String location)
+    {
+        this.location = location;
+        setAllFieldsSet();
+    }
+
+    private void setAllFieldsSet()
+    {
+        if (name != null && location != null)
+        {
+            allFieldsSetObsv.set(name.length() > 1 && location.length() > 1);
+        }
+        else { allFieldsSetObsv.set(false); }
+    }
 
     @Override
     public String getForeignKeyName() { return null; }
@@ -45,13 +71,16 @@ public class UIStorage implements UIEntity
     @Override
     public Class getBelongingOverViewActivity() { return RackOverViewActivity.class; }
 
+    @Override
+    public String getImgPath() { return imgPath; }
+
     public void setImgPath(String imgPath) { this.imgPath = imgPath; }
 
     @Override
-    public void setImg(Bitmap img) { imgObsv.set(img); }
+    public Bitmap getImg() { return imgObsv.get(); }
 
     @Override
-    public Bitmap getImg() { return imgObsv.get(); }
+    public void setImg(Bitmap img) { imgObsv.set(img); }
 
     @Override
     public void removeImg()
@@ -59,9 +88,6 @@ public class UIStorage implements UIEntity
         imgObsv = null;
         imgPath = null;
     }
-
-    @Override
-    public String getImgPath() { return imgPath; }
 
     public void setAmountOfRacks(int amountOfRacks)  { this.amountOfRacks = amountOfRacks; }
 

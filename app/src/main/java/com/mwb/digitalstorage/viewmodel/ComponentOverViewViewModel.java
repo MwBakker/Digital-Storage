@@ -19,12 +19,13 @@ import androidx.lifecycle.LifecycleOwner;
 public class ComponentOverViewViewModel extends BaseViewModel
 {
     private long rackID;
-    private UIComponentCategory previousSortComponentCategory;
 
     private ComponentRepository componentRepository;
-    private UIComponentCategory uiComponentCategory;
 
+    private UIComponentCategory uiComponentCategory;
+    private UIComponentCategory previousSortComponentCategory;
     private UIComponent uiComponent;
+
     private LifecycleOwner lifecycleOwner;
 
     public ObservableField<String> rackNameObsv = new ObservableField<>("");
@@ -45,39 +46,31 @@ public class ComponentOverViewViewModel extends BaseViewModel
 
         componentRepository.getRackComponentCategories(rackID).observe(lifecycleOwner, componentCategories ->
         {
-            executor.execute(() ->
-            {
-                componentCatListAdapterObsv.set(new ComponentCategoryListAdapter(componentCategories, componentCategoryCmdHandler));
-            });
+            componentCatListAdapterObsv.set(new ComponentCategoryListAdapter(componentCategories, componentCategoryCmdHandler));
         });
         componentRepository.getAllComponentCategories().observe(lifecycleOwner, uiComponentCategories ->
         {
             componentRepository.getRackComponents(rackID).observe(lifecycleOwner, uiComponents ->
             {
-                executor.execute(() ->
-                {
-                    componentListAdapterObsv.set(new ComponentListAdapter(uiComponentCategories, uiComponents, componentCmdHandler, spinnerSetterCmdHandler,
-                                                                            imgCmdHandler, imgProcessor));
-                });
+                componentListAdapterObsv.set(new ComponentListAdapter(uiComponentCategories, uiComponents, componentCmdHandler,
+                                                                        spinnerSetterCmdHandler, imgCmdHandler, imgProcessor));
             });
         });
         executor.execute(() ->
         {
             UIRack UIRack = rackRepository.getUIRack(rackID);
-            rackNameObsv.set(UIRack.nameObsv.get());
+            rackNameObsv.set(UIRack.getName());
             rackImgObsv.set(UIRack.getImg());
         });
     }
 
-    // gets the rack ID
+    //  gets the rack ID
     public long getRackID() { return rackID; }
 
-    // gets the component
+    //  gets the component
     public UIComponent getUiComponent() { return uiComponent; }
 
-    //
     //  sets the to-be-edited component category
-    //
     public void setEditableComponentCategory(UIComponentCategory uiComponentCategory)
     {
         if (this.uiComponentCategory != null)
@@ -141,8 +134,8 @@ public class ComponentOverViewViewModel extends BaseViewModel
             long categoryID = uiComponentCategories.get(uiComponent.selectedCategoryInListObsv.get()).getID();
             executor.execute(() ->
             {
-                componentRepository.editComponent(uiComponent.getId(), categoryID, uiComponent.nameObsv.get(),
-                        uiComponent.codeObsv.get(), uiComponent.getImgPath());
+                componentRepository.editComponent(uiComponent.getId(), categoryID, uiComponent.getName(),
+                        uiComponent.getCode(), uiComponent.getImgPath());
             });
         });
     }

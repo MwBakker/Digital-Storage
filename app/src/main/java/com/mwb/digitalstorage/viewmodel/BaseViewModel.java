@@ -8,10 +8,10 @@ import androidx.lifecycle.ViewModel;
 
 public abstract class BaseViewModel extends ViewModel
 {
-    public ImageProcessor imgProcessor;
-    public Executor executor;
+    public final ImageProcessor imgProcessor;
+    public final Executor executor;
 
-    public BaseViewModel()
+    BaseViewModel()
     {
         imgProcessor = new ImageProcessor();
         executor = Executors.newSingleThreadExecutor();

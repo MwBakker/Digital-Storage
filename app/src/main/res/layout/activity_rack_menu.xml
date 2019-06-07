@@ -36,7 +36,7 @@
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@android:color/white"
                 android:hint="@string/rack_name_hint"
-                android:text="@={vm.uiRack.nameObsv}"
+                android:text="@={vm.uiRack.name}"
                 android:textColor="@android:color/white"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,9 +66,10 @@
                 android:id="@+id/btn_add_storage"
                 style="@style/btn_general"
                 android:layout_width="0dp"
+                android:clickable="@{vm.uiRack.allFieldsSetObsv}"
                 android:onClick="@{(view) -> cmdHandler.saveNewEntity()}"
                 android:text="Add rack"
-                android:textColor="@color/icon_color"
+                android:textColor="@{vm.uiRack.allFieldsSetObsv ? @color/icon_color : @color/general_txt_colorDarker}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintWidth_percent="0.5" />

@@ -12,10 +12,11 @@ public class UIComponent implements UIEntity
 
     private String storageName;
     private String rackName;
+    private String name;
+    private String code;
     private String imgPath;
 
-    public ObservableField<String> nameObsv = new ObservableField<>();
-    public ObservableField<String> codeObsv = new ObservableField<>();
+    public ObservableField<Boolean> allFieldsSetObsv = new ObservableField<>();
     public ObservableField<String> categoryNameObsv = new ObservableField<>();
     public ObservableField<String> countObsv = new ObservableField<>();
     public ObservableField<Bitmap> imgObsv = new ObservableField<>();
@@ -28,17 +29,39 @@ public class UIComponent implements UIEntity
     public UIComponent(long id, String name, String code, String imgPath)
     {
         this.id = id;
-        this.nameObsv.set(name);
-        this.codeObsv.set(code);
+        this.name = name;
+        this.code = code;
         this.imgPath = imgPath;
     }
-
 
     @Override
     public long getId() { return id; }
 
     @Override
-    public String getName() { return nameObsv.get(); }
+    public String getName() { return name; }
+
+    public void setName(String name)
+    {
+        this.name = name;
+        setAllFieldsSet();
+    }
+
+    public String getCode() { return code; }
+
+    public void setCode(String code)
+    {
+        this.code = code;
+        setAllFieldsSet();
+    }
+
+    private void setAllFieldsSet()
+    {
+        if (name != null && code != null && (categoryNameObsv.get() != null || selectedCategoryInListObsv != null))
+        {
+            allFieldsSetObsv.set(name.length() > 1 && code.length() > 1);
+        }
+        else { allFieldsSetObsv.set(false); }
+    }
 
     public void setStorageName(String storageName) { this.storageName = storageName; }
 
@@ -76,7 +99,7 @@ public class UIComponent implements UIEntity
     @Override
     public String getImgPath() { return imgPath; }
 
-    void setCount(int count) { countObsv.set(Integer.toString(count)); }
+    public void setCount(int count) { countObsv.set(Integer.toString(count)); }
 
     @Override
     public String getCount() { return countObsv.get(); }

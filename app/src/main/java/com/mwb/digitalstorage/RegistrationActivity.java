@@ -98,10 +98,6 @@ public class RegistrationActivity extends BaseActivity
             @Override
             public void removePhoto() { companyRegistrationVM.getUiCompany().imgObsv.set(null); }
             @Override
-            public void editCompanyName(CharSequence s, int start, int before, int count) { }
-            @Override
-            public void editCompanyLocation(CharSequence s, int start, int before, int count) { }
-            @Override
             public void saveCompany()
             {
                 companyRegistrationVM.executor.execute(() ->

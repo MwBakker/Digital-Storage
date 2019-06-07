@@ -18,7 +18,6 @@ public class StorageOverViewViewModel extends BaseViewModel
 
     public ObservableField<StorageListAdapter> storageListAdapterObsv = new ObservableField<>();
 
-
     public void setViewModelElements(androidx.lifecycle.LifecycleOwner owner, StorageCmdHandler mainViewCmdHandlerCallBack)
     {
         storageRepository = new StorageRepository();
@@ -31,7 +30,14 @@ public class StorageOverViewViewModel extends BaseViewModel
         });
         storageRepository.getStorageUnits(executor).observe(owner, storageUnits ->
         {
-            storageListAdapterObsv.set(new StorageListAdapter(storageUnits, mainViewCmdHandlerCallBack));
+            executor.execute(() ->
+            {
+                for (UIStorage uiStorage : storageUnits)
+                {
+                   storageRepository.setUIStorageElements(uiStorage);
+                }
+                storageListAdapterObsv.set(new StorageListAdapter(storageUnits, mainViewCmdHandlerCallBack));
+            });
         });
     }
 
@@ -63,7 +69,7 @@ public class StorageOverViewViewModel extends BaseViewModel
     {
         executor.execute(() ->
         {
-            storageRepository.editStorage(uiStorage.id, uiStorage.nameObsv.get(), uiStorage.locationObsv.get());
+            storageRepository.editStorage(uiStorage.id, uiStorage.getName(), uiStorage.getLocation());
         });
         uiStorage.isEditObsv.set(false);
     }

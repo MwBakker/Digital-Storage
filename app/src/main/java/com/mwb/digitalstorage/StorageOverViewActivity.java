@@ -67,7 +67,7 @@ public class StorageOverViewActivity extends BaseActivity
             @Override
             public void editStorageLocation(CharSequence s, int start, int before, int count)
             {
-                storageOverViewVM.getUiStorage().locationObsv.set(s.toString());
+                storageOverViewVM.getUiStorage().setLocation(s.toString());
             }
             @Override
             public void deleteEntity() { storageOverViewVM.deleteStorage(); }
@@ -97,16 +97,6 @@ public class StorageOverViewActivity extends BaseActivity
             }
             @Override
             public void removePhoto() { storageOverViewVM.getUiCompany().removeImg(); }
-            @Override
-            public void editCompanyName(CharSequence s, int start, int before, int count)
-            {
-                storageOverViewVM.getUiCompany().nameObsv.set(s.toString());
-            }
-            @Override
-            public void editCompanyLocation(CharSequence s, int start, int before, int count)
-            {
-                storageOverViewVM.getUiCompany().locationObsv.set(s.toString());
-            }
             @Override
             public void saveCompany() { storageOverViewVM.saveCompanyEdit(); }
         };
