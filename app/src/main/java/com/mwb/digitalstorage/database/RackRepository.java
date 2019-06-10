@@ -1,5 +1,6 @@
 package com.mwb.digitalstorage.database;
 
+import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.model.Rack;
 import com.mwb.digitalstorage.modelUI.UIRack;
 import java.util.ArrayList;
@@ -38,8 +39,9 @@ public class RackRepository extends BaseRepository
     }
 
     //  sets the elements of the uiStorage
-    public void setUIRackElements(UIRack uiRack)
+    public void setUIRackElements(UIRack uiRack, ImageProcessor imgProcessor)
     {
+        uiRack.imgObsv.set(imgProcessor.decodeImgPath(uiRack.getImgPath()));
         uiRack.setAmountOfComponents(getDao().getAmountOfComponents(uiRack.id));
     }
 

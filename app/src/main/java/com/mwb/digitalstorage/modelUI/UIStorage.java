@@ -9,17 +9,16 @@ import androidx.databinding.ObservableField;
 public class UIStorage extends BaseObservable implements UIEntity
 {
     public long id;
-    private int amountOfRacks;
-    private int amountOfComponents;
-    private String imgPath;
-
     private String name;
     private String location;
+    private String imgPath;
 
     public ObservableField<Boolean> allFieldsSetObsv = new ObservableField<>();
+    public ObservableField<Integer> amountOfRacksObsv = new ObservableField<>();
+    public ObservableField<Integer> amountOfComponentsObsv = new ObservableField<>();
+
     public ObservableField<Boolean> isEditObsv = new ObservableField<>(false);
     public ObservableField<Bitmap> imgObsv = new ObservableField<>();
-    public ObservableField<Integer> rackAmountObsv = new ObservableField<>();
 
 
     public UIStorage(long id, String name, String location, String imgPath)
@@ -89,13 +88,13 @@ public class UIStorage extends BaseObservable implements UIEntity
         imgPath = null;
     }
 
-    public void setAmountOfRacks(int amountOfRacks)  { this.amountOfRacks = amountOfRacks; }
+    public void setAmountOfRacks(int amountOfRacks)  { amountOfRacksObsv.set(amountOfRacks); }
 
-    public String getAmountOfRacks() { return amountOfRacks + " Racks"; }
+    public String getAmountOfRacksString() { return amountOfRacksObsv.get() + " Racks"; }
 
-    public void setAmountOfComponents(int amountOfComponents)  { this.amountOfComponents = amountOfComponents; }
+    public void setAmountOfComponents(int amountOfComponents) { amountOfComponentsObsv.set(amountOfComponents); }
 
-    public String getAmountOfComponents() { return amountOfComponents + " Components"; }
+    public String getAmountOfComponents() { return amountOfComponentsObsv.get() + " Components"; }
 
     @Override
     public String getCount() { return " "; }

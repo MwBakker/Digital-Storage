@@ -75,7 +75,7 @@ public class ComponentOverViewActivity extends BaseActivity
             public void addNewEntity()
             {
                 Intent intent = new Intent(ComponentOverViewActivity.this, ComponentMenuActivity.class);
-                intent.putExtra("rack_id", componentOverViewVM.getRackID());
+                intent.putExtra("rack_id", componentOverViewVM.getUiRack().id);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.fade_out);
             }

@@ -112,7 +112,6 @@ public class RackListAdapter extends RecyclerView.Adapter<RackListAdapter.RackVi
         //  binds the UIRack unit to the model
         private void bind(@NonNull UIRack uiRack)
         {
-            uiRack.imgObsv.set(imgProcessor.decodeImgPath(uiRack.getImgPath()));
             binding.setUIRack(uiRack);
             binding.executePendingBindings();
         }

@@ -34,7 +34,7 @@ public class StorageOverViewViewModel extends BaseViewModel
             {
                 for (UIStorage uiStorage : storageUnits)
                 {
-                   storageRepository.setUIStorageElements(uiStorage);
+                   storageRepository.setUIStorageElements(uiStorage, imgProcessor);
                 }
                 storageListAdapterObsv.set(new StorageListAdapter(storageUnits, mainViewCmdHandlerCallBack));
             });

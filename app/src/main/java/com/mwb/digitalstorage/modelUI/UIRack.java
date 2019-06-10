@@ -9,9 +9,8 @@ public class UIRack implements UIEntity
 {
     public long id;
     private String storageName;
-    private String imgPath;
-
     private String name;
+    private String imgPath;
 
     public ObservableField<Boolean> allFieldsSetObsv = new ObservableField<>();
     public ObservableField<Integer> componentCountObsv = new ObservableField<>();
@@ -52,8 +51,6 @@ public class UIRack implements UIEntity
 
     public void setStorageName(String storageName) { this.storageName = storageName; }
 
-    public void setAmountOfComponents(int amount) { componentCountObsv.set(amount); }
-
     @Override
     public String getSecondaryForeignKeyName() { return null; }
 
@@ -63,7 +60,9 @@ public class UIRack implements UIEntity
     @Override
     public Class getBelongingOverViewActivity() { return StorageOverViewActivity.class; }
 
-    public String getAmountOfComponents() { return "Components: " + componentCountObsv.get(); }
+    public String getAmountOfComponentsString() { return "Components: " + componentCountObsv.get(); }
+
+    public void setAmountOfComponents(int amount) { componentCountObsv.set(amount); }
 
     @Override
     public String getImgPath() { return imgPath; }

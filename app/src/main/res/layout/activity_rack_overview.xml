@@ -44,6 +44,31 @@
             app:layout_constraintHeight_percent="0.28"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
+        <TextView
+            android:id="@+id/txt_rack_amount"
+            style="@style/wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="#660F0F0F"
+            android:text="@{vm.uiStorage.amountOfRacksString}"
+            android:textColor="@color/icon_color"
+            android:textSize="16sp"
+            app:layout_constraintRight_toRightOf="@id/img_main"
+            app:layout_constraintTop_toTopOf="@id/img_main"
+            tools:text="Racks: 26" />
+
+        <TextView
+            android:id="@+id/txt_component_amount"
+            style="@style/wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#660F0F0F"
+            android:text="@{vm.uiStorage.amountOfComponents}"
+            android:textColor="@color/icon_color"
+            android:textSize="16sp"
+            app:layout_constraintRight_toRightOf="@id/txt_rack_amount"
+            app:layout_constraintTop_toBottomOf="@id/txt_rack_amount"
+            tools:text="Components: 110" />
+
         <View
             android:id="@+id/hr"
             style="@style/hr_white"

@@ -32,15 +32,16 @@ public interface DAOComponent
     @Query("SELECT COUNT(id) FROM component WHERE rack_id = :rackID")
     Integer getAmountOfComponents(long rackID);
 
+    //  get the amount of total components
+    @Query("SELECT COUNT(id) FROM component")
+    Integer getAmountOfComponents();
+
     //  get the amount of components
     @Query("SELECT COUNT(c.id) * COUNT(r.id) as totalComponents " +
             "FROM component c, rack r " +
             "WHERE r.id = :storageID")
     Integer getAmountOfComponentsInStorage(long storageID);
 
-    //  get the amount of total components
-    @Query("SELECT COUNT(id) FROM component")
-    Integer getAmountOfComponents();
 
 
 

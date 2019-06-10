@@ -53,7 +53,10 @@ public class StorageMenuActivity extends BaseActivity
             @Override
             public void removePhoto() { storageMenuVM.getUiStorage().removeImg(); }
             @Override
-            public void numberPickerValChanged(int newVal) { storageMenuVM.getUiStorage().rackAmountObsv.set(newVal); }
+            public void numberPickerValChanged(int newVal)
+            {
+               // storageMenuVM.getUiStorage().setAmountOfRacks(newVal);
+            }
 
             @Override
             public void saveNewEntity()

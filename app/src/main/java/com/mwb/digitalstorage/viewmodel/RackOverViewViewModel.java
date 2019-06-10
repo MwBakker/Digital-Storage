@@ -29,7 +29,7 @@ public class RackOverViewViewModel extends BaseViewModel
             {
                 for (UIRack uiRack : uiRacks)
                 {
-                    rackRepository.setUIRackElements(uiRack);
+                    rackRepository.setUIRackElements(uiRack, imgProcessor);
                 }
                 rackListAdapterObsv.set(new RackListAdapter(uiRacks, rackCmdHandler, imgCmdHandler, imgProcessor));
             });
@@ -37,8 +37,8 @@ public class RackOverViewViewModel extends BaseViewModel
         StorageRepository storageRepository = new StorageRepository();
         executor.execute(() ->
         {
-            uiStorage = storageRepository.getUIStorageUnit(storageID);
-            uiStorage.imgObsv.set(imgProcessor.decodeImgPath(uiStorage.getImgPath()));
+           uiStorage = storageRepository.getUIStorageUnit(storageID);
+           storageRepository.setUIStorageElements(uiStorage, imgProcessor);
         });
     }
 

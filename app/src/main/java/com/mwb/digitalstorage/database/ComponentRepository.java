@@ -51,7 +51,7 @@ public class ComponentRepository extends BaseRepository
             {
                 UIComponent uiComponent = new UIComponent(component.componentID, component.getName(), component.getCode(), component.getImgPath());
                 uiComponent.setCategoryName(getDao().getComponentCategory(component.componentCategoryID).getName());
-                uiComponent.setCount(getDao().getAmountOfComponents(component.rackID));
+               // uiComponent.setCount(getDao().getAmountOfComponents(component.rackID));
                 UIComponentList.add(uiComponent);
             }
         });

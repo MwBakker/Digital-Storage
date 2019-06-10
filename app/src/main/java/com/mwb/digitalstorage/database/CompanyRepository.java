@@ -15,13 +15,13 @@ public class CompanyRepository extends BaseRepository
             UICompany uiCompany = new UICompany(company.id, company.getName(), company.getLocation(), company.getImgPath());
             uiCompany.setAmountOfStorages(getDao().getAmountOfStorageUnits());
             uiCompany.setAmountOfRacks(getDao().getAmountOfRacks());
-            uiCompany.setAmountOfComponents(getDao().getAmountOfComponents());
+        //    uiCompany.setAmountOfComponents(getDao().getAmountOfComponents());
             return uiCompany;
         }
         else { return null; }
     }
 
-    //  performs storage insert
+    //  performs st/orage insert
     public void insertCompany(String companyName, String companyLoc, String companyImgPath)
     {
         getDao().insertCompany(new Company(companyName, companyLoc, companyImgPath));

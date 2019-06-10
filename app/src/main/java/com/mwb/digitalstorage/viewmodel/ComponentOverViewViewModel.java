@@ -25,11 +25,11 @@ public class ComponentOverViewViewModel extends BaseViewModel
     private UIComponentCategory uiComponentCategory;
     private UIComponentCategory previousSortComponentCategory;
     private UIComponent uiComponent;
+    private UIRack uiRack;
+
 
     private LifecycleOwner lifecycleOwner;
 
-    public ObservableField<String> rackNameObsv = new ObservableField<>("");
-    public ObservableField<Bitmap> rackImgObsv = new ObservableField<>();
     public ObservableField<ComponentListAdapter> componentListAdapterObsv = new ObservableField<>();
     public ObservableField<ComponentCategoryListAdapter> componentCatListAdapterObsv = new ObservableField<>();
 
@@ -58,14 +58,13 @@ public class ComponentOverViewViewModel extends BaseViewModel
         });
         executor.execute(() ->
         {
-            UIRack UIRack = rackRepository.getUIRack(rackID);
-            rackNameObsv.set(UIRack.getName());
-            rackImgObsv.set(UIRack.getImg());
+            uiRack = rackRepository.getUIRack(rackID);
+            rackRepository.setUIRackElements(uiRack, imgProcessor);
         });
     }
 
-    //  gets the rack ID
-    public long getRackID() { return rackID; }
+    //  gets the uiRack
+    public UIRack getUiRack() { return uiRack; }
 
     //  gets the component
     public UIComponent getUiComponent() { return uiComponent; }

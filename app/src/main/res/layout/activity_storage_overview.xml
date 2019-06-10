@@ -41,7 +41,7 @@
             app:vm="@{tbvm}" />
 
         <include
-            android:id="@+id/company_img"
+            android:id="@+id/img_main"
             layout="@layout/img_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -61,8 +61,8 @@
             android:text="@{vm.uiCompany.amountOfStorages}"
             android:textColor="@color/icon_color"
             android:textSize="16sp"
-            app:layout_constraintRight_toRightOf="@id/company_img"
-            app:layout_constraintTop_toTopOf="@id/company_img"
+            app:layout_constraintRight_toRightOf="@id/img_main"
+            app:layout_constraintTop_toTopOf="@id/img_main"
             tools:text="Storage units: 120" />
 
         <TextView
@@ -99,8 +99,8 @@
             android:textColor="@color/icon_color"
             android:textSize="22sp"
             android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.GONE : View.VISIBLE}"
-            app:layout_constraintLeft_toLeftOf="@id/company_img"
-            app:layout_constraintTop_toTopOf="@id/company_img"
+            app:layout_constraintLeft_toLeftOf="@id/img_main"
+            app:layout_constraintTop_toTopOf="@id/img_main"
             tools:text="Company name" />
 
         <EditText
@@ -113,8 +113,8 @@
             android:textColor="@color/icon_color"
             android:textSize="22sp"
             android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.VISIBLE : View.GONE}"
-            app:layout_constraintLeft_toLeftOf="@id/company_img"
-            app:layout_constraintTop_toTopOf="@id/company_img"
+            app:layout_constraintLeft_toLeftOf="@id/img_main"
+            app:layout_constraintTop_toTopOf="@id/img_main"
             tools:text="Company name" />
 
         <ImageButton
@@ -124,7 +124,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="60dp"
             android:layout_marginBottom="76dp"
-            app:layout_constraintBottom_toBottomOf="@id/company_img"
+            app:layout_constraintBottom_toBottomOf="@id/img_main"
             app:layout_constraintLeft_toLeftOf="parent" />
 
         <TextView
@@ -163,7 +163,7 @@
             android:layout_marginBottom="8dp"
             android:onClick="@{() -> companyCmdHandler.saveCompany()}"
             android:visibility="@{vm.uiCompany.isEdit ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="@id/company_img"
+            app:layout_constraintBottom_toBottomOf="@id/img_main"
             app:layout_constraintLeft_toLeftOf="parent" />
 
         <ImageButton
@@ -172,13 +172,13 @@
             android:layout_height="45dp"
             android:onClick="@{() -> companyCmdHandler.editCompany()}"
             android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.GONE : View.VISIBLE}"
-            app:layout_constraintBottom_toBottomOf="@id/company_img"
-            app:layout_constraintRight_toRightOf="@id/company_img" />
+            app:layout_constraintBottom_toBottomOf="@id/img_main"
+            app:layout_constraintRight_toRightOf="@id/img_main" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/company_img">
+            app:layout_constraintTop_toBottomOf="@id/img_main">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
