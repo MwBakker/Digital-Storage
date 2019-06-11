@@ -97,11 +97,13 @@ public class ImageProcessor
     //  decodes the imgPath to a file (overload)
     public Bitmap decodeImgPath(String path)
     {
-        File file = new File(path);
-        if (file.exists() && file.length() > 0)
+        if (path != null )
         {
-            return decode(path);
-        } else { return null; }
+            File file = new File(path);
+            return file.exists() && file.length() > 0 ? decode(path) : null;
+        }
+        else
+        { return null; }
     }
 
     // process the decoding

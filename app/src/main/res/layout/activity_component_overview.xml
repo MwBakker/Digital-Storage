@@ -8,6 +8,8 @@
 
         <import type="android.view.View" />
 
+        <import type="java.lang.Integer" />
+
         <variable
             name="vm"
             type="com.mwb.digitalstorage.viewmodel.ComponentOverViewViewModel" />
@@ -47,17 +49,42 @@
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <TextView
+            android:id="@+id/txt_racks"
+            style="@style/wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="62dp"
+            android:background="#660F0F0F"
+            android:text="@string/components"
+            android:textColor="@color/icon_color"
+            android:textSize="16sp"
+            app:layout_constraintRight_toRightOf="@id/img_main"
+            app:layout_constraintTop_toTopOf="@id/img_main"
+            tools:text="Components" />
+
+        <TextView
             android:id="@+id/txt_rack_amount"
             style="@style/wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:background="#660F0F0F"
-            android:text="@{vm.uiRack.getAmountOfComponentsString}"
+            android:text="@{Integer.toString(vm.uiRack.amountOfComponents)}"
             android:textColor="@color/icon_color"
             android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@id/img_main"
             app:layout_constraintTop_toTopOf="@id/img_main"
-            tools:text="Components: 110" />
+            tools:text="110" />
+
+        <TextView
+            android:id="@+id/txt_rack"
+            style="@style/wrap_content"
+            android:layout_margin="56dp"
+            android:background="#660F0F0F"
+            android:text="@{vm.getUiRack.name}"
+            android:textColor="@color/icon_color"
+            android:textSize="26sp"
+            app:layout_constraintBottom_toBottomOf="@id/img_main"
+            app:layout_constraintLeft_toLeftOf="@id/img_main"
+            tools:text="Kast_9" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_component_categories"

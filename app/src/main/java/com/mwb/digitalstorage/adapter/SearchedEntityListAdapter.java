@@ -7,6 +7,7 @@ import com.mwb.digitalstorage.R;
 import com.mwb.digitalstorage.command_handlers.SearchedEntityCmdHandler;
 import com.mwb.digitalstorage.databinding.SearchedEntityBinding;
 import com.mwb.digitalstorage.misc.ImageProcessor;
+import com.mwb.digitalstorage.model.Component;
 import com.mwb.digitalstorage.modelUI.UIEntity;
 import java.util.List;
 import androidx.annotation.NonNull;
@@ -83,10 +84,10 @@ public class SearchedEntityListAdapter extends RecyclerView.Adapter<SearchedEnti
         }
 
         //  binds the storage unit to the model
-        private void bind(@NonNull UIEntity UIentity)
+        private void bind(@NonNull UIEntity uiEntity)
         {
-            UIentity.setImg(imgProcessor.decodeImgPath(UIentity.getImgPath()));
-            binding.setUIEntity(UIentity);
+            uiEntity.setImg(imgProcessor.decodeImgPath(uiEntity.getImgPath()));
+            binding.setUIEntity(uiEntity);
             binding.executePendingBindings();
         }
     }

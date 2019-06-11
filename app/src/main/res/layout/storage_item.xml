@@ -7,6 +7,8 @@
 
         <import type="android.view.View" />
 
+        <import type="java.lang.Integer" />
+
         <variable
             name="cmdHandler"
             type="com.mwb.digitalstorage.command_handlers.StorageCmdHandler" />
@@ -27,7 +29,7 @@
         <TextView
             android:id="@+id/txt_storage_name"
             style="@style/wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="14dp"
             android:layout_marginTop="9dp"
             android:text="@{UIStorage.name}"
             android:textColor="@color/icon_color"
@@ -41,7 +43,7 @@
             android:id="@+id/edit_storage_name"
             style="@style/edit_item"
             android:layout_width="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="10dp"
             android:text="@={UIStorage.name}"
             android:textColor="@color/icon_color"
             android:textSize="22sp"
@@ -89,28 +91,55 @@
 
         <TextView
             android:id="@+id/txt_rack_amount"
-            style="@style/wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginStart="52dp"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="12dp"
-            android:text="@{UIStorage.amountOfRacksString}"
+            android:gravity="end"
+            android:text="@{Integer.toString(UIStorage.amountOfRacks)}"
             android:textColor="@color/icon_color"
             android:textSize="22sp"
             app:layout_constraintLeft_toLeftOf="@id/img_pin"
             app:layout_constraintTop_toBottomOf="@id/img_pin"
-            tools:text="120 racks" />
+            tools:text="1" />
+
+        <TextView
+            android:id="@+id/txt_racks"
+            style="@style/wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/racks"
+            android:textColor="@color/icon_color"
+            android:textSize="22sp"
+            app:layout_constraintLeft_toRightOf="@id/txt_rack_amount"
+            app:layout_constraintTop_toBottomOf="@id/img_pin"
+            tools:text="racks" />
 
         <TextView
             android:id="@+id/txt_component_amount"
-            style="@style/wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="@{UIStorage.amountOfComponents}"
+            android:gravity="end"
+            android:text="@{Integer.toString(UIStorage.amountOfComponents)}"
             android:textColor="@color/icon_color"
             android:textSize="22sp"
-            app:layout_constraintLeft_toLeftOf="@id/txt_rack_amount"
+            app:layout_constraintRight_toRightOf="@id/txt_rack_amount"
             app:layout_constraintTop_toBottomOf="@id/txt_rack_amount"
-            tools:text="5335 components" />
+            tools:text="5" />
+
+        <TextView
+            android:id="@+id/txt_components"
+            style="@style/wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/components"
+            android:textColor="@color/icon_color"
+            android:textSize="22sp"
+            app:layout_constraintLeft_toRightOf="@id/txt_component_amount"
+            app:layout_constraintTop_toBottomOf="@id/txt_rack_amount"
+            tools:text="components" />
 
         <ImageButton
             android:id="@+id/btn_delete"

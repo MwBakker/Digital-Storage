@@ -1,12 +1,11 @@
 package com.mwb.digitalstorage.modelUI;
 
-import android.graphics.Bitmap;
 import android.widget.ArrayAdapter;
 import com.mwb.digitalstorage.RackOverViewActivity;
 import androidx.databinding.ObservableField;
 
 
-public class UIComponent implements UIEntity
+public class UIComponent extends BaseEntity implements UIEntity
 {
     private long id;
 
@@ -14,13 +13,9 @@ public class UIComponent implements UIEntity
     private String rackName;
     private String name;
     private String code;
-    private String imgPath;
+    private int amount;
 
-    public ObservableField<Boolean> allFieldsSetObsv = new ObservableField<>();
     public ObservableField<String> categoryNameObsv = new ObservableField<>();
-    public ObservableField<String> countObsv = new ObservableField<>();
-    public ObservableField<Bitmap> imgObsv = new ObservableField<>();
-    public ObservableField<Boolean> isEditObsv = new ObservableField<>();
     // spinner adapter
     public ObservableField<ArrayAdapter<UIComponentCategory>> uiComponentCategorySpinnerAdapterObsv = new ObservableField<>();
     public ObservableField<Integer> selectedCategoryInListObsv = new ObservableField<>();
@@ -76,34 +71,10 @@ public class UIComponent implements UIEntity
     public void setCategoryName(String categoryName) { categoryNameObsv.set(categoryName); }
 
     @Override
-    public String getClassName() { return "Component"; }
-
-    @Override
     public Class getBelongingOverViewActivity() { return RackOverViewActivity.class; }
 
-    public void setImgPath(String imgPath) { this.imgPath = imgPath; }
+    public void setAmount(int amount) { this.amount = amount; }
 
     @Override
-    public void setImg(Bitmap img) { imgObsv.set(img); }
-
-    @Override
-    public Bitmap getImg() { return imgObsv.get(); }
-
-    @Override
-    public void removeImg()
-    {
-        imgObsv = null;
-        imgPath = null;
-    }
-
-    @Override
-    public String getImgPath() { return imgPath; }
-
-    public void setCount(int count) { countObsv.set(Integer.toString(count)); }
-
-    @Override
-    public String getCount() { return countObsv.get(); }
-
-    @Override
-    public boolean isComponent() { return true; }
+    public int getAmount() { return amount; }
 }

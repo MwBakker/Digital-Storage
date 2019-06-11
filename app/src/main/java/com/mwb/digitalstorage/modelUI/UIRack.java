@@ -1,21 +1,16 @@
 package com.mwb.digitalstorage.modelUI;
 
-import android.graphics.Bitmap;
 import com.mwb.digitalstorage.StorageOverViewActivity;
-import androidx.databinding.ObservableField;
 
 
-public class UIRack implements UIEntity
+public class UIRack extends BaseEntity implements UIEntity
 {
     public long id;
-    private String storageName;
-    private String name;
-    private String imgPath;
 
-    public ObservableField<Boolean> allFieldsSetObsv = new ObservableField<>();
-    public ObservableField<Integer> componentCountObsv = new ObservableField<>();
-    public ObservableField<Bitmap> imgObsv = new ObservableField<>();
-    public ObservableField<Boolean> isEditObsv = new ObservableField<>(false);
+
+    private String name;
+    private String storageName;
+    private int componentCount;
 
 
     public UIRack(long id, String name, String imgPath)
@@ -55,36 +50,12 @@ public class UIRack implements UIEntity
     public String getSecondaryForeignKeyName() { return null; }
 
     @Override
-    public String getClassName() { return "Rack"; }
-
-    @Override
     public Class getBelongingOverViewActivity() { return StorageOverViewActivity.class; }
 
-    public String getAmountOfComponentsString() { return "Components: " + componentCountObsv.get(); }
+    public int getAmountOfComponents() { return componentCount; }
 
-    public void setAmountOfComponents(int amount) { componentCountObsv.set(amount); }
-
-    @Override
-    public String getImgPath() { return imgPath; }
-
-    public void setImgPath(String imgPath) { this.imgPath = imgPath; }
+    public void setAmountOfComponents(int amount) { componentCount = amount; }
 
     @Override
-    public Bitmap getImg() { return imgObsv.get(); }
-
-    @Override
-    public void setImg(Bitmap img) { imgObsv.set(img); }
-
-    @Override
-    public void removeImg()
-    {
-        imgObsv = null;
-        imgPath = null;
-    }
-
-    @Override
-    public String getCount() { return " "; }
-
-    @Override
-    public boolean isComponent() { return false; }
+    public int getAmount() { return 0; }
 }

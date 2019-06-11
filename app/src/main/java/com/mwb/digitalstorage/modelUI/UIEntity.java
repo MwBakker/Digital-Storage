@@ -22,9 +22,5 @@ public interface UIEntity
 
     Bitmap getImg();
 
-    void removeImg();
-
-    String getCount();
-
-    boolean isComponent();
+    int getAmount();
 }

@@ -119,7 +119,7 @@
             style="@style/wrap_content"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="24dp"
-            android:text="@{UIComponent.countObsv}"
+            android:text="@{Integer.toString(UIComponent.amount)}"
             android:textColor="#A4FFA726"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"

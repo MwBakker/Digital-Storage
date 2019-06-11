@@ -7,6 +7,8 @@
 
     <data>
 
+        <import type="java.lang.Integer" />
+
         <import type="android.view.View" />
 
         <variable
@@ -53,41 +55,83 @@
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <TextView
-            android:id="@+id/txt_storage_unit_amount"
+            android:id="@+id/txt_storage_units_main_img"
             style="@style/wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="62dp"
             android:background="#660F0F0F"
-            android:text="@{vm.uiCompany.amountOfStorages}"
+            android:text="@string/storage_units"
+            android:textColor="@color/icon_color"
+            android:textSize="16sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/img_main"
+            tools:text="Storage units" />
+
+        <TextView
+            android:id="@+id/txt_storage_unit_amount"
+            style="@style/wrap_content"
+            android:layout_width="48dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:background="#660F0F0F"
+            android:gravity="end"
+            android:text="@{Integer.toString(vm.uiCompany.amountOfStorageUnits)}"
             android:textColor="@color/icon_color"
             android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@id/img_main"
             app:layout_constraintTop_toTopOf="@id/img_main"
-            tools:text="Storage units: 120" />
+            tools:text="1120" />
+
+        <TextView
+            android:id="@+id/txt_racks_main_img"
+            style="@style/wrap_content"
+            android:background="#660F0F0F"
+            android:text="@string/racks"
+            android:textColor="@color/icon_color"
+            android:textSize="16sp"
+            app:layout_constraintRight_toRightOf="@id/txt_storage_units_main_img"
+            app:layout_constraintTop_toTopOf="@id/txt_rack_amount"
+            tools:text="Racks" />
 
         <TextView
             android:id="@+id/txt_rack_amount"
             style="@style/wrap_content"
+            android:layout_width="52dp"
             android:layout_marginTop="8dp"
             android:background="#660F0F0F"
-            android:text="@{vm.uiCompany.amountOfRacks}"
+            android:gravity="end"
+            android:text="@{Integer.toString(vm.uiCompany.amountOfRacks)}"
             android:textColor="@color/icon_color"
             android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@id/txt_storage_unit_amount"
             app:layout_constraintTop_toBottomOf="@id/txt_storage_unit_amount"
-            tools:text="Racks: 312" />
+            tools:text="1312" />
+
+        <TextView
+            android:id="@+id/txt_components_main_img"
+            style="@style/wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#660F0F0F"
+            android:text="@string/components"
+            android:textColor="@color/icon_color"
+            android:textSize="16sp"
+            app:layout_constraintRight_toRightOf="@id/txt_racks_main_img"
+            app:layout_constraintTop_toBottomOf="@id/txt_rack_amount"
+            tools:text="Components" />
 
         <TextView
             android:id="@+id/txt_component_amount"
             style="@style/wrap_content"
+            android:layout_width="52dp"
             android:layout_marginTop="8dp"
             android:background="#660F0F0F"
-            android:text="@{vm.uiCompany.amountOfComponents}"
+            android:gravity="end"
+            android:text="@{Integer.toString(vm.uiCompany.amountOfComponents)}"
             android:textColor="@color/icon_color"
             android:textSize="16sp"
-            app:layout_constraintRight_toRightOf="@id/txt_rack_amount"
+            app:layout_constraintLeft_toLeftOf="@id/txt_rack_amount"
             app:layout_constraintTop_toBottomOf="@id/txt_rack_amount"
-            tools:text="Components: 1119" />
+            tools:text="1455" />
 
         <TextView
             android:id="@+id/txt_main_title"
@@ -97,7 +141,7 @@
             android:background="#660F0F0F"
             android:text="@{vm.uiCompany.nameObsv}"
             android:textColor="@color/icon_color"
-            android:textSize="22sp"
+            android:textSize="26sp"
             android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.GONE : View.VISIBLE}"
             app:layout_constraintLeft_toLeftOf="@id/img_main"
             app:layout_constraintTop_toTopOf="@id/img_main"
@@ -111,7 +155,7 @@
             android:background="#660F0F0F"
             android:text="@={vm.uiCompany.nameObsv}"
             android:textColor="@color/icon_color"
-            android:textSize="22sp"
+            android:textSize="26sp"
             android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.VISIBLE : View.GONE}"
             app:layout_constraintLeft_toLeftOf="@id/img_main"
             app:layout_constraintTop_toTopOf="@id/img_main"

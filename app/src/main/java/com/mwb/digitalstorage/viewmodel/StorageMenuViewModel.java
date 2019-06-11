@@ -34,7 +34,7 @@ public class StorageMenuViewModel extends BaseViewModel
     //  adds the new racks belonging to the newly created storage
     private void addRacksToStorage(long storageID, RackRepository rackRepository)
     {
-        for (int i = 1; i <= uiStorage.amountOfRacksObsv.get(); i++)
+        for (int i = 1; i <= uiStorage.getAmountOfRacks(); i++)
         {
             String title = "Kast_" + i;
             executor.execute(() ->

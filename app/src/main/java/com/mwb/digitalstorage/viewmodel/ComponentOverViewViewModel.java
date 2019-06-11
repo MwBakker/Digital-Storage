@@ -27,7 +27,6 @@ public class ComponentOverViewViewModel extends BaseViewModel
     private UIComponent uiComponent;
     private UIRack uiRack;
 
-
     private LifecycleOwner lifecycleOwner;
 
     public ObservableField<ComponentListAdapter> componentListAdapterObsv = new ObservableField<>();
@@ -36,7 +35,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
 
     // sets the elements belonging to the viewModel
     public void setViewModelElements(long rackID, LifecycleOwner lifecycleOwner, SpinnerSetterCmdHandler spinnerSetterCmdHandler, ComponentCategoryCmdHandler componentCategoryCmdHandler,
-                                    ComponentCmdHandler componentCmdHandler, ImgCmdHandler imgCmdHandler)
+                                     ComponentCmdHandler componentCmdHandler, ImgCmdHandler imgCmdHandler)
     {
         previousSortComponentCategory = new UIComponentCategory(0L, "", 0);
         componentRepository = new ComponentRepository(executor);

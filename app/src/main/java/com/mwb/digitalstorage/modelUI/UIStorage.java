@@ -1,24 +1,15 @@
 package com.mwb.digitalstorage.modelUI;
 
-import android.graphics.Bitmap;
 import com.mwb.digitalstorage.RackOverViewActivity;
-import androidx.databinding.BaseObservable;
-import androidx.databinding.ObservableField;
 
 
-public class UIStorage extends BaseObservable implements UIEntity
+public class UIStorage extends BaseEntity implements UIEntity
 {
     public long id;
     private String name;
     private String location;
-    private String imgPath;
-
-    public ObservableField<Boolean> allFieldsSetObsv = new ObservableField<>();
-    public ObservableField<Integer> amountOfRacksObsv = new ObservableField<>();
-    public ObservableField<Integer> amountOfComponentsObsv = new ObservableField<>();
-
-    public ObservableField<Boolean> isEditObsv = new ObservableField<>(false);
-    public ObservableField<Bitmap> imgObsv = new ObservableField<>();
+    private int amountOfRacks;
+    private int amountOfComponents;
 
 
     public UIStorage(long id, String name, String location, String imgPath)
@@ -65,49 +56,16 @@ public class UIStorage extends BaseObservable implements UIEntity
     public String getSecondaryForeignKeyName() { return null; }
 
     @Override
-    public String getClassName() { return "Storage"; }
-
-    @Override
     public Class getBelongingOverViewActivity() { return RackOverViewActivity.class; }
 
-    @Override
-    public String getImgPath() { return imgPath; }
+    public void setAmountOfRacks(int amountOfRacks) { this.amountOfRacks = amountOfRacks; }
 
-    public void setImgPath(String imgPath) { this.imgPath = imgPath; }
+    public int getAmountOfRacks() { return amountOfRacks; }
 
-    @Override
-    public Bitmap getImg() { return imgObsv.get(); }
+    public void setAmountOfComponents(int amountOfComponents) { this.amountOfComponents = amountOfComponents; }
 
-    @Override
-    public void setImg(Bitmap img) { imgObsv.set(img); }
+    public int getAmountOfComponents() { return amountOfComponents; }
 
     @Override
-    public void removeImg()
-    {
-        imgObsv = null;
-        imgPath = null;
-    }
-
-    public void setAmountOfRacks(int amountOfRacks)  { amountOfRacksObsv.set(amountOfRacks); }
-
-    public String getAmountOfRacksString() { return amountOfRacksObsv.get() + " Racks"; }
-
-    public void setAmountOfComponents(int amountOfComponents) { amountOfComponentsObsv.set(amountOfComponents); }
-
-    public String getAmountOfComponents() { return amountOfComponentsObsv.get() + " Components"; }
-
-    @Override
-    public String getCount() { return " "; }
-
-    @Override
-    public boolean isComponent() { return false; }
-
-
-
-
-
-
-
-
-
+    public int getAmount() { return 0; }
 }

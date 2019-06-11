@@ -60,9 +60,9 @@ public class ComponentRepository extends BaseRepository
 
     //  component insert
     public void insertComponent(long rackID, long componentCatID, String componentCatName,
-                                String componentCode, String componentImgPath, int count)
+                                String componentCode, String componentImgPath)
     {
-        getDao().insertComponent(new Component(rackID, componentCatID, componentCatName, componentCode, componentImgPath, count));
+        getDao().insertComponent(new Component(rackID, componentCatID, componentCatName, componentCode, componentImgPath));
     }
 
     //  component edit

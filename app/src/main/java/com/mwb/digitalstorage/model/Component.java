@@ -45,18 +45,14 @@ public class Component implements com.mwb.digitalstorage.model.Entity
     @ColumnInfo(name = "img_path")
     private String imgPath;
 
-    @ColumnInfo(name = "count")
-    private int count;
-
     public Component(long rackID, long componentCategoryID, String name,
-                     String code, String imgPath, int count)
+                     String code, String imgPath)
     {
         this.rackID = rackID;
         this.componentCategoryID = componentCategoryID;
         this.name = name;
         this.code = code;
         this.imgPath = imgPath;
-        this.count = count;
     }
 
 
@@ -69,6 +65,4 @@ public class Component implements com.mwb.digitalstorage.model.Entity
     public String getImgPath() { return this.imgPath; }
 
     public String getCode(){ return this.code; }
-
-    public int getCount() { return this.count; }
 }

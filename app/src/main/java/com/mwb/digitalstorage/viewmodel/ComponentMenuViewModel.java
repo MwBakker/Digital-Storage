@@ -52,7 +52,7 @@ public class ComponentMenuViewModel extends BaseViewModel
             executor.execute(() ->
             {
                 componentRepository.insertComponent(rackID, processNewCategoryInput(), uiComponent.getName(), uiComponent.getCode(),
-                                                    uiComponent.getImgPath(), 0);
+                                                    uiComponent.getImgPath());
             });
         }
         else
@@ -62,7 +62,7 @@ public class ComponentMenuViewModel extends BaseViewModel
                 executor.execute(() ->
                 {
                 componentRepository.insertComponent(rackID, componentCategories.get(categoryListPositionObsv.get()).getID(), uiComponent.getName(),
-                                                    uiComponent.getCode(), uiComponent.getImgPath(), 0);
+                                                    uiComponent.getCode(), uiComponent.getImgPath());
                 });
             });
         }

@@ -37,15 +37,15 @@ public class UICompany
         imgPath = null;
     }
 
-    public String getAmountOfStorages() { return "Storage Units: " + amountOfStorageUnits; }
+    public int getAmountOfStorageUnits() { return amountOfStorageUnits; }
 
     public void setAmountOfStorages(int amountOfStorageUnits) { this.amountOfStorageUnits = amountOfStorageUnits; }
 
-    public String getAmountOfRacks() { return "Racks " + amountOfRacks; }
+    public int getAmountOfRacks() { return amountOfRacks; }
 
     public void setAmountOfRacks(int amountOfRacks) { this.amountOfRacks = amountOfRacks; }
 
-    public String getAmountOfComponents() { return "Components " + amountOfComponents; }
+    public int getAmountOfComponents() { return amountOfComponents; }
 
     public void setAmountOfComponents(int amountOfComponents) { this.amountOfComponents = amountOfComponents; }
 }

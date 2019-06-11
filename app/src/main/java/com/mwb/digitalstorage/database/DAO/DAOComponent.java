@@ -15,14 +15,14 @@ public interface DAOComponent
     void insertComponent(Component component);
 
     //  get all components belonging to a certain rack
-    @Query("SELECT id, rack_id, component_category_id, name, code, img_path, COUNT(id) as count " +
+    @Query("SELECT id, rack_id, component_category_id, name, code, img_path " +
             "FROM component c " +
             "WHERE rack_id = :rackID " +
             "GROUP BY code ")
     LiveData<List<Component>> getComponents(long rackID);
 
     //  searches components based on string input
-    @Query("SELECT id, rack_id, component_category_id, name, code, img_path, COUNT(id) as count " +
+    @Query("SELECT id, rack_id, component_category_id, name, code, img_path " +
             "FROM component c " +
             "WHERE name LIKE :input or code LIKE :input " +
             "GROUP BY code ")
@@ -46,7 +46,7 @@ public interface DAOComponent
 
 
     //  get all components belonging to a rack and certain specific category
-    @Query("SELECT id, rack_id, component_category_id, name, code, img_path, COUNT(id) as count " +
+    @Query("SELECT id, rack_id, component_category_id, name, code, img_path, COUNT(id) as amount " +
             "FROM component c " +
             "WHERE c.rack_id = :rackID AND c.component_category_id = :categoryID " +
             "GROUP BY code ")
