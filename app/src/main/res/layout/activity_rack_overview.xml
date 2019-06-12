@@ -52,7 +52,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="62dp"
             android:background="#660F0F0F"
-            android:text="@string/storage_units"
+            android:text="@string/racks"
             android:textColor="@color/icon_color"
             android:textSize="16sp"
             app:layout_constraintRight_toRightOf="parent"
@@ -77,7 +77,7 @@
         <TextView
             style="@style/wrap_content"
             android:background="#660F0F0F"
-            android:text="@string/racks"
+            android:text="@string/components"
             android:textColor="@color/icon_color"
             android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@id/txt_racks"

@@ -27,7 +27,7 @@ public interface DAORack
     List<Rack> getRacks(String input);
 
     //  gets the amount of racks in a storage unit
-    @Query("SELECT COUNT(id) FROM rack WHERE id = :storageID ")
+    @Query("SELECT COUNT(*) FROM rack WHERE storage_id = :storageID ")
     Integer getAmountOfRacks(long storageID);
 
     //  gets the amount total of racks

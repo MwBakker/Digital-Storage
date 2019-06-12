@@ -9,4 +9,6 @@
     <color name="general_txt_color">#CFD8DC</color>
 
     <color name="general_txt_colorDarker">#535458</color>
+
+    <color name="transparant_darker">#650F0F0F</color>
 </resources>

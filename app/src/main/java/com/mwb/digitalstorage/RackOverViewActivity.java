@@ -26,12 +26,12 @@ public class RackOverViewActivity extends BaseActivity
 
         RackCmdHandler rackCmdHandler = rackCmdHandler();
 
+        ToolbarViewModel tbVM = new ToolbarViewModel("Racks");
+
         rackOverViewVM = ViewModelProviders.of(this).get(RackOverViewViewModel.class);
         rackOverViewVM.setViewModelElements(getIntent().getLongExtra("storage_id", 0L),
                                             this, rackCmdHandler,  imgCmdHandler());
-
-        ToolbarViewModel tbVM = new ToolbarViewModel("Racks");
-
+        
         ActivityRackOverviewBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_rack_overview);
         binding.setVm(rackOverViewVM);
         binding.setTbvm(tbVM);

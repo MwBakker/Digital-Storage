@@ -39,6 +39,7 @@ public class StorageOverViewViewModel extends BaseViewModel
                 storageListAdapterObsv.set(new StorageListAdapter(storageUnits, mainViewCmdHandlerCallBack));
             });
         });
+
     }
 
     //  gets the involved uiCompany

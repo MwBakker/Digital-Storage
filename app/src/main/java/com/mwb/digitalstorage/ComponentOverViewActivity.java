@@ -14,6 +14,7 @@ import com.mwb.digitalstorage.modelUI.UIComponent;
 import com.mwb.digitalstorage.modelUI.UIComponentCategory;
 import com.mwb.digitalstorage.modelUI.UIEntity;
 import com.mwb.digitalstorage.viewmodel.ComponentOverViewViewModel;
+import com.mwb.digitalstorage.viewmodel.ToolbarViewModel;
 
 import java.util.List;
 
@@ -32,15 +33,17 @@ public class ComponentOverViewActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         ActivityComponentOverviewBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_component_overview);
 
+        ToolbarViewModel tbVM = new ToolbarViewModel("Components");
+
         ComponentCmdHandler componentCmdHandler = componentCmdHandler();
 
         componentOverViewVM = ViewModelProviders.of(this).get(ComponentOverViewViewModel.class);
         componentOverViewVM.setViewModelElements(getIntent().getLongExtra("rack_id", 0L), this, spinnerSetterCmdHandler(),
                                                                             componentCategoryHandler(), componentCmdHandler, imgCmdHandler());
-
+        binding.setTbvm(tbVM);
+        binding.setVm(componentOverViewVM);
         binding.setComponentCmdHandler(componentCmdHandler);
         binding.setTbCmdHandler(toolbarCmdHandler());
-        binding.setVm(componentOverViewVM);
     }
 
     //  sets the handler for the item (component category)
