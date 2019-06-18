@@ -7,7 +7,6 @@ import com.mwb.digitalstorage.R;
 import com.mwb.digitalstorage.command_handlers.RackCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;
 import com.mwb.digitalstorage.databinding.RackItemBinding;
-import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.modelUI.UIEntity;
 import com.mwb.digitalstorage.modelUI.UIRack;
 import java.util.List;
@@ -21,15 +20,13 @@ public class RackListAdapter extends RecyclerView.Adapter<RackListAdapter.RackVi
     private RackCmdHandler rackCmdHandlerCallBack;
     private ImgCmdHandler imgCmdHandlerCallBack;
     private List<UIRack> UIRacks;
-    private ImageProcessor imgProcessor;
 
 
-    public RackListAdapter(List<UIRack> UIRacks, RackCmdHandler rackCmdHandlerCallBack, ImgCmdHandler imgCmdHandlerCallBack, ImageProcessor imgProcessor)
+    public RackListAdapter(List<UIRack> UIRacks, RackCmdHandler rackCmdHandlerCallBack, ImgCmdHandler imgCmdHandlerCallBack)
     {
         this.rackCmdHandlerCallBack = rackCmdHandlerCallBack;
         this.imgCmdHandlerCallBack = imgCmdHandlerCallBack;
         this.UIRacks = UIRacks;
-        this.imgProcessor = imgProcessor;
     }
 
     // viewHolder creator, returner with listener and viewItem attached

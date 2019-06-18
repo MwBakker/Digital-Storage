@@ -7,7 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 
-import com.mwb.digitalstorage.command_handlers.CompanyExistenceCmdHandler;
+import com.mwb.digitalstorage.command_handlers.CompanyCmdHandler;
 import com.mwb.digitalstorage.command_handlers.RegistrationCmdHandler;
 import com.mwb.digitalstorage.databinding.ActivityMainBinding;
 import com.mwb.digitalstorage.viewmodel.RegistrationViewModel;
@@ -29,11 +29,16 @@ public class RegistrationActivity extends BaseActivity
 
         checkPermissions();
 
-        companyRegistrationVM = ViewModelProviders.of(this).get(RegistrationViewModel.class);
-        companyRegistrationVM.setViewModelElements(companyExistenceCallBack());
+        // command handler
+        CompanyCmdHandler companyCmdHandler = companyCmdHandler();
+        RegistrationCmdHandler registrationCmdHandler = registrationCmdHandler(companyCmdHandler);
 
+        // viewModel
+        companyRegistrationVM = ViewModelProviders.of(this).get(RegistrationViewModel.class);
+        companyRegistrationVM.setViewModelElements(companyCmdHandler);
+
+        // bindings
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        RegistrationCmdHandler registrationCmdHandler = registrationCmdHandler();
         binding.setVm(companyRegistrationVM);
         binding.setCmdHandler(registrationCmdHandler);
     }
@@ -62,19 +67,8 @@ public class RegistrationActivity extends BaseActivity
         }
     }
 
-    //  switch activity if company is present
-    public CompanyExistenceCmdHandler companyExistenceCallBack()
-    {
-        return new CompanyExistenceCmdHandler()
-        {
-            @Override
-            public void goToMainPage() { switchActivity(); }
-        };
-    }
-
-
     //  registration activity handler
-    public RegistrationCmdHandler registrationCmdHandler()
+    public RegistrationCmdHandler registrationCmdHandler(CompanyCmdHandler companyCmdHandler)
     {
         return new RegistrationCmdHandler()
         {
@@ -100,12 +94,18 @@ public class RegistrationActivity extends BaseActivity
             @Override
             public void saveCompany()
             {
-                companyRegistrationVM.executor.execute(() ->
-                {
-                    companyRegistrationVM.addCompany();
-                    switchActivity();
-                });
+                companyRegistrationVM.addCompany(companyCmdHandler);
             }
+        };
+    }
+
+    //  handles the company registration or existence case
+    public CompanyCmdHandler companyCmdHandler()
+    {
+        return new CompanyCmdHandler()
+        {
+            @Override
+            public void goToMainPage() { switchActivity(); }
         };
     }
 

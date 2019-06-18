@@ -5,8 +5,6 @@ import com.mwb.digitalstorage.model.Rack;
 import com.mwb.digitalstorage.modelUI.UIRack;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 
@@ -46,20 +44,20 @@ public class RackRepository extends BaseRepository
     }
 
     //  performs rack insert
-    public void insertRack(long storageID, String rackName, String rackImgPath)
+    public void insertRack(long storageID, String name, String imgPath)
     {
-        getDao().insertRack(new Rack(storageID, rackName, rackImgPath));
+        executor.execute(() -> { getDao().insertRack(new Rack(storageID, name, imgPath)); });
     }
 
     //  edits the rack
-    public void editRack(long rackID, String rackName, String rackImgPath)
+    public void editRack(long id, String name, String imgPath)
     {
-        getDao().editRack(rackID, rackName, rackImgPath);
+        executor.execute(() -> { getDao().editRack(id, name, imgPath); });
     }
 
     //  deletes the rack
-    public void deleteRack(long rackID)
+    public void deleteRack(long id)
     {
-        getDao().deleteRack(rackID);
+        executor.execute(() -> { getDao().deleteRack(id); });
     }
 }

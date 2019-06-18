@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import com.mwb.digitalstorage.command_handlers.StorageMenuCmdHandler;
+import com.mwb.digitalstorage.command_handlers.entity.EntityInsertCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;
 import com.mwb.digitalstorage.database.RackRepository;
 import com.mwb.digitalstorage.databinding.ActivityStorageMenuBinding;
@@ -28,12 +29,12 @@ public class StorageMenuActivity extends BaseActivity
         storageMenuVM.setViewModelElements();
 
         binding.setVm(storageMenuVM);
-        binding.setCmdHandler(storageMenuCmdHandler());
+        binding.setCmdHandler(storageMenuCmdHandler(entityInsertCmdHandler()));
         binding.setImgCmdHandler(photoCmdHandler());
     }
 
     //  sets the handlers
-    private StorageMenuCmdHandler storageMenuCmdHandler()
+    private StorageMenuCmdHandler storageMenuCmdHandler(EntityInsertCmdHandler entityInsertCmdHandler)
     {
         // handlers and methods
         return new StorageMenuCmdHandler()
@@ -57,16 +58,27 @@ public class StorageMenuActivity extends BaseActivity
             {
                 storageMenuVM.getUiStorage().setAmountOfRacks(newVal);
             }
-
             @Override
             public void saveNewEntity()
             {
-                storageMenuVM.addStorage(new RackRepository());
+                storageMenuVM.addStorage(entityInsertCmdHandler);
                 switchBackToOverView();
             }
             @Override
             public void cancelMenu() {
                 switchBackToOverView();
+            }
+        };
+    }
+
+    private EntityInsertCmdHandler entityInsertCmdHandler()
+    {
+        return new EntityInsertCmdHandler()
+        {
+            @Override
+            public void insertion(long id)
+            {
+                storageMenuVM.addRacksToStorage(id, new RackRepository());
             }
         };
     }

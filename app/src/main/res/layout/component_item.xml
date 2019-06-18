@@ -94,7 +94,7 @@
         <TextView
             android:id="@+id/txt_component_category"
             style="@style/wrap_content"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="40dp"
             android:text="@{UIComponent.categoryNameObsv}"
             android:textColor="@color/icon_color"
             android:textSize="23sp"
@@ -107,7 +107,8 @@
         <Spinner
             android:id="@+id/category_spinner"
             style="@style/wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="@color/icon_color"
             android:selectedItemPosition="@={UIComponent.selectedCategoryInListObsv}"
             android:visibility="@{safeUnbox(UIComponent.isEditObsv) ? View.VISIBLE : View.GONE}"
             app:adapter="@{UIComponent.uiComponentCategorySpinnerAdapterObsv}"

@@ -29,6 +29,14 @@
         <variable
             name="tbCmdHandler"
             type="com.mwb.digitalstorage.command_handlers.ToolbarCmdHandler" />
+
+        <variable
+            name="componentListAdapter"
+            type="com.mwb.digitalstorage.adapter.ComponentListAdapter" />
+
+        <variable
+            name="componentCategoryListAdapter"
+            type="com.mwb.digitalstorage.adapter.ComponentCategoryListAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout style="@style/match_parent">
@@ -49,12 +57,12 @@
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <TextView
-            android:id="@+id/txt_racks"
+            android:id="@+id/txt_components"
             style="@style/wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="62dp"
             android:background="@color/transparant_darker"
-            android:text="@string/components"
+            android:text="@{vm.uiRack.amountOfComponents == 1 ? @string/component : @string/components}"
             android:textColor="@color/icon_color"
             android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@id/img_main"
@@ -62,7 +70,6 @@
             tools:text="Components" />
 
         <TextView
-            android:id="@+id/txt_rack_amount"
             style="@style/wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
@@ -92,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="4dp"
-            android:adapter="@{vm.componentCatListAdapterObsv}"
+            android:adapter="@{componentCategoryListAdapter}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintHeight_percent="0.20"
             app:layout_constraintTop_toBottomOf="@id/img_main"
@@ -113,7 +120,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
-            android:adapter="@{vm.componentListAdapterObsv}"
+            android:adapter="@{componentListAdapter}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintHeight_percent="0.4"
             app:layout_constraintLeft_toLeftOf="parent"

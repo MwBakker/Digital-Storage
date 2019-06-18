@@ -1,19 +1,18 @@
 package com.mwb.digitalstorage.viewmodel;
 
+import com.mwb.digitalstorage.database.RepositoryFactory;
 import com.mwb.digitalstorage.misc.ImageProcessor;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 import androidx.lifecycle.ViewModel;
 
 
 public abstract class BaseViewModel extends ViewModel
 {
     public final ImageProcessor imgProcessor;
-    public final Executor executor;
+    public final RepositoryFactory repositoryFactory;
 
     BaseViewModel()
     {
         imgProcessor = new ImageProcessor();
-        executor = Executors.newSingleThreadExecutor();
+        repositoryFactory = new RepositoryFactory();
     }
 }

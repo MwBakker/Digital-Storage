@@ -1,45 +1,31 @@
 package com.mwb.digitalstorage.viewmodel;
 
 import com.mwb.digitalstorage.adapter.RackListAdapter;
-import com.mwb.digitalstorage.command_handlers.RackCmdHandler;
-import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;
-import com.mwb.digitalstorage.database.RackRepository;
-import com.mwb.digitalstorage.database.StorageRepository;
 import com.mwb.digitalstorage.modelUI.UIRack;
 import com.mwb.digitalstorage.modelUI.UIStorage;
+import java.util.List;
 import androidx.databinding.ObservableField;
+import androidx.lifecycle.LiveData;
 
 
 public class RackOverViewViewModel extends BaseViewModel
 {
-    private RackRepository rackRepository;
     private UIStorage uiStorage;
     private UIRack uiRack;
 
     public ObservableField<RackListAdapter> rackListAdapterObsv = new ObservableField<>();
 
 
-    public void setViewModelElements(long storageID, androidx.lifecycle.LifecycleOwner owner,
-                                      RackCmdHandler rackCmdHandler, ImgCmdHandler imgCmdHandler)
+    public void setViewModelElements()
     {
-        rackRepository = new RackRepository();
-        rackRepository.getRacks(storageID).observe(owner, uiRacks ->
-        {
-            executor.execute(() ->
-            {
-                for (UIRack uiRack : uiRacks)
-                {
-                    rackRepository.setUIRackElements(uiRack, imgProcessor);
-                }
-                rackListAdapterObsv.set(new RackListAdapter(uiRacks, rackCmdHandler, imgCmdHandler, imgProcessor));
-            });
-        });
-        StorageRepository storageRepository = new StorageRepository();
-        executor.execute(() ->
-        {
-           uiStorage = storageRepository.getUIStorageUnit(storageID);
-           storageRepository.setUIStorageElements(uiStorage, imgProcessor);
-        });
+
+        //uiStorage = storageRepository.getUIStorageUnit(storageID);
+           //storageRepository.setUIStorageElements(uiStorage, imgProcessor);
+    }
+
+    public LiveData<List<UIRack>> getUIRacks(long storageID)
+    {
+        return repositoryFactory.rackRepository.getRacks(storageID);
     }
 
     // gets the uiStorage
@@ -63,10 +49,7 @@ public class RackOverViewViewModel extends BaseViewModel
     //  saves the edit made on the rack
     public void saveRackEdit()
     {
-        executor.execute(() ->
-        {
-            rackRepository.editRack(uiRack.id, uiRack.getName(), uiRack.getImgPath());
-        });
+        repositoryFactory.rackRepository.editRack(uiRack.id, uiRack.getName(), uiRack.getImgPath());
         uiRack.isEditObsv.set(false);
     }
 
@@ -75,6 +58,6 @@ public class RackOverViewViewModel extends BaseViewModel
     //
     public void deleteRack()
     {
-        executor.execute(() -> { rackRepository.deleteRack(uiRack.id); });
+        repositoryFactory.rackRepository.deleteRack(uiRack.id);
     }
 }

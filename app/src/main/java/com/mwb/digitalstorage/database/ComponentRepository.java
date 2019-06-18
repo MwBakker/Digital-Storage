@@ -1,26 +1,18 @@
 package com.mwb.digitalstorage.database;
 
+import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.model.Component;
 import com.mwb.digitalstorage.model.ComponentCategory;
 import com.mwb.digitalstorage.modelUI.UIComponent;
 import com.mwb.digitalstorage.modelUI.UIComponentCategory;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 
 
 public class ComponentRepository extends BaseRepository
 {
-    private Executor executor;
-
-
-    public ComponentRepository(Executor executor)
-    {
-        this.executor = executor;
-    }
-
     //__________________________________________________________________________
     //                      //
     //      Components      //
@@ -40,7 +32,7 @@ public class ComponentRepository extends BaseRepository
         return Transformations.map(getDao().getFilteredComponents(rackId, catID), newData -> createComponentUI(newData));
     }
 
-    //  manually sets the rack to rackUI
+    //  sets the rack to rackUI
     private List<UIComponent> createComponentUI(List<Component> components)
     {
         List<UIComponent> UIComponentList = new ArrayList<>();
@@ -50,29 +42,44 @@ public class ComponentRepository extends BaseRepository
             for (Component component : components)
             {
                 UIComponent uiComponent = new UIComponent(component.componentID, component.getName(), component.getCode(), component.getImgPath());
-                uiComponent.setCategoryName(getDao().getComponentCategory(component.componentCategoryID).getName());
-               // uiComponent.setCount(getDao().getAmountOfComponents(component.rackID));
+               // uiComponent.setCategoryName(getDao().getComponentCategory(component.componentCategoryID).getName());
+               // uiComponent.setAmount(getDao().getAmountOfComponents(component.rackID));
                 UIComponentList.add(uiComponent);
             }
         });
         return UIComponentList;
     }
 
+    //  sets the uiComponent elements
+    public void setUIComponentElements(UIComponent uiComponent, ImageProcessor imgProcessor)
+    {
+        uiComponent.imgObsv.set(imgProcessor.decodeImgPath(uiComponent.getImgPath()));
+    }
+
     //  component insert
     public void insertComponent(long rackID, long componentCatID, String componentCatName,
                                 String componentCode, String componentImgPath)
     {
-        getDao().insertComponent(new Component(rackID, componentCatID, componentCatName, componentCode, componentImgPath));
+        executor.execute( () ->
+        {
+            getDao().insertComponent(new Component(rackID, componentCatID, componentCatName, componentCode, componentImgPath));
+        });
     }
 
     //  component edit
     public void editComponent(long componentID, long componentCatID, String componentName, String componentCode, String componentImgPath)
     {
-        getDao().editComponent(componentID, componentCatID, componentName, componentCode, componentImgPath);
+        executor.execute( () ->
+        {
+            getDao().editComponent(componentID, componentCatID, componentName, componentCode, componentImgPath);
+        });
     }
 
     //  delete component
-    public void deleteComponent(long componentID) { getDao().deleteComponent(componentID); }
+    public void deleteComponent(long componentID)
+    {
+        executor.execute( () -> { getDao().deleteComponent(componentID); });
+    }
 
 
     //__________________________________________________________________________
@@ -123,6 +130,6 @@ public class ComponentRepository extends BaseRepository
     //  edits the name of a component category per database
     public void editComponentCategory(long catID, String componentCatName)
     {
-        getDao().editComponentCategory(catID, componentCatName);
+        executor.execute( () -> { getDao().editComponentCategory(catID, componentCatName); });
     }
 }

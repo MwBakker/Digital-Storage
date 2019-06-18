@@ -45,10 +45,7 @@ public class StorageListAdapter extends RecyclerView.Adapter<StorageListAdapter.
 
     //  returns the list size
     @Override
-    public int getItemCount()
-    {
-        return (storageUnits != null) ? storageUnits.size() : 0;
-    }
+    public int getItemCount() { return storageUnits.size(); }
 
     //__________________________________________________________________________________________________
     //

@@ -8,12 +8,9 @@ import com.mwb.digitalstorage.command_handlers.ComponentCmdHandler;
 import com.mwb.digitalstorage.command_handlers.SpinnerSetterCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;
 import com.mwb.digitalstorage.databinding.ComponentItemBinding;
-import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.modelUI.UIComponent;
 import com.mwb.digitalstorage.modelUI.UIComponentCategory;
 import com.mwb.digitalstorage.modelUI.UIEntity;
-
-import java.util.ArrayList;
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -27,25 +24,23 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
     private ComponentCmdHandler componentCmdHandlerCallBack;
     private SpinnerSetterCmdHandler spinnerSetterCmdHandlerCallBack;
     private ImgCmdHandler imgCmdHandlerCallback;
-    private ImageProcessor imgProcessor;
 
 
-    public ComponentListAdapter(List<UIComponentCategory> uiComponentCategories, List<UIComponent> uiComponents, ComponentCmdHandler componentCmdHandlerCallBack, SpinnerSetterCmdHandler spinnerSetterCmdHandlerCallBack,
-                                ImgCmdHandler imgCmdHandlerCallback, ImageProcessor imgProcessor)
+    public ComponentListAdapter(List<UIComponentCategory> uiComponentCategories, List<UIComponent> uiComponents, ComponentCmdHandler componentCmdHandlerCallBack,
+                                SpinnerSetterCmdHandler spinnerSetterCmdHandlerCallBack, ImgCmdHandler imgCmdHandlerCallback)
     {
         this.uiComponentCategories = uiComponentCategories;
         this.uiComponents = uiComponents;
         this.componentCmdHandlerCallBack = componentCmdHandlerCallBack;
         this.spinnerSetterCmdHandlerCallBack = spinnerSetterCmdHandlerCallBack;
         this.imgCmdHandlerCallback = imgCmdHandlerCallback;
-        this.imgProcessor = imgProcessor;
     }
 
     //  sets the filtered components
     public void setComponents(List<UIComponent> uiComponents)
     {
         this.uiComponents = uiComponents;
-        notifyDataSetChanged();
+        //notifyDataSetChanged();
     }
 
     //  creates the viewHolder
@@ -127,7 +122,6 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
         //  binds the storage unit to the model
         private void bind(@NonNull UIComponent uiComponent)
         {
-            uiComponent.imgObsv.set(imgProcessor.decodeImgPath(uiComponent.getImgPath()));
             uiComponent.uiComponentCategorySpinnerAdapterObsv.set(spinnerSetterCmdHandlerCallBack.setComponentCategorySpinner(uiComponentCategories));
             binding.setUIComponent(uiComponent);
             binding.executePendingBindings();

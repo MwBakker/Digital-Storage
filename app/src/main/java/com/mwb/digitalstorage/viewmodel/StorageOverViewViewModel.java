@@ -1,45 +1,25 @@
 package com.mwb.digitalstorage.viewmodel;
 
-import com.mwb.digitalstorage.adapter.StorageListAdapter;
-import com.mwb.digitalstorage.command_handlers.StorageCmdHandler;
-import com.mwb.digitalstorage.database.CompanyRepository;
-import com.mwb.digitalstorage.database.StorageRepository;
 import com.mwb.digitalstorage.modelUI.UICompany;
 import com.mwb.digitalstorage.modelUI.UIStorage;
-import androidx.databinding.ObservableField;
+import java.util.List;
+import androidx.lifecycle.LiveData;
 
 
 public class StorageOverViewViewModel extends BaseViewModel
 {
-    private StorageRepository storageRepository;
-    private CompanyRepository companyRepository;
     private UIStorage uiStorage;
     private UICompany uiCompany;
 
-    public ObservableField<StorageListAdapter> storageListAdapterObsv = new ObservableField<>();
 
-    public void setViewModelElements(androidx.lifecycle.LifecycleOwner owner, StorageCmdHandler mainViewCmdHandlerCallBack)
+    public void setViewModelElements()
     {
-        storageRepository = new StorageRepository();
-        companyRepository = new CompanyRepository();
+        //uiCompany = repositoryFactory.companyRepository.getUiCompany();
+    }
 
-        executor.execute(() ->
-        {
-            uiCompany = companyRepository.getUiCompany();
-            uiCompany.imgObsv.set(imgProcessor.decodeImgPath(uiCompany.getImgPath()));
-        });
-        storageRepository.getStorageUnits(executor).observe(owner, storageUnits ->
-        {
-            executor.execute(() ->
-            {
-                for (UIStorage uiStorage : storageUnits)
-                {
-                   storageRepository.setUIStorageElements(uiStorage, imgProcessor);
-                }
-                storageListAdapterObsv.set(new StorageListAdapter(storageUnits, mainViewCmdHandlerCallBack));
-            });
-        });
-
+    public LiveData<List<UIStorage>> getStorageUnits()
+    {
+        return repositoryFactory.storageRepository.getStorageUnits();
     }
 
     //  gets the involved uiCompany
@@ -49,10 +29,8 @@ public class StorageOverViewViewModel extends BaseViewModel
     public void saveCompanyEdit()
     {
         uiCompany.isEdit.set(false);
-        executor.execute(() ->
-        {
-            companyRepository.editCompany(uiCompany.nameObsv.get(), uiCompany.locationObsv.get(), uiCompany.getImgPath());
-        });
+        repositoryFactory.companyRepository.editCompany(uiCompany.nameObsv.get(), uiCompany.locationObsv.get(),
+                                                            uiCompany.getImgPath());
     }
 
     //  sets the storage to be edited
@@ -68,16 +46,13 @@ public class StorageOverViewViewModel extends BaseViewModel
     //  edits the storage
     public void saveStorageEdit()
     {
-        executor.execute(() ->
-        {
-            storageRepository.editStorage(uiStorage.id, uiStorage.getName(), uiStorage.getLocation());
-        });
+        repositoryFactory.storageRepository.editStorage(uiStorage.id, uiStorage.getName(), uiStorage.getLocation());
         uiStorage.isEditObsv.set(false);
     }
 
     //  delete the storage
     public void deleteStorage()
     {
-        executor.execute(() -> { storageRepository.deleteStorage(uiStorage.id); });
+       repositoryFactory.storageRepository.deleteStorage(uiStorage.id);
     }
 }

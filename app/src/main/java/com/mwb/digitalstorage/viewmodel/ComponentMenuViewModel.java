@@ -12,7 +12,6 @@ import androidx.lifecycle.LifecycleOwner;
 public class ComponentMenuViewModel extends BaseViewModel
 {
     private UIComponent uiComponent;
-    private ComponentRepository componentRepository;
     private long rackID;
     private LifecycleOwner owner;
 
@@ -29,8 +28,7 @@ public class ComponentMenuViewModel extends BaseViewModel
         this.rackID = rackID;
         this.owner = owner;
         uiComponent = new UIComponent(0L, "","","");
-        componentRepository = new ComponentRepository(executor);
-        componentRepository.getAllComponentCategories().observe(owner, uiComponentCategories ->
+        repositoryFactory.componentRepository.getAllComponentCategories().observe(owner, uiComponentCategories ->
         {
             spinnerAdapterObsv.set(spinnerSetterCmdHandlerCallback.setComponentCategorySpinner(uiComponentCategories));
         });
@@ -49,21 +47,15 @@ public class ComponentMenuViewModel extends BaseViewModel
     {
         if (newCategoryObsv.get())
         {
-            executor.execute(() ->
-            {
-                componentRepository.insertComponent(rackID, processNewCategoryInput(), uiComponent.getName(), uiComponent.getCode(),
-                                                    uiComponent.getImgPath());
-            });
+            repositoryFactory.componentRepository.insertComponent(rackID, processNewCategoryInput(), uiComponent.getName(), uiComponent.getCode(),
+                                                uiComponent.getImgPath());
         }
         else
         {
-            componentRepository.getAllComponentCategories().observe(owner, componentCategories ->
+            repositoryFactory.componentRepository.getAllComponentCategories().observe(owner, componentCategories ->
             {
-                executor.execute(() ->
-                {
-                componentRepository.insertComponent(rackID, componentCategories.get(categoryListPositionObsv.get()).getID(), uiComponent.getName(),
+                repositoryFactory.componentRepository.insertComponent(rackID, componentCategories.get(categoryListPositionObsv.get()).getID(), uiComponent.getName(),
                                                     uiComponent.getCode(), uiComponent.getImgPath());
-                });
             });
         }
     }
@@ -72,12 +64,12 @@ public class ComponentMenuViewModel extends BaseViewModel
     private long processNewCategoryInput()
     {
         // check if category exists
-        long categoryID = componentRepository.getComponentCategory(newComponentCategoryNameObsv.get());
+        long categoryID = repositoryFactory.componentRepository.getComponentCategory(newComponentCategoryNameObsv.get());
         // if default value is returned...
         if (categoryID == 0L)
         {
             // add the new category
-            categoryID = componentRepository.insertComponentCategory(newComponentCategoryNameObsv.get());
+            categoryID = repositoryFactory.componentRepository.insertComponentCategory(newComponentCategoryNameObsv.get());
         }
         return categoryID;
     }

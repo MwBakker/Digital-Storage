@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.widget.ArrayAdapter;
-
+import com.mwb.digitalstorage.adapter.ComponentCategoryListAdapter;
+import com.mwb.digitalstorage.adapter.ComponentListAdapter;
 import com.mwb.digitalstorage.command_handlers.ComponentCategoryCmdHandler;
 import com.mwb.digitalstorage.command_handlers.ComponentCmdHandler;
 import com.mwb.digitalstorage.command_handlers.SpinnerSetterCmdHandler;
@@ -15,46 +16,71 @@ import com.mwb.digitalstorage.modelUI.UIComponentCategory;
 import com.mwb.digitalstorage.modelUI.UIEntity;
 import com.mwb.digitalstorage.viewmodel.ComponentOverViewViewModel;
 import com.mwb.digitalstorage.viewmodel.ToolbarViewModel;
-
 import java.util.List;
-
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 
 
 public class ComponentOverViewActivity extends BaseActivity
 {
     private ComponentOverViewViewModel componentOverViewVM;
+    private ComponentListAdapter componentListAdapter;
+
+    private long rackID;
+    private List<UIComponentCategory> uiComponentCategories;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        ActivityComponentOverviewBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_component_overview);
+        rackID = getIntent().getLongExtra("rack_id", 0L);
 
-        ToolbarViewModel tbVM = new ToolbarViewModel("Components");
-
+        // handler
         ComponentCmdHandler componentCmdHandler = componentCmdHandler();
 
+        // vms
+        ToolbarViewModel tbVM = new ToolbarViewModel("Components");
         componentOverViewVM = ViewModelProviders.of(this).get(ComponentOverViewViewModel.class);
-        componentOverViewVM.setViewModelElements(getIntent().getLongExtra("rack_id", 0L), this, spinnerSetterCmdHandler(),
-                                                                            componentCategoryHandler(), componentCmdHandler, imgCmdHandler());
+        componentOverViewVM.setViewModelElements(getIntent().getLongExtra("rack_id", 0L));
+
+        // bindings
+        ActivityComponentOverviewBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_component_overview);
         binding.setTbvm(tbVM);
         binding.setVm(componentOverViewVM);
         binding.setComponentCmdHandler(componentCmdHandler);
         binding.setTbCmdHandler(toolbarCmdHandler());
+
+
+
+
+        componentOverViewVM.getUIComponentCategories(rackID).observe(this, uiComponentCategories ->
+        {
+            this.uiComponentCategories = uiComponentCategories;
+            binding.setComponentCategoryListAdapter(new ComponentCategoryListAdapter(uiComponentCategories, componentCategoryCmdHandler()));
+        });
+
+
+
+
+        componentOverViewVM.getUIComponents(rackID).observe(this, uiComponents ->
+        {
+            componentListAdapter = new ComponentListAdapter(uiComponentCategories, uiComponents, componentCmdHandler,
+                                                            spinnerSetterCmdHandler(), imgCmdHandler());
+            binding.setComponentListAdapter(componentListAdapter);
+        });
     }
 
     //  sets the handler for the item (component category)
-    private ComponentCategoryCmdHandler componentCategoryHandler()
+    private ComponentCategoryCmdHandler componentCategoryCmdHandler()
     {
         return new ComponentCategoryCmdHandler()
         {
             @Override
             public void sort(UIComponentCategory uiComponentCategory)
             {
-                componentOverViewVM.sort(uiComponentCategory);
+                sortComponents(uiComponentCategory);
             }
             @Override
             public boolean editComponentCategory(UIComponentCategory uiComponentCategory)
@@ -85,14 +111,11 @@ public class ComponentOverViewActivity extends BaseActivity
             @Override
             public boolean editEntity(UIEntity uiEntity)
             {
-                componentOverViewVM.executor.execute(() ->
-                {
-                    componentOverViewVM.setEditableComponent((UIComponent) uiEntity);
-                });
+                componentOverViewVM.setEditableComponent((UIComponent) uiEntity);
                 return true;
             }
             @Override
-            public void saveEntity(boolean isNew) { componentOverViewVM.saveComponentEdit(); }
+            public void saveEntity(boolean isNew) { saveEdit(); }
             @Override
             public void deleteEntity() { componentOverViewVM.deleteComponent(); }
         };
@@ -118,7 +141,7 @@ public class ComponentOverViewActivity extends BaseActivity
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1);
             }
             @Override
-            public void removePhoto() { componentOverViewVM.getUiComponent().removeImg();  }
+            public void removePhoto() { componentOverViewVM.getEditableUiComponent().removeImg();  }
         };
     }
 
@@ -136,6 +159,43 @@ public class ComponentOverViewActivity extends BaseActivity
         };
     }
 
+    //  performs sorting on the components per selected category
+    private void sortComponents(UIComponentCategory toBeSortedUiComponentCategory)
+    {
+        if (componentOverViewVM.getPreviousSortComponentCategory().getID() != toBeSortedUiComponentCategory.getID())
+        {
+            componentOverViewVM.repositoryFactory.componentRepository.getCategoryFilteredComponents(rackID, toBeSortedUiComponentCategory.getID()).observe(this, uiComponents ->
+            {
+                componentListAdapter.setComponents(uiComponents);
+            });
+            componentOverViewVM.getPreviousSortComponentCategory().setSelectedState();
+            componentOverViewVM.setPreviousSortComponentCategory(toBeSortedUiComponentCategory);
+            componentOverViewVM.getPreviousSortComponentCategory().setSelectedState();
+        }
+        else
+        {
+            componentOverViewVM.repositoryFactory.componentRepository.getRackComponents(rackID).observe(this, components ->
+            {
+                componentListAdapter.setComponents(components);
+            });
+            componentOverViewVM.getPreviousSortComponentCategory().setSelectedState();
+            componentOverViewVM.setPreviousSortComponentCategory(new UIComponentCategory(0L, "", 0));
+        }
+    }
+
+    //  performs the editing of the editable component
+    private void saveEdit()
+    {
+        componentOverViewVM.repositoryFactory.componentRepository.getAllComponentCategories().observe(this, uiComponentCategories ->
+        {
+            long categoryID = uiComponentCategories.get(componentOverViewVM.getEditableUiComponent().selectedCategoryInListObsv.get()).getID();
+            UIComponent editableUIComponent = componentOverViewVM.getEditableUiComponent();
+            componentOverViewVM.repositoryFactory.componentRepository.editComponent(editableUIComponent.getId(), categoryID, editableUIComponent.getName(),
+                    editableUIComponent.getCode(), editableUIComponent.getImgPath());
+        });
+    }
+
+
     //  immediately retrieves file from taken img
     //  sets the VM img resource property
     //  loadImg will be called on after trigger of set()
@@ -144,12 +204,12 @@ public class ComponentOverViewActivity extends BaseActivity
     {
         if (componentOverViewVM.imgProcessor.isFromCamera())
         {
-            componentOverViewVM.getUiComponent().setImgPath(componentOverViewVM.imgProcessor.getImgPath());
+            componentOverViewVM.getEditableUiComponent().setImgPath(componentOverViewVM.imgProcessor.getImgPath());
         }
         else
         {
-            componentOverViewVM.getUiComponent().setImgPath(componentOverViewVM.imgProcessor.browseImage(data, getApplication()));
+            componentOverViewVM.getEditableUiComponent().setImgPath(componentOverViewVM.imgProcessor.browseImage(data, getApplication()));
         }
-        componentOverViewVM.getUiComponent().imgObsv.set(componentOverViewVM.imgProcessor.decodeImgPath());
+        componentOverViewVM.getEditableUiComponent().imgObsv.set(componentOverViewVM.imgProcessor.decodeImgPath());
     }
 }

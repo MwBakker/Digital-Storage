@@ -1,35 +1,58 @@
 package com.mwb.digitalstorage.database;
 
+import com.mwb.digitalstorage.command_handlers.CompanyCmdHandler;
 import com.mwb.digitalstorage.model.Company;
 import com.mwb.digitalstorage.modelUI.UICompany;
 
 
 public class CompanyRepository extends BaseRepository
 {
-    //  returns allRacks with correct storage_id
-    public UICompany getUiCompany()
+    //  checks existence of a company
+    public void checkExistence(CompanyCmdHandler retrievalCallback)
     {
-        Company company = getDao().getCompany();
-        if (company != null)
+        executor.execute(() ->
         {
-            UICompany uiCompany = new UICompany(company.id, company.getName(), company.getLocation(), company.getImgPath());
-            uiCompany.setAmountOfStorages(getDao().getAmountOfStorageUnits());
-            uiCompany.setAmountOfRacks(getDao().getAmountOfRacks());
-        //    uiCompany.setAmountOfComponents(getDao().getAmountOfComponents());
-            return uiCompany;
-        }
-        else { return null; }
+            if (getDao().getCompany() != null)
+            {
+                retrievalCallback.goToMainPage();
+            }
+        });
     }
 
-    //  performs st/orage insert
-    public void insertCompany(String companyName, String companyLoc, String companyImgPath)
+    //  returns allRacks with correct storage_id
+    public void getUiCompany()
     {
-        getDao().insertCompany(new Company(companyName, companyLoc, companyImgPath));
+        executor.execute(() ->
+        {
+            Company company = getDao().getCompany();
+            setCompanyUIElements(new UICompany(company.id, company.getName(), company.getLocation(), company.getImgPath()));
+        });
+    }
+
+    //  sets the ui elements of the company
+    private void setCompanyUIElements(UICompany uiCompany)
+    {
+        uiCompany.setAmountOfStorages(getDao().getAmountOfStorageUnits());
+        uiCompany.setAmountOfRacks(getDao().getAmountOfRacks());
+        uiCompany.setAmountOfComponents(getDao().getAmountOfComponents());
+    }
+
+    //  performs company insert
+    public void insertCompany(String companyName, String companyLoc, String companyImgPath, CompanyCmdHandler companyCmdHandler)
+    {
+        executor.execute(() ->
+        {
+            getDao().insertCompany(new Company(companyName, companyLoc, companyImgPath));
+            companyCmdHandler.goToMainPage();
+        });
     }
 
     //  performs storage insert
     public void editCompany(String companyName, String companyLoc, String companyImgPath)
     {
-        getDao().editCompany(companyName, companyLoc, companyImgPath);
+        executor.execute(() ->
+        {
+            getDao().editCompany(companyName, companyLoc, companyImgPath);
+        });
     }
 }

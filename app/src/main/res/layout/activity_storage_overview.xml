@@ -30,6 +30,11 @@
         <variable
             name="tbCmdHandler"
             type="com.mwb.digitalstorage.command_handlers.ToolbarCmdHandler" />
+
+        <variable
+            name="storageListAdapter"
+            type="com.mwb.digitalstorage.adapter.StorageListAdapter" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,7 +65,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="62dp"
             android:background="@color/transparant_darker"
-            android:text="@string/storage_units"
+            android:text="@{vm.uiCompany.amountOfStorageUnits == 1 ? @string/storage_unit : @string/storage_units}"
             android:textColor="@color/icon_color"
             android:textSize="16sp"
             app:layout_constraintRight_toRightOf="parent"
@@ -86,7 +91,7 @@
             android:id="@+id/txt_racks_main_img"
             style="@style/wrap_content"
             android:background="@color/transparant_darker"
-            android:text="@string/racks"
+            android:text="@{vm.uiCompany.amountOfRacks == 1 ? @string/rack : @string/racks}"
             android:textColor="@color/icon_color"
             android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@id/txt_storage_units_main_img"
@@ -112,7 +117,7 @@
             style="@style/wrap_content"
             android:layout_marginTop="8dp"
             android:background="@color/transparant_darker"
-            android:text="@string/components"
+            android:text="@{vm.uiCompany.amountOfComponents == 1 ? @string/component : @string/components}"
             android:textColor="@color/icon_color"
             android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@id/txt_racks_main_img"
@@ -242,7 +247,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="15dp"
-                    android:adapter="@{vm.storageListAdapterObsv}"
+                    android:adapter="@{storageListAdapter}"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintHeight_percent="0.575"
                     app:layout_constraintLeft_toLeftOf="parent"

@@ -1,6 +1,6 @@
 package com.mwb.digitalstorage.command_handlers;
 
-public interface CompanyExistenceCmdHandler
+public interface CompanyCmdHandler
 {
     void goToMainPage();
 }

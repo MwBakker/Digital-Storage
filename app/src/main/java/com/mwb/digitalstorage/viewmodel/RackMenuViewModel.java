@@ -1,13 +1,11 @@
 package com.mwb.digitalstorage.viewmodel;
 
-import com.mwb.digitalstorage.database.RackRepository;
 import com.mwb.digitalstorage.modelUI.UIRack;
 
 
 public class RackMenuViewModel extends BaseViewModel
 {
     private long storageID;
-    private RackRepository rackRepository;
 
     private UIRack uiRack;
 
@@ -15,7 +13,6 @@ public class RackMenuViewModel extends BaseViewModel
     public void setViewModelElements(long storageID)
     {
         this.storageID = storageID;
-        rackRepository = new RackRepository();
         uiRack = new UIRack(0L, "", "");
     }
 
@@ -28,6 +25,6 @@ public class RackMenuViewModel extends BaseViewModel
     //  add rack to repository
     public void addRack()
     {
-        executor.execute(() -> { rackRepository.insertRack(storageID, uiRack.getName(), uiRack.getImgPath()); });
+        repositoryFactory.rackRepository.insertRack(storageID, uiRack.getName(), uiRack.getImgPath());
     }
 }

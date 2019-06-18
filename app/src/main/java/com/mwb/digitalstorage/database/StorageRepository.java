@@ -1,42 +1,39 @@
 package com.mwb.digitalstorage.database;
 
-import com.mwb.digitalstorage.misc.ImageProcessor;
+import com.mwb.digitalstorage.command_handlers.entity.EntityInsertCmdHandler;
 import com.mwb.digitalstorage.model.Storage;
 import com.mwb.digitalstorage.modelUI.UIStorage;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 
 
 public class StorageRepository extends BaseRepository
 {
-    //  returns allRacks with correct storage_id
-    public LiveData<List<UIStorage>> getStorageUnits(Executor executor)
+    //  gets all storage units
+    public LiveData<List<UIStorage>> getStorageUnits()
     {
-        LiveData<List<Storage>> storageUnits = getDao().getStorageUnits();
-        // transform one list to another
-        return Transformations.map(storageUnits, newData -> createStorageUIList(newData, executor));
+        return Transformations.map(getDao().getStorageUnits(), newData -> createStorageUIList(newData));
     }
 
     //  manually sets the storage to storageUI
-    private List<UIStorage> createStorageUIList(List<Storage> storageUnits, Executor executor)
+    private List<UIStorage> createStorageUIList(List<Storage> storageUnits)
     {
         List<UIStorage> UIStorageList = new ArrayList<>();
         for (Storage storage : storageUnits)
         {
-            UIStorageList.add(new UIStorage(storage.id, storage.getName(), storage.getLocation(), storage.getImgPath()));
+            UIStorage uiStorage = new UIStorage(storage.id, storage.getName(), storage.getLocation(), storage.getImgPath());
+            UIStorageList.add(uiStorage);
         }
         return UIStorageList;
     }
 
     //  sets the elements of the uiStorage
-    public void setUIStorageElements(UIStorage uiStorage, ImageProcessor imgProcessor)
+    private void setUIStorageElements(UIStorage uiStorage)
     {
         uiStorage.setAmountOfRacks(getDao().getAmountOfRacks(uiStorage.id));
-        //uiStorage.setAmountOfComponents(getDao().getAmountOfComponents(uiStorage.id));
-        uiStorage.imgObsv.set(imgProcessor.decodeImgPath(uiStorage.getImgPath()));
+        uiStorage.setAmountOfComponents(getDao().getAmountOfComponents(uiStorage.id));
     }
 
     //  returns one storage unit
@@ -47,20 +44,22 @@ public class StorageRepository extends BaseRepository
     }
 
     //  performs storage insert
-    public long insertStorage(String storageName, String storageLoc, String imgPath)
+    public void insertStorage(String name, String location, String imgPath, EntityInsertCmdHandler entityInsertCmdHandler)
     {
-        return getDao().insertStorage(new Storage(storageName, storageLoc, imgPath));
+        executor.execute(() -> {
+            entityInsertCmdHandler.insertion(getDao().insertStorage(new Storage(name, location, imgPath)));
+        });
     }
 
     //  edits the storage
-    public void editStorage(long storageID, String storageName, String storageLoc)
+    public void editStorage(long id, String name, String location)
     {
-        getDao().editStorage(storageID, storageName, storageLoc);
+        executor.execute(() -> { getDao().editStorage(id, name, location); });
     }
 
     //  deletes the storage
-    public void deleteStorage(long storageID)
+    public void deleteStorage(long id)
     {
-        getDao().deleteStorage(storageID);
+        executor.execute(() -> { getDao().deleteStorage(id); });
     }
 }

@@ -3,6 +3,8 @@ package com.mwb.digitalstorage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+
+import com.mwb.digitalstorage.adapter.RackListAdapter;
 import com.mwb.digitalstorage.command_handlers.RackCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;
 import com.mwb.digitalstorage.databinding.ActivityRackOverviewBinding;
@@ -24,19 +26,25 @@ public class RackOverViewActivity extends BaseActivity
     {
         super.onCreate(savedInstanceState);
 
+        // command handler
         RackCmdHandler rackCmdHandler = rackCmdHandler();
 
+        // vms
         ToolbarViewModel tbVM = new ToolbarViewModel("Racks");
-
         rackOverViewVM = ViewModelProviders.of(this).get(RackOverViewViewModel.class);
-        rackOverViewVM.setViewModelElements(getIntent().getLongExtra("storage_id", 0L),
-                                            this, rackCmdHandler,  imgCmdHandler());
-        
+        rackOverViewVM.setViewModelElements();
+
+        // bindings
         ActivityRackOverviewBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_rack_overview);
         binding.setVm(rackOverViewVM);
         binding.setTbvm(tbVM);
         binding.setCmdHandler(rackCmdHandler);
         binding.setTbCmdHandler(toolbarCmdHandler());
+        // adapter
+        rackOverViewVM.getUIRacks(getIntent().getLongExtra("storage_id", 0L)).observe(this, uiRacks ->
+        {
+            binding.setRackListAdapter(new RackListAdapter(uiRacks, rackCmdHandler, imgCmdHandler()));
+        });
     }
 
     //  sets the rack handlers
@@ -49,7 +57,6 @@ public class RackOverViewActivity extends BaseActivity
             {
                 Intent intent = new Intent(RackOverViewActivity.this, ComponentOverViewActivity.class);
                 intent.putExtra("rack_id", rackID);
-                intent.putExtra("storage_id", rackOverViewVM.getUiStorage().id);
                 switchToItem(intent);
             }
             @Override
