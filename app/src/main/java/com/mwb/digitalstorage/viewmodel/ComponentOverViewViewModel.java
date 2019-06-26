@@ -19,7 +19,7 @@ public class ComponentOverViewViewModel extends BaseViewModel
     public void setViewModelElements(long rackID)
     {
         previousSortComponentCategory = new UIComponentCategory(0L, "", 0);
-        //uiRack = rackRepository.getUIRack(rackID);
+        uiRack = repositoryFactory.rackRepository.getUIRack(rackID);
         //rackRepository.setUIRackElements(uiRack, imgProcessor);
     }
 

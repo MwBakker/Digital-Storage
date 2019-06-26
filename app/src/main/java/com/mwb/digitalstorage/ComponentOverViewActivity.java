@@ -18,7 +18,6 @@ import com.mwb.digitalstorage.viewmodel.ComponentOverViewViewModel;
 import com.mwb.digitalstorage.viewmodel.ToolbarViewModel;
 import java.util.List;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 
 
@@ -52,17 +51,11 @@ public class ComponentOverViewActivity extends BaseActivity
         binding.setComponentCmdHandler(componentCmdHandler);
         binding.setTbCmdHandler(toolbarCmdHandler());
 
-
-
-
         componentOverViewVM.getUIComponentCategories(rackID).observe(this, uiComponentCategories ->
         {
             this.uiComponentCategories = uiComponentCategories;
             binding.setComponentCategoryListAdapter(new ComponentCategoryListAdapter(uiComponentCategories, componentCategoryCmdHandler()));
         });
-
-
-
 
         componentOverViewVM.getUIComponents(rackID).observe(this, uiComponents ->
         {
