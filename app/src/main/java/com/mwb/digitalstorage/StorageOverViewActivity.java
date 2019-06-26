@@ -5,9 +5,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import com.mwb.digitalstorage.adapter.StorageListAdapter;
 import com.mwb.digitalstorage.command_handlers.RegistrationCmdHandler;
+import com.mwb.digitalstorage.command_handlers.RetrieveCompanyCmdHandler;
 import com.mwb.digitalstorage.command_handlers.StorageCmdHandler;
-import com.mwb.digitalstorage.command_handlers.entity.RetrieveEntityCmdHandler;
 import com.mwb.digitalstorage.databinding.ActivityStorageOverviewBinding;
+import com.mwb.digitalstorage.modelUI.UICompany;
 import com.mwb.digitalstorage.modelUI.UIEntity;
 import com.mwb.digitalstorage.modelUI.UIStorage;
 import com.mwb.digitalstorage.viewmodel.StorageOverViewViewModel;
@@ -33,7 +34,7 @@ public class StorageOverViewActivity extends BaseActivity
         // viewModels
         ToolbarViewModel toolbarVM = new ToolbarViewModel("Storage Units");
         storageOverViewVM = ViewModelProviders.of(this).get(StorageOverViewViewModel.class);
-        storageOverViewVM.setViewModelElements();
+        storageOverViewVM.getUiCompany(retrieveCompanyCmdHandler());
 
         // bindings
         ActivityStorageOverviewBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_storage_overview);
@@ -47,7 +48,7 @@ public class StorageOverViewActivity extends BaseActivity
         {
             storageListAdapter = new StorageListAdapter(storageUnits, mainViewCmdHandler);
             binding.setStorageListAdapter(storageListAdapter);
-            storageOverViewVM.setStorageUnitsElements(storageUnits);
+            storageOverViewVM.setStorageUnitCountings(storageUnits);
         });
     }
 
@@ -88,15 +89,15 @@ public class StorageOverViewActivity extends BaseActivity
         };
     }
 
-    //  command handler for when the retrieval is finished
-    private RetrieveEntityCmdHandler retrieveEntityCmdHandler()
+    //  handles the callback when the company's data is retrieved
+    public RetrieveCompanyCmdHandler retrieveCompanyCmdHandler()
     {
-        return new RetrieveEntityCmdHandler()
+        return new RetrieveCompanyCmdHandler()
         {
             @Override
-            public void entityRetrieved()
+            public void companyRetrieved(UICompany uiCompany)
             {
-
+                storageOverViewVM.setUiCompany(uiCompany);
             }
         };
     }

@@ -32,7 +32,7 @@ public class StorageRepository extends BaseRepository
 
     //  sets the elements of the uiStorage
     //  no callback required due to use of Observables in the uiStorage's fields
-    public void setUIStorageElements(List<UIStorage> storageUnits)
+    public void setStorageUnitCountings(List<UIStorage> storageUnits)
     {
         executor.execute(() ->
         {

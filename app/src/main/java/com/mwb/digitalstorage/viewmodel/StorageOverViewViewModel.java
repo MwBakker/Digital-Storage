@@ -1,6 +1,6 @@
 package com.mwb.digitalstorage.viewmodel;
 
-import com.mwb.digitalstorage.command_handlers.entity.RetrieveEntityCmdHandler;
+import com.mwb.digitalstorage.command_handlers.RetrieveCompanyCmdHandler;
 import com.mwb.digitalstorage.modelUI.UICompany;
 import com.mwb.digitalstorage.modelUI.UIStorage;
 import java.util.List;
@@ -13,19 +13,28 @@ public class StorageOverViewViewModel extends BaseViewModel
     private UICompany uiCompany;
 
 
-    public void setViewModelElements()
+    //  gets the involved company
+    public void getUiCompany(RetrieveCompanyCmdHandler retrieveCompanyCmdHandler)
     {
-
+       repositoryFactory.companyRepository.getUiCompany(retrieveCompanyCmdHandler);
     }
 
+    //  sets the involved company
+    public void setUiCompany(UICompany uiCompany)
+    {
+        this.uiCompany = uiCompany;
+    }
+
+    //  gets all storage units
     public LiveData<List<UIStorage>> getStorageUnits()
     {
         return repositoryFactory.storageRepository.getStorageUnits();
     }
 
-    public void setStorageUnitsElements(List<UIStorage> uiStorageUnits)
+    //  sets all the countings belonging to the storage (like amount of racks)
+    public void setStorageUnitCountings(List<UIStorage> uiStorageUnits)
     {
-        repositoryFactory.storageRepository.setUIStorageElements(uiStorageUnits);
+        repositoryFactory.storageRepository.setStorageUnitCountings(uiStorageUnits);
     }
 
     //  gets the involved uiCompany

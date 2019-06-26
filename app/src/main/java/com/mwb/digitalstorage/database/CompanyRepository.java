@@ -1,8 +1,11 @@
 package com.mwb.digitalstorage.database;
 
 import com.mwb.digitalstorage.command_handlers.CompanyCmdHandler;
+import com.mwb.digitalstorage.command_handlers.RetrieveCompanyCmdHandler;
+import com.mwb.digitalstorage.command_handlers.entity.RetrieveEntityCmdHandler;
 import com.mwb.digitalstorage.model.Company;
 import com.mwb.digitalstorage.modelUI.UICompany;
+import com.mwb.digitalstorage.modelUI.UIComponent;
 
 
 public class CompanyRepository extends BaseRepository
@@ -20,12 +23,14 @@ public class CompanyRepository extends BaseRepository
     }
 
     //  returns allRacks with correct storage_id
-    public void getUiCompany()
+    public void getUiCompany(RetrieveCompanyCmdHandler retrieveCompanyCmdHandler)
     {
         executor.execute(() ->
         {
             Company company = getDao().getCompany();
-            setCompanyUIElements(new UICompany(company.id, company.getName(), company.getLocation(), company.getImgPath()));
+            UICompany uiCompany = new UICompany(company.id, company.getName(), company.getLocation(), company.getImgPath());
+            setCompanyUIElements(uiCompany);
+            retrieveCompanyCmdHandler.companyRetrieved(uiCompany);
         });
     }
 
