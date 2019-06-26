@@ -16,10 +16,9 @@ public class RackOverViewViewModel extends BaseViewModel
     public ObservableField<RackListAdapter> rackListAdapterObsv = new ObservableField<>();
 
 
-    public void setViewModelElements()
+    public void setViewModelElements(long storageID)
     {
-
-        //uiStorage = storageRepository.getUIStorageUnit(storageID);
+        uiStorage = repositoryFactory.storageRepository.getUIStorageUnit(storageID);
            //storageRepository.setUIStorageElements(uiStorage, imgProcessor);
     }
 

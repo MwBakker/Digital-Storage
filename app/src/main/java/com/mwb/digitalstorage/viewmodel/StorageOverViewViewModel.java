@@ -1,5 +1,6 @@
 package com.mwb.digitalstorage.viewmodel;
 
+import com.mwb.digitalstorage.command_handlers.entity.RetrieveEntityCmdHandler;
 import com.mwb.digitalstorage.modelUI.UICompany;
 import com.mwb.digitalstorage.modelUI.UIStorage;
 import java.util.List;
@@ -14,7 +15,7 @@ public class StorageOverViewViewModel extends BaseViewModel
 
     public void setViewModelElements()
     {
-        //uiCompany = repositoryFactory.companyRepository.getUiCompany();
+
     }
 
     public LiveData<List<UIStorage>> getStorageUnits()
@@ -22,8 +23,17 @@ public class StorageOverViewViewModel extends BaseViewModel
         return repositoryFactory.storageRepository.getStorageUnits();
     }
 
+    public void setStorageUnitsElements(List<UIStorage> uiStorageUnits)
+    {
+        repositoryFactory.storageRepository.setUIStorageElements(uiStorageUnits);
+    }
+
     //  gets the involved uiCompany
-    public UICompany getUiCompany() { return uiCompany; }
+    public UICompany getUiCompany()
+    {
+        return uiCompany;
+        //return repositoryFactory.companyRepository.getUiCompany();
+    }
 
     //  saves the company edit
     public void saveCompanyEdit()

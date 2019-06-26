@@ -6,6 +6,7 @@ import android.os.Environment;
 import com.mwb.digitalstorage.adapter.StorageListAdapter;
 import com.mwb.digitalstorage.command_handlers.RegistrationCmdHandler;
 import com.mwb.digitalstorage.command_handlers.StorageCmdHandler;
+import com.mwb.digitalstorage.command_handlers.entity.RetrieveEntityCmdHandler;
 import com.mwb.digitalstorage.databinding.ActivityStorageOverviewBinding;
 import com.mwb.digitalstorage.modelUI.UIEntity;
 import com.mwb.digitalstorage.modelUI.UIStorage;
@@ -18,6 +19,8 @@ import androidx.lifecycle.ViewModelProviders;
 public class StorageOverViewActivity extends BaseActivity
 {
     private StorageOverViewViewModel storageOverViewVM;
+    private StorageListAdapter storageListAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,7 +45,9 @@ public class StorageOverViewActivity extends BaseActivity
         // adapter
         storageOverViewVM.getStorageUnits().observe(this, storageUnits ->
         {
-            binding.setStorageListAdapter(new StorageListAdapter(storageUnits, mainViewCmdHandler));
+            storageListAdapter = new StorageListAdapter(storageUnits, mainViewCmdHandler);
+            binding.setStorageListAdapter(storageListAdapter);
+            storageOverViewVM.setStorageUnitsElements(storageUnits);
         });
     }
 
@@ -80,6 +85,19 @@ public class StorageOverViewActivity extends BaseActivity
             }
             @Override
             public void deleteEntity() { storageOverViewVM.deleteStorage(); }
+        };
+    }
+
+    //  command handler for when the retrieval is finished
+    private RetrieveEntityCmdHandler retrieveEntityCmdHandler()
+    {
+        return new RetrieveEntityCmdHandler()
+        {
+            @Override
+            public void entityRetrieved()
+            {
+
+            }
         };
     }
 

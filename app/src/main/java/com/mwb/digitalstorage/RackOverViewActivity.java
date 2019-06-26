@@ -26,13 +26,15 @@ public class RackOverViewActivity extends BaseActivity
     {
         super.onCreate(savedInstanceState);
 
+        long storageID = getIntent().getLongExtra("storage_id", 0L);
+
         // command handler
         RackCmdHandler rackCmdHandler = rackCmdHandler();
 
         // vms
         ToolbarViewModel tbVM = new ToolbarViewModel("Racks");
         rackOverViewVM = ViewModelProviders.of(this).get(RackOverViewViewModel.class);
-        rackOverViewVM.setViewModelElements();
+        rackOverViewVM.setViewModelElements(storageID);
 
         // bindings
         ActivityRackOverviewBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_rack_overview);
@@ -41,7 +43,7 @@ public class RackOverViewActivity extends BaseActivity
         binding.setCmdHandler(rackCmdHandler);
         binding.setTbCmdHandler(toolbarCmdHandler());
         // adapter
-        rackOverViewVM.getUIRacks(getIntent().getLongExtra("storage_id", 0L)).observe(this, uiRacks ->
+        rackOverViewVM.getUIRacks(storageID).observe(this, uiRacks ->
         {
             binding.setRackListAdapter(new RackListAdapter(uiRacks, rackCmdHandler, imgCmdHandler()));
         });

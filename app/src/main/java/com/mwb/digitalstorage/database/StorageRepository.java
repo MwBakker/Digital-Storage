@@ -1,6 +1,7 @@
 package com.mwb.digitalstorage.database;
 
 import com.mwb.digitalstorage.command_handlers.entity.EntityInsertCmdHandler;
+import com.mwb.digitalstorage.command_handlers.entity.RetrieveEntityCmdHandler;
 import com.mwb.digitalstorage.model.Storage;
 import com.mwb.digitalstorage.modelUI.UIStorage;
 import java.util.ArrayList;
@@ -30,10 +31,17 @@ public class StorageRepository extends BaseRepository
     }
 
     //  sets the elements of the uiStorage
-    private void setUIStorageElements(UIStorage uiStorage)
+    //  no callback required due to use of Observables in the uiStorage's fields
+    public void setUIStorageElements(List<UIStorage> storageUnits)
     {
-        uiStorage.setAmountOfRacks(getDao().getAmountOfRacks(uiStorage.id));
-        uiStorage.setAmountOfComponents(getDao().getAmountOfComponents(uiStorage.id));
+        executor.execute(() ->
+        {
+            for (UIStorage uiStorage : storageUnits)
+            {
+                uiStorage.setAmountOfRacks(getDao().getAmountOfRacks(uiStorage.id));
+                uiStorage.setAmountOfComponents(getDao().getAmountOfComponents(uiStorage.id));
+            }
+        });
     }
 
     //  returns one storage unit
