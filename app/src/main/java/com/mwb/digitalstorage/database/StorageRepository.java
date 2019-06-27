@@ -2,6 +2,7 @@ package com.mwb.digitalstorage.database;
 
 import com.mwb.digitalstorage.command_handlers.entity.EntityInsertCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.RetrieveEntityCmdHandler;
+import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.model.Storage;
 import com.mwb.digitalstorage.modelUI.UIStorage;
 import java.util.ArrayList;
@@ -15,23 +16,23 @@ public class StorageRepository extends BaseRepository
     //  gets all storage units
     public LiveData<List<UIStorage>> getStorageUnits()
     {
-        return Transformations.map(getDao().getStorageUnits(), newData -> createStorageUIList(newData));
+        return Transformations.map(getDao().getStorageUnits(), newData -> createUiStorageList(newData));
     }
 
     //  returns one storage unit
-    public void getUIStorage(long id, RetrieveEntityCmdHandler retrieveEntityCmdHandler)
+    public void getUIStorage(long id, ImageProcessor imgProcessor, RetrieveEntityCmdHandler retrieveEntityCmdHandler)
     {
         executor.execute(() ->
         {
             Storage storage = getDao().getStorageUnit(id);
             UIStorage uiStorage = new UIStorage(storage.id, storage.getName(), storage.getLocation(), storage.getImgPath());
-            setStorageCountingProperties(uiStorage);
+            setStorageProperties(uiStorage, imgProcessor);
             retrieveEntityCmdHandler.entityRetrieved(uiStorage);
         });
     }
 
     //  manually sets the storage to storageUI
-    private List<UIStorage> createStorageUIList(List<Storage> storageUnits)
+    private List<UIStorage> createUiStorageList(List<Storage> storageUnits)
     {
         List<UIStorage> UIStorageList = new ArrayList<>();
         for (Storage storage : storageUnits)
@@ -44,27 +45,26 @@ public class StorageRepository extends BaseRepository
 
     //  sets the elements of the uiStorage
     //  no callback required due to use of Observables in the uiStorage's fields
-    public void setStorageCountingProperties(List<UIStorage> storageUnits)
+    public void setUiStorageProperties(List<UIStorage> storageUnits)
     {
         executor.execute(() ->
         {
             for (UIStorage uiStorage : storageUnits)
             {
-                uiStorage.setAmountOfRacks(getDao().getAmountOfRacks(uiStorage.id));
-                uiStorage.setAmountOfComponents(getDao().getAmountOfComponents(uiStorage.id));
+                uiStorage.amountOfRacksObsv.set(getDao().getAmountOfRacks(uiStorage.id));
+                uiStorage.amountOfComponentsObsv.set(getDao().getAmountOfComponents(uiStorage.id));
             }
         });
     }
 
     //  sets the elements of the uiStorage
     //  no callback required due to use of Observables in the uiStorage's fields
-    private void setStorageCountingProperties(UIStorage uiStorage)
+    private void setStorageProperties(UIStorage uiStorage, ImageProcessor imgProcessor)
     {
-        uiStorage.setAmountOfRacks(getDao().getAmountOfRacks(uiStorage.id));
-        uiStorage.setAmountOfComponents(getDao().getAmountOfComponents(uiStorage.id));
+        uiStorage.amountOfRacksObsv.set(getDao().getAmountOfRacks(uiStorage.id));
+        uiStorage.amountOfComponentsObsv.set(getDao().getAmountOfComponents(uiStorage.id));
+        uiStorage.imgObsv.set(imgProcessor.decodeImgPath(uiStorage.getImgPath()));
     }
-
-
 
     //  performs storage insert
     public void insertStorage(String name, String location, String imgPath, EntityInsertCmdHandler entityInsertCmdHandler)

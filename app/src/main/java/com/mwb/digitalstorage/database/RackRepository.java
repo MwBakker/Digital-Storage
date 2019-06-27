@@ -50,7 +50,7 @@ public class RackRepository extends BaseRepository
             for (UIRack uiRack : uiRacks)
             {
                 uiRack.imgObsv.set(imgProcessor.decodeImgPath(uiRack.getImgPath()));
-                uiRack.setAmountOfComponents(getDao().getAmountOfComponents(uiRack.id));
+                uiRack.componentAmountObsv.set(getDao().getAmountOfComponents(uiRack.id));
             }
         });
     }
@@ -58,11 +58,8 @@ public class RackRepository extends BaseRepository
     //  sets the elements of the uiRacks
     private void setUIRackProperties(UIRack uiRack, ImageProcessor imgProcessor)
     {
-        executor.execute(() ->
-        {
-            uiRack.imgObsv.set(imgProcessor.decodeImgPath(uiRack.getImgPath()));
-            uiRack.setAmountOfComponents(getDao().getAmountOfComponents(uiRack.id));
-        });
+        uiRack.imgObsv.set(imgProcessor.decodeImgPath(uiRack.getImgPath()));
+        uiRack.componentAmountObsv.set(getDao().getAmountOfComponents(uiRack.id));
     }
 
     //  performs rack insert

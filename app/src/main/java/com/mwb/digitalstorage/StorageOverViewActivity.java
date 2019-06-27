@@ -46,7 +46,7 @@ public class StorageOverViewActivity extends BaseActivity
         storageOverViewVM.getStorageUnits().observe(this, storageUnits ->
         {
             binding.setStorageListAdapter(new StorageListAdapter(storageUnits, mainViewCmdHandler));
-            storageOverViewVM.setStorageUnitCountingProperties(storageUnits);
+            storageOverViewVM.setStorageProperties(storageUnits);
         });
     }
 
@@ -106,7 +106,7 @@ public class StorageOverViewActivity extends BaseActivity
         return new RegistrationCmdHandler()
         {
             @Override
-            public void editCompany() { storageOverViewVM.getUiCompany().isEdit.set(true); }
+            public void editCompany() { storageOverViewVM.getUiCompany().isEditObsv.set(true); }
             @Override
             public void takePhoto()
             {

@@ -2,6 +2,8 @@ package com.mwb.digitalstorage.modelUI;
 
 import com.mwb.digitalstorage.StorageOverViewActivity;
 
+import androidx.databinding.ObservableField;
+
 
 public class UIRack extends BaseEntity implements UIEntity
 {
@@ -9,7 +11,8 @@ public class UIRack extends BaseEntity implements UIEntity
 
     private String name;
     private String storageName;
-    private int componentCount;
+
+    public ObservableField<Integer> componentAmountObsv = new ObservableField<>();
 
 
     public UIRack(long id, String name, String imgPath)
@@ -50,10 +53,6 @@ public class UIRack extends BaseEntity implements UIEntity
 
     @Override
     public Class getBelongingOverViewActivity() { return StorageOverViewActivity.class; }
-
-    public int getAmountOfComponents() { return componentCount; }
-
-    public void setAmountOfComponents(int amount) { componentCount = amount; }
 
     @Override
     public int getAmount() { return 0; }

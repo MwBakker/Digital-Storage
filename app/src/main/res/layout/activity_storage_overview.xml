@@ -54,7 +54,7 @@
             android:layout_height="0dp"
             app:cmdHandler="@{companyCmdHandler}"
             app:img="@{vm.uiCompany.imgObsv}"
-            app:isEditObsv="@{safeUnbox(vm.uiCompany.isEdit)}"
+            app:isEditObsv="@{safeUnbox(vm.uiCompany.isEditObsv)}"
             app:isFaded="@{true}"
             app:layout_constraintHeight_percent="0.36"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
@@ -147,7 +147,7 @@
             android:text="@{vm.uiCompany.nameObsv}"
             android:textColor="@color/icon_color"
             android:textSize="26sp"
-            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.GONE : View.VISIBLE}"
+            android:visibility="@{safeUnbox(vm.uiCompany.isEditObsv) ? View.GONE : View.VISIBLE}"
             app:layout_constraintLeft_toLeftOf="@id/img_main"
             app:layout_constraintTop_toTopOf="@id/img_main"
             tools:text="Company name" />
@@ -161,7 +161,7 @@
             android:text="@={vm.uiCompany.nameObsv}"
             android:textColor="@color/icon_color"
             android:textSize="26sp"
-            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.VISIBLE : View.GONE}"
+            android:visibility="@{safeUnbox(vm.uiCompany.isEditObsv) ? View.VISIBLE : View.GONE}"
             app:layout_constraintLeft_toLeftOf="@id/img_main"
             app:layout_constraintTop_toTopOf="@id/img_main"
             tools:text="Company name" />
@@ -183,7 +183,7 @@
             android:text="@{vm.uiCompany.locationObsv}"
             android:textColor="@color/icon_color"
             android:textSize="24sp"
-            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.GONE : View.VISIBLE}"
+            android:visibility="@{safeUnbox(vm.uiCompany.isEditObsv) ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/icon_pin"
             app:layout_constraintLeft_toRightOf="@id/icon_pin"
             app:layout_constraintTop_toTopOf="@+id/icon_pin"
@@ -197,7 +197,7 @@
             android:text="@={vm.uiCompany.locationObsv}"
             android:textColor="@color/icon_color"
             android:textSize="24sp"
-            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.VISIBLE : View.GONE}"
+            android:visibility="@{safeUnbox(vm.uiCompany.isEditObsv) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@+id/icon_pin"
             app:layout_constraintLeft_toRightOf="@id/icon_pin"
             app:layout_constraintTop_toTopOf="@+id/icon_pin"
@@ -211,7 +211,7 @@
             android:layout_marginEnd="192dp"
             android:layout_marginBottom="8dp"
             android:onClick="@{() -> companyCmdHandler.saveCompany()}"
-            android:visibility="@{vm.uiCompany.isEdit ? View.VISIBLE : View.GONE}"
+            android:visibility="@{vm.uiCompany.isEditObsv ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@id/img_main"
             app:layout_constraintRight_toRightOf="parent" />
 
@@ -220,7 +220,7 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:onClick="@{() -> companyCmdHandler.editCompany()}"
-            android:visibility="@{safeUnbox(vm.uiCompany.isEdit) ? View.GONE : View.VISIBLE}"
+            android:visibility="@{safeUnbox(vm.uiCompany.isEditObsv) ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@id/img_main"
             app:layout_constraintRight_toRightOf="@id/img_main" />
 

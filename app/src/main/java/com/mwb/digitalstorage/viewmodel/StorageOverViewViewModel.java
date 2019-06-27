@@ -35,15 +35,15 @@ public class StorageOverViewViewModel extends BaseViewModel
     }
 
     //  sets all the counting elements belonging to the storage (like amount of racks)
-    public void setStorageUnitCountingProperties(List<UIStorage> uiStorageUnits)
+    public void setStorageProperties(List<UIStorage> uiStorageUnits)
     {
-        repositoryFactory.storageRepository.setStorageCountingProperties(uiStorageUnits);
+        repositoryFactory.storageRepository.setUiStorageProperties(uiStorageUnits);
     }
 
     //  saves the company edit
     public void saveCompanyEdit()
     {
-        uiCompany.isEdit.set(false);
+        uiCompany.isEditObsv.set(false);
         repositoryFactory.companyRepository.editCompany(uiCompany.nameObsv.get(), uiCompany.locationObsv.get(),
                                                             uiCompany.getImgPath());
     }

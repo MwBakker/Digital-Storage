@@ -122,7 +122,6 @@ public class ComponentListAdapter extends RecyclerView.Adapter<ComponentListAdap
         //  binds the storage unit to the model
         private void bind(@NonNull UIComponent uiComponent)
         {
-            uiComponent.uiComponentCategorySpinnerAdapterObsv.set(spinnerSetterCmdHandlerCallBack.setComponentCategorySpinner(uiComponentCategories));
             binding.setUIComponent(uiComponent);
             binding.executePendingBindings();
         }

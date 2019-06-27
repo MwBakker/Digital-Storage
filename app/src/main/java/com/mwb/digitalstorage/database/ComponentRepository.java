@@ -52,7 +52,7 @@ public class ComponentRepository extends BaseRepository
             for (UIComponent uiComponent : uiComponents)
             {
                 uiComponent.setCategoryName(getDao().getComponentCategory(uiComponent.categoryID).getName());
-                uiComponent.setAmount(getDao().getAmountOfComponents(uiComponent.rackID));
+                uiComponent.amountObsv.set(getDao().getAmountOfComponents(uiComponent.rackID));
                 uiComponent.imgObsv.set(imgProcessor.decodeImgPath(uiComponent.getImgPath()));
             }
         });

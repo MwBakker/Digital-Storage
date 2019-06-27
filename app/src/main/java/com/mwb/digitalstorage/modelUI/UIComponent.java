@@ -11,11 +11,12 @@ public class UIComponent extends BaseEntity implements UIEntity
     public final long rackID;
     public final long categoryID;
 
-    private String storageName;
-    private String rackName;
+    public ObservableField<String> storageNameObsv = new ObservableField<>();
+    public ObservableField<String> rackNameObsv = new ObservableField<>();
+    public ObservableField<Integer> amountObsv = new ObservableField<>();
+
     private String name;
     private String code;
-    private int amount;
 
     public ObservableField<String> categoryNameObsv = new ObservableField<>();
     // spinner adapter
@@ -62,23 +63,17 @@ public class UIComponent extends BaseEntity implements UIEntity
         else { allFieldsSetObsv.set(false); }
     }
 
-    public void setStorageName(String storageName) { this.storageName = storageName; }
+    @Override
+    public String getForeignKeyName() { return rackNameObsv.get(); }
 
     @Override
-    public String getForeignKeyName() { return rackName; }
-
-    @Override
-    public String getSecondaryForeignKeyName() { return storageName; }
-
-    public void setRackName(String rackName) { this.rackName = rackName; }
+    public String getSecondaryForeignKeyName() { return storageNameObsv.get(); }
 
     public void setCategoryName(String categoryName) { categoryNameObsv.set(categoryName); }
 
     @Override
     public Class getBelongingOverViewActivity() { return RackOverViewActivity.class; }
 
-    public void setAmount(int amount) { this.amount = amount; }
-
     @Override
-    public int getAmount() { return amount; }
+    public int getAmount() { return amountObsv.get(); }
 }

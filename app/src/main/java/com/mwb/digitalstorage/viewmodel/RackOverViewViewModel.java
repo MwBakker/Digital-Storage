@@ -16,7 +16,7 @@ public class RackOverViewViewModel extends BaseViewModel
     //  gets the involved company
     public void getUiStorageFromDB(long id, RetrieveEntityCmdHandler retrieveEntityCmdHandler)
     {
-        repositoryFactory.storageRepository.getUIStorage(id, retrieveEntityCmdHandler);
+        repositoryFactory.storageRepository.getUIStorage(id, imgProcessor, retrieveEntityCmdHandler);
     }
 
     //  gets the uiStorage
@@ -32,7 +32,7 @@ public class RackOverViewViewModel extends BaseViewModel
     }
 
     //  sets the elements belonging to the rack
-    public void setUiRackCountingProperties(List<UIRack> uiRacks)
+    public void setUiRackProperties(List<UIRack> uiRacks)
     {
         repositoryFactory.rackRepository.setUiRackProperties(uiRacks, imgProcessor);
     }

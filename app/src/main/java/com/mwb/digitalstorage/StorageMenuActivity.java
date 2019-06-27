@@ -56,7 +56,7 @@ public class StorageMenuActivity extends BaseActivity
             @Override
             public void numberPickerValChanged(int newVal)
             {
-                storageMenuVM.getUiStorage().setAmountOfRacks(newVal);
+                storageMenuVM.getUiStorage().amountOfRacksObsv.set(newVal);
             }
             @Override
             public void saveNewEntity()

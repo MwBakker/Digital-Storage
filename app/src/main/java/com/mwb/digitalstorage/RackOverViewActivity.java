@@ -47,7 +47,7 @@ public class RackOverViewActivity extends BaseActivity
         rackOverViewVM.getUIRacks(storageID).observe(this, uiRacks ->
         {
             binding.setRackListAdapter(new RackListAdapter(uiRacks, rackCmdHandler, imgCmdHandler()));
-            rackOverViewVM.setUiRackCountingProperties(uiRacks);
+            rackOverViewVM.setUiRackProperties(uiRacks);
         });
     }
 

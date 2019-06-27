@@ -14,7 +14,7 @@ public class UICompany
     public ObservableField<String> nameObsv = new ObservableField<>();
     public ObservableField<String> locationObsv = new ObservableField<>();
     public ObservableField<Bitmap> imgObsv = new ObservableField<>();
-    public ObservableField<Boolean> isEdit = new ObservableField<>();
+    public ObservableField<Boolean> isEditObsv = new ObservableField<>();
 
 
     public UICompany(long companyID, String companyName, String companyLoc, String imgPath)

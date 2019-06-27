@@ -35,8 +35,8 @@ public class SearchedEntityRepository extends BaseRepository
             UIComponent uiComponent = new UIComponent(component.componentID, component.rackID, component.componentCategoryID,
                                                       component.getName(), component.getCode(), component.getImgPath());
             Rack rack = getDao().getRack(component.rackID);
-            uiComponent.setRackName("(Rack) " + getDao().getRack(component.rackID).getName());
-            uiComponent.setStorageName("(Storage) " + getDao().getStorageUnit(rack.storageID).getName());
+            uiComponent.rackNameObsv.set("(Rack) " + getDao().getRack(component.rackID).getName());
+            uiComponent.storageNameObsv.set("(Storage) " + getDao().getStorageUnit(rack.storageID).getName());
             uiEntities.add(uiComponent);
         }
         return uiEntities;

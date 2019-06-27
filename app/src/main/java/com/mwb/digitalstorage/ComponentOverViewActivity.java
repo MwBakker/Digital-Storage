@@ -25,10 +25,12 @@ import androidx.lifecycle.ViewModelProviders;
 
 public class ComponentOverViewActivity extends BaseActivity
 {
+    private long rackID;
+
     private ComponentOverViewViewModel componentOverViewVM;
     private ComponentListAdapter componentListAdapter;
+    private SpinnerSetterCmdHandler spinnerSetterCmdHandlerCallBack;
 
-    private long rackID;
     private List<UIComponentCategory> uiComponentCategories;
 
 
@@ -40,6 +42,7 @@ public class ComponentOverViewActivity extends BaseActivity
 
         // handler
         ComponentCmdHandler componentCmdHandler = componentCmdHandler();
+        spinnerSetterCmdHandlerCallBack = spinnerSetterCmdHandler();
 
         // vms
         ToolbarViewModel tbVM = new ToolbarViewModel("Components");
@@ -107,7 +110,8 @@ public class ComponentOverViewActivity extends BaseActivity
             @Override
             public boolean editEntity(UIEntity uiEntity)
             {
-                componentOverViewVM.setEditableComponent((UIComponent) uiEntity);
+                ((UIComponent)uiEntity).uiComponentCategorySpinnerAdapterObsv.set(spinnerSetterCmdHandlerCallBack.setComponentCategorySpinner(uiComponentCategories));
+                componentOverViewVM.setEditableComponent((UIComponent)uiEntity);
                 return true;
             }
             @Override
