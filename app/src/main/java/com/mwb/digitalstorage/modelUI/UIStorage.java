@@ -5,7 +5,7 @@ import com.mwb.digitalstorage.RackOverViewActivity;
 
 public class UIStorage extends BaseEntity implements UIEntity
 {
-    public long id;
+    public final long id;
     private String name;
     private String location;
     private int amountOfRacks;

@@ -7,7 +7,9 @@ import androidx.databinding.ObservableField;
 
 public class UIComponent extends BaseEntity implements UIEntity
 {
-    private long id;
+    private final long id;
+    public final long rackID;
+    public final long categoryID;
 
     private String storageName;
     private String rackName;
@@ -21,9 +23,11 @@ public class UIComponent extends BaseEntity implements UIEntity
     public ObservableField<Integer> selectedCategoryInListObsv = new ObservableField<>();
 
 
-    public UIComponent(long id, String name, String code, String imgPath)
+    public UIComponent(long id, long rackID, long categoryID, String name, String code, String imgPath)
     {
         this.id = id;
+        this.categoryID = categoryID;
+        this.rackID = rackID;
         this.name = name;
         this.code = code;
         this.imgPath = imgPath;

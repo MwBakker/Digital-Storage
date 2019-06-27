@@ -1,5 +1,6 @@
 package com.mwb.digitalstorage.database;
 
+import com.mwb.digitalstorage.command_handlers.entity.RetrieveEntityCmdHandler;
 import com.mwb.digitalstorage.misc.ImageProcessor;
 import com.mwb.digitalstorage.model.Rack;
 import com.mwb.digitalstorage.modelUI.UIRack;
@@ -30,13 +31,18 @@ public class RackRepository extends BaseRepository
     }
 
     //  returns rack
-    public UIRack getUIRack(long rackID)
+    public void getUIRack(long rackID, ImageProcessor imageProcessor, RetrieveEntityCmdHandler retrieveEntityCmdHandler)
     {
-        Rack rack = getDao().getRack(rackID);
-        return  new UIRack(rack.id, rack.getName(), rack.getRackImgPath());
+        executor.execute(() ->
+        {
+            Rack rack = getDao().getRack(rackID);
+            UIRack uiRack = new UIRack(rack.id, rack.getName(), rack.getRackImgPath());
+            setUIRackProperties(uiRack, imageProcessor);
+            retrieveEntityCmdHandler.entityRetrieved(uiRack);
+        });
     }
 
-    //  sets the elements of the uiStorage
+    //  sets the elements of the uiStorage, the observers get updated when finished
     public void setUiRackProperties(List<UIRack> uiRacks, ImageProcessor imgProcessor)
     {
         executor.execute(() ->

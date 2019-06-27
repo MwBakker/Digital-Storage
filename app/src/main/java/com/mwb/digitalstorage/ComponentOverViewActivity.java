@@ -10,10 +10,12 @@ import com.mwb.digitalstorage.command_handlers.ComponentCategoryCmdHandler;
 import com.mwb.digitalstorage.command_handlers.ComponentCmdHandler;
 import com.mwb.digitalstorage.command_handlers.SpinnerSetterCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;
+import com.mwb.digitalstorage.command_handlers.entity.RetrieveEntityCmdHandler;
 import com.mwb.digitalstorage.databinding.ActivityComponentOverviewBinding;
 import com.mwb.digitalstorage.modelUI.UIComponent;
 import com.mwb.digitalstorage.modelUI.UIComponentCategory;
 import com.mwb.digitalstorage.modelUI.UIEntity;
+import com.mwb.digitalstorage.modelUI.UIRack;
 import com.mwb.digitalstorage.viewmodel.ComponentOverViewViewModel;
 import com.mwb.digitalstorage.viewmodel.ToolbarViewModel;
 import java.util.List;
@@ -42,7 +44,7 @@ public class ComponentOverViewActivity extends BaseActivity
         // vms
         ToolbarViewModel tbVM = new ToolbarViewModel("Components");
         componentOverViewVM = ViewModelProviders.of(this).get(ComponentOverViewViewModel.class);
-        componentOverViewVM.setViewModelElements(getIntent().getLongExtra("rack_id", 0L));
+        componentOverViewVM.setViewModelElements(rackID, retrieveEntityCmdHandler());
 
         // bindings
         ActivityComponentOverviewBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_component_overview);
@@ -61,6 +63,7 @@ public class ComponentOverViewActivity extends BaseActivity
         {
             componentListAdapter = new ComponentListAdapter(uiComponentCategories, uiComponents, componentCmdHandler,
                                                             spinnerSetterCmdHandler(), imgCmdHandler());
+            componentOverViewVM.setUiComponentProperties(uiComponents);
             binding.setComponentListAdapter(componentListAdapter);
         });
     }
@@ -111,6 +114,19 @@ public class ComponentOverViewActivity extends BaseActivity
             public void saveEntity(boolean isNew) { saveEdit(); }
             @Override
             public void deleteEntity() { componentOverViewVM.deleteComponent(); }
+        };
+    }
+
+    //  retrieval command handler
+    public RetrieveEntityCmdHandler retrieveEntityCmdHandler()
+    {
+        return new RetrieveEntityCmdHandler()
+        {
+            @Override
+            public void entityRetrieved(UIEntity uiEntity)
+            {
+                componentOverViewVM.setUIRack((UIRack)uiEntity);
+            }
         };
     }
 

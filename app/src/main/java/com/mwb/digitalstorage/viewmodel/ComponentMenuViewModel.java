@@ -2,7 +2,6 @@ package com.mwb.digitalstorage.viewmodel;
 
 import android.widget.ArrayAdapter;
 import com.mwb.digitalstorage.command_handlers.SpinnerSetterCmdHandler;
-import com.mwb.digitalstorage.database.ComponentRepository;
 import com.mwb.digitalstorage.modelUI.UIComponent;
 import com.mwb.digitalstorage.modelUI.UIComponentCategory;
 import androidx.databinding.ObservableField;
@@ -27,7 +26,7 @@ public class ComponentMenuViewModel extends BaseViewModel
     {
         this.rackID = rackID;
         this.owner = owner;
-        uiComponent = new UIComponent(0L, "","","");
+        uiComponent = new UIComponent(0L, rackID, 0L, "","","");
         repositoryFactory.componentRepository.getAllComponentCategories().observe(owner, uiComponentCategories ->
         {
             spinnerAdapterObsv.set(spinnerSetterCmdHandlerCallback.setComponentCategorySpinner(uiComponentCategories));

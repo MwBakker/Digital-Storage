@@ -7,7 +7,6 @@ public class UIRack extends BaseEntity implements UIEntity
 {
     public long id;
 
-
     private String name;
     private String storageName;
     private int componentCount;

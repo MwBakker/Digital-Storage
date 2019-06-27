@@ -55,9 +55,6 @@ public class Component implements com.mwb.digitalstorage.model.Entity
         this.imgPath = imgPath;
     }
 
-
-    public long getRackID() { return this.rackID; }
-
     @Override
     public String getName() { return this.name; }
 

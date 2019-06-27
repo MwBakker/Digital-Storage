@@ -3,7 +3,6 @@ package com.mwb.digitalstorage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-
 import com.mwb.digitalstorage.adapter.RackListAdapter;
 import com.mwb.digitalstorage.command_handlers.RackCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;

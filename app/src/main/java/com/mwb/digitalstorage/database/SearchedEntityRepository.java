@@ -32,7 +32,8 @@ public class SearchedEntityRepository extends BaseRepository
         }
         for (Component component : getDao().getComponents("%" + s + "%"))
         {
-            UIComponent uiComponent = new UIComponent(component.componentID, component.getName(), component.getCode(), component.getImgPath());
+            UIComponent uiComponent = new UIComponent(component.componentID, component.rackID, component.componentCategoryID,
+                                                      component.getName(), component.getCode(), component.getImgPath());
             Rack rack = getDao().getRack(component.rackID);
             uiComponent.setRackName("(Rack) " + getDao().getRack(component.rackID).getName());
             uiComponent.setStorageName("(Storage) " + getDao().getStorageUnit(rack.storageID).getName());

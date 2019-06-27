@@ -38,17 +38,24 @@ public class ComponentRepository extends BaseRepository
         List<UIComponent> UIComponentList = new ArrayList<>();
         for (Component component : components)
         {
-            UIComponentList.add(new UIComponent(component.componentID, component.getName(), component.getCode(), component.getImgPath()));
+            UIComponentList.add(new UIComponent(component.componentID, component.rackID, component.componentCategoryID,
+                                                component.getName(), component.getCode(), component.getImgPath()));
         }
         return UIComponentList;
     }
 
-    //  sets the uiComponent elements
-    public void setUIComponentProperties(UIComponent uiComponent, ImageProcessor imgProcessor)
+    //  sets the uiComponent elements, the observers get notified when finished
+    public void setUIComponentProperties(List<UIComponent> uiComponents, ImageProcessor imgProcessor)
     {
-        //uiComponent.setCategoryName(getDao().getComponentCategory(uiComponent.componentCategoryID).getName());
-      //  uiComponent.setAmount(getDao().getAmountOfComponents(component.rackID));
-        uiComponent.imgObsv.set(imgProcessor.decodeImgPath(uiComponent.getImgPath()));
+        executor.execute(() ->
+        {
+            for (UIComponent uiComponent : uiComponents)
+            {
+                uiComponent.setCategoryName(getDao().getComponentCategory(uiComponent.categoryID).getName());
+                uiComponent.setAmount(getDao().getAmountOfComponents(uiComponent.rackID));
+                uiComponent.imgObsv.set(imgProcessor.decodeImgPath(uiComponent.getImgPath()));
+            }
+        });
     }
 
     //  component insert

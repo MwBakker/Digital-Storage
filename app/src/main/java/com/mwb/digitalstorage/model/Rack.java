@@ -26,7 +26,7 @@ public class Rack implements com.mwb.digitalstorage.model.Entity
     public long id;
 
     @ColumnInfo(name = "storage_id")
-    public long storageID;
+    public final long storageID;
 
     @ColumnInfo(name = "name")
     private String name;
@@ -48,8 +48,6 @@ public class Rack implements com.mwb.digitalstorage.model.Entity
 
     @Override
     public String getImgPath() { return imgPath; }
-
-    public long getStorageID() { return this.storageID; }
 
     public String getRackImgPath(){ return this.imgPath; }
 }

@@ -1,5 +1,6 @@
 package com.mwb.digitalstorage.viewmodel;
 
+import com.mwb.digitalstorage.command_handlers.entity.RetrieveEntityCmdHandler;
 import com.mwb.digitalstorage.modelUI.UIComponent;
 import com.mwb.digitalstorage.modelUI.UIComponentCategory;
 import com.mwb.digitalstorage.modelUI.UIRack;
@@ -16,11 +17,10 @@ public class ComponentOverViewViewModel extends BaseViewModel
 
 
     // sets the elements belonging to the viewModel
-    public void setViewModelElements(long rackID)
+    public void setViewModelElements(long rackID, RetrieveEntityCmdHandler retrieveEntityCmdHandler)
     {
         previousSortComponentCategory = new UIComponentCategory(0L, "", 0);
-        uiRack = repositoryFactory.rackRepository.getUIRack(rackID);
-        //rackRepository.setUIRackElements(uiRack, imgProcessor);
+        repositoryFactory.rackRepository.getUIRack(rackID, imgProcessor, retrieveEntityCmdHandler);
     }
 
     public UIComponentCategory getPreviousSortComponentCategory () { return previousSortComponentCategory; }
@@ -39,8 +39,17 @@ public class ComponentOverViewViewModel extends BaseViewModel
         return repositoryFactory.componentRepository.getRackComponentCategories(rackID);
     }
 
+    //  sets the properties to the uiComponentCategories
+    public void setUiComponentProperties(List<UIComponent> uiComponents)
+    {
+        repositoryFactory.componentRepository.setUIComponentProperties(uiComponents, imgProcessor);
+    }
+
     //  gets the uiRack
     public UIRack getUiRack() { return uiRack; }
+
+    //  sets the uiRack
+    public void setUIRack(UIRack uiRack) { this.uiRack = uiRack; }
 
     //  gets the component
     public UIComponent getEditableUiComponent() { return editableUIComponent; }
