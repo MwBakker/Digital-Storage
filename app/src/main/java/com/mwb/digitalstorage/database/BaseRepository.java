@@ -9,12 +9,7 @@ import java.util.concurrent.Executors;
 public abstract class BaseRepository
 {
     private static DAO dao;
-    final Executor executor;
-
-    BaseRepository()
-    {
-        executor = Executors.newSingleThreadExecutor();
-    }
+    final Executor executor = Executors.newSingleThreadExecutor();
 
     public static void setDao(Application application)
     {

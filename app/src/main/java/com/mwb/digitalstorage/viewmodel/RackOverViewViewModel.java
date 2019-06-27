@@ -1,10 +1,9 @@
 package com.mwb.digitalstorage.viewmodel;
 
-import com.mwb.digitalstorage.adapter.RackListAdapter;
+import com.mwb.digitalstorage.command_handlers.entity.RetrieveEntityCmdHandler;
 import com.mwb.digitalstorage.modelUI.UIRack;
 import com.mwb.digitalstorage.modelUI.UIStorage;
 import java.util.List;
-import androidx.databinding.ObservableField;
 import androidx.lifecycle.LiveData;
 
 
@@ -13,24 +12,32 @@ public class RackOverViewViewModel extends BaseViewModel
     private UIStorage uiStorage;
     private UIRack uiRack;
 
-    public ObservableField<RackListAdapter> rackListAdapterObsv = new ObservableField<>();
 
-
-    public void setViewModelElements(long storageID)
+    //  gets the involved company
+    public void getUiStorageFromDB(long id, RetrieveEntityCmdHandler retrieveEntityCmdHandler)
     {
-        uiStorage = repositoryFactory.storageRepository.getUIStorageUnit(storageID);
-           //storageRepository.setUIStorageElements(uiStorage, imgProcessor);
+        repositoryFactory.storageRepository.getUIStorage(id, retrieveEntityCmdHandler);
     }
 
+    //  gets the uiStorage
+    public UIStorage getUiStorage() { return uiStorage; }
+
+    //  sets the involved company
+    public void setUiStorage(UIStorage uiStorage) { this.uiStorage = uiStorage; }
+
+    //  gets all the uiRacks
     public LiveData<List<UIRack>> getUIRacks(long storageID)
     {
         return repositoryFactory.rackRepository.getRacks(storageID);
     }
 
-    // gets the uiStorage
-    public UIStorage getUiStorage() { return uiStorage; }
+    //  sets the elements belonging to the rack
+    public void setUiRackCountingProperties(List<UIRack> uiRacks)
+    {
+        repositoryFactory.rackRepository.setUiRackProperties(uiRacks, imgProcessor);
+    }
 
-    // gets the uiRack
+    //  gets the uiRack
     public UIRack getUiRack() { return uiRack; }
 
     //  sets the editable rack
@@ -52,9 +59,7 @@ public class RackOverViewViewModel extends BaseViewModel
         uiRack.isEditObsv.set(false);
     }
 
-    //
     //  deletes the rack
-    //
     public void deleteRack()
     {
         repositoryFactory.rackRepository.deleteRack(uiRack.id);

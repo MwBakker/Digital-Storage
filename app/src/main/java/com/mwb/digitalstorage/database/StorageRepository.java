@@ -18,6 +18,18 @@ public class StorageRepository extends BaseRepository
         return Transformations.map(getDao().getStorageUnits(), newData -> createStorageUIList(newData));
     }
 
+    //  returns one storage unit
+    public void getUIStorage(long id, RetrieveEntityCmdHandler retrieveEntityCmdHandler)
+    {
+        executor.execute(() ->
+        {
+            Storage storage = getDao().getStorageUnit(id);
+            UIStorage uiStorage = new UIStorage(storage.id, storage.getName(), storage.getLocation(), storage.getImgPath());
+            setStorageCountingProperties(uiStorage);
+            retrieveEntityCmdHandler.entityRetrieved(uiStorage);
+        });
+    }
+
     //  manually sets the storage to storageUI
     private List<UIStorage> createStorageUIList(List<Storage> storageUnits)
     {
@@ -32,7 +44,7 @@ public class StorageRepository extends BaseRepository
 
     //  sets the elements of the uiStorage
     //  no callback required due to use of Observables in the uiStorage's fields
-    public void setStorageUnitCountings(List<UIStorage> storageUnits)
+    public void setStorageCountingProperties(List<UIStorage> storageUnits)
     {
         executor.execute(() ->
         {
@@ -44,12 +56,15 @@ public class StorageRepository extends BaseRepository
         });
     }
 
-    //  returns one storage unit
-    public UIStorage getUIStorageUnit(long id)
+    //  sets the elements of the uiStorage
+    //  no callback required due to use of Observables in the uiStorage's fields
+    private void setStorageCountingProperties(UIStorage uiStorage)
     {
-        Storage storage = getDao().getStorageUnit(id);
-        return new UIStorage(storage.id, storage.getName(), storage.getLocation(), storage.getImgPath());
+        uiStorage.setAmountOfRacks(getDao().getAmountOfRacks(uiStorage.id));
+        uiStorage.setAmountOfComponents(getDao().getAmountOfComponents(uiStorage.id));
     }
+
+
 
     //  performs storage insert
     public void insertStorage(String name, String location, String imgPath, EntityInsertCmdHandler entityInsertCmdHandler)

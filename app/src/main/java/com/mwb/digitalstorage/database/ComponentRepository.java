@@ -36,23 +36,18 @@ public class ComponentRepository extends BaseRepository
     private List<UIComponent> createComponentUI(List<Component> components)
     {
         List<UIComponent> UIComponentList = new ArrayList<>();
-
-        executor.execute( () ->
+        for (Component component : components)
         {
-            for (Component component : components)
-            {
-                UIComponent uiComponent = new UIComponent(component.componentID, component.getName(), component.getCode(), component.getImgPath());
-               // uiComponent.setCategoryName(getDao().getComponentCategory(component.componentCategoryID).getName());
-               // uiComponent.setAmount(getDao().getAmountOfComponents(component.rackID));
-                UIComponentList.add(uiComponent);
-            }
-        });
+            UIComponentList.add(new UIComponent(component.componentID, component.getName(), component.getCode(), component.getImgPath()));
+        }
         return UIComponentList;
     }
 
     //  sets the uiComponent elements
-    public void setUIComponentElements(UIComponent uiComponent, ImageProcessor imgProcessor)
+    public void setUIComponentProperties(UIComponent uiComponent, ImageProcessor imgProcessor)
     {
+        //uiComponent.setCategoryName(getDao().getComponentCategory(uiComponent.componentCategoryID).getName());
+      //  uiComponent.setAmount(getDao().getAmountOfComponents(component.rackID));
         uiComponent.imgObsv.set(imgProcessor.decodeImgPath(uiComponent.getImgPath()));
     }
 
@@ -115,7 +110,7 @@ public class ComponentRepository extends BaseRepository
         for (ComponentCategory componentCategory : componentCategories)
         {
             UIComponentCategoryList.add(new UIComponentCategory(componentCategory.id, componentCategory.getName(),
-                                                    componentCategory.getAmountOfComponents()));
+                                                                componentCategory.getAmountOfComponents()));
         }
         return UIComponentCategoryList;
     }

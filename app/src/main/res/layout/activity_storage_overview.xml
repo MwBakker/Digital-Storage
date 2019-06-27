@@ -249,7 +249,7 @@
                     android:layout_marginTop="15dp"
                     android:adapter="@{storageListAdapter}"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:layout_constraintHeight_percent="0.575"
+                    app:layout_constraintHeight_percent="0.775"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txt_storage_units"
@@ -267,51 +267,8 @@
                     android:src="@mipmap/add"
                     android:tint="@color/icon_color"
                     app:backgroundTint="@color/icon_color"
-                    app:layout_constraintRight_toRightOf="@+id/hr"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rv_storage_units" />
-
-                <View
-                    android:id="@+id/hr"
-                    style="@style/hr_white"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/FAB_Storage" />
-
-                <TextView
-                    android:id="@+id/txt_tools"
-                    style="@style/wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/tools"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/hr" />
-
-                <Button
-                    android:id="@+id/btn_available"
-                    style="@style/btn_general"
-                    android:layout_width="0dp"
-                    android:layout_height="58dp"
-                    android:layout_margin="10dp"
-                    android:text="@string/available"
-                    android:textColor="@color/icon_color"
-                    android:textSize="18sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/txt_tools"
-                    app:layout_constraintWidth_percent="0.45" />
-
-                <Button
-                    android:id="@+id/btn_lent"
-                    style="@style/btn_general"
-                    android:layout_width="0dp"
-                    android:layout_height="58dp"
-                    android:layout_margin="10dp"
-                    android:text="@string/lent"
-                    android:textColor="@color/icon_color"
-                    android:textSize="18sp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/txt_tools"
-                    app:layout_constraintWidth_percent="0.45" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

@@ -7,12 +7,6 @@ import androidx.lifecycle.ViewModel;
 
 public abstract class BaseViewModel extends ViewModel
 {
-    public final ImageProcessor imgProcessor;
-    public final RepositoryFactory repositoryFactory;
-
-    BaseViewModel()
-    {
-        imgProcessor = new ImageProcessor();
-        repositoryFactory = new RepositoryFactory();
-    }
+    public final ImageProcessor imgProcessor = new ImageProcessor();
+    public final RepositoryFactory repositoryFactory = new RepositoryFactory();
 }

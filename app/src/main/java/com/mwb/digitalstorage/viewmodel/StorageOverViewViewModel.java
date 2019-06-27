@@ -13,11 +13,14 @@ public class StorageOverViewViewModel extends BaseViewModel
     private UICompany uiCompany;
 
 
-    //  gets the involved company
-    public void getUiCompany(RetrieveCompanyCmdHandler retrieveCompanyCmdHandler)
+    //  gets the involved company from database
+    public void getUICompanyFromDB(RetrieveCompanyCmdHandler retrieveCompanyCmdHandler)
     {
        repositoryFactory.companyRepository.getUiCompany(retrieveCompanyCmdHandler);
     }
+
+    //  gets the involved uiCompany (XML binding)
+    public UICompany getUiCompany() { return uiCompany; }
 
     //  sets the involved company
     public void setUiCompany(UICompany uiCompany)
@@ -31,17 +34,10 @@ public class StorageOverViewViewModel extends BaseViewModel
         return repositoryFactory.storageRepository.getStorageUnits();
     }
 
-    //  sets all the countings belonging to the storage (like amount of racks)
-    public void setStorageUnitCountings(List<UIStorage> uiStorageUnits)
+    //  sets all the counting elements belonging to the storage (like amount of racks)
+    public void setStorageUnitCountingProperties(List<UIStorage> uiStorageUnits)
     {
-        repositoryFactory.storageRepository.setStorageUnitCountings(uiStorageUnits);
-    }
-
-    //  gets the involved uiCompany
-    public UICompany getUiCompany()
-    {
-        return uiCompany;
-        //return repositoryFactory.companyRepository.getUiCompany();
+        repositoryFactory.storageRepository.setStorageCountingProperties(uiStorageUnits);
     }
 
     //  saves the company edit

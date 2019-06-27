@@ -2,10 +2,8 @@ package com.mwb.digitalstorage.database;
 
 import com.mwb.digitalstorage.command_handlers.CompanyCmdHandler;
 import com.mwb.digitalstorage.command_handlers.RetrieveCompanyCmdHandler;
-import com.mwb.digitalstorage.command_handlers.entity.RetrieveEntityCmdHandler;
 import com.mwb.digitalstorage.model.Company;
 import com.mwb.digitalstorage.modelUI.UICompany;
-import com.mwb.digitalstorage.modelUI.UIComponent;
 
 
 public class CompanyRepository extends BaseRepository
@@ -28,14 +26,15 @@ public class CompanyRepository extends BaseRepository
         executor.execute(() ->
         {
             Company company = getDao().getCompany();
-            UICompany uiCompany = new UICompany(company.id, company.getName(), company.getLocation(), company.getImgPath());
-            setCompanyUIElements(uiCompany);
+            UICompany uiCompany = new UICompany(company.id, company.getName(), company.getLocation(),
+                                                company.getImgPath());
+            setCompanyCountingElements(uiCompany);
             retrieveCompanyCmdHandler.companyRetrieved(uiCompany);
         });
     }
 
     //  sets the ui elements of the company
-    private void setCompanyUIElements(UICompany uiCompany)
+    private void setCompanyCountingElements(UICompany uiCompany)
     {
         uiCompany.setAmountOfStorages(getDao().getAmountOfStorageUnits());
         uiCompany.setAmountOfRacks(getDao().getAmountOfRacks());

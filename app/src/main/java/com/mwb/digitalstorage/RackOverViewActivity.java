@@ -7,9 +7,11 @@ import android.os.Environment;
 import com.mwb.digitalstorage.adapter.RackListAdapter;
 import com.mwb.digitalstorage.command_handlers.RackCmdHandler;
 import com.mwb.digitalstorage.command_handlers.entity.ImgCmdHandler;
+import com.mwb.digitalstorage.command_handlers.entity.RetrieveEntityCmdHandler;
 import com.mwb.digitalstorage.databinding.ActivityRackOverviewBinding;
 import com.mwb.digitalstorage.modelUI.UIEntity;
 import com.mwb.digitalstorage.modelUI.UIRack;
+import com.mwb.digitalstorage.modelUI.UIStorage;
 import com.mwb.digitalstorage.viewmodel.RackOverViewViewModel;
 import com.mwb.digitalstorage.viewmodel.ToolbarViewModel;
 import androidx.databinding.DataBindingUtil;
@@ -34,7 +36,7 @@ public class RackOverViewActivity extends BaseActivity
         // vms
         ToolbarViewModel tbVM = new ToolbarViewModel("Racks");
         rackOverViewVM = ViewModelProviders.of(this).get(RackOverViewViewModel.class);
-        rackOverViewVM.setViewModelElements(storageID);
+        rackOverViewVM.getUiStorageFromDB(storageID, retrieveEntityCmdHandler());
 
         // bindings
         ActivityRackOverviewBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_rack_overview);
@@ -46,6 +48,7 @@ public class RackOverViewActivity extends BaseActivity
         rackOverViewVM.getUIRacks(storageID).observe(this, uiRacks ->
         {
             binding.setRackListAdapter(new RackListAdapter(uiRacks, rackCmdHandler, imgCmdHandler()));
+            rackOverViewVM.setUiRackCountingProperties(uiRacks);
         });
     }
 
@@ -79,6 +82,19 @@ public class RackOverViewActivity extends BaseActivity
             public void saveEntity(boolean isNew) { rackOverViewVM.saveRackEdit(); }
             @Override
             public void deleteEntity() { rackOverViewVM.deleteRack(); }
+        };
+    }
+
+    //  entity retrieval command handler
+    public RetrieveEntityCmdHandler retrieveEntityCmdHandler()
+    {
+        return new RetrieveEntityCmdHandler()
+        {
+            @Override
+            public void entityRetrieved(UIEntity uiEntity)
+            {
+                rackOverViewVM.setUiStorage((UIStorage)uiEntity);
+            }
         };
     }
 

@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModelProviders;
 public class StorageOverViewActivity extends BaseActivity
 {
     private StorageOverViewViewModel storageOverViewVM;
-    private StorageListAdapter storageListAdapter;
 
 
     @Override
@@ -32,9 +31,9 @@ public class StorageOverViewActivity extends BaseActivity
         StorageCmdHandler mainViewCmdHandler = storageCmdHandler();
 
         // viewModels
-        ToolbarViewModel toolbarVM = new ToolbarViewModel("Storage Units");
+        ToolbarViewModel toolbarVM = new ToolbarViewModel("Main page");
         storageOverViewVM = ViewModelProviders.of(this).get(StorageOverViewViewModel.class);
-        storageOverViewVM.getUiCompany(retrieveCompanyCmdHandler());
+        storageOverViewVM.getUICompanyFromDB(retrieveCompanyCmdHandler());
 
         // bindings
         ActivityStorageOverviewBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_storage_overview);
@@ -46,9 +45,8 @@ public class StorageOverViewActivity extends BaseActivity
         // adapter
         storageOverViewVM.getStorageUnits().observe(this, storageUnits ->
         {
-            storageListAdapter = new StorageListAdapter(storageUnits, mainViewCmdHandler);
-            binding.setStorageListAdapter(storageListAdapter);
-            storageOverViewVM.setStorageUnitCountings(storageUnits);
+            binding.setStorageListAdapter(new StorageListAdapter(storageUnits, mainViewCmdHandler));
+            storageOverViewVM.setStorageUnitCountingProperties(storageUnits);
         });
     }
 
